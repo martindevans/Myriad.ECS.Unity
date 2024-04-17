@@ -1,0 +1,19 @@
+{
+    "name": "Myriad.Unity.Editor",
+    "rootNamespace": "",
+    "references": [
+        "GUID:bad53620f09b0df4ab9135d87f7b974e",
+        "GUID:accbe837cd2fb4943979d47c5ce56275"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

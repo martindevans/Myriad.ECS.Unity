@@ -1,0 +1,9 @@
+{
+    "name": "me.martindevans.myriad-unity-integration",
+    "version": "1.0.0",
+    "displayName": "Myriad ECS Unity Integration",
+    "unity": "2022.3",
+    "dependencies": {
+		"software.placeholder.editor-ui": "1.0.0"
+    }
+  }

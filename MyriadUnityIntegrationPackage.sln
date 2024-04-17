@@ -1,0 +1,26 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Myriad.Unity.Editor", "Myriad.Unity.Editor.csproj", "{C693D694-538F-35ED-E14B-2FA8A933E775}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Myriad.Unity.Runtime", "Myriad.Unity.Runtime.csproj", "{F1E476DA-1A43-95A6-5E34-E60561FAEE0C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C693D694-538F-35ED-E14B-2FA8A933E775}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C693D694-538F-35ED-E14B-2FA8A933E775}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C693D694-538F-35ED-E14B-2FA8A933E775}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C693D694-538F-35ED-E14B-2FA8A933E775}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F1E476DA-1A43-95A6-5E34-E60561FAEE0C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F1E476DA-1A43-95A6-5E34-E60561FAEE0C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F1E476DA-1A43-95A6-5E34-E60561FAEE0C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F1E476DA-1A43-95A6-5E34-E60561FAEE0C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
