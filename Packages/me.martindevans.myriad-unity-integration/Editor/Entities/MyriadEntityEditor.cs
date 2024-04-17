@@ -46,8 +46,12 @@ namespace Packages.me.martindevans.myriad_unity_integration.Editor.Entities
 
         public void OnEnable(SerializedObject target)
         {
-            _editorTypes = (from editor in Assembly.GetExecutingAssembly().GetTypes()
-                            where typeof(IMyriadComponentEditor).IsAssignableFrom(editor)
+            var ass = AppDomain.CurrentDomain.GetAssemblies();
+
+            _editorTypes = (from assembly in AppDomain.CurrentDomain.GetAssemblies()
+                            from type in assembly.GetTypes()
+                            where typeof(IMyriadComponentEditor).IsAssignableFrom(type)
+                            let editor = type
                             let attr = editor.GetCustomAttribute<MyriadComponentEditorAttribute>()
                             where attr != null
                             let tgt = attr.Type

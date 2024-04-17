@@ -38,22 +38,10 @@ namespace Packages.me.martindevans.myriad_unity_integration.Runtime
             return ref World.GetComponentRef<T>(Entity);
         }
 
+        [CanBeNull]
         public object GetMyriadComponent(ComponentID component)
         {
-            var method = GetType().GetMethod(nameof(GetMyriadComponentHelper), BindingFlags.NonPublic | BindingFlags.Instance)!;
-            return method
-                .MakeGenericMethod(component.Type)
-                .Invoke(this, Array.Empty<object>());
-        }
-
-        [UsedImplicitly]
-        private object GetMyriadComponentHelper<T>()
-            where T : IComponent
-        {
-            if (!Entity.Exists(World) || !World.HasComponent<T>(Entity))
-                return null;
-
-            return World.GetComponentRef<T>(Entity);
+            return World?.GetBoxedComponent(Entity, component);
         }
     }
 }

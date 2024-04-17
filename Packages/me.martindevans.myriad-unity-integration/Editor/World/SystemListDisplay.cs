@@ -1,36 +1,22 @@
-using System;
+﻿using JetBrains.Annotations;
+using Myriad.ECS.Systems;
+using Packages.me.martindevans.myriad_unity_integration.Editor.Systems;
+using Packages.me.martindevans.myriad_unity_integration.Runtime;
+using Placeholder.Editor.UI.Editor.Style;
 using System.Collections.Generic;
+using System;
 using System.Linq;
 using System.Reflection;
-using JetBrains.Annotations;
-using Myriad.ECS.Systems;
-using Packages.me.martindevans.myriad_unity_integration.Runtime;
-using Placeholder.Editor.UI.Editor;
 using Placeholder.Editor.UI.Editor.Components;
-using Placeholder.Editor.UI.Editor.Components.Sections;
 using Placeholder.Editor.UI.Editor.Helpers;
-using Placeholder.Editor.UI.Editor.Style;
 using UnityEditor;
 using UnityEngine;
 
-namespace Packages.me.martindevans.myriad_unity_integration.Editor.Systems
+namespace Packages.me.martindevans.myriad_unity_integration.Editor.World
 {
-    public abstract class BaseSimulationHostEditor<TSim, TData>
-        : BasePlaceholderEditor
-        where TSim : BaseSimulationHost<TData>
-    {
-        protected BaseSimulationHostEditor()
-            : base(
-                new DefaultInspectorSection { Expanded = true },
-                new SystemListDisplay<TSim, TData>()
-            )
-        {
-        }
-    }
-
     public class SystemListDisplay<TSim, TData>
-        : IComponent
-        where TSim : BaseSimulationHost<TData>
+       : IComponent
+       where TSim : BaseSimulationHost<TData>
     {
         private TSim _host;
 

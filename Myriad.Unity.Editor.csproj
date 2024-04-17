@@ -60,11 +60,13 @@
     <Analyzer Include="D:\Unity\2022.3.13f1\Editor\Data\Tools\Unity.SourceGenerators\Unity.Properties.SourceGenerator.dll" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Packages\me.martindevans.myriad-unity-integration\Editor\World\ISystemEditor.cs" />
+    <Compile Include="Packages\me.martindevans.myriad-unity-integration\Editor\World\SystemListDisplay.cs" />
+    <Compile Include="Packages\me.martindevans.myriad-unity-integration\Editor\World\SimulationHostEditor.cs" />
     <Compile Include="Packages\me.martindevans.myriad-unity-integration\Editor\Entities\MyriadEntityEditor.cs" />
-    <Compile Include="Packages\me.martindevans.myriad-unity-integration\Editor\Systems\ISystemEditor.cs" />
-    <Compile Include="Packages\me.martindevans.myriad-unity-integration\Editor\Entities\IMyriadComponentEditor.cs" />
     <Compile Include="Packages\me.martindevans.myriad-unity-integration\Editor\UIComponents\FieldValueLabel.cs" />
-    <Compile Include="Packages\me.martindevans.myriad-unity-integration\Editor\Systems\SimulationHostEditor.cs" />
+    <Compile Include="Packages\me.martindevans.myriad-unity-integration\Editor\World\ArchetypeListDisplay.cs" />
+    <Compile Include="Packages\me.martindevans.myriad-unity-integration\Editor\Entities\IMyriadComponentEditor.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Packages\me.martindevans.myriad-unity-integration\Editor\Myriad.Unity.Editor.asmdef" />
@@ -426,16 +428,16 @@
       <HintPath>D:\Unity\2022.3.13f1\Editor\Data\PlaybackEngines\LinuxStandaloneSupport\UnityEditor.LinuxStandalone.Extensions.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="Myriad.ECS">
+      <HintPath>Assets\Packages\Myriad.ECS.7.1.0\lib\netstandard2.1\Myriad.ECS.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
     <Reference Include="ReportGeneratorMerged">
       <HintPath>Library\PackageCache\com.unity.testtools.codecoverage@1.2.4\lib\ReportGenerator\ReportGeneratorMerged.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="NuGetForUnity.PluginAPI">
       <HintPath>Library\PackageCache\com.github-glitchenzo.nugetforunity@12574c32f6\Editor\PluginAPI\NuGetForUnity.PluginAPI.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="Myriad.ECS">
-      <HintPath>Assets\Packages\Myriad.ECS.7.0.0\lib\netstandard2.1\Myriad.ECS.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="nunit.framework">
