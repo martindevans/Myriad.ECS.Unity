@@ -4,18 +4,18 @@ using Myriad.ECS.Systems;
 namespace Packages.me.martindevans.myriad_unity_integration.Editor.Systems
 {
     [AttributeUsage(AttributeTargets.Class)]
-    public class SystemEditorAttribute
+    public class MyriadSystemEditorAttribute
         : Attribute
     {
         public Type Type { get; }
 
-        public SystemEditorAttribute(Type type)
+        public MyriadSystemEditorAttribute(Type type)
         {
             Type = type;
         }
     }
 
-    public interface ISystemEditor
+    public interface IMyriadSystemEditor
     {
         void Draw<T>(ISystem<T> system);
     }

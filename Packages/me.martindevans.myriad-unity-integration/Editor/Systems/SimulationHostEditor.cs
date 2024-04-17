@@ -41,13 +41,13 @@ namespace Packages.me.martindevans.myriad_unity_integration.Editor.Systems
         private readonly Dictionary<string, float> _smoothedProgressIndicator = new();
 
         private IReadOnlyDictionary<Type, Type> _editorTypes = new Dictionary<Type, Type>();
-        private readonly Dictionary<(string name, Type type), ISystemEditor> _editorInstances = new();
+        private readonly Dictionary<(string name, Type type), IMyriadSystemEditor> _editorInstances = new();
 
         public void OnEnable(SerializedObject target)
         {
             _editorTypes = (from editor in Assembly.GetExecutingAssembly().GetTypes()
-                            where typeof(ISystemEditor).IsAssignableFrom(editor)
-                            let attr = editor.GetCustomAttribute<SystemEditorAttribute>()
+                            where typeof(IMyriadSystemEditor).IsAssignableFrom(editor)
+                            let attr = editor.GetCustomAttribute<MyriadSystemEditorAttribute>()
                             where attr != null
                             let tgt = attr.Type
                             select (editor, tgt)).ToDictionary(x => x.tgt, x => x.editor);
@@ -178,7 +178,7 @@ namespace Packages.me.martindevans.myriad_unity_integration.Editor.Systems
         }
 
         [CanBeNull]
-        private ISystemEditor GetEditorInstance(string name, Type type)
+        private IMyriadSystemEditor GetEditorInstance(string name, Type type)
         {
             if (_editorInstances.TryGetValue((name, type), out var editor))
                 return editor;
@@ -186,7 +186,7 @@ namespace Packages.me.martindevans.myriad_unity_integration.Editor.Systems
             if (!_editorTypes.TryGetValue(type, out var editorType))
                 return null;
 
-            editor = (ISystemEditor)Activator.CreateInstance(editorType);
+            editor = (IMyriadSystemEditor)Activator.CreateInstance(editorType);
             _editorInstances.Add((name, type), editor);
             return editor;
         }

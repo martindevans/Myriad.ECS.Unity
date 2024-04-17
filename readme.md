@@ -24,9 +24,9 @@ public class SimulationHostEditor
 5. For every system you want to inspect, create a new system editor:
 
 ```csharp
-[SystemEditor(typeof(YourSystem))]
+[MyriadSystemEditor(typeof(YourSystem))]
 public class YourSystemEditor
-    : ISystemEditor
+    : IMyriadSystemEditor
 {
     public void Draw<T>(ISystem<T> sys)
     {
