@@ -32,7 +32,7 @@ namespace Packages.me.martindevans.myriad_unity_integration.Editor.World
         public void OnEnable(SerializedObject target)
         {
             _editorTypes = (from assembly in AppDomain.CurrentDomain.GetAssemblies()
-                            from type in Assembly.GetExecutingAssembly().GetTypes()
+                            from type in assembly.GetTypes()
                             where typeof(IMyriadSystemEditor).IsAssignableFrom(type)
                             let editor = type
                             let attr = editor.GetCustomAttribute<MyriadSystemEditorAttribute>()
