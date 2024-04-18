@@ -1,10 +1,10 @@
-using System;
-using System.Reflection;
 using JetBrains.Annotations;
 using Myriad.ECS;
 using Myriad.ECS.IDs;
 using Myriad.ECS.Worlds;
 using UnityEngine;
+
+#nullable enable
 
 namespace Packages.me.martindevans.myriad_unity_integration.Runtime
 {
@@ -15,9 +15,12 @@ namespace Packages.me.martindevans.myriad_unity_integration.Runtime
     public class MyriadEntity
         : MonoBehaviour, IComponent
     {
-        public World World { get; internal set; }
+        public World? World { get; internal set; }
         public Entity Entity { get; internal set; }
 
+        /// <summary>
+        /// Destroy this gameobject when the entity is destroyed
+        /// </summary>
         [SerializeField, UsedImplicitly] public bool AutoDestruct;
 
         public void EntityDestroyed()
@@ -29,17 +32,16 @@ namespace Packages.me.martindevans.myriad_unity_integration.Runtime
         public bool HasMyriadComponent<T>()
             where T : IComponent
         {
-            return World.HasComponent<T>(Entity);
+            return World!.HasComponent<T>(Entity);
         }
 
         public ref T GetMyriadComponent<T>() 
             where T : IComponent
         {
-            return ref World.GetComponentRef<T>(Entity);
+            return ref World!.GetComponentRef<T>(Entity);
         }
 
-        [CanBeNull]
-        public object GetMyriadComponent(ComponentID component)
+        public object? GetMyriadComponent(ComponentID component)
         {
             return World?.GetBoxedComponent(Entity, component);
         }
