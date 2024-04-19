@@ -32,7 +32,7 @@ namespace Packages.me.martindevans.myriad_unity_integration.Runtime
         public bool HasMyriadComponent<T>()
             where T : IComponent
         {
-            return Entity!.HasComponent<T>(World);
+            return Entity!.HasComponent<T>(World!);
         }
 
         public ref T GetMyriadComponent<T>() 
