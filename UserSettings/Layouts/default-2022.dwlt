@@ -19,7 +19,7 @@ MonoBehaviour:
     width: 2560
     height: 1357.3334
   m_ShowMode: 4
-  m_Title: Console
+  m_Title: Scene
   m_RootView: {fileID: 7}
   m_MinSize: {x: 875, y: 300}
   m_MaxSize: {x: 10000, y: 10000}
@@ -75,7 +75,7 @@ MonoBehaviour:
   m_MinSize: {x: 300, y: 100}
   m_MaxSize: {x: 24288, y: 16192}
   vertical: 0
-  controlID: 110
+  controlID: 84
 --- !u!114 &4
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -252,7 +252,7 @@ MonoBehaviour:
   m_MinSize: {x: 200, y: 100}
   m_MaxSize: {x: 16192, y: 16192}
   vertical: 1
-  controlID: 49
+  controlID: 39
 --- !u!114 &11
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -314,7 +314,7 @@ MonoBehaviour:
     m_OverlaysVisible: 1
   m_LockTracker:
     m_IsLocked: 0
-  m_LastSelectedObjectID: 18564
+  m_LastSelectedObjectID: -2238
 --- !u!114 &13
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -430,7 +430,7 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Packages/me.martindevans.myriad-unity-integration/Runtime
+    - Packages/me.martindevans.myriad-unity-integration/Editor/Entities
     m_Globs: []
     m_OriginalText: 
     m_ImportLogFlags: 0
@@ -438,15 +438,15 @@ MonoBehaviour:
   m_ViewMode: 1
   m_StartGridSize: 16
   m_LastFolders:
-  - Packages/me.martindevans.myriad-unity-integration/Runtime
+  - Packages/me.martindevans.myriad-unity-integration/Editor/Entities
   m_LastFoldersGridSize: 16
   m_LastProjectPath: C:\Users\Martin\Documents\Unity\MyriadUnityIntegrationPackage
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
     scrollPos: {x: 0, y: 0}
-    m_SelectedIDs: ec470000
-    m_LastClickedID: 18412
+    m_SelectedIDs: ea470000
+    m_LastClickedID: 18410
     m_ExpandedIDs: 00000000ca470000cc470000ce470000d047000000ca9a3bffffff7f
     m_RenameOverlay:
       m_UserAcceptedRename: 0
@@ -500,8 +500,8 @@ MonoBehaviour:
       m_Icon: {fileID: 0}
       m_ResourceFile: 
   m_ListAreaState:
-    m_SelectedInstanceIDs: 820c0000
-    m_LastClickedInstanceID: 3202
+    m_SelectedInstanceIDs: 42f7ffff
+    m_LastClickedInstanceID: -2238
     m_HadKeyboardFocusLastEvent: 1
     m_ExpandedInstanceIDs: c6230000a05b00009a5c00009a9c0000007c0000d0af0000a85b0000a463000052ad000000000000565d0000665b000090590000da5a0000085b0000
     m_RenameOverlay:
@@ -615,7 +615,7 @@ MonoBehaviour:
   m_SceneHierarchy:
     m_TreeViewState:
       scrollPos: {x: 0, y: 0}
-      m_SelectedIDs: 820c0000
+      m_SelectedIDs: 
       m_LastClickedID: 0
       m_ExpandedIDs: 30fbffff
       m_RenameOverlay:

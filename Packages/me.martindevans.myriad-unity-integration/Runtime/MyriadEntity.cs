@@ -15,6 +15,7 @@ namespace Packages.me.martindevans.myriad_unity_integration.Runtime
     public class MyriadEntity
         : MonoBehaviour, IComponent
     {
+        private bool _hasEntity;
         public World? World { get; private set; }
         public Entity Entity { get; private set; }
 
@@ -25,8 +26,16 @@ namespace Packages.me.martindevans.myriad_unity_integration.Runtime
 
         [SerializeField, UsedImplicitly] public GameObject[]? EnableOnEntitySet;
 
+        private void Awake()
+        {
+            if (EnableOnEntitySet != null && !_hasEntity)
+                foreach (var item in EnableOnEntitySet)
+                    item.SetActive(false);
+        }
+
         internal void SetEntity(World world, Entity entity)
         {
+            _hasEntity = true;
             World = world;
             Entity = entity;
 
@@ -37,6 +46,8 @@ namespace Packages.me.martindevans.myriad_unity_integration.Runtime
 
         internal void EntityDestroyed()
         {
+            _hasEntity = false;
+
             if (AutoDestruct)
                 Destroy(gameObject);
         }
