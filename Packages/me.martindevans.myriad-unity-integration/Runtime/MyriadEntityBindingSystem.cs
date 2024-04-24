@@ -85,8 +85,7 @@ namespace Packages.me.martindevans.myriad_unity_integration.Runtime
 
             public void Execute(Entity e, ref MyriadEntity binding)
             {
-                binding.Entity = e;
-                binding.World = _world;
+                binding.SetEntity(_world, e);
                 _cmd.Set(e, new Bound());
             }
         }

@@ -15,15 +15,27 @@ namespace Packages.me.martindevans.myriad_unity_integration.Runtime
     public class MyriadEntity
         : MonoBehaviour, IComponent
     {
-        public World? World { get; internal set; }
-        public Entity Entity { get; internal set; }
+        public World? World { get; private set; }
+        public Entity Entity { get; private set; }
 
         /// <summary>
         /// Destroy this gameobject when the entity is destroyed
         /// </summary>
         [SerializeField, UsedImplicitly] public bool AutoDestruct;
 
-        public void EntityDestroyed()
+        [SerializeField, UsedImplicitly] public GameObject[]? EnableOnEntitySet;
+
+        internal void SetEntity(World world, Entity entity)
+        {
+            World = world;
+            Entity = entity;
+
+            if (EnableOnEntitySet != null)
+                foreach (var item in EnableOnEntitySet)
+                    item.SetActive(true);
+        }
+
+        internal void EntityDestroyed()
         {
             if (AutoDestruct)
                 Destroy(gameObject);

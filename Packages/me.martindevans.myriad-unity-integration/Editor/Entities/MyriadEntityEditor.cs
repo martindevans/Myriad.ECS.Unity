@@ -28,6 +28,7 @@ namespace Packages.me.martindevans.myriad_unity_integration.Editor.Entities
                     new FieldValueLabel<MyriadEntity>("Exists", m => m.Entity.Exists(m.World).ToString()),
                     new FieldValueLabel<MyriadEntity>("Phantom", m => m.Entity.IsPhantom(m.World).ToString())
                 ),
+                new DefaultInspectorSection { Expanded = true },
                 new ComponentListDisplay()
             )
         {
@@ -67,7 +68,7 @@ namespace Packages.me.martindevans.myriad_unity_integration.Editor.Entities
         public void Draw()
         {
             // ReSharper disable once ConditionIsAlwaysTrueOrFalse
-            if (_entity != null)
+            if (_entity != null && _entity.World != null && _entity.Entity.Exists(_entity.World))
             {
                 var components = _entity.Entity.GetComponents(_entity.World);
                 foreach (var component in components)
