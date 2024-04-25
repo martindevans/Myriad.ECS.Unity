@@ -3,7 +3,7 @@ using Myriad.ECS.Command;
 
 namespace Packages.me.martindevans.myriad_unity_integration.Runtime
 {
-    public interface IAutobindComponent
+    public interface IBindableComponent
         : IComponent
     {
         public void Bind(CommandBuffer.BufferedEntity entity);
