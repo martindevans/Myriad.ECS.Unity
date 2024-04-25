@@ -1,4 +1,5 @@
-﻿using Myriad.ECS;
+﻿using System.Collections.Generic;
+using Myriad.ECS;
 using Myriad.ECS.Command;
 using Myriad.ECS.Components;
 using Myriad.ECS.Queries;
@@ -23,6 +24,7 @@ namespace Packages.me.martindevans.myriad_unity_integration.Runtime
 
         private readonly QueryDescription _initQuery;
         private readonly QueryDescription _destroyQuery;
+        private readonly List<IBehaviourComponent> _tempList = new();
 
         /// <summary>
         /// Create a new MyriadEntityBindingSystem
@@ -50,7 +52,7 @@ namespace Packages.me.martindevans.myriad_unity_integration.Runtime
 
         public void BeforeUpdate(TData data)
         {
-            _world.Execute<InitBinding, MyriadEntity>(new InitBinding(_world, _cmd), _initQuery);
+            _world.Execute<InitBinding, MyriadEntity>(new InitBinding(_world, _cmd, _tempList), _initQuery);
             if (_executeCommand)
                 _cmd.Playback().Dispose();
         }
@@ -76,17 +78,25 @@ namespace Packages.me.martindevans.myriad_unity_integration.Runtime
         {
             private readonly World _world;
             private readonly CommandBuffer _cmd;
+            private readonly List<IBehaviourComponent> _temp;
 
-            public InitBinding(World world, CommandBuffer cmd)
+            public InitBinding(World world, CommandBuffer cmd, List<IBehaviourComponent> temp)
             {
                 _world = world;
                 _cmd = cmd;
+                _temp = temp;
             }
 
             public void Execute(Entity e, ref MyriadEntity binding)
             {
                 binding.SetEntity(_world, e);
                 _cmd.Set(e, new Bound());
+
+                // Find all `IBehaviourComponent`s and bind them to the entity
+                _temp.Clear();
+                binding.gameObject.GetComponentsInChildren(true, _temp);
+                foreach (var item in _temp)
+                    item.Bind(e, _cmd);
             }
         }
 

@@ -1,5 +1,6 @@
 using JetBrains.Annotations;
 using Myriad.ECS;
+using Myriad.ECS.Command;
 using Myriad.ECS.IDs;
 using Myriad.ECS.Worlds;
 using UnityEngine;
@@ -24,6 +25,9 @@ namespace Packages.me.martindevans.myriad_unity_integration.Runtime
         /// </summary>
         [SerializeField, UsedImplicitly] public bool AutoDestruct;
 
+        /// <summary>
+        /// Enable all of these gameobjects when the Entity is set
+        /// </summary>
         [SerializeField, UsedImplicitly] public GameObject[]? EnableOnEntitySet;
 
         private void Awake()
