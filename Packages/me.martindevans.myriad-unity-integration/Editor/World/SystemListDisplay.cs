@@ -107,6 +107,10 @@ namespace Packages.me.martindevans.myriad_unity_integration.Editor.World
         private void DrawSystem<T>(SystemGroupItem<T> item, TimeSpan groupTime)
         {
             var name = item.Type.Name;
+
+            if (item.Type.IsNested)
+                name = (item.Type.FullName ?? item.Type.Name).Replace(item.Type.Namespace ?? "", "");
+
             var expanded = _expandedSystems.GetValueOrDefault(name, false);
             var enabled = item.Enabled;
 
