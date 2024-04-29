@@ -65,12 +65,12 @@ namespace Packages.me.martindevans.myriad_unity_integration.Runtime
         public ref T GetMyriadComponent<T>() 
             where T : IComponent
         {
-            return ref World!.GetComponentRef<T>(Entity);
+            return ref Entity.GetComponentRef<T>(World!);
         }
 
         public object? GetMyriadComponent(ComponentID component)
         {
-            return World?.GetBoxedComponent(Entity, component);
+            return Entity.GetBoxedComponent(World!, component);
         }
     }
 }
