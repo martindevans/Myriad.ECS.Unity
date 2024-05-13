@@ -96,7 +96,7 @@ namespace Packages.me.martindevans.myriad_unity_integration.Runtime
                 _temp.Clear();
                 binding.gameObject.GetComponentsInChildren(true, _temp);
                 foreach (var item in _temp)
-                    item.Bind(e, _cmd);
+                    item.Bind(_world, e, _cmd);
             }
         }
 

@@ -1,5 +1,6 @@
 using Myriad.ECS;
 using Myriad.ECS.Command;
+using Myriad.ECS.Worlds;
 
 namespace Packages.me.martindevans.myriad_unity_integration.Runtime
 {
@@ -9,6 +10,6 @@ namespace Packages.me.martindevans.myriad_unity_integration.Runtime
     public interface IBehaviourComponent
         : IComponent
     {
-        public void Bind(Entity entity, CommandBuffer cmd);
+        public void Bind(World world, Entity entity, CommandBuffer cmd);
     }
 }

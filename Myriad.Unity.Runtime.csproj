@@ -421,12 +421,12 @@
       <HintPath>D:\Unity\2022.3.13f1\Editor\Data\PlaybackEngines\LinuxStandaloneSupport\UnityEditor.LinuxStandalone.Extensions.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="Myriad.ECS">
-      <HintPath>Assets\Packages\Myriad.ECS.9.1.0\lib\netstandard2.1\Myriad.ECS.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
     <Reference Include="ReportGeneratorMerged">
       <HintPath>Library\PackageCache\com.unity.testtools.codecoverage@1.2.4\lib\ReportGenerator\ReportGeneratorMerged.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Myriad.ECS">
+      <HintPath>Assets\Packages\Myriad.ECS.9.1.0\lib\netstandard2.1\Myriad.ECS.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="NuGetForUnity.PluginAPI">
