@@ -1,5 +1,6 @@
+using Myriad.ECS;
+using Myriad.ECS.Worlds;
 using Packages.me.martindevans.myriad_unity_integration.Editor.Entities;
-using Packages.me.martindevans.myriad_unity_integration.Runtime;
 using UnityEditor;
 
 namespace Assets.Scenes.Editor
@@ -8,9 +9,9 @@ namespace Assets.Scenes.Editor
     public class DemoComponentEditor
         : IMyriadComponentEditor
     {
-        public void Draw(MyriadEntity entity)
+        public void Draw(World world, Entity entity)
         {
-            ref var demo = ref entity.GetMyriadComponent<DemoComponent>();
+            ref var demo = ref entity.GetComponentRef<DemoComponent>(world);
             demo.Value = EditorGUILayout.DelayedIntField("Value", demo.Value);
         }
     }

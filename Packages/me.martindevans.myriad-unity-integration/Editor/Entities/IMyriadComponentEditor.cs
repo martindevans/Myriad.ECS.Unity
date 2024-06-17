@@ -1,4 +1,5 @@
 using System;
+using Myriad.ECS;
 using Packages.me.martindevans.myriad_unity_integration.Runtime;
 
 namespace Packages.me.martindevans.myriad_unity_integration.Editor.Entities
@@ -17,6 +18,11 @@ namespace Packages.me.martindevans.myriad_unity_integration.Editor.Entities
 
     public interface IMyriadComponentEditor
     {
-        void Draw(MyriadEntity entity);
+        void Draw(MyriadEntity entity)
+        {
+            Draw(entity.World, entity.Entity);
+        }
+
+        void Draw(Myriad.ECS.Worlds.World world, Entity entity);
     }
 }

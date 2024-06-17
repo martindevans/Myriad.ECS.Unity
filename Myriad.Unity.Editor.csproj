@@ -62,6 +62,7 @@
   <ItemGroup>
     <Compile Include="Packages\me.martindevans.myriad-unity-integration\Editor\World\ISystemEditor.cs" />
     <Compile Include="Packages\me.martindevans.myriad-unity-integration\Editor\World\SystemListDisplay.cs" />
+    <Compile Include="Packages\me.martindevans.myriad-unity-integration\Editor\World\ArchetypeDrawer.cs" />
     <Compile Include="Packages\me.martindevans.myriad-unity-integration\Editor\World\SimulationHostEditor.cs" />
     <Compile Include="Packages\me.martindevans.myriad-unity-integration\Editor\Entities\MyriadEntityEditor.cs" />
     <Compile Include="Packages\me.martindevans.myriad-unity-integration\Editor\UIComponents\FieldValueLabel.cs" />
@@ -433,7 +434,7 @@
       <Private>False</Private>
     </Reference>
     <Reference Include="Myriad.ECS">
-      <HintPath>Assets\Packages\Myriad.ECS.9.1.0\lib\netstandard2.1\Myriad.ECS.dll</HintPath>
+      <HintPath>Assets\Packages\Myriad.ECS.14.1.0\lib\netstandard2.1\Myriad.ECS.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="NuGetForUnity.PluginAPI">

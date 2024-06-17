@@ -3,16 +3,17 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using JetBrains.Annotations;
+using Myriad.ECS;
 using Myriad.ECS.IDs;
 using Packages.me.martindevans.myriad_unity_integration.Editor.UIComponents;
 using Packages.me.martindevans.myriad_unity_integration.Runtime;
 using Placeholder.Editor.UI.Editor;
-using Placeholder.Editor.UI.Editor.Components;
 using Placeholder.Editor.UI.Editor.Components.Sections;
 using Placeholder.Editor.UI.Editor.Helpers;
 using Placeholder.Editor.UI.Editor.Style;
 using UnityEditor;
 using UnityEngine;
+using IComponent = Placeholder.Editor.UI.Editor.Components.IComponent;
 
 namespace Packages.me.martindevans.myriad_unity_integration.Editor.Entities
 {
@@ -25,8 +26,8 @@ namespace Packages.me.martindevans.myriad_unity_integration.Editor.Entities
                 new BasicSection(
                     new GUIContent("Myriad Entity"),
                     new FieldValueLabel<MyriadEntity>("ID", m => m.Entity.UniqueID().ToString()),
-                    new FieldValueLabel<MyriadEntity>("Exists", m => m.Entity.Exists(m.World).ToString()),
-                    new FieldValueLabel<MyriadEntity>("Phantom", m => m.Entity.IsPhantom(m.World).ToString())
+                    new FieldValueLabel<MyriadEntity>("Exists", m => m.World == null ? "null_world" : m.Entity.Exists(m.World).ToString()),
+                    new FieldValueLabel<MyriadEntity>("Phantom", m => m.World == null ? "null_world" : m.Entity.IsPhantom(m.World).ToString())
                 ),
                 new DefaultInspectorSection { Expanded = true },
                 new ComponentListDisplay()
@@ -39,15 +40,47 @@ namespace Packages.me.martindevans.myriad_unity_integration.Editor.Entities
         : IComponent
     {
         private MyriadEntity _entity;
-
-        private readonly Dictionary<ComponentID, bool> _expandedComponents = new();
-
-        private IReadOnlyDictionary<Type, Type> _editorTypes = new Dictionary<Type, Type>();
-        private readonly Dictionary<ComponentID, IMyriadComponentEditor> _editorInstances = new();
+        private EntityDrawer _drawer;
 
         public void OnEnable(SerializedObject target)
         {
-            var ass = AppDomain.CurrentDomain.GetAssemblies();
+            _entity = (MyriadEntity)target.targetObject;
+            _drawer = new EntityDrawer(_entity.World, _entity.Entity);
+        }
+
+        public void OnDisable()
+        {
+        }
+
+        public void Draw()
+        {
+            _drawer.Draw();
+        }
+
+        public IEnumerable<SerializedProperty> GetChildProperties()
+        {
+            yield break;
+        }
+
+        public bool IsVisible => true;
+        public bool RequiresConstantRepaint => true;
+    }
+
+    public class EntityDrawer
+    {
+        private readonly Myriad.ECS.Worlds.World _world;
+
+        private readonly Dictionary<ComponentID, bool> _expandedComponents = new();
+
+        private readonly IReadOnlyDictionary<Type, Type> _editorTypes;
+        private readonly Dictionary<ComponentID, IMyriadComponentEditor> _editorInstances = new();
+
+        public Entity Entity { get; }
+
+        public EntityDrawer(Myriad.ECS.Worlds.World world, Entity entity)
+        {
+            _world = world;
+            Entity = entity;
 
             _editorTypes = (from assembly in AppDomain.CurrentDomain.GetAssemblies()
                             from type in assembly.GetTypes()
@@ -57,20 +90,13 @@ namespace Packages.me.martindevans.myriad_unity_integration.Editor.Entities
                             where attr != null
                             let tgt = attr.Type
                             select (editor, tgt)).ToDictionary(x => x.tgt, x => x.editor);
-
-            _entity = (MyriadEntity)target.targetObject;
-        }
-
-        public void OnDisable()
-        {
         }
 
         public void Draw()
         {
-            // ReSharper disable once ConditionIsAlwaysTrueOrFalse
-            if (_entity != null && _entity.World != null && _entity.Entity.Exists(_entity.World))
+            if (_world != null && Entity.Exists(_world))
             {
-                var components = _entity.Entity.GetComponents(_entity.World);
+                var components = Entity.GetComponents(_world);
                 foreach (var component in components)
                 {
                     DrawComponent(component);
@@ -97,12 +123,8 @@ namespace Packages.me.martindevans.myriad_unity_integration.Editor.Entities
                 {
                     expanded = Header.Fold(new GUIContent(name), expanded);
                     if (expanded)
-                    {
                         using (new EditorGUILayout.VerticalScope(Styles.LeftPadding))
-                        {
-                            instance.Draw(_entity);
-                        }
-                    }
+                            instance.Draw(_world, Entity);
                 }
                 _expandedComponents[component] = expanded;
             }
@@ -121,13 +143,5 @@ namespace Packages.me.martindevans.myriad_unity_integration.Editor.Entities
             _editorInstances.Add(id, editor);
             return editor;
         }
-
-        public IEnumerable<SerializedProperty> GetChildProperties()
-        {
-            yield break;
-        }
-
-        public bool IsVisible => true;
-        public bool RequiresConstantRepaint => true;
     }
 }

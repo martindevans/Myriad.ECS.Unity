@@ -1,14 +1,11 @@
-﻿using Placeholder.Editor.UI.Editor.Components;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Packages.me.martindevans.myriad_unity_integration.Runtime;
 using UnityEditor;
-using System;
-using Myriad.ECS.Systems;
 using Myriad.ECS.Worlds.Archetypes;
 using Placeholder.Editor.UI.Editor.Helpers;
 using Placeholder.Editor.UI.Editor.Style;
 using UnityEngine;
-using Myriad.ECS.Worlds;
+using IComponent = Placeholder.Editor.UI.Editor.Components.IComponent;
 
 namespace Packages.me.martindevans.myriad_unity_integration.Editor.World
 {
@@ -16,7 +13,7 @@ namespace Packages.me.martindevans.myriad_unity_integration.Editor.World
         : IComponent
         where TSim : BaseSimulationHost<TData>
     {
-        private Dictionary<Archetype, bool> _expandedArchetypes = new();
+        private readonly Dictionary<Archetype, ArchetypeDrawer> _drawers = new();
 
         private bool _expanded;
         private TSim _host;
@@ -24,18 +21,20 @@ namespace Packages.me.martindevans.myriad_unity_integration.Editor.World
         public void OnEnable(SerializedObject target)
         {
             _host = (TSim)target.targetObject;
-            _expandedArchetypes.Clear();
+
+            _drawers.Clear();
         }
 
         public void OnDisable()
         {
+            _drawers.Clear();
         }
 
         public void Draw()
         {
             // ReSharper disable once ConditionIsAlwaysTrueOrFalse
             if (_host != null && _host.Systems != null)
-                DrawArchetypes(_host.World);;
+                DrawArchetypes(_host.World);
         }
 
         private void DrawArchetypes(Myriad.ECS.Worlds.World world)
@@ -49,38 +48,17 @@ namespace Packages.me.martindevans.myriad_unity_integration.Editor.World
                     {
                         foreach (var archetype in world.Archetypes)
                         {
-                            DrawArchetype(archetype);
+                            if (!_drawers.TryGetValue(archetype, out var drawer))
+                            {
+                                drawer = new ArchetypeDrawer(archetype);
+                                _drawers[archetype] = drawer;
+                            }
+
+                            drawer.Draw();
                         }
                     }
                 }
             }
-        }
-
-        private void DrawArchetype(Archetype archetype)
-        {
-            var expanded = _expandedArchetypes.GetValueOrDefault(archetype, false);
-
-            using (new EditorGUILayout.VerticalScope(expanded ? Styles.ContentOutline : GUIStyle.none))
-            {
-                var phantom = archetype.IsPhantom ? "(PHANTOM)" : "";
-                expanded = Header.Fold(new GUIContent($"{archetype.GetHashCode()} ({archetype.EntityCount} entities) {phantom}"), expanded);
-                if (expanded)
-                {
-                    using (new EditorGUILayout.VerticalScope(Styles.LeftPadding))
-                    {
-                        foreach (var component in archetype.Components)
-                        {
-                            var txt = component.Type.Name;
-                            if (component.IsPhantomComponent)
-                                txt += " (PHANTOM)";
-
-                            EditorGUILayout.LabelField(txt);
-                        }
-                    }
-                }
-            }
-
-            _expandedArchetypes[archetype] = expanded;
         }
 
         public IEnumerable<SerializedProperty> GetChildProperties()
