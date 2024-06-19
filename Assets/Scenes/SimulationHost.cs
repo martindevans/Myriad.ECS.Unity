@@ -44,6 +44,20 @@ public class SimulationHost
                 "sub group",
                 new WasteTimeSystem(),
                 new WasteTimeSystem()
+            ),
+            new OrderedParallelSystemGroup<int>(
+                "parallel group",
+                new WasteTimeSystem(),
+                new EmptySystem(),
+                new EmptySystem(),
+                new EmptySystem()
+            ),
+            new PhasedParallelSystemGroup<int>(
+                "parallel group",
+                new WasteTimeSystem(),
+                new EmptySystem(),
+                new EmptySystem(),
+                new EmptySystem()
             )
         );
         _systems.Init();
@@ -75,7 +89,7 @@ public class IncrementTheNumberSystem
 }
 
 public class WasteTimeSystem
-    : BaseSystem<int>
+    : BaseSystem<int>, ISystemDeclare<int>
 {
     private readonly Random _random = new();
     private int _milliseconds;
@@ -86,5 +100,22 @@ public class WasteTimeSystem
             _milliseconds = _random.Next(0, 5);
 
         Thread.Sleep(_milliseconds);
+    }
+
+    public void Declare(ref SystemDeclaration declaration)
+    {
+    }
+}
+
+public class EmptySystem
+    : BaseSystem<int>, ISystemDeclare<int>
+{
+    public override void Update(int data)
+    {
+    }
+
+    public void Declare(ref SystemDeclaration declaration)
+    {
+        declaration.Read<DemoComponent>();
     }
 }

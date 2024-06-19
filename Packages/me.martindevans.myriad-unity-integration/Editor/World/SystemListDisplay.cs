@@ -21,7 +21,7 @@ namespace Packages.me.martindevans.myriad_unity_integration.Editor.World
         private TSim _host;
 
         private readonly Dictionary<string, bool> _expandedGroups = new();
-        private readonly Dictionary<string, bool> _expandedSystems = new();
+        private readonly Dictionary<ISystem<TData>, bool> _expandedSystems = new();
 
         private const float smoothing = 0.05f;
         private readonly Dictionary<string, float> _smoothedProgressIndicator = new();
@@ -66,12 +66,12 @@ namespace Packages.me.martindevans.myriad_unity_integration.Editor.World
         public bool IsVisible => true;
         public bool RequiresConstantRepaint => true;
 
-        private void DrawSystemGroup<T>(ISystemGroup<T> group, TimeSpan parentTime, TimeSpan highTimeThreshold)
+        private void DrawSystemGroup(ISystemGroup<TData> group, TimeSpan parentTime, TimeSpan highTimeThreshold)
         {
             if (group == null)
                 return;
 
-            var childGroups = Math.Max(1, group.Systems.Count(a => a.System is ISystemGroup<T>));
+            var childGroups = Math.Max(1, group.Systems.Count(a => a.System is ISystemGroup<TData>));
             var childTimeThreshold = highTimeThreshold / childGroups;
 
             var expanded = _expandedGroups.GetValueOrDefault(group.Name, true);
@@ -86,9 +86,19 @@ namespace Packages.me.martindevans.myriad_unity_integration.Editor.World
                 {
                     using (new EditorGUILayout.VerticalScope(Styles.LeftPadding))
                     {
+                        switch (group)
+                        {
+                            case PhasedParallelSystemGroup<TData> phased:
+                                EditorGUILayout.LabelField($"Parallel System Phases: {phased.Phases}");
+                                break;
+                            case OrderedParallelSystemGroup<TData> ordered:
+                                EditorGUILayout.LabelField($"Parallel System Dependency Depth: {ordered.MaxDependencyChain}");
+                                break;
+                        }
+
                         foreach (var item in group.Systems)
                         {
-                            if (item.System is ISystemGroup<T> sg)
+                            if (item.System is ISystemGroup<TData> sg)
                             {
                                 DrawSystemGroup(sg, group.TotalExecutionTime, childTimeThreshold);
                             }
@@ -104,7 +114,7 @@ namespace Packages.me.martindevans.myriad_unity_integration.Editor.World
             _expandedGroups[group.Name] = expanded;
         }
 
-        private void DrawSystem<T>(SystemGroupItem<T> item, TimeSpan groupTime)
+        private void DrawSystem(SystemGroupItem<TData> item, TimeSpan groupTime)
         {
             var name = item.Type.Name;
 
@@ -114,7 +124,7 @@ namespace Packages.me.martindevans.myriad_unity_integration.Editor.World
                 name = name.TrimStart('.');
             }
 
-            var expanded = _expandedSystems.GetValueOrDefault(name, false);
+            var expanded = _expandedSystems.GetValueOrDefault(item.System, false);
             var enabled = item.Enabled;
 
             var microsPre = item.BeforeUpdateTime.Ticks / (double)TimeSpan.TicksPerMillisecond * 1000;
@@ -141,7 +151,7 @@ namespace Packages.me.martindevans.myriad_unity_integration.Editor.World
                 }
             }
 
-            _expandedSystems[name] = expanded;
+            _expandedSystems[item.System] = expanded;
             item.Enabled = enabled;
         }
 
