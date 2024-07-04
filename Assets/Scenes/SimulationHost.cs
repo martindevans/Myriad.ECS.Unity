@@ -1,3 +1,4 @@
+using System;
 using System.Threading;
 using Assets.Scenes;
 using Myriad.ECS.Command;
@@ -26,7 +27,12 @@ public class SimulationHost
         for (var i = 0; i < 10; i++)
         {
             // Setup normal ECS stuff
-            var buffered = cmd.Create().Set(new DemoComponent { Value = 1 });
+            var buffered = cmd
+                          .Create()
+                          .Set(new DemoComponent { Value = 1 })
+                          .Set(new GenericDemoComponent<int> { Value = 2 })
+                          .Set(new OuterGenericClass<DateTime>.InnerDemoComponent { Value = DateTime.Now })
+                          .Set(new OuterGenericClass<DateTime>.InnerGenericDemoComponent<TimeSpan> { ValueT = DateTime.Now, ValueU = TimeSpan.FromSeconds(1) });
 
             // Create a GameObject to represent this entity, add MyriadEntity to bind it automatically
             var go = new GameObject($"Entity binding {i}");

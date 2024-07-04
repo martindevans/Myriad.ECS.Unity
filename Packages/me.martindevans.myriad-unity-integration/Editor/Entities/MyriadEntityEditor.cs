@@ -5,6 +5,7 @@ using System.Reflection;
 using JetBrains.Annotations;
 using Myriad.ECS;
 using Myriad.ECS.IDs;
+using Packages.me.martindevans.myriad_unity_integration.Editor.Extensions;
 using Packages.me.martindevans.myriad_unity_integration.Editor.UIComponents;
 using Packages.me.martindevans.myriad_unity_integration.Runtime;
 using Placeholder.Editor.UI.Editor;
@@ -106,7 +107,7 @@ namespace Packages.me.martindevans.myriad_unity_integration.Editor.Entities
 
         private void DrawComponent(ComponentID component)
         {
-            var name = component.Type.Name;
+            var name = component.Type.GetFormattedName();
             if (component.IsPhantomComponent)
                 name += " (PHANTOM)";
 
