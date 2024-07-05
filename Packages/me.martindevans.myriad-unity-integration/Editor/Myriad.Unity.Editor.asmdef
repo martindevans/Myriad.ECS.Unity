@@ -2,8 +2,8 @@
     "name": "Myriad.Unity.Editor",
     "rootNamespace": "",
     "references": [
-        "GUID:bad53620f09b0df4ab9135d87f7b974e",
-        "GUID:accbe837cd2fb4943979d47c5ce56275"
+        "GUID:accbe837cd2fb4943979d47c5ce56275",
+        "GUID:dd0f4ba0ceb2ed04391de9e01fda6642"
     ],
     "includePlatforms": [
         "Editor"

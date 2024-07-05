@@ -11,10 +11,10 @@ using Random = System.Random;
 public class SimulationHost
     : BaseSimulationHost<int>
 {
-    private ISystemGroup<int> _systems;
+    [NonSerialized] private ISystemGroup<int> _systems;
     public override ISystemGroup<int> Systems => _systems;
 
-    private World _world;
+    [NonSerialized] private World _world;
     public override World World => _world;
 
     private void Awake()
@@ -31,8 +31,8 @@ public class SimulationHost
                           .Create()
                           .Set(new DemoComponent { Value = 1 })
                           .Set(new GenericDemoComponent<int> { Value = 2 })
-                          .Set(new OuterGenericClass<DateTime>.InnerDemoComponent { Value = DateTime.Now })
-                          .Set(new OuterGenericClass<DateTime>.InnerGenericDemoComponent<TimeSpan> { ValueT = DateTime.Now, ValueU = TimeSpan.FromSeconds(1) });
+                          .Set(new OuterGenericClass<float>.InnerDemoComponent { Value = 3 })
+                          .Set(new OuterGenericClass<byte>.InnerGenericDemoComponent<int> { ValueT = 0, ValueU = 1 });
 
             // Create a GameObject to represent this entity, add MyriadEntity to bind it automatically
             var go = new GameObject($"Entity binding {i}");
@@ -49,7 +49,9 @@ public class SimulationHost
             new SystemGroup<int>(
                 "sub group",
                 new WasteTimeSystem(),
-                new WasteTimeSystem()
+                new WasteTimeSystem(),
+                new GenericOuterSystem<float>(World),
+                new MoreOuterClass.OuterClass<byte>.AlmostOuterClass.GenericOuterInnerSystem<int>(World)
             ),
             new OrderedParallelSystemGroup<int>(
                 "parallel group",
@@ -91,6 +93,62 @@ public class IncrementTheNumberSystem
     {
         foreach (var (_, demo) in _world.Query<DemoComponent>())
             demo.Ref.Value += data;
+    }
+}
+
+public class GenericOuterSystem<T>
+    : BaseSystem<int>, ISystemDeclare<int>
+{
+    private readonly World _world;
+
+    public GenericOuterSystem(World world)
+    {
+        _world = world;
+    }
+
+    public override void Update(int data)
+    {
+        foreach (var (_, demo) in _world.Query<OuterGenericClass<T>.InnerDemoComponent>())
+            demo.Ref.Value = (T)(object)(data / 2f);
+    }
+
+    public void Declare(ref SystemDeclaration declaration)
+    {
+        declaration.Write<OuterGenericClass<T>.InnerDemoComponent>();
+    }
+}
+
+public class MoreOuterClass
+{
+    public class OuterClass<T>
+    {
+        public class AlmostOuterClass
+        {
+            public class GenericOuterInnerSystem<U>
+                : BaseSystem<int>, ISystemDeclare<int>
+            {
+                private readonly World _world;
+
+                public GenericOuterInnerSystem(World world)
+                {
+                    _world = world;
+                }
+
+                public override void Update(int data)
+                {
+                    foreach (var (_, demo) in _world.Query<OuterGenericClass<T>.InnerGenericDemoComponent<U>>())
+                    {
+                        demo.Ref.ValueT = (T)(object)(byte)(data / 2f);
+                        demo.Ref.ValueU = (U)(object)(int)(data / 3f);
+                    }
+                }
+
+                public void Declare(ref SystemDeclaration declaration)
+                {
+                    declaration.Write<OuterGenericClass<T>.InnerGenericDemoComponent<U>>();
+                }
+            }
+        }
     }
 }
 

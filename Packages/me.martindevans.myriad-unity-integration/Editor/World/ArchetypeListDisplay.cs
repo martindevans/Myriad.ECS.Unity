@@ -2,6 +2,7 @@
 using Packages.me.martindevans.myriad_unity_integration.Runtime;
 using UnityEditor;
 using Myriad.ECS.Worlds.Archetypes;
+using Placeholder.Editor.UI.Editor;
 using Placeholder.Editor.UI.Editor.Helpers;
 using Placeholder.Editor.UI.Editor.Style;
 using UnityEngine;
@@ -68,5 +69,6 @@ namespace Packages.me.martindevans.myriad_unity_integration.Editor.World
 
         public bool IsVisible => true;
         public bool RequiresConstantRepaint => true;
+        public BasePlaceholderEditor Editor { get; set; }
     }
 }

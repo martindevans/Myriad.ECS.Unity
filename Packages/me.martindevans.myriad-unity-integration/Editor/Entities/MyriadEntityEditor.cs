@@ -9,6 +9,7 @@ using Packages.me.martindevans.myriad_unity_integration.Editor.Extensions;
 using Packages.me.martindevans.myriad_unity_integration.Editor.UIComponents;
 using Packages.me.martindevans.myriad_unity_integration.Runtime;
 using Placeholder.Editor.UI.Editor;
+using Placeholder.Editor.UI.Editor.Components.Section;
 using Placeholder.Editor.UI.Editor.Components.Sections;
 using Placeholder.Editor.UI.Editor.Helpers;
 using Placeholder.Editor.UI.Editor.Style;
@@ -65,6 +66,7 @@ namespace Packages.me.martindevans.myriad_unity_integration.Editor.Entities
 
         public bool IsVisible => true;
         public bool RequiresConstantRepaint => true;
+        public BasePlaceholderEditor Editor { get; set; }
     }
 
     public class EntityDrawer

@@ -7,6 +7,8 @@ using System.Collections.Generic;
 using System;
 using System.Linq;
 using System.Reflection;
+using Packages.me.martindevans.myriad_unity_integration.Editor.Extensions;
+using Placeholder.Editor.UI.Editor;
 using Placeholder.Editor.UI.Editor.Components;
 using Placeholder.Editor.UI.Editor.Helpers;
 using UnityEditor;
@@ -39,7 +41,7 @@ namespace Packages.me.martindevans.myriad_unity_integration.Editor.World
                             where attr != null
                             let tgt = attr.Type
                             select (editor, tgt)).ToDictionary(x => x.tgt, x => x.editor);
-
+            
             _host = (TSim)target.targetObject;
         }
 
@@ -65,6 +67,7 @@ namespace Packages.me.martindevans.myriad_unity_integration.Editor.World
 
         public bool IsVisible => true;
         public bool RequiresConstantRepaint => true;
+        public BasePlaceholderEditor Editor { get; set; }
 
         private void DrawSystemGroup(ISystemGroup<TData> group, TimeSpan parentTime, TimeSpan highTimeThreshold)
         {
@@ -116,13 +119,13 @@ namespace Packages.me.martindevans.myriad_unity_integration.Editor.World
 
         private void DrawSystem(SystemGroupItem<TData> item, TimeSpan groupTime)
         {
-            var name = item.Type.Name;
+            var name = item.Type.GetFormattedName();
 
-            if (item.Type.IsNested)
-            {
-                name = (item.Type.FullName ?? item.Type.Name).Replace(item.Type.Namespace ?? "", "");
-                name = name.TrimStart('.');
-            }
+            //if (item.Type.IsNested)
+            //{
+            //    name = (item.Type.FullName ?? item.Type.Name).Replace(item.Type.Namespace ?? "", "");
+            //    name = name.TrimStart('.');
+            //}
 
             var expanded = _expandedSystems.GetValueOrDefault(item.System, false);
             var enabled = item.Enabled;

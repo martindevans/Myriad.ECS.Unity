@@ -1,10 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
-using System.Reflection;
-using System.Text;
-using System.Text.RegularExpressions;
 using JetBrains.Annotations;
 
 namespace Packages.me.martindevans.myriad_unity_integration.Editor.Extensions
@@ -32,9 +28,8 @@ namespace Packages.me.martindevans.myriad_unity_integration.Editor.Extensions
         };
 
         /// <summary>
-        /// Returns the type name. If this is a generic type, appends
-        /// the list of generic type arguments between angle brackets.
-        /// (Does not account for embedded / inner generic arguments.)
+        /// Returns the type name, in a form similar to how it would be written in C#.
+        /// Correctly handles generic and nested types.
         /// </summary>
         /// <param name="type">The type.</param>
         /// <returns>System.String.</returns>

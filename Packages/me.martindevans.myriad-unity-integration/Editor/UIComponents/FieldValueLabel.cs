@@ -2,6 +2,7 @@
 
 using System;
 using System.Collections.Generic;
+using Placeholder.Editor.UI.Editor;
 using Placeholder.Editor.UI.Editor.Components;
 using UnityEditor;
 using UnityEngine;
@@ -17,6 +18,7 @@ namespace Packages.me.martindevans.myriad_unity_integration.Editor.UIComponents
 
         public bool IsVisible => true;
         public bool RequiresConstantRepaint => false;
+        public BasePlaceholderEditor? Editor { get; set; }
 
         public FieldValueLabel(string label, Func<T, string> getValue)
         {

@@ -933,6 +933,10 @@
       <HintPath>Library\ScriptAssemblies\UnityEditor.TestRunner.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="Placeholder.Editor.UI.Editor">
+      <HintPath>Library\ScriptAssemblies\Placeholder.Editor.UI.Editor.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
     <Reference Include="NuGetForUnity">
       <HintPath>Library\ScriptAssemblies\NuGetForUnity.dll</HintPath>
       <Private>False</Private>
@@ -943,10 +947,6 @@
     </Reference>
     <Reference Include="Unity.EditorCoroutines.Editor">
       <HintPath>Library\ScriptAssemblies\Unity.EditorCoroutines.Editor.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="Placeholder.Editor.UI.Editor">
-      <HintPath>Library\ScriptAssemblies\Placeholder.Editor.UI.Editor.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="Unity.Performance.Profile-Analyzer.Editor">
