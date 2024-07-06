@@ -88,5 +88,21 @@ namespace Packages.me.martindevans.myriad_unity_integration.Editor.Extensions
             // Stick them together
             return $"{outer}.{inner}";
         }
+
+        public static IEnumerable<Type> GetTypesAssignableFrom(this Type from)
+        {
+            return from ass in AppDomain.CurrentDomain.GetAssemblies()
+                   from type in ass.GetTypes()
+                   where type.IsAssignableFrom(@from)
+                   select type;
+        }
+
+        public static IEnumerable<Type> GetTypesAssignableTo(this Type to)
+        {
+            return from ass in AppDomain.CurrentDomain.GetAssemblies()
+                   from type in ass.GetTypes()
+                   where to.IsAssignableFrom(type)
+                   select type;
+        }
     }
 }

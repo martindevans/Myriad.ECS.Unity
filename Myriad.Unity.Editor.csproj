@@ -68,6 +68,7 @@
     <Compile Include="Packages\me.martindevans.myriad-unity-integration\Editor\Entities\MyriadEntityEditor.cs" />
     <Compile Include="Packages\me.martindevans.myriad-unity-integration\Editor\UIComponents\FieldValueLabel.cs" />
     <Compile Include="Packages\me.martindevans.myriad-unity-integration\Editor\World\ArchetypeListDisplay.cs" />
+    <Compile Include="Packages\me.martindevans.myriad-unity-integration\Editor\World\EntityQueryComponent.cs" />
     <Compile Include="Packages\me.martindevans.myriad-unity-integration\Editor\Entities\IMyriadComponentEditor.cs" />
   </ItemGroup>
   <ItemGroup>

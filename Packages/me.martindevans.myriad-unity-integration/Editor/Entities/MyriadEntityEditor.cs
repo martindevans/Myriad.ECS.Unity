@@ -9,6 +9,7 @@ using Packages.me.martindevans.myriad_unity_integration.Editor.Extensions;
 using Packages.me.martindevans.myriad_unity_integration.Editor.UIComponents;
 using Packages.me.martindevans.myriad_unity_integration.Runtime;
 using Placeholder.Editor.UI.Editor;
+using Placeholder.Editor.UI.Editor.Components;
 using Placeholder.Editor.UI.Editor.Components.Section;
 using Placeholder.Editor.UI.Editor.Components.Sections;
 using Placeholder.Editor.UI.Editor.Helpers;
@@ -27,9 +28,16 @@ namespace Packages.me.martindevans.myriad_unity_integration.Editor.Entities
             : base(
                 new BasicSection(
                     new GUIContent("Myriad Entity"),
-                    new FieldValueLabel<MyriadEntity>("ID", m => m.Entity.UniqueID().ToString()),
-                    new FieldValueLabel<MyriadEntity>("Exists", m => m.World == null ? "null_world" : m.Entity.Exists(m.World).ToString()),
-                    new FieldValueLabel<MyriadEntity>("Phantom", m => m.World == null ? "null_world" : m.Entity.IsPhantom(m.World).ToString())
+                    new PlaymodeSwitchSection(
+                        new ComponentList(
+                            new FieldValueLabel<MyriadEntity>("ID", m => m.Entity.UniqueID().ToString()),
+                            new FieldValueLabel<MyriadEntity>("Exists", m => m.World == null ? "null_world" : m.Entity.Exists(m.World).ToString()),
+                            new FieldValueLabel<MyriadEntity>("Phantom", m => m.World == null ? "null_world" : m.Entity.IsPhantom(m.World).ToString())
+                        ),
+                        new ComponentList(
+                            new InfoBoxComponent("When this behaviour is attached to a Myriad Entity it can be used as a 'Binding' between the scene and the ECS", MessageType.Info)
+                        )
+                    )
                 ),
                 new DefaultInspectorSection { Expanded = true },
                 new ComponentListDisplay()
