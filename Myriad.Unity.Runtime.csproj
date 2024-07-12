@@ -418,7 +418,7 @@
       <Private>False</Private>
     </Reference>
     <Reference Include="Myriad.ECS">
-      <HintPath>Assets\Packages\Myriad.ECS.16.10.0\lib\netstandard2.1\Myriad.ECS.dll</HintPath>
+      <HintPath>Assets\Packages\Myriad.ECS.17.1.0\lib\netstandard2.1\Myriad.ECS.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="netstandard">

@@ -1,7 +1,9 @@
 using System;
 using System.Threading;
 using Assets.Scenes;
+using Myriad.ECS;
 using Myriad.ECS.Command;
+using Myriad.ECS.Queries;
 using Myriad.ECS.Systems;
 using Myriad.ECS.Worlds;
 using Packages.me.martindevans.myriad_unity_integration.Runtime;
@@ -91,8 +93,16 @@ public class IncrementTheNumberSystem
 
     public override void Update(int data)
     {
-        foreach (var (_, demo) in _world.Query<DemoComponent>())
-            demo.Ref.Value += data;
+        _world.ExecuteParallel<Inc, DemoComponent>(new Inc());
+    }
+
+    private readonly struct Inc
+        : IQuery1<DemoComponent>
+    {
+        public void Execute(Entity e, ref DemoComponent t0)
+        {
+            t0.Value++;
+        }
     }
 }
 
