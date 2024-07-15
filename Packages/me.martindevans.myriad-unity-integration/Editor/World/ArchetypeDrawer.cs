@@ -6,6 +6,7 @@ using Placeholder.Editor.UI.Editor.Style;
 using UnityEditor;
 using UnityEngine;
 using Packages.me.martindevans.myriad_unity_integration.Editor.Entities;
+using Packages.me.martindevans.myriad_unity_integration.Editor.Extensions;
 
 namespace Packages.me.martindevans.myriad_unity_integration.Editor.World
 {
@@ -47,7 +48,7 @@ namespace Packages.me.martindevans.myriad_unity_integration.Editor.World
                         {
                             foreach (var component in _archetype.Components)
                             {
-                                var txt = component.Type.Name;
+                                var txt = component.Type.GetFormattedName();
                                 if (component.IsPhantomComponent)
                                     txt += " (PHANTOM)";
 

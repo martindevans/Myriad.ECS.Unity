@@ -148,9 +148,10 @@ namespace Packages.me.martindevans.myriad_unity_integration.Editor.Entities
                 return editor;
 
             if (!_editorTypes.TryGetValue(id.Type, out var editorType))
-                return null;
+                editor = DefaultComponentEditor.Create(id.Type);
+            else
+                editor = (IMyriadComponentEditor)Activator.CreateInstance(editorType);
 
-            editor = (IMyriadComponentEditor)Activator.CreateInstance(editorType);
             _editorInstances.Add(id, editor);
             return editor;
         }
