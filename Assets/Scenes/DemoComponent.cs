@@ -1,4 +1,5 @@
 using Myriad.ECS;
+using Myriad.ECS.Components;
 
 namespace Assets.Scenes
 {
@@ -27,6 +28,19 @@ namespace Assets.Scenes
         {
             public T ValueT;
             public U ValueU;
+        }
+    }
+
+    public readonly struct PhantomComponent
+        : IPhantomComponent
+    {
+    }
+
+    public readonly struct DisposableComponent
+        : IDisposableComponent
+    {
+        public void Dispose()
+        {
         }
     }
 }

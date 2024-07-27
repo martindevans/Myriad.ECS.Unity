@@ -64,7 +64,7 @@
     <Compile Include="Assets\Scenes\SimulationHost.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Assets\Packages\Myriad.ECS.17.1.0\lib\netstandard2.1\Myriad.ECS.dll" />
+    <None Include="Assets\Packages\Myriad.ECS.20.0.0\lib\netstandard2.1\Myriad.ECS.dll" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">
@@ -404,7 +404,19 @@
       <Private>False</Private>
     </Reference>
     <Reference Include="Myriad.ECS">
-      <HintPath>Assets\Packages\Myriad.ECS.17.1.0\lib\netstandard2.1\Myriad.ECS.dll</HintPath>
+      <HintPath>Assets\Packages\Myriad.ECS.20.0.0\lib\netstandard2.1\Myriad.ECS.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Unity.Android.Types">
+      <HintPath>D:\Unity\2022.3.27f1\Editor\Data\PlaybackEngines\AndroidPlayer\Unity.Android.Types.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Unity.Android.Gradle">
+      <HintPath>D:\Unity\2022.3.27f1\Editor\Data\PlaybackEngines\AndroidPlayer\Unity.Android.Gradle.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Unity.Android.GradleProject">
+      <HintPath>D:\Unity\2022.3.27f1\Editor\Data\PlaybackEngines\AndroidPlayer\Unity.Android.GradleProject.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="netstandard">

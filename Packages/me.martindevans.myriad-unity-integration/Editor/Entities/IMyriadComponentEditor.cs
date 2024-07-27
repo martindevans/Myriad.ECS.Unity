@@ -70,19 +70,16 @@ namespace Packages.me.martindevans.myriad_unity_integration.Editor.Entities
             var c = entity.GetComponentRef<TComponent>(world);
             var cBox = (object)c;
 
-            using (new EditorGUI.DisabledScope(true))
+            foreach (var fieldInfo in _fields)
             {
-                foreach (var fieldInfo in _fields)
-                {
-                    var v = fieldInfo.GetValue(cBox);
-                    EditorGUILayout.TextField(fieldInfo.Name, v?.ToString() ?? "null");
-                }
+                var v = fieldInfo.GetValue(cBox);
+                EditorGUILayout.LabelField(fieldInfo.Name, v?.ToString() ?? "null");
+            }
 
-                foreach (var propInfo in _properties)
-                {
-                    var v = propInfo.GetValue(cBox);
-                    EditorGUILayout.TextField(propInfo.Name, v?.ToString() ?? "null");
-                }
+            foreach (var propInfo in _properties)
+            {
+                var v = propInfo.GetValue(cBox);
+                EditorGUILayout.LabelField(propInfo.Name, v?.ToString() ?? "null");
             }
         }
     }

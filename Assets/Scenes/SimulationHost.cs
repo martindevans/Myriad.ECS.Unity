@@ -26,21 +26,32 @@ public class SimulationHost
         var cmd = new CommandBuffer(World);
 
         // Create some entities
-        for (var i = 0; i < 10; i++)
+        var rng = new Random(324523);
+        for (var i = 0; i < 50; i++)
         {
             // Setup normal ECS stuff
             var buffered = cmd
-                          .Create()
-                          .Set(new DemoComponent { Value = 1 })
-                          .Set(new GenericDemoComponent<int> { Value = 2 })
-                          .Set(new OuterGenericClass<float>.InnerDemoComponent { Value = 3 })
-                          .Set(new OuterGenericClass<byte>.InnerGenericDemoComponent<int> { ValueT = 0, ValueU = 1 });
+                .Create()
+                .Set(new DemoComponent { Value = 1 })
+                .Set(new GenericDemoComponent<int> { Value = 2 })
+                .Set(new OuterGenericClass<float>.InnerDemoComponent { Value = 3 })
+                .Set(new OuterGenericClass<byte>.InnerGenericDemoComponent<int> { ValueT = 0, ValueU = 1 });
+
+            if (rng.NextDouble() < 0.5f)
+                buffered.Set(new PhantomComponent());
+            if (rng.NextDouble() < 0.5f)
+                buffered.Set(new DisposableComponent());
 
             // Create a GameObject to represent this entity, add MyriadEntity to bind it automatically
             var go = new GameObject($"Entity binding {i}");
             buffered.Set(go.AddComponent<MyriadEntity>());
         }
-        
+        cmd.Playback().Dispose();
+
+        // Delete some entities
+        foreach (var (e, p) in World.Query<PhantomComponent>())
+            if (rng.NextDouble() < 0.1f)
+                cmd.Delete(e);
         cmd.Playback().Dispose();
 
         _systems = new SystemGroup<int>(

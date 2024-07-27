@@ -51,6 +51,8 @@ namespace Packages.me.martindevans.myriad_unity_integration.Editor.World
                                 var txt = component.Type.GetFormattedName();
                                 if (component.IsPhantomComponent)
                                     txt += " (PHANTOM)";
+                                if (component.IsDisposableComponent)
+                                    txt += " (DISPOSE)";
 
                                 EditorGUILayout.LabelField(txt);
                             }

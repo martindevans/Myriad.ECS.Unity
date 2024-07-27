@@ -120,6 +120,8 @@ namespace Packages.me.martindevans.myriad_unity_integration.Editor.Entities
             var name = component.Type.GetFormattedName();
             if (component.IsPhantomComponent)
                 name += " (PHANTOM)";
+            if (component.IsDisposableComponent)
+                name += " (DISPOSE)";
 
             var instance = GetEditorInstance(component);
 
