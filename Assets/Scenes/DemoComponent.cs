@@ -1,4 +1,5 @@
 using Myriad.ECS;
+using Myriad.ECS.Command;
 using Myriad.ECS.Components;
 
 namespace Assets.Scenes
@@ -39,7 +40,7 @@ namespace Assets.Scenes
     public readonly struct DisposableComponent
         : IDisposableComponent
     {
-        public void Dispose()
+        public void Dispose(ref LazyCommandBuffer lazy)
         {
         }
     }

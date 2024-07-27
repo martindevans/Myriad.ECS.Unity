@@ -423,16 +423,16 @@
       <HintPath>D:\Unity\2022.3.27f1\Editor\Data\PlaybackEngines\WindowsStandaloneSupport\UnityEditor.WindowsStandalone.Extensions.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="Myriad.ECS">
+      <HintPath>Assets\Packages\Myriad.ECS.20.0.0\lib\netstandard2.1\Myriad.ECS.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
     <Reference Include="ReportGeneratorMerged">
       <HintPath>Library\PackageCache\com.unity.testtools.codecoverage@1.2.5\lib\ReportGenerator\ReportGeneratorMerged.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="NuGetForUnity.PluginAPI">
       <HintPath>Library\PackageCache\com.github-glitchenzo.nugetforunity@12574c32f6\Editor\PluginAPI\NuGetForUnity.PluginAPI.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="Myriad.ECS">
-      <HintPath>Assets\Packages\Myriad.ECS.20.0.0\lib\netstandard2.1\Myriad.ECS.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="nunit.framework">
