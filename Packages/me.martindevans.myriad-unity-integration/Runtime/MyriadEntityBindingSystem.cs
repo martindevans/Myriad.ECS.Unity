@@ -14,7 +14,7 @@ namespace Packages.me.martindevans.myriad_unity_integration.Runtime
     /// Finds entities with a `MyriadEntity` component and initialises them with the entity ID and world reference.
     /// </summary>
     /// <typeparam name="TData"></typeparam>
-    public class MyriadEntityBindingSystem<TData>
+    public sealed class MyriadEntityBindingSystem<TData>
         : BaseSystem<TData>, ISystemBefore<TData>, ISystemAfter<TData>
     {
         private readonly World _world;

@@ -41,7 +41,7 @@ namespace Packages.me.martindevans.myriad_unity_integration.Editor.UIComponents
             {
                 var saved = GUI.color;
                 GUI.color = Color.magenta;
-                EditorGUILayout.LabelField($"No target object");
+                EditorGUILayout.LabelField("No target object");
                 GUI.color = saved;
             }
             else

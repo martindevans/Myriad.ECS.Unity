@@ -12,7 +12,7 @@ namespace Packages.me.martindevans.myriad_unity_integration.Runtime
     /// Indicates that this GameObject is bound to a Myriad Entity. Attach this behaviour as a component
     /// to an entity and ensure the `MyriadEntityBindingSystem` is running in the system schedule.
     /// </summary>
-    public class MyriadEntity
+    public sealed class MyriadEntity
         : MonoBehaviour, IComponent
     {
         private bool _hasEntity;
@@ -55,12 +55,22 @@ namespace Packages.me.martindevans.myriad_unity_integration.Runtime
                 Destroy(gameObject);
         }
 
+        /// <summary>
+        /// Check if the Myriad Entity bound to this gameObject has a specific component.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <returns></returns>
         public bool HasMyriadComponent<T>()
             where T : IComponent
         {
-            return Entity!.HasComponent<T>(World!);
+            return Entity.HasComponent<T>(World!);
         }
 
+        /// <summary>
+        /// Get a reference to the component attached to the entity bound to this gameObject
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <returns></returns>
         public ref T GetMyriadComponent<T>() 
             where T : IComponent
         {

@@ -10,6 +10,14 @@ namespace Packages.me.martindevans.myriad_unity_integration.Runtime
     public interface IBehaviourComponent
         : IComponent
     {
+        /// <summary>
+        /// Called automatically when this GameObject is bound to a Myriad entity. Requires a <see cref="MyriadEntity"/> component
+        /// attached to the gameObject. Note that this will only be called once, when the entity is initially bound, components
+        /// which are added later will not be bound!
+        /// </summary>
+        /// <param name="world"></param>
+        /// <param name="entity"></param>
+        /// <param name="cmd"></param>
         public void Bind(World world, Entity entity, CommandBuffer cmd);
     }
 }
