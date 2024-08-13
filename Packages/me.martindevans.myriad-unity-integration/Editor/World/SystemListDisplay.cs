@@ -121,12 +121,6 @@ namespace Packages.me.martindevans.myriad_unity_integration.Editor.World
         {
             var name = item.Type.GetFormattedName();
 
-            //if (item.Type.IsNested)
-            //{
-            //    name = (item.Type.FullName ?? item.Type.Name).Replace(item.Type.Namespace ?? "", "");
-            //    name = name.TrimStart('.');
-            //}
-
             var expanded = _expandedSystems.GetValueOrDefault(item.System, false);
             var enabled = item.Enabled;
 
@@ -144,9 +138,11 @@ namespace Packages.me.martindevans.myriad_unity_integration.Editor.World
                 {
                     using (new EditorGUILayout.VerticalScope(Styles.LeftPadding))
                     {
-                        EditorGUILayout.LabelField($"Before Update: {microsPre:F0}us");
+                        if (item.HasBeforeUpdate)
+                            EditorGUILayout.LabelField($"Before Update: {microsPre:F0}us");
                         EditorGUILayout.LabelField($"Update:        {micros:F0}us");
-                        EditorGUILayout.LabelField($"After Update:  {microsPost:F0}us");
+                        if (item.HasAfterUpdate)
+                            EditorGUILayout.LabelField($"After Update:  {microsPost:F0}us");
 
                         if (item.System is ISystemQueryEntityCount sqec)
                             EditorGUILayout.LabelField($"Queried Entities:  {sqec.QueryEntityCount}");
