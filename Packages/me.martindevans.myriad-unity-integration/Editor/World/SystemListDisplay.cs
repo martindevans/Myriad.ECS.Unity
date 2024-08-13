@@ -148,6 +148,9 @@ namespace Packages.me.martindevans.myriad_unity_integration.Editor.World
                         EditorGUILayout.LabelField($"Update:        {micros:F0}us");
                         EditorGUILayout.LabelField($"After Update:  {microsPost:F0}us");
 
+                        if (item.System is ISystemQueryEntityCount sqec)
+                            EditorGUILayout.LabelField($"Queried Entities:  {sqec.QueryEntityCount}");
+
                         var editor = GetEditorInstance(name, item.Type);
                         editor?.Draw(item.System);
                     }

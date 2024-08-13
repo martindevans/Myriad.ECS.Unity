@@ -64,6 +64,7 @@
     <Compile Include="Packages\me.martindevans.myriad-unity-integration\Runtime\GameTime.cs" />
     <Compile Include="Packages\me.martindevans.myriad-unity-integration\Runtime\MyriadEntity.cs" />
     <Compile Include="Packages\me.martindevans.myriad-unity-integration\Runtime\MyriadEntityBindingSystem.cs" />
+    <Compile Include="Packages\me.martindevans.myriad-unity-integration\Runtime\ISystemQueryEntityCount.cs" />
     <Compile Include="Packages\me.martindevans.myriad-unity-integration\Runtime\BaseSimulationHost.cs" />
     <Compile Include="Packages\me.martindevans.myriad-unity-integration\Runtime\GameTimeWorldHost.cs" />
     <Compile Include="Packages\me.martindevans.myriad-unity-integration\Runtime\IBehaviourComponent.cs" />

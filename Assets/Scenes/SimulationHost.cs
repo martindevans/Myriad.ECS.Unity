@@ -184,7 +184,7 @@ public class WasteTimeSystem
 }
 
 public class EmptySystem
-    : BaseSystem<GameTime>, ISystemDeclare<GameTime>
+    : BaseSystem<GameTime>, ISystemDeclare<GameTime>, ISystemQueryEntityCount
 {
     public override void Update(GameTime data)
     {
@@ -194,4 +194,6 @@ public class EmptySystem
     {
         declaration.Read<DemoComponent>();
     }
+
+    public int QueryEntityCount => 3;
 }
