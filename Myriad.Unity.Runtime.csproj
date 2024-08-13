@@ -60,9 +60,12 @@
     <Analyzer Include="D:\Unity\2022.3.27f1\Editor\Data\Tools\Unity.SourceGenerators\Unity.Properties.SourceGenerator.dll" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Packages\me.martindevans.myriad-unity-integration\Runtime\WorldHost.cs" />
+    <Compile Include="Packages\me.martindevans.myriad-unity-integration\Runtime\GameTime.cs" />
     <Compile Include="Packages\me.martindevans.myriad-unity-integration\Runtime\MyriadEntity.cs" />
     <Compile Include="Packages\me.martindevans.myriad-unity-integration\Runtime\MyriadEntityBindingSystem.cs" />
     <Compile Include="Packages\me.martindevans.myriad-unity-integration\Runtime\BaseSimulationHost.cs" />
+    <Compile Include="Packages\me.martindevans.myriad-unity-integration\Runtime\GameTimeWorldHost.cs" />
     <Compile Include="Packages\me.martindevans.myriad-unity-integration\Runtime\IBehaviourComponent.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -418,7 +421,7 @@
       <Private>False</Private>
     </Reference>
     <Reference Include="Myriad.ECS">
-      <HintPath>Assets\Packages\Myriad.ECS.21.2.0\lib\netstandard2.1\Myriad.ECS.dll</HintPath>
+      <HintPath>Assets\Packages\Myriad.ECS.21.3.1\lib\netstandard2.1\Myriad.ECS.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="NuGetForUnity.PluginAPI">

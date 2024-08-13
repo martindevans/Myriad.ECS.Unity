@@ -11,11 +11,8 @@ using UnityEngine;
 using Random = System.Random;
 
 public class SimulationHost
-    : BaseSimulationHost<int>
+    : GameTimeWorldHost
 {
-    [NonSerialized] private ISystemGroup<int> _systems;
-    public override ISystemGroup<int> Systems => _systems;
-
     [NonSerialized] private World _world;
     public override World World => _world;
 
@@ -54,26 +51,26 @@ public class SimulationHost
                 cmd.Delete(e);
         cmd.Playback().Dispose();
 
-        _systems = new SystemGroup<int>(
+        var systems = new SystemGroup<GameTime>(
             "main",
             new IncrementTheNumberSystem(World),
-            new MyriadEntityBindingSystem<int>(World),
+            new MyriadEntityBindingSystem<GameTime>(World),
             new WasteTimeSystem(),
-            new SystemGroup<int>(
+            new SystemGroup<GameTime>(
                 "sub group",
                 new WasteTimeSystem(),
                 new WasteTimeSystem(),
                 new GenericOuterSystem<float>(World),
-                new MoreOuterClass.OuterClass<byte>.AlmostOuterClass.GenericOuterInnerSystem<int>(World)
+                new MoreOuterClass.OuterClass<byte>.AlmostOuterClass.GenericOuterInnerSystem<GameTime>(World)
             ),
-            new OrderedParallelSystemGroup<int>(
+            new OrderedParallelSystemGroup<GameTime>(
                 "parallel group",
                 new WasteTimeSystem(),
                 new EmptySystem(),
                 new EmptySystem(),
                 new EmptySystem()
             ),
-            new PhasedParallelSystemGroup<int>(
+            new PhasedParallelSystemGroup<GameTime>(
                 "parallel group",
                 new WasteTimeSystem(),
                 new EmptySystem(),
@@ -81,19 +78,13 @@ public class SimulationHost
                 new EmptySystem()
             )
         );
-        _systems.Init();
-    }
-
-    public void Update()
-    {
-        Systems.BeforeUpdate(0);
-        Systems.Update(1);
-        Systems.AfterUpdate(0);
+        systems.Init();
+        Add(systems);
     }
 }
 
 public class IncrementTheNumberSystem
-    : BaseSystem<int>
+    : BaseSystem<GameTime>
 {
     private readonly World _world;
 
@@ -102,7 +93,7 @@ public class IncrementTheNumberSystem
         _world = world;
     }
 
-    public override void Update(int data)
+    public override void Update(GameTime data)
     {
         _world.ExecuteParallel<Inc, DemoComponent>(new Inc());
     }
@@ -118,7 +109,7 @@ public class IncrementTheNumberSystem
 }
 
 public class GenericOuterSystem<T>
-    : BaseSystem<int>, ISystemDeclare<int>
+    : BaseSystem<GameTime>, ISystemDeclare<GameTime>
 {
     private readonly World _world;
 
@@ -127,10 +118,10 @@ public class GenericOuterSystem<T>
         _world = world;
     }
 
-    public override void Update(int data)
+    public override void Update(GameTime data)
     {
         foreach (var (_, demo) in _world.Query<OuterGenericClass<T>.InnerDemoComponent>())
-            demo.Ref.Value = (T)(object)(data / 2f);
+            demo.Ref.Value = (T)(object)((int)data.Frame / 2f);
     }
 
     public void Declare(ref SystemDeclaration declaration)
@@ -146,7 +137,7 @@ public class MoreOuterClass
         public class AlmostOuterClass
         {
             public class GenericOuterInnerSystem<U>
-                : BaseSystem<int>, ISystemDeclare<int>
+                : BaseSystem<GameTime>, ISystemDeclare<GameTime>
             {
                 private readonly World _world;
 
@@ -155,12 +146,12 @@ public class MoreOuterClass
                     _world = world;
                 }
 
-                public override void Update(int data)
+                public override void Update(GameTime data)
                 {
                     foreach (var (_, demo) in _world.Query<OuterGenericClass<T>.InnerGenericDemoComponent<U>>())
                     {
-                        demo.Ref.ValueT = (T)(object)(byte)(data / 2f);
-                        demo.Ref.ValueU = (U)(object)(int)(data / 3f);
+                        demo.Ref.ValueT = (T)(object)(byte)((int)data.Frame / 2f);
+                        demo.Ref.ValueU = (U)(object)(int)((int)data.Frame / 3f);
                     }
                 }
 
@@ -174,12 +165,12 @@ public class MoreOuterClass
 }
 
 public class WasteTimeSystem
-    : BaseSystem<int>, ISystemDeclare<int>
+    : BaseSystem<GameTime>, ISystemDeclare<GameTime>
 {
     private readonly Random _random = new();
     private int _milliseconds;
 
-    public override void Update(int data)
+    public override void Update(GameTime data)
     {
         if (_random.NextDouble() < 1 / 60f)
             _milliseconds = _random.Next(0, 5);
@@ -193,9 +184,9 @@ public class WasteTimeSystem
 }
 
 public class EmptySystem
-    : BaseSystem<int>, ISystemDeclare<int>
+    : BaseSystem<GameTime>, ISystemDeclare<GameTime>
 {
-    public override void Update(int data)
+    public override void Update(GameTime data)
     {
     }
 
