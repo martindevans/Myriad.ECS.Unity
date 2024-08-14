@@ -19,6 +19,8 @@ namespace Packages.me.martindevans.myriad_unity_integration.Runtime
             }
         }
 
+        public double TimeSpeed = 1.0;
+
         protected virtual WorldBuilder GetBuilder()
         {
             return new WorldBuilder();
@@ -26,8 +28,9 @@ namespace Packages.me.martindevans.myriad_unity_integration.Runtime
 
         protected override GameTime GetData()
         {
-            _time.Time = Time.timeAsDouble;
-            _time.DeltaTime = Time.deltaTime;
+            _time.TimeSpeed = TimeSpeed;
+            _time.Time += Time.deltaTime * TimeSpeed;
+            _time.DeltaTime = Time.deltaTime * TimeSpeed;
             _time.Frame++;
 
             return _time;
