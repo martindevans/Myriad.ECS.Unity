@@ -1,5 +1,6 @@
 using System.Linq;
 using Myriad.ECS.Systems;
+using Myriad.ECS.Worlds;
 using UnityEngine;
 
 namespace Packages.me.martindevans.myriad_unity_integration.Runtime
@@ -12,34 +13,53 @@ namespace Packages.me.martindevans.myriad_unity_integration.Runtime
         : MonoBehaviour
     {
         private WorldHost<TData> _world;
-        private ISystemGroup<TData> _group;
+        public ISystemGroup<TData> Group { get; private set; }
 
-        protected abstract ISystemGroup<TData> Group { get; }
+        protected abstract ISystemGroup<TData> CreateGroup(World world);
 
-        private void OnEnable()
+        protected virtual void OnEnable()
         {
-            var worlds = FindObjectsOfType<WorldHost<TData>>(true);
-            _world = worlds.Single(a => a.gameObject.layer == gameObject.layer);
+            if (_world == null)
+            {
+                // Try to find world host in neaby gameobjects
+                var found = TryGetComponent<WorldHost<TData>>(out var world);
+                if (!found)
+                    world = GetComponentInParent<WorldHost<TData>>();
 
-            _group = Group;
-            _world.Add(_group);
+                // Ok just search the whole damn scene
+                if (!found)
+                {
+                    var worlds = FindObjectsOfType<WorldHost<TData>>(true);
+                    world = worlds.Single(a => a.gameObject.layer == gameObject.layer);
+                }
+
+                _world = world;
+            }
+
+            if (Group == null)
+            {
+                Group = CreateGroup(_world.World);
+                Group.Init();
+            }
+
+            _world.Add(Group);
         }
 
-        private void OnDisable()
+        protected virtual void OnDisable()
         {
-            if (_group != null && !ReferenceEquals(_world, null))
-                _world.Remove(_group);
-
-            _group = null;
-            _world = null;
+            if (Group != null && !ReferenceEquals(_world, null))
+                _world.Remove(Group);
         }
 
-        private void OnDestroy()
+        protected virtual void OnDestroy()
         {
-            if (_group != null && !ReferenceEquals(_world, null))
-                _world.Remove(_group);
+            if (Group != null && !ReferenceEquals(_world, null))
+            {
+                _world.Remove(Group);
+                Group.Dispose();
+            }
 
-            _group = null;
+            Group = null;
             _world = null;
         }
     }

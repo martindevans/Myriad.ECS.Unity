@@ -1,7 +1,7 @@
 using System;
 using Myriad.ECS.Systems;
 
-namespace Packages.me.martindevans.myriad_unity_integration.Editor.Systems
+namespace Packages.me.martindevans.myriad_unity_integration.Editor.World
 {
     [AttributeUsage(AttributeTargets.Class)]
     public class MyriadSystemEditorAttribute

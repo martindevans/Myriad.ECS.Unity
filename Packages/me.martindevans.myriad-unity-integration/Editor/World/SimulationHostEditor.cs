@@ -2,7 +2,6 @@ using Packages.me.martindevans.myriad_unity_integration.Runtime;
 using Placeholder.Editor.UI.Editor;
 using Placeholder.Editor.UI.Editor.Components.Section;
 using Placeholder.Editor.UI.Editor.Components.Sections;
-using UnityEngine;
 
 namespace Packages.me.martindevans.myriad_unity_integration.Editor.World
 {

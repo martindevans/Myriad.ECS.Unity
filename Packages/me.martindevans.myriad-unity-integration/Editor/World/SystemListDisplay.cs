@@ -1,12 +1,10 @@
 ﻿using JetBrains.Annotations;
 using Myriad.ECS.Systems;
-using Packages.me.martindevans.myriad_unity_integration.Editor.Systems;
 using Packages.me.martindevans.myriad_unity_integration.Runtime;
 using Placeholder.Editor.UI.Editor.Style;
 using System.Collections.Generic;
 using System;
 using System.Linq;
-using System.Reflection;
 using Packages.me.martindevans.myriad_unity_integration.Editor.Extensions;
 using Placeholder.Editor.UI.Editor;
 using Placeholder.Editor.UI.Editor.Components;
@@ -28,25 +26,16 @@ namespace Packages.me.martindevans.myriad_unity_integration.Editor.World
         private const float smoothing = 0.05f;
         private readonly Dictionary<string, float> _smoothedProgressIndicator = new();
 
-        private IReadOnlyDictionary<Type, Type> _editorTypes = new Dictionary<Type, Type>();
         private readonly Dictionary<(string name, Type type), IMyriadSystemEditor> _editorInstances = new();
 
         public void OnEnable(SerializedObject target)
         {
-            _editorTypes = (from assembly in AppDomain.CurrentDomain.GetAssemblies()
-                            from type in assembly.GetTypes()
-                            where typeof(IMyriadSystemEditor).IsAssignableFrom(type)
-                            let editor = type
-                            let attr = editor.GetCustomAttribute<MyriadSystemEditorAttribute>()
-                            where attr != null
-                            let tgt = attr.Type
-                            select (editor, tgt)).ToDictionary(x => x.tgt, x => x.editor);
-            
             _host = (TSim)target.targetObject;
         }
 
         public void OnDisable()
         {
+            _host = null;
             _editorInstances.Clear();
             _smoothedProgressIndicator.Clear();
             _expandedGroups.Clear();
@@ -190,7 +179,7 @@ namespace Packages.me.martindevans.myriad_unity_integration.Editor.World
             if (_editorInstances.TryGetValue((name, type), out var editor))
                 return editor;
 
-            if (!_editorTypes.TryGetValue(type, out var editorType))
+            if (!SystemEditorHelper.TryGet(type, out var editorType))
                 return null;
 
             editor = (IMyriadSystemEditor)Activator.CreateInstance(editorType);
