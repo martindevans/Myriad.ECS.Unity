@@ -6,7 +6,13 @@ Integration for [Myriad ECS](https://github.com/martindevans/Myriad.ECS) into Un
 
 Install in Unity package manager, git url: `git@github.com:martindevans/Myriad.ECS.Unity.git?path=/Packages/me.martindevans.myriad-unity-integration`
 
-## Usage
+## Scene Driven Usage
+
+1. Create a `WorldHost<TData>` in the scene (most likely a `GameTimeWorldHost`)
+2. Create a new `MonoBehaviour`, extending `WorldSystemGroup<TData>`
+3. When the system group is enabled/disable in the scene, it will be added/remove to the Myriad system list
+
+## Advanced Usage
 
 1. Create a new MonoBehaviour, extending `BaseSimulationHost`. This runs your Myriad simulation.
 2. Add `MyriadEntityBindingSystem<TData>` somewhere into your system schedule.

@@ -64,7 +64,9 @@
     <Compile Include="Packages\me.martindevans.myriad-unity-integration\Editor\World\SystemListDisplay.cs" />
     <Compile Include="Packages\me.martindevans.myriad-unity-integration\Editor\World\BaseWorldSystemGroupEditor.cs" />
     <Compile Include="Packages\me.martindevans.myriad-unity-integration\Editor\World\ArchetypeDrawer.cs" />
+    <Compile Include="Packages\me.martindevans.myriad-unity-integration\Editor\SystemGroupDrawer.cs" />
     <Compile Include="Packages\me.martindevans.myriad-unity-integration\Editor\Extensions\TypeExtensions.cs" />
+    <Compile Include="Packages\me.martindevans.myriad-unity-integration\Editor\World\GameTimeWorldSystemGroupEditor.cs" />
     <Compile Include="Packages\me.martindevans.myriad-unity-integration\Editor\World\SimulationHostEditor.cs" />
     <Compile Include="Packages\me.martindevans.myriad-unity-integration\Editor\Entities\MyriadEntityEditor.cs" />
     <Compile Include="Packages\me.martindevans.myriad-unity-integration\Editor\UIComponents\FieldValueLabel.cs" />
