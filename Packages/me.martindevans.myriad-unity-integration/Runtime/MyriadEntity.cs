@@ -1,10 +1,10 @@
+#nullable enable
+
 using JetBrains.Annotations;
 using Myriad.ECS;
 using Myriad.ECS.IDs;
 using Myriad.ECS.Worlds;
 using UnityEngine;
-
-#nullable enable
 
 namespace Packages.me.martindevans.myriad_unity_integration.Runtime
 {
