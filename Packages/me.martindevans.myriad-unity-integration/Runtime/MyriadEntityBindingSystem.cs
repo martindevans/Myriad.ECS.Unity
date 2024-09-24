@@ -74,7 +74,7 @@ namespace Packages.me.martindevans.myriad_unity_integration.Runtime
         }
 
         private readonly struct InitBinding
-            : IQuery1<MyriadEntity>
+            : IQuery<MyriadEntity>
         {
             private readonly World _world;
             private readonly CommandBuffer _cmd;
@@ -101,7 +101,7 @@ namespace Packages.me.martindevans.myriad_unity_integration.Runtime
         }
 
         private readonly struct DestroyBinding
-            : IQuery1<MyriadEntity>
+            : IQuery<MyriadEntity>
         {
             private readonly CommandBuffer _cmd;
 

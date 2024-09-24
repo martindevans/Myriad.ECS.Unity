@@ -46,7 +46,7 @@ public class SimulationHost
         cmd.Playback().Dispose();
 
         // Delete some entities
-        foreach (var (e, p) in World.Query<PhantomComponent>())
+        foreach (var (e, _) in World.Query<PhantomComponent>())
             if (rng.NextDouble() < 0.1f)
                 cmd.Delete(e);
         cmd.Playback().Dispose();
@@ -99,7 +99,7 @@ public class IncrementTheNumberSystem
     }
 
     private readonly struct Inc
-        : IQuery1<DemoComponent>
+        : IQuery<DemoComponent>
     {
         public void Execute(Entity e, ref DemoComponent t0)
         {
