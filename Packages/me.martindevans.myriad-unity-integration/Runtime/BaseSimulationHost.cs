@@ -17,10 +17,18 @@ namespace Packages.me.martindevans.myriad_unity_integration.Runtime
         protected virtual bool DisposeWorld => true;
 
         /// <summary>
+        /// Indicates if the systems should be disposed when OnDestroy happens
+        /// </summary>
+        protected virtual bool DisposeSystems => true;
+
+        /// <summary>
         /// Disposes the world
         /// </summary>
         public virtual void OnDestroy()
         {
+            if (DisposeSystems)
+                Systems.Dispose();
+
             if (DisposeWorld)
                 World.Dispose();
         }

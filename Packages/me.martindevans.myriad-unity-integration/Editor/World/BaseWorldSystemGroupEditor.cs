@@ -40,7 +40,7 @@ namespace Packages.me.martindevans.myriad_unity_integration.Editor.World
 
         public void Draw()
         {
-            var g = _provider?.Group;
+            var g = _provider == null ? null : _provider.Group;
             if (g != null)
                 _groupDrawer.DrawSystemGroup(g, g.TotalExecutionTime, TimeSpan.FromMilliseconds(12));
         }
