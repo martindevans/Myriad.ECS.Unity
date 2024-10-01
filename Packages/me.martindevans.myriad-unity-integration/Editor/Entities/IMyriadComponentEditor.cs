@@ -23,6 +23,8 @@ namespace Packages.me.martindevans.myriad_unity_integration.Editor.Entities
 
     public interface IMyriadComponentEditor
     {
+        bool IsEmpty { get; }
+
         void Draw(MyriadEntity entity)
         {
             Draw(entity.World, entity.Entity);
@@ -46,6 +48,8 @@ namespace Packages.me.martindevans.myriad_unity_integration.Editor.Entities
     {
         private readonly FieldInfo[] _fields;
         private readonly PropertyInfo[] _properties;
+
+        public bool IsEmpty => _fields.Length == 0 && _properties.Length == 0;
 
         public DefaultComponentEditor()
         {

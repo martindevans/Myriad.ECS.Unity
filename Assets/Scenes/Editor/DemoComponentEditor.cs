@@ -9,6 +9,8 @@ namespace Assets.Scenes.Editor
     public class DemoComponentEditor
         : IMyriadComponentEditor
     {
+        public bool IsEmpty => false;
+
         public void Draw(World world, Entity entity)
         {
             ref var demo = ref entity.GetComponentRef<DemoComponent>(world);

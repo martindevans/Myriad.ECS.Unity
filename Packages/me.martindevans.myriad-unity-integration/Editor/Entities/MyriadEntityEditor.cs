@@ -125,7 +125,7 @@ namespace Packages.me.martindevans.myriad_unity_integration.Editor.Entities
 
             var instance = GetEditorInstance(component);
 
-            if (instance == null)
+            if (instance == null || instance.IsEmpty)
             {
                 Header.Simple(new GUIContent(name));
             }
