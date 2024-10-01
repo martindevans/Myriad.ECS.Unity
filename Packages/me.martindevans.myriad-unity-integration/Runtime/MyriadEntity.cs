@@ -63,7 +63,7 @@ namespace Packages.me.martindevans.myriad_unity_integration.Runtime
         public bool HasMyriadComponent<T>()
             where T : IComponent
         {
-            return Entity.HasComponent<T>(World!);
+            return Entity.HasComponent<T>();
         }
 
         /// <summary>
@@ -74,12 +74,12 @@ namespace Packages.me.martindevans.myriad_unity_integration.Runtime
         public ref T GetMyriadComponent<T>() 
             where T : IComponent
         {
-            return ref Entity.GetComponentRef<T>(World!);
+            return ref Entity.GetComponentRef<T>();
         }
 
         public object? GetMyriadComponent(ComponentID component)
         {
-            return Entity.GetBoxedComponent(World!, component);
+            return Entity.GetBoxedComponent(component);
         }
     }
 }

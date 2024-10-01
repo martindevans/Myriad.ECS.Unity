@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using System.Xml.Linq;
 using JetBrains.Annotations;
 using Myriad.ECS;
 using Myriad.ECS.Components;
@@ -33,8 +32,8 @@ namespace Packages.me.martindevans.myriad_unity_integration.Editor.Entities
                     new PlaymodeSwitchSection(
                         new ComponentList(
                             new DisplayId(),
-                            new FieldValueLabel<MyriadEntity>("Exists", m => m.World == null ? "null_world" : m.Entity.Exists(m.World).ToString()),
-                            new FieldValueLabel<MyriadEntity>("Phantom", m => m.World == null ? "null_world" : m.Entity.IsPhantom(m.World).ToString())
+                            new FieldValueLabel<MyriadEntity>("Exists", m => m.World == null ? "null_world" : m.Entity.Exists().ToString()),
+                            new FieldValueLabel<MyriadEntity>("Phantom", m => m.World == null ? "null_world" : m.Entity.IsPhantom().ToString())
                         ),
                         new ComponentList(
                             new InfoBoxComponent("When this behaviour is attached to a Myriad Entity it can be used as a 'Binding' between the scene and the ECS", MessageType.Info)
@@ -142,9 +141,9 @@ namespace Packages.me.martindevans.myriad_unity_integration.Editor.Entities
 
         public void Draw()
         {
-            if (_world != null && Entity.Exists(_world))
+            if (_world != null && Entity.Exists())
             {
-                var components = Entity.GetComponents(_world);
+                var components = Entity.GetComponents();
                 foreach (var component in components)
                 {
                     DrawComponent(component);

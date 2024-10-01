@@ -11,7 +11,7 @@ namespace Assets.Scenes.Editor
     {
         public void Draw(World world, Entity entity)
         {
-            ref var demo = ref entity.GetComponentRef<DemoComponent>(world);
+            ref var demo = ref entity.GetComponentRef<DemoComponent>();
             demo.Value = EditorGUILayout.DelayedIntField("Value", demo.Value);
         }
     }

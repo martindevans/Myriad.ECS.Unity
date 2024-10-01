@@ -82,7 +82,7 @@ namespace Packages.me.martindevans.myriad_unity_integration.Editor.Entities
 
         public void Draw(Myriad.ECS.Worlds.World world, Entity entity)
         {
-            var c = entity.GetComponentRef<TComponent>(world);
+            var c = entity.GetComponentRef<TComponent>();
             var cBox = (object)c;
 
             foreach (var fieldInfo in _fields)
