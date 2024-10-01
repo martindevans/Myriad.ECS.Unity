@@ -3,6 +3,7 @@ using System.Threading;
 using Assets.Scenes;
 using Myriad.ECS;
 using Myriad.ECS.Command;
+using Myriad.ECS.Components;
 using Myriad.ECS.Queries;
 using Myriad.ECS.Systems;
 using Myriad.ECS.Worlds;
@@ -32,7 +33,8 @@ public class SimulationHost
                 .Set(new DemoComponent { Value = 1 })
                 .Set(new GenericDemoComponent<int> { Value = 2 })
                 .Set(new OuterGenericClass<float>.InnerDemoComponent { Value = 3 })
-                .Set(new OuterGenericClass<byte>.InnerGenericDemoComponent<int> { ValueT = 0, ValueU = 1 });
+                .Set(new OuterGenericClass<byte>.InnerGenericDemoComponent<int> { ValueT = 0, ValueU = 1 })
+                .Set(new DebugDisplayName($"Name:{i}"));
 
             if (rng.NextDouble() < 0.5f)
                 buffered.Set(new PhantomComponent());

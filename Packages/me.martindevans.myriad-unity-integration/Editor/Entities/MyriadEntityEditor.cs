@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using System.Xml.Linq;
 using JetBrains.Annotations;
 using Myriad.ECS;
+using Myriad.ECS.Components;
 using Myriad.ECS.IDs;
 using Packages.me.martindevans.myriad_unity_integration.Editor.Extensions;
 using Packages.me.martindevans.myriad_unity_integration.Editor.UIComponents;
@@ -30,7 +32,7 @@ namespace Packages.me.martindevans.myriad_unity_integration.Editor.Entities
                     new GUIContent("Myriad Entity"),
                     new PlaymodeSwitchSection(
                         new ComponentList(
-                            new FieldValueLabel<MyriadEntity>("ID", m => m.Entity.UniqueID().ToString()),
+                            new DisplayId(),
                             new FieldValueLabel<MyriadEntity>("Exists", m => m.World == null ? "null_world" : m.Entity.Exists(m.World).ToString()),
                             new FieldValueLabel<MyriadEntity>("Phantom", m => m.World == null ? "null_world" : m.Entity.IsPhantom(m.World).ToString())
                         ),
@@ -44,6 +46,41 @@ namespace Packages.me.martindevans.myriad_unity_integration.Editor.Entities
             )
         {
         }
+    }
+
+    public class DisplayId
+        : IComponent
+    {
+        private MyriadEntity _entity;
+
+        public void OnEnable(SerializedObject target)
+        {
+            _entity = (MyriadEntity)target.targetObject;
+        }
+
+        public void OnDisable()
+        {
+        }
+
+        public void Draw()
+        {
+            var id = _entity.Entity.UniqueID().ToString();
+
+            var display = id;
+            if (_entity.HasMyriadComponent<DebugDisplayName>())
+                display = $"{id} ({_entity.GetMyriadComponent<DebugDisplayName>().Name})";
+
+            EditorGUILayout.LabelField("ID", display);
+        }
+
+        public IEnumerable<SerializedProperty> GetChildProperties()
+        {
+            yield break;
+        }
+
+        public bool IsVisible => true;
+        public bool RequiresConstantRepaint => true;
+        public BasePlaceholderEditor Editor { get; set; }
     }
 
     public class ComponentListDisplay
@@ -124,8 +161,9 @@ namespace Packages.me.martindevans.myriad_unity_integration.Editor.Entities
                 name += " (DISPOSE)";
 
             var instance = GetEditorInstance(component);
+            var emptyable = instance as IMyriadEmptyComponentEditor;
 
-            if (instance == null || instance.IsEmpty)
+            if (instance == null || emptyable is { IsEmpty: true })
             {
                 Header.Simple(new GUIContent(name));
             }
