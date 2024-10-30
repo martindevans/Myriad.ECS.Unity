@@ -62,9 +62,11 @@
   <ItemGroup>
     <Compile Include="Packages\me.martindevans.myriad-unity-integration\Runtime\WorldHost.cs" />
     <Compile Include="Packages\me.martindevans.myriad-unity-integration\Runtime\GameTime.cs" />
+    <Compile Include="Packages\me.martindevans.myriad-unity-integration\Runtime\Extensions\GameObjectExtensions.cs" />
     <Compile Include="Packages\me.martindevans.myriad-unity-integration\Runtime\MyriadEntity.cs" />
     <Compile Include="Packages\me.martindevans.myriad-unity-integration\Runtime\MyriadEntityBindingSystem.cs" />
     <Compile Include="Packages\me.martindevans.myriad-unity-integration\Runtime\ISystemQueryEntityCount.cs" />
+    <Compile Include="Packages\me.martindevans.myriad-unity-integration\Runtime\Extensions\CommandBufferExtensions.cs" />
     <Compile Include="Packages\me.martindevans.myriad-unity-integration\Runtime\BaseSimulationHost.cs" />
     <Compile Include="Packages\me.martindevans.myriad-unity-integration\Runtime\WorldSystemGroup.cs" />
     <Compile Include="Packages\me.martindevans.myriad-unity-integration\Runtime\GameTimeWorldHost.cs" />
@@ -423,7 +425,7 @@
       <Private>False</Private>
     </Reference>
     <Reference Include="Myriad.ECS">
-      <HintPath>Assets\Packages\Myriad.ECS.25.0.0\lib\netstandard2.1\Myriad.ECS.dll</HintPath>
+      <HintPath>Assets\Packages\Myriad.ECS.27.0.0\lib\netstandard2.1\Myriad.ECS.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="NuGetForUnity.PluginAPI">

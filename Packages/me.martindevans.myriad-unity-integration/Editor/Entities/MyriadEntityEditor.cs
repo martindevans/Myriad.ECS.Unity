@@ -143,7 +143,7 @@ namespace Packages.me.martindevans.myriad_unity_integration.Editor.Entities
         {
             if (_world != null && Entity.Exists())
             {
-                var components = Entity.GetComponents();
+                var components = Entity.ComponentTypes;
                 foreach (var component in components)
                 {
                     DrawComponent(component);

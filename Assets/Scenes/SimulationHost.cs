@@ -8,6 +8,7 @@ using Myriad.ECS.Queries;
 using Myriad.ECS.Systems;
 using Myriad.ECS.Worlds;
 using Packages.me.martindevans.myriad_unity_integration.Runtime;
+using Packages.me.martindevans.myriad_unity_integration.Runtime.Extensions;
 using UnityEngine;
 using Random = System.Random;
 
@@ -33,17 +34,16 @@ public class SimulationHost
                 .Set(new DemoComponent { Value = 1 })
                 .Set(new GenericDemoComponent<int> { Value = 2 })
                 .Set(new OuterGenericClass<float>.InnerDemoComponent { Value = 3 })
-                .Set(new OuterGenericClass<byte>.InnerGenericDemoComponent<int> { ValueT = 0, ValueU = 1 })
-                .Set(new DebugDisplayName($"Name:{i}"));
+                .Set(new OuterGenericClass<byte>.InnerGenericDemoComponent<int> { ValueT = 0, ValueU = 1 });
 
             if (rng.NextDouble() < 0.5f)
                 buffered.Set(new PhantomComponent());
             if (rng.NextDouble() < 0.5f)
                 buffered.Set(new DisposableComponent());
 
-            // Create a GameObject to represent this entity, add MyriadEntity to bind it automatically
+            // Create a GameObject to represent this entity
             var go = new GameObject($"Entity binding {i}");
-            buffered.Set(go.AddComponent<MyriadEntity>());
+            buffered.SetupGameObjectBinding(go);
         }
         cmd.Playback().Dispose();
 
