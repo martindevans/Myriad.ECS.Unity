@@ -11,17 +11,18 @@ namespace Packages.me.martindevans.myriad_unity_integration.Runtime
 
         protected abstract TData GetData();
 
+        private TData _data;
+
         private void Update()
         {
-            var data = GetData();
-            _root.BeforeUpdate(data);
-            _root.Update(data);
+            _data = GetData();
+            _root.BeforeUpdate(_data);
+            _root.Update(_data);
         }
 
         private void LateUpdate()
         {
-            var data = GetData();
-            _root.AfterUpdate(data);
+            _root.AfterUpdate(_data);
         }
 
         public void Add(ISystem<TData> system)
