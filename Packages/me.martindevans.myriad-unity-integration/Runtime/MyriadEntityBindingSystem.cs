@@ -15,7 +15,7 @@ namespace Packages.me.martindevans.myriad_unity_integration.Runtime
     /// </summary>
     /// <typeparam name="TData"></typeparam>
     public sealed class MyriadEntityBindingSystem<TData>
-        : BaseSystem<TData>, ISystemBefore<TData>, ISystemAfter<TData>
+        : ISystemBefore<TData>, ISystemAfter<TData>
     {
         private readonly World _world;
 
@@ -57,7 +57,7 @@ namespace Packages.me.martindevans.myriad_unity_integration.Runtime
                 _cmd.Playback().Dispose();
         }
 
-        public override void Update(TData data)
+        public void Update(TData data)
         {
         }
 

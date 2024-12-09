@@ -3,7 +3,6 @@ using System.Threading;
 using Assets.Scenes;
 using Myriad.ECS;
 using Myriad.ECS.Command;
-using Myriad.ECS.Components;
 using Myriad.ECS.Queries;
 using Myriad.ECS.Systems;
 using Myriad.ECS.Worlds;
@@ -86,7 +85,7 @@ public class SimulationHost
 }
 
 public class IncrementTheNumberSystem
-    : BaseSystem<GameTime>
+    : ISystem<GameTime>
 {
     private readonly World _world;
 
@@ -95,7 +94,7 @@ public class IncrementTheNumberSystem
         _world = world;
     }
 
-    public override void Update(GameTime data)
+    public void Update(GameTime data)
     {
         _world.ExecuteParallel<Inc, DemoComponent>(new Inc());
     }
@@ -111,7 +110,7 @@ public class IncrementTheNumberSystem
 }
 
 public class GenericOuterSystem<T>
-    : BaseSystem<GameTime>, ISystemDeclare<GameTime>
+    : ISystemDeclare<GameTime>
 {
     private readonly World _world;
 
@@ -120,7 +119,7 @@ public class GenericOuterSystem<T>
         _world = world;
     }
 
-    public override void Update(GameTime data)
+    public void Update(GameTime data)
     {
         foreach (var (_, demo) in _world.Query<OuterGenericClass<T>.InnerDemoComponent>())
             demo.Ref.Value = (T)(object)((int)data.Frame / 2f);
@@ -139,7 +138,7 @@ public class MoreOuterClass
         public class AlmostOuterClass
         {
             public class GenericOuterInnerSystem<U>
-                : BaseSystem<GameTime>, ISystemDeclare<GameTime>
+                : ISystemDeclare<GameTime>
             {
                 private readonly World _world;
 
@@ -148,7 +147,7 @@ public class MoreOuterClass
                     _world = world;
                 }
 
-                public override void Update(GameTime data)
+                public void Update(GameTime data)
                 {
                     foreach (var (_, demo) in _world.Query<OuterGenericClass<T>.InnerGenericDemoComponent<U>>())
                     {
@@ -167,12 +166,12 @@ public class MoreOuterClass
 }
 
 public class WasteTimeSystem
-    : BaseSystem<GameTime>, ISystemDeclare<GameTime>
+    : ISystemDeclare<GameTime>
 {
     private readonly Random _random = new();
     private int _milliseconds;
 
-    public override void Update(GameTime data)
+    public void Update(GameTime data)
     {
         if (_random.NextDouble() < 1 / 60f)
             _milliseconds = _random.Next(0, 5);
@@ -186,9 +185,9 @@ public class WasteTimeSystem
 }
 
 public class EmptySystem
-    : BaseSystem<GameTime>, ISystemDeclare<GameTime>, ISystemQueryEntityCount
+    : ISystemDeclare<GameTime>, ISystemQueryEntityCount
 {
-    public override void Update(GameTime data)
+    public void Update(GameTime data)
     {
     }
 
