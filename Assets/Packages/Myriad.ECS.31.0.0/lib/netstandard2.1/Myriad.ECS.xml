@@ -118,11 +118,26 @@
              False negatives are <b>not</b> possible (i.e. If Intersects return false, then there <b>definitely</b> is no overlap).<br />
              </summary>
         </member>
+        <member name="M:Myriad.ECS.Collections.ComponentBloomFilter.MaybeIntersects(Myriad.ECS.Collections.ComponentBloomFilter@)">
+            <summary>
+            Check if this bloom filter <b>might</b> intersect with another.
+            <br /><br />
+            False positives are possible (i.e. If Intersects returns true, then there <b>might</b> be an overlap).<br />
+            False negatives are <b>not</b> possible (i.e. If Intersects return false, then there <b>definitely</b> is no overlap).<br />
+            </summary>
+            <param name="other"></param>
+            <returns></returns>
+        </member>
         <member name="T:Myriad.ECS.Collections.FrozenOrderedListSet`1">
             <summary>
             A frozen (i.e. completely immutable) set of objects.
             </summary>
             <typeparam name="TItem"></typeparam>
+        </member>
+        <member name="F:Myriad.ECS.Collections.FrozenOrderedListSet`1.Empty">
+            <summary>
+            An empty frozen set
+            </summary>
         </member>
         <member name="P:Myriad.ECS.Collections.FrozenOrderedListSet`1.Count">
             <summary>
@@ -259,6 +274,11 @@
         <member name="T:Myriad.ECS.Command.CommandBuffer.BufferedEntity">
             <summary>
             An entity that has been created in a command buffer, but not yet created. Can be used to add components.
+            </summary>
+        </member>
+        <member name="P:Myriad.ECS.Command.CommandBuffer.BufferedEntity.CommandBuffer">
+            <summary>
+            Get the <see cref="P:Myriad.ECS.Command.CommandBuffer.BufferedEntity.CommandBuffer"/> which this <see cref="T:Myriad.ECS.Command.CommandBuffer.BufferedEntity"/> is from.
             </summary>
         </member>
         <member name="M:Myriad.ECS.Command.CommandBuffer.BufferedEntity.Set``1(``0,Myriad.ECS.Command.CommandBuffer.DuplicateSet)">
@@ -449,7 +469,7 @@
             Collection of components of all different types, keyed by ComponentID, involves no boxing
             </summary>
         </member>
-        <member name="M:Myriad.ECS.Command.ComponentSetterCollection.Dispose(System.Collections.Generic.SortedList{Myriad.ECS.IDs.ComponentID,Myriad.ECS.Command.ComponentSetterCollection.SetterId},Myriad.ECS.Command.LazyCommandBuffer@)">
+        <member name="M:Myriad.ECS.Command.ComponentSetterCollection.Dispose(System.Collections.Generic.Dictionary{Myriad.ECS.IDs.ComponentID,Myriad.ECS.Command.ComponentSetterCollection.SetterId},Myriad.ECS.Command.LazyCommandBuffer@)">
             <summary>
             Dispose all disposable components specified by the given sorted list
             </summary>
@@ -622,6 +642,25 @@
             Dispose this component
             </summary>
             <param name="buffer">May be used to enqueue more work as a result of this disposal</param>
+        </member>
+        <member name="T:Myriad.ECS.Components.GenericDisposable`1">
+            <summary>
+            A basic container for disposable objects which will automatically be disposed when the entity is destroyed
+            </summary>
+        </member>
+        <member name="F:Myriad.ECS.Components.GenericDisposable`1.IDisposable">
+            <summary>
+            The object that will be disposed
+            </summary>
+        </member>
+        <member name="M:Myriad.ECS.Components.GenericDisposable`1.#ctor(`0)">
+            <summary>
+            Create a new <see cref="T:Myriad.ECS.Components.GenericDisposable`1"/> component
+            </summary>
+            <param name="disposable"></param>
+        </member>
+        <member name="M:Myriad.ECS.Components.GenericDisposable`1.Dispose(Myriad.ECS.Command.LazyCommandBuffer@)">
+            <inheritdoc />
         </member>
         <member name="T:Myriad.ECS.Components.Disposer`1">
             <summary>
@@ -1022,15 +1061,6 @@
             <param name="id"></param>
             <returns></returns>
         </member>
-        <member name="M:Myriad.ECS.Extensions.SortedListExtensions.Enumerable``2(System.Collections.Generic.SortedList{``0,``1})">
-            <summary>
-            Get an enumerable struct wrapper around a SortedList
-            </summary>
-            <typeparam name="TKey"></typeparam>
-            <typeparam name="TValue"></typeparam>
-            <param name="list"></param>
-            <returns></returns>
-        </member>
         <member name="T:Myriad.ECS.IComponent">
             <summary>
             Marker interface for components
@@ -1298,6 +1328,18 @@
             query object will automatically be created and written into this field.</param>
             <returns>The total number of entities processed</returns>
         </member>
+        <member name="M:Myriad.ECS.Worlds.World.ExecuteChunkParallel``2(``0,Myriad.ECS.Queries.QueryDescription)">
+            <summary>
+            Execute a query which executes on entire chunks. Executes work in parallel at the chunk
+            level.
+            </summary>
+            <typeparam name="TQ">The type of the query</typeparam>
+            <typeparam name="T0">Type of component 0 to retrieve</typeparam>
+            <param name="q">The TQ instance which will be executed for each chunk</param>
+            <param name="query">A query expressing which entities to execute this query over. If null a suitable
+            query object will automatically be created and written into this field.</param>
+            <returns>The total number of entities processed</returns>
+        </member>
         <member name="M:Myriad.ECS.Worlds.World.ExecuteChunk``3(Myriad.ECS.Queries.QueryDescription)">
             <summary>
             Execute a query which executes on entire chunks.
@@ -1359,6 +1401,19 @@
         <member name="M:Myriad.ECS.Worlds.World.ExecuteChunk``3(``0@,Myriad.ECS.Queries.QueryDescription@)">
             <summary>
             Execute a query which executes on entire chunks.
+            </summary>
+            <typeparam name="TQ">The type of the query</typeparam>
+            <typeparam name="T0">Type of component 0 to retrieve</typeparam>
+            <typeparam name="T1">Type of component 1 to retrieve</typeparam>
+            <param name="q">The TQ instance which will be executed for each chunk</param>
+            <param name="query">A query expressing which entities to execute this query over. If null a suitable
+            query object will automatically be created and written into this field.</param>
+            <returns>The total number of entities processed</returns>
+        </member>
+        <member name="M:Myriad.ECS.Worlds.World.ExecuteChunkParallel``3(``0,Myriad.ECS.Queries.QueryDescription)">
+            <summary>
+            Execute a query which executes on entire chunks. Executes work in parallel at the chunk
+            level.
             </summary>
             <typeparam name="TQ">The type of the query</typeparam>
             <typeparam name="T0">Type of component 0 to retrieve</typeparam>
@@ -1444,6 +1499,20 @@
             query object will automatically be created and written into this field.</param>
             <returns>The total number of entities processed</returns>
         </member>
+        <member name="M:Myriad.ECS.Worlds.World.ExecuteChunkParallel``4(``0,Myriad.ECS.Queries.QueryDescription)">
+            <summary>
+            Execute a query which executes on entire chunks. Executes work in parallel at the chunk
+            level.
+            </summary>
+            <typeparam name="TQ">The type of the query</typeparam>
+            <typeparam name="T0">Type of component 0 to retrieve</typeparam>
+            <typeparam name="T1">Type of component 1 to retrieve</typeparam>
+            <typeparam name="T2">Type of component 2 to retrieve</typeparam>
+            <param name="q">The TQ instance which will be executed for each chunk</param>
+            <param name="query">A query expressing which entities to execute this query over. If null a suitable
+            query object will automatically be created and written into this field.</param>
+            <returns>The total number of entities processed</returns>
+        </member>
         <member name="M:Myriad.ECS.Worlds.World.ExecuteChunk``5(Myriad.ECS.Queries.QueryDescription)">
             <summary>
             Execute a query which executes on entire chunks.
@@ -1515,6 +1584,21 @@
         <member name="M:Myriad.ECS.Worlds.World.ExecuteChunk``5(``0@,Myriad.ECS.Queries.QueryDescription@)">
             <summary>
             Execute a query which executes on entire chunks.
+            </summary>
+            <typeparam name="TQ">The type of the query</typeparam>
+            <typeparam name="T0">Type of component 0 to retrieve</typeparam>
+            <typeparam name="T1">Type of component 1 to retrieve</typeparam>
+            <typeparam name="T2">Type of component 2 to retrieve</typeparam>
+            <typeparam name="T3">Type of component 3 to retrieve</typeparam>
+            <param name="q">The TQ instance which will be executed for each chunk</param>
+            <param name="query">A query expressing which entities to execute this query over. If null a suitable
+            query object will automatically be created and written into this field.</param>
+            <returns>The total number of entities processed</returns>
+        </member>
+        <member name="M:Myriad.ECS.Worlds.World.ExecuteChunkParallel``5(``0,Myriad.ECS.Queries.QueryDescription)">
+            <summary>
+            Execute a query which executes on entire chunks. Executes work in parallel at the chunk
+            level.
             </summary>
             <typeparam name="TQ">The type of the query</typeparam>
             <typeparam name="T0">Type of component 0 to retrieve</typeparam>
@@ -1614,6 +1698,22 @@
             query object will automatically be created and written into this field.</param>
             <returns>The total number of entities processed</returns>
         </member>
+        <member name="M:Myriad.ECS.Worlds.World.ExecuteChunkParallel``6(``0,Myriad.ECS.Queries.QueryDescription)">
+            <summary>
+            Execute a query which executes on entire chunks. Executes work in parallel at the chunk
+            level.
+            </summary>
+            <typeparam name="TQ">The type of the query</typeparam>
+            <typeparam name="T0">Type of component 0 to retrieve</typeparam>
+            <typeparam name="T1">Type of component 1 to retrieve</typeparam>
+            <typeparam name="T2">Type of component 2 to retrieve</typeparam>
+            <typeparam name="T3">Type of component 3 to retrieve</typeparam>
+            <typeparam name="T4">Type of component 4 to retrieve</typeparam>
+            <param name="q">The TQ instance which will be executed for each chunk</param>
+            <param name="query">A query expressing which entities to execute this query over. If null a suitable
+            query object will automatically be created and written into this field.</param>
+            <returns>The total number of entities processed</returns>
+        </member>
         <member name="M:Myriad.ECS.Worlds.World.ExecuteChunk``7(Myriad.ECS.Queries.QueryDescription)">
             <summary>
             Execute a query which executes on entire chunks.
@@ -1695,6 +1795,23 @@
         <member name="M:Myriad.ECS.Worlds.World.ExecuteChunk``7(``0@,Myriad.ECS.Queries.QueryDescription@)">
             <summary>
             Execute a query which executes on entire chunks.
+            </summary>
+            <typeparam name="TQ">The type of the query</typeparam>
+            <typeparam name="T0">Type of component 0 to retrieve</typeparam>
+            <typeparam name="T1">Type of component 1 to retrieve</typeparam>
+            <typeparam name="T2">Type of component 2 to retrieve</typeparam>
+            <typeparam name="T3">Type of component 3 to retrieve</typeparam>
+            <typeparam name="T4">Type of component 4 to retrieve</typeparam>
+            <typeparam name="T5">Type of component 5 to retrieve</typeparam>
+            <param name="q">The TQ instance which will be executed for each chunk</param>
+            <param name="query">A query expressing which entities to execute this query over. If null a suitable
+            query object will automatically be created and written into this field.</param>
+            <returns>The total number of entities processed</returns>
+        </member>
+        <member name="M:Myriad.ECS.Worlds.World.ExecuteChunkParallel``7(``0,Myriad.ECS.Queries.QueryDescription)">
+            <summary>
+            Execute a query which executes on entire chunks. Executes work in parallel at the chunk
+            level.
             </summary>
             <typeparam name="TQ">The type of the query</typeparam>
             <typeparam name="T0">Type of component 0 to retrieve</typeparam>
@@ -1808,6 +1925,24 @@
             query object will automatically be created and written into this field.</param>
             <returns>The total number of entities processed</returns>
         </member>
+        <member name="M:Myriad.ECS.Worlds.World.ExecuteChunkParallel``8(``0,Myriad.ECS.Queries.QueryDescription)">
+            <summary>
+            Execute a query which executes on entire chunks. Executes work in parallel at the chunk
+            level.
+            </summary>
+            <typeparam name="TQ">The type of the query</typeparam>
+            <typeparam name="T0">Type of component 0 to retrieve</typeparam>
+            <typeparam name="T1">Type of component 1 to retrieve</typeparam>
+            <typeparam name="T2">Type of component 2 to retrieve</typeparam>
+            <typeparam name="T3">Type of component 3 to retrieve</typeparam>
+            <typeparam name="T4">Type of component 4 to retrieve</typeparam>
+            <typeparam name="T5">Type of component 5 to retrieve</typeparam>
+            <typeparam name="T6">Type of component 6 to retrieve</typeparam>
+            <param name="q">The TQ instance which will be executed for each chunk</param>
+            <param name="query">A query expressing which entities to execute this query over. If null a suitable
+            query object will automatically be created and written into this field.</param>
+            <returns>The total number of entities processed</returns>
+        </member>
         <member name="M:Myriad.ECS.Worlds.World.ExecuteChunk``9(Myriad.ECS.Queries.QueryDescription)">
             <summary>
             Execute a query which executes on entire chunks.
@@ -1899,6 +2034,25 @@
         <member name="M:Myriad.ECS.Worlds.World.ExecuteChunk``9(``0@,Myriad.ECS.Queries.QueryDescription@)">
             <summary>
             Execute a query which executes on entire chunks.
+            </summary>
+            <typeparam name="TQ">The type of the query</typeparam>
+            <typeparam name="T0">Type of component 0 to retrieve</typeparam>
+            <typeparam name="T1">Type of component 1 to retrieve</typeparam>
+            <typeparam name="T2">Type of component 2 to retrieve</typeparam>
+            <typeparam name="T3">Type of component 3 to retrieve</typeparam>
+            <typeparam name="T4">Type of component 4 to retrieve</typeparam>
+            <typeparam name="T5">Type of component 5 to retrieve</typeparam>
+            <typeparam name="T6">Type of component 6 to retrieve</typeparam>
+            <typeparam name="T7">Type of component 7 to retrieve</typeparam>
+            <param name="q">The TQ instance which will be executed for each chunk</param>
+            <param name="query">A query expressing which entities to execute this query over. If null a suitable
+            query object will automatically be created and written into this field.</param>
+            <returns>The total number of entities processed</returns>
+        </member>
+        <member name="M:Myriad.ECS.Worlds.World.ExecuteChunkParallel``9(``0,Myriad.ECS.Queries.QueryDescription)">
+            <summary>
+            Execute a query which executes on entire chunks. Executes work in parallel at the chunk
+            level.
             </summary>
             <typeparam name="TQ">The type of the query</typeparam>
             <typeparam name="T0">Type of component 0 to retrieve</typeparam>
@@ -2026,6 +2180,26 @@
             query object will automatically be created and written into this field.</param>
             <returns>The total number of entities processed</returns>
         </member>
+        <member name="M:Myriad.ECS.Worlds.World.ExecuteChunkParallel``10(``0,Myriad.ECS.Queries.QueryDescription)">
+            <summary>
+            Execute a query which executes on entire chunks. Executes work in parallel at the chunk
+            level.
+            </summary>
+            <typeparam name="TQ">The type of the query</typeparam>
+            <typeparam name="T0">Type of component 0 to retrieve</typeparam>
+            <typeparam name="T1">Type of component 1 to retrieve</typeparam>
+            <typeparam name="T2">Type of component 2 to retrieve</typeparam>
+            <typeparam name="T3">Type of component 3 to retrieve</typeparam>
+            <typeparam name="T4">Type of component 4 to retrieve</typeparam>
+            <typeparam name="T5">Type of component 5 to retrieve</typeparam>
+            <typeparam name="T6">Type of component 6 to retrieve</typeparam>
+            <typeparam name="T7">Type of component 7 to retrieve</typeparam>
+            <typeparam name="T8">Type of component 8 to retrieve</typeparam>
+            <param name="q">The TQ instance which will be executed for each chunk</param>
+            <param name="query">A query expressing which entities to execute this query over. If null a suitable
+            query object will automatically be created and written into this field.</param>
+            <returns>The total number of entities processed</returns>
+        </member>
         <member name="M:Myriad.ECS.Worlds.World.ExecuteChunk``11(Myriad.ECS.Queries.QueryDescription)">
             <summary>
             Execute a query which executes on entire chunks.
@@ -2127,6 +2301,27 @@
         <member name="M:Myriad.ECS.Worlds.World.ExecuteChunk``11(``0@,Myriad.ECS.Queries.QueryDescription@)">
             <summary>
             Execute a query which executes on entire chunks.
+            </summary>
+            <typeparam name="TQ">The type of the query</typeparam>
+            <typeparam name="T0">Type of component 0 to retrieve</typeparam>
+            <typeparam name="T1">Type of component 1 to retrieve</typeparam>
+            <typeparam name="T2">Type of component 2 to retrieve</typeparam>
+            <typeparam name="T3">Type of component 3 to retrieve</typeparam>
+            <typeparam name="T4">Type of component 4 to retrieve</typeparam>
+            <typeparam name="T5">Type of component 5 to retrieve</typeparam>
+            <typeparam name="T6">Type of component 6 to retrieve</typeparam>
+            <typeparam name="T7">Type of component 7 to retrieve</typeparam>
+            <typeparam name="T8">Type of component 8 to retrieve</typeparam>
+            <typeparam name="T9">Type of component 9 to retrieve</typeparam>
+            <param name="q">The TQ instance which will be executed for each chunk</param>
+            <param name="query">A query expressing which entities to execute this query over. If null a suitable
+            query object will automatically be created and written into this field.</param>
+            <returns>The total number of entities processed</returns>
+        </member>
+        <member name="M:Myriad.ECS.Worlds.World.ExecuteChunkParallel``11(``0,Myriad.ECS.Queries.QueryDescription)">
+            <summary>
+            Execute a query which executes on entire chunks. Executes work in parallel at the chunk
+            level.
             </summary>
             <typeparam name="TQ">The type of the query</typeparam>
             <typeparam name="T0">Type of component 0 to retrieve</typeparam>
@@ -2268,6 +2463,28 @@
             query object will automatically be created and written into this field.</param>
             <returns>The total number of entities processed</returns>
         </member>
+        <member name="M:Myriad.ECS.Worlds.World.ExecuteChunkParallel``12(``0,Myriad.ECS.Queries.QueryDescription)">
+            <summary>
+            Execute a query which executes on entire chunks. Executes work in parallel at the chunk
+            level.
+            </summary>
+            <typeparam name="TQ">The type of the query</typeparam>
+            <typeparam name="T0">Type of component 0 to retrieve</typeparam>
+            <typeparam name="T1">Type of component 1 to retrieve</typeparam>
+            <typeparam name="T2">Type of component 2 to retrieve</typeparam>
+            <typeparam name="T3">Type of component 3 to retrieve</typeparam>
+            <typeparam name="T4">Type of component 4 to retrieve</typeparam>
+            <typeparam name="T5">Type of component 5 to retrieve</typeparam>
+            <typeparam name="T6">Type of component 6 to retrieve</typeparam>
+            <typeparam name="T7">Type of component 7 to retrieve</typeparam>
+            <typeparam name="T8">Type of component 8 to retrieve</typeparam>
+            <typeparam name="T9">Type of component 9 to retrieve</typeparam>
+            <typeparam name="T10">Type of component 10 to retrieve</typeparam>
+            <param name="q">The TQ instance which will be executed for each chunk</param>
+            <param name="query">A query expressing which entities to execute this query over. If null a suitable
+            query object will automatically be created and written into this field.</param>
+            <returns>The total number of entities processed</returns>
+        </member>
         <member name="M:Myriad.ECS.Worlds.World.ExecuteChunk``13(Myriad.ECS.Queries.QueryDescription)">
             <summary>
             Execute a query which executes on entire chunks.
@@ -2379,6 +2596,29 @@
         <member name="M:Myriad.ECS.Worlds.World.ExecuteChunk``13(``0@,Myriad.ECS.Queries.QueryDescription@)">
             <summary>
             Execute a query which executes on entire chunks.
+            </summary>
+            <typeparam name="TQ">The type of the query</typeparam>
+            <typeparam name="T0">Type of component 0 to retrieve</typeparam>
+            <typeparam name="T1">Type of component 1 to retrieve</typeparam>
+            <typeparam name="T2">Type of component 2 to retrieve</typeparam>
+            <typeparam name="T3">Type of component 3 to retrieve</typeparam>
+            <typeparam name="T4">Type of component 4 to retrieve</typeparam>
+            <typeparam name="T5">Type of component 5 to retrieve</typeparam>
+            <typeparam name="T6">Type of component 6 to retrieve</typeparam>
+            <typeparam name="T7">Type of component 7 to retrieve</typeparam>
+            <typeparam name="T8">Type of component 8 to retrieve</typeparam>
+            <typeparam name="T9">Type of component 9 to retrieve</typeparam>
+            <typeparam name="T10">Type of component 10 to retrieve</typeparam>
+            <typeparam name="T11">Type of component 11 to retrieve</typeparam>
+            <param name="q">The TQ instance which will be executed for each chunk</param>
+            <param name="query">A query expressing which entities to execute this query over. If null a suitable
+            query object will automatically be created and written into this field.</param>
+            <returns>The total number of entities processed</returns>
+        </member>
+        <member name="M:Myriad.ECS.Worlds.World.ExecuteChunkParallel``13(``0,Myriad.ECS.Queries.QueryDescription)">
+            <summary>
+            Execute a query which executes on entire chunks. Executes work in parallel at the chunk
+            level.
             </summary>
             <typeparam name="TQ">The type of the query</typeparam>
             <typeparam name="T0">Type of component 0 to retrieve</typeparam>
@@ -2534,6 +2774,30 @@
             query object will automatically be created and written into this field.</param>
             <returns>The total number of entities processed</returns>
         </member>
+        <member name="M:Myriad.ECS.Worlds.World.ExecuteChunkParallel``14(``0,Myriad.ECS.Queries.QueryDescription)">
+            <summary>
+            Execute a query which executes on entire chunks. Executes work in parallel at the chunk
+            level.
+            </summary>
+            <typeparam name="TQ">The type of the query</typeparam>
+            <typeparam name="T0">Type of component 0 to retrieve</typeparam>
+            <typeparam name="T1">Type of component 1 to retrieve</typeparam>
+            <typeparam name="T2">Type of component 2 to retrieve</typeparam>
+            <typeparam name="T3">Type of component 3 to retrieve</typeparam>
+            <typeparam name="T4">Type of component 4 to retrieve</typeparam>
+            <typeparam name="T5">Type of component 5 to retrieve</typeparam>
+            <typeparam name="T6">Type of component 6 to retrieve</typeparam>
+            <typeparam name="T7">Type of component 7 to retrieve</typeparam>
+            <typeparam name="T8">Type of component 8 to retrieve</typeparam>
+            <typeparam name="T9">Type of component 9 to retrieve</typeparam>
+            <typeparam name="T10">Type of component 10 to retrieve</typeparam>
+            <typeparam name="T11">Type of component 11 to retrieve</typeparam>
+            <typeparam name="T12">Type of component 12 to retrieve</typeparam>
+            <param name="q">The TQ instance which will be executed for each chunk</param>
+            <param name="query">A query expressing which entities to execute this query over. If null a suitable
+            query object will automatically be created and written into this field.</param>
+            <returns>The total number of entities processed</returns>
+        </member>
         <member name="M:Myriad.ECS.Worlds.World.ExecuteChunk``15(Myriad.ECS.Queries.QueryDescription)">
             <summary>
             Execute a query which executes on entire chunks.
@@ -2655,6 +2919,31 @@
         <member name="M:Myriad.ECS.Worlds.World.ExecuteChunk``15(``0@,Myriad.ECS.Queries.QueryDescription@)">
             <summary>
             Execute a query which executes on entire chunks.
+            </summary>
+            <typeparam name="TQ">The type of the query</typeparam>
+            <typeparam name="T0">Type of component 0 to retrieve</typeparam>
+            <typeparam name="T1">Type of component 1 to retrieve</typeparam>
+            <typeparam name="T2">Type of component 2 to retrieve</typeparam>
+            <typeparam name="T3">Type of component 3 to retrieve</typeparam>
+            <typeparam name="T4">Type of component 4 to retrieve</typeparam>
+            <typeparam name="T5">Type of component 5 to retrieve</typeparam>
+            <typeparam name="T6">Type of component 6 to retrieve</typeparam>
+            <typeparam name="T7">Type of component 7 to retrieve</typeparam>
+            <typeparam name="T8">Type of component 8 to retrieve</typeparam>
+            <typeparam name="T9">Type of component 9 to retrieve</typeparam>
+            <typeparam name="T10">Type of component 10 to retrieve</typeparam>
+            <typeparam name="T11">Type of component 11 to retrieve</typeparam>
+            <typeparam name="T12">Type of component 12 to retrieve</typeparam>
+            <typeparam name="T13">Type of component 13 to retrieve</typeparam>
+            <param name="q">The TQ instance which will be executed for each chunk</param>
+            <param name="query">A query expressing which entities to execute this query over. If null a suitable
+            query object will automatically be created and written into this field.</param>
+            <returns>The total number of entities processed</returns>
+        </member>
+        <member name="M:Myriad.ECS.Worlds.World.ExecuteChunkParallel``15(``0,Myriad.ECS.Queries.QueryDescription)">
+            <summary>
+            Execute a query which executes on entire chunks. Executes work in parallel at the chunk
+            level.
             </summary>
             <typeparam name="TQ">The type of the query</typeparam>
             <typeparam name="T0">Type of component 0 to retrieve</typeparam>
@@ -2824,6 +3113,32 @@
             query object will automatically be created and written into this field.</param>
             <returns>The total number of entities processed</returns>
         </member>
+        <member name="M:Myriad.ECS.Worlds.World.ExecuteChunkParallel``16(``0,Myriad.ECS.Queries.QueryDescription)">
+            <summary>
+            Execute a query which executes on entire chunks. Executes work in parallel at the chunk
+            level.
+            </summary>
+            <typeparam name="TQ">The type of the query</typeparam>
+            <typeparam name="T0">Type of component 0 to retrieve</typeparam>
+            <typeparam name="T1">Type of component 1 to retrieve</typeparam>
+            <typeparam name="T2">Type of component 2 to retrieve</typeparam>
+            <typeparam name="T3">Type of component 3 to retrieve</typeparam>
+            <typeparam name="T4">Type of component 4 to retrieve</typeparam>
+            <typeparam name="T5">Type of component 5 to retrieve</typeparam>
+            <typeparam name="T6">Type of component 6 to retrieve</typeparam>
+            <typeparam name="T7">Type of component 7 to retrieve</typeparam>
+            <typeparam name="T8">Type of component 8 to retrieve</typeparam>
+            <typeparam name="T9">Type of component 9 to retrieve</typeparam>
+            <typeparam name="T10">Type of component 10 to retrieve</typeparam>
+            <typeparam name="T11">Type of component 11 to retrieve</typeparam>
+            <typeparam name="T12">Type of component 12 to retrieve</typeparam>
+            <typeparam name="T13">Type of component 13 to retrieve</typeparam>
+            <typeparam name="T14">Type of component 14 to retrieve</typeparam>
+            <param name="q">The TQ instance which will be executed for each chunk</param>
+            <param name="query">A query expressing which entities to execute this query over. If null a suitable
+            query object will automatically be created and written into this field.</param>
+            <returns>The total number of entities processed</returns>
+        </member>
         <member name="M:Myriad.ECS.Worlds.World.ExecuteChunk``17(Myriad.ECS.Queries.QueryDescription)">
             <summary>
             Execute a query which executes on entire chunks.
@@ -2955,6 +3270,33 @@
         <member name="M:Myriad.ECS.Worlds.World.ExecuteChunk``17(``0@,Myriad.ECS.Queries.QueryDescription@)">
             <summary>
             Execute a query which executes on entire chunks.
+            </summary>
+            <typeparam name="TQ">The type of the query</typeparam>
+            <typeparam name="T0">Type of component 0 to retrieve</typeparam>
+            <typeparam name="T1">Type of component 1 to retrieve</typeparam>
+            <typeparam name="T2">Type of component 2 to retrieve</typeparam>
+            <typeparam name="T3">Type of component 3 to retrieve</typeparam>
+            <typeparam name="T4">Type of component 4 to retrieve</typeparam>
+            <typeparam name="T5">Type of component 5 to retrieve</typeparam>
+            <typeparam name="T6">Type of component 6 to retrieve</typeparam>
+            <typeparam name="T7">Type of component 7 to retrieve</typeparam>
+            <typeparam name="T8">Type of component 8 to retrieve</typeparam>
+            <typeparam name="T9">Type of component 9 to retrieve</typeparam>
+            <typeparam name="T10">Type of component 10 to retrieve</typeparam>
+            <typeparam name="T11">Type of component 11 to retrieve</typeparam>
+            <typeparam name="T12">Type of component 12 to retrieve</typeparam>
+            <typeparam name="T13">Type of component 13 to retrieve</typeparam>
+            <typeparam name="T14">Type of component 14 to retrieve</typeparam>
+            <typeparam name="T15">Type of component 15 to retrieve</typeparam>
+            <param name="q">The TQ instance which will be executed for each chunk</param>
+            <param name="query">A query expressing which entities to execute this query over. If null a suitable
+            query object will automatically be created and written into this field.</param>
+            <returns>The total number of entities processed</returns>
+        </member>
+        <member name="M:Myriad.ECS.Worlds.World.ExecuteChunkParallel``17(``0,Myriad.ECS.Queries.QueryDescription)">
+            <summary>
+            Execute a query which executes on entire chunks. Executes work in parallel at the chunk
+            level.
             </summary>
             <typeparam name="TQ">The type of the query</typeparam>
             <typeparam name="T0">Type of component 0 to retrieve</typeparam>
@@ -7447,9 +7789,42 @@
             <param name="query"></param>
             <param name="data">The object passed into every call</param>
         </member>
+        <member name="M:Myriad.ECS.Worlds.World.ExecuteMapReduce``4(``2,Myriad.ECS.Queries.QueryDescription)">
+            <summary>
+            Execute a query, mapping every result to a value and then reducing those values to
+            one final output value.
+            </summary>
+            <param name="initial">Initial value to seed the reducer. If no entities are
+            matched this is returned.</param>
+            <param name="query">Query to select matched entities</param>
+            <returns>A value calculated by reducing all intermediate values</returns>
+        </member>
+        <member name="M:Myriad.ECS.Worlds.World.ExecuteMapReduce``4(``2,Myriad.ECS.Queries.QueryDescription@)">
+            <summary>
+            Execute a query, mapping every result to a value and then reducing those values to
+            one final output value.
+            </summary>
+            <param name="initial">Initial value to seed the reducer. If no entities are
+            matched this is returned.</param>
+            <param name="query">Query to select matched entities</param>
+            <returns>A value calculated by reducing all intermediate values</returns>
+        </member>
+        <member name="M:Myriad.ECS.Worlds.World.ExecuteMapReduce``4(``0,``1,``2,Myriad.ECS.Queries.QueryDescription)">
+            <summary>
+            Execute a query, mapping every result to a value and then reducing those values to
+            one final output value.
+            </summary>
+            <param name="q">query, which produces a value per entity</param>
+            <param name="r">Reducer, for combining values</param>
+            <param name="initial">Initial value to seed the reducer. If no entities are
+            matched this is returned.</param>
+            <param name="query">Query to select matched entities</param>
+            <returns>A value calculated by reducing all intermediate values</returns>
+        </member>
         <member name="M:Myriad.ECS.Worlds.World.ExecuteMapReduce``4(``0@,``1@,``2,Myriad.ECS.Queries.QueryDescription@)">
             <summary>
-            Execute a query, mapping every result to a value and then reducing those values to one final output
+            Execute a query, mapping every result to a value and then reducing those values to
+            one final output value.
             </summary>
             <typeparam name="TM">Type of mapper</typeparam>
             <typeparam name="TR">Type of reducer</typeparam>
@@ -7461,9 +7836,42 @@
             <param name="query">Query to select matched entities</param>
             <returns>A value calculated by reducing all intermediate values</returns>
         </member>
+        <member name="M:Myriad.ECS.Worlds.World.ExecuteMapReduce``5(``2,Myriad.ECS.Queries.QueryDescription)">
+            <summary>
+            Execute a query, mapping every result to a value and then reducing those values to
+            one final output value.
+            </summary>
+            <param name="initial">Initial value to seed the reducer. If no entities are
+            matched this is returned.</param>
+            <param name="query">Query to select matched entities</param>
+            <returns>A value calculated by reducing all intermediate values</returns>
+        </member>
+        <member name="M:Myriad.ECS.Worlds.World.ExecuteMapReduce``5(``2,Myriad.ECS.Queries.QueryDescription@)">
+            <summary>
+            Execute a query, mapping every result to a value and then reducing those values to
+            one final output value.
+            </summary>
+            <param name="initial">Initial value to seed the reducer. If no entities are
+            matched this is returned.</param>
+            <param name="query">Query to select matched entities</param>
+            <returns>A value calculated by reducing all intermediate values</returns>
+        </member>
+        <member name="M:Myriad.ECS.Worlds.World.ExecuteMapReduce``5(``0,``1,``2,Myriad.ECS.Queries.QueryDescription)">
+            <summary>
+            Execute a query, mapping every result to a value and then reducing those values to
+            one final output value.
+            </summary>
+            <param name="q">query, which produces a value per entity</param>
+            <param name="r">Reducer, for combining values</param>
+            <param name="initial">Initial value to seed the reducer. If no entities are
+            matched this is returned.</param>
+            <param name="query">Query to select matched entities</param>
+            <returns>A value calculated by reducing all intermediate values</returns>
+        </member>
         <member name="M:Myriad.ECS.Worlds.World.ExecuteMapReduce``5(``0@,``1@,``2,Myriad.ECS.Queries.QueryDescription@)">
             <summary>
-            Execute a query, mapping every result to a value and then reducing those values to one final output
+            Execute a query, mapping every result to a value and then reducing those values to
+            one final output value.
             </summary>
             <typeparam name="TM">Type of mapper</typeparam>
             <typeparam name="TR">Type of reducer</typeparam>
@@ -7476,9 +7884,42 @@
             <param name="query">Query to select matched entities</param>
             <returns>A value calculated by reducing all intermediate values</returns>
         </member>
+        <member name="M:Myriad.ECS.Worlds.World.ExecuteMapReduce``6(``2,Myriad.ECS.Queries.QueryDescription)">
+            <summary>
+            Execute a query, mapping every result to a value and then reducing those values to
+            one final output value.
+            </summary>
+            <param name="initial">Initial value to seed the reducer. If no entities are
+            matched this is returned.</param>
+            <param name="query">Query to select matched entities</param>
+            <returns>A value calculated by reducing all intermediate values</returns>
+        </member>
+        <member name="M:Myriad.ECS.Worlds.World.ExecuteMapReduce``6(``2,Myriad.ECS.Queries.QueryDescription@)">
+            <summary>
+            Execute a query, mapping every result to a value and then reducing those values to
+            one final output value.
+            </summary>
+            <param name="initial">Initial value to seed the reducer. If no entities are
+            matched this is returned.</param>
+            <param name="query">Query to select matched entities</param>
+            <returns>A value calculated by reducing all intermediate values</returns>
+        </member>
+        <member name="M:Myriad.ECS.Worlds.World.ExecuteMapReduce``6(``0,``1,``2,Myriad.ECS.Queries.QueryDescription)">
+            <summary>
+            Execute a query, mapping every result to a value and then reducing those values to
+            one final output value.
+            </summary>
+            <param name="q">query, which produces a value per entity</param>
+            <param name="r">Reducer, for combining values</param>
+            <param name="initial">Initial value to seed the reducer. If no entities are
+            matched this is returned.</param>
+            <param name="query">Query to select matched entities</param>
+            <returns>A value calculated by reducing all intermediate values</returns>
+        </member>
         <member name="M:Myriad.ECS.Worlds.World.ExecuteMapReduce``6(``0@,``1@,``2,Myriad.ECS.Queries.QueryDescription@)">
             <summary>
-            Execute a query, mapping every result to a value and then reducing those values to one final output
+            Execute a query, mapping every result to a value and then reducing those values to
+            one final output value.
             </summary>
             <typeparam name="TM">Type of mapper</typeparam>
             <typeparam name="TR">Type of reducer</typeparam>
@@ -7492,9 +7933,42 @@
             <param name="query">Query to select matched entities</param>
             <returns>A value calculated by reducing all intermediate values</returns>
         </member>
+        <member name="M:Myriad.ECS.Worlds.World.ExecuteMapReduce``7(``2,Myriad.ECS.Queries.QueryDescription)">
+            <summary>
+            Execute a query, mapping every result to a value and then reducing those values to
+            one final output value.
+            </summary>
+            <param name="initial">Initial value to seed the reducer. If no entities are
+            matched this is returned.</param>
+            <param name="query">Query to select matched entities</param>
+            <returns>A value calculated by reducing all intermediate values</returns>
+        </member>
+        <member name="M:Myriad.ECS.Worlds.World.ExecuteMapReduce``7(``2,Myriad.ECS.Queries.QueryDescription@)">
+            <summary>
+            Execute a query, mapping every result to a value and then reducing those values to
+            one final output value.
+            </summary>
+            <param name="initial">Initial value to seed the reducer. If no entities are
+            matched this is returned.</param>
+            <param name="query">Query to select matched entities</param>
+            <returns>A value calculated by reducing all intermediate values</returns>
+        </member>
+        <member name="M:Myriad.ECS.Worlds.World.ExecuteMapReduce``7(``0,``1,``2,Myriad.ECS.Queries.QueryDescription)">
+            <summary>
+            Execute a query, mapping every result to a value and then reducing those values to
+            one final output value.
+            </summary>
+            <param name="q">query, which produces a value per entity</param>
+            <param name="r">Reducer, for combining values</param>
+            <param name="initial">Initial value to seed the reducer. If no entities are
+            matched this is returned.</param>
+            <param name="query">Query to select matched entities</param>
+            <returns>A value calculated by reducing all intermediate values</returns>
+        </member>
         <member name="M:Myriad.ECS.Worlds.World.ExecuteMapReduce``7(``0@,``1@,``2,Myriad.ECS.Queries.QueryDescription@)">
             <summary>
-            Execute a query, mapping every result to a value and then reducing those values to one final output
+            Execute a query, mapping every result to a value and then reducing those values to
+            one final output value.
             </summary>
             <typeparam name="TM">Type of mapper</typeparam>
             <typeparam name="TR">Type of reducer</typeparam>
@@ -7509,9 +7983,42 @@
             <param name="query">Query to select matched entities</param>
             <returns>A value calculated by reducing all intermediate values</returns>
         </member>
+        <member name="M:Myriad.ECS.Worlds.World.ExecuteMapReduce``8(``2,Myriad.ECS.Queries.QueryDescription)">
+            <summary>
+            Execute a query, mapping every result to a value and then reducing those values to
+            one final output value.
+            </summary>
+            <param name="initial">Initial value to seed the reducer. If no entities are
+            matched this is returned.</param>
+            <param name="query">Query to select matched entities</param>
+            <returns>A value calculated by reducing all intermediate values</returns>
+        </member>
+        <member name="M:Myriad.ECS.Worlds.World.ExecuteMapReduce``8(``2,Myriad.ECS.Queries.QueryDescription@)">
+            <summary>
+            Execute a query, mapping every result to a value and then reducing those values to
+            one final output value.
+            </summary>
+            <param name="initial">Initial value to seed the reducer. If no entities are
+            matched this is returned.</param>
+            <param name="query">Query to select matched entities</param>
+            <returns>A value calculated by reducing all intermediate values</returns>
+        </member>
+        <member name="M:Myriad.ECS.Worlds.World.ExecuteMapReduce``8(``0,``1,``2,Myriad.ECS.Queries.QueryDescription)">
+            <summary>
+            Execute a query, mapping every result to a value and then reducing those values to
+            one final output value.
+            </summary>
+            <param name="q">query, which produces a value per entity</param>
+            <param name="r">Reducer, for combining values</param>
+            <param name="initial">Initial value to seed the reducer. If no entities are
+            matched this is returned.</param>
+            <param name="query">Query to select matched entities</param>
+            <returns>A value calculated by reducing all intermediate values</returns>
+        </member>
         <member name="M:Myriad.ECS.Worlds.World.ExecuteMapReduce``8(``0@,``1@,``2,Myriad.ECS.Queries.QueryDescription@)">
             <summary>
-            Execute a query, mapping every result to a value and then reducing those values to one final output
+            Execute a query, mapping every result to a value and then reducing those values to
+            one final output value.
             </summary>
             <typeparam name="TM">Type of mapper</typeparam>
             <typeparam name="TR">Type of reducer</typeparam>
@@ -7527,9 +8034,42 @@
             <param name="query">Query to select matched entities</param>
             <returns>A value calculated by reducing all intermediate values</returns>
         </member>
+        <member name="M:Myriad.ECS.Worlds.World.ExecuteMapReduce``9(``2,Myriad.ECS.Queries.QueryDescription)">
+            <summary>
+            Execute a query, mapping every result to a value and then reducing those values to
+            one final output value.
+            </summary>
+            <param name="initial">Initial value to seed the reducer. If no entities are
+            matched this is returned.</param>
+            <param name="query">Query to select matched entities</param>
+            <returns>A value calculated by reducing all intermediate values</returns>
+        </member>
+        <member name="M:Myriad.ECS.Worlds.World.ExecuteMapReduce``9(``2,Myriad.ECS.Queries.QueryDescription@)">
+            <summary>
+            Execute a query, mapping every result to a value and then reducing those values to
+            one final output value.
+            </summary>
+            <param name="initial">Initial value to seed the reducer. If no entities are
+            matched this is returned.</param>
+            <param name="query">Query to select matched entities</param>
+            <returns>A value calculated by reducing all intermediate values</returns>
+        </member>
+        <member name="M:Myriad.ECS.Worlds.World.ExecuteMapReduce``9(``0,``1,``2,Myriad.ECS.Queries.QueryDescription)">
+            <summary>
+            Execute a query, mapping every result to a value and then reducing those values to
+            one final output value.
+            </summary>
+            <param name="q">query, which produces a value per entity</param>
+            <param name="r">Reducer, for combining values</param>
+            <param name="initial">Initial value to seed the reducer. If no entities are
+            matched this is returned.</param>
+            <param name="query">Query to select matched entities</param>
+            <returns>A value calculated by reducing all intermediate values</returns>
+        </member>
         <member name="M:Myriad.ECS.Worlds.World.ExecuteMapReduce``9(``0@,``1@,``2,Myriad.ECS.Queries.QueryDescription@)">
             <summary>
-            Execute a query, mapping every result to a value and then reducing those values to one final output
+            Execute a query, mapping every result to a value and then reducing those values to
+            one final output value.
             </summary>
             <typeparam name="TM">Type of mapper</typeparam>
             <typeparam name="TR">Type of reducer</typeparam>
@@ -7546,9 +8086,42 @@
             <param name="query">Query to select matched entities</param>
             <returns>A value calculated by reducing all intermediate values</returns>
         </member>
+        <member name="M:Myriad.ECS.Worlds.World.ExecuteMapReduce``10(``2,Myriad.ECS.Queries.QueryDescription)">
+            <summary>
+            Execute a query, mapping every result to a value and then reducing those values to
+            one final output value.
+            </summary>
+            <param name="initial">Initial value to seed the reducer. If no entities are
+            matched this is returned.</param>
+            <param name="query">Query to select matched entities</param>
+            <returns>A value calculated by reducing all intermediate values</returns>
+        </member>
+        <member name="M:Myriad.ECS.Worlds.World.ExecuteMapReduce``10(``2,Myriad.ECS.Queries.QueryDescription@)">
+            <summary>
+            Execute a query, mapping every result to a value and then reducing those values to
+            one final output value.
+            </summary>
+            <param name="initial">Initial value to seed the reducer. If no entities are
+            matched this is returned.</param>
+            <param name="query">Query to select matched entities</param>
+            <returns>A value calculated by reducing all intermediate values</returns>
+        </member>
+        <member name="M:Myriad.ECS.Worlds.World.ExecuteMapReduce``10(``0,``1,``2,Myriad.ECS.Queries.QueryDescription)">
+            <summary>
+            Execute a query, mapping every result to a value and then reducing those values to
+            one final output value.
+            </summary>
+            <param name="q">query, which produces a value per entity</param>
+            <param name="r">Reducer, for combining values</param>
+            <param name="initial">Initial value to seed the reducer. If no entities are
+            matched this is returned.</param>
+            <param name="query">Query to select matched entities</param>
+            <returns>A value calculated by reducing all intermediate values</returns>
+        </member>
         <member name="M:Myriad.ECS.Worlds.World.ExecuteMapReduce``10(``0@,``1@,``2,Myriad.ECS.Queries.QueryDescription@)">
             <summary>
-            Execute a query, mapping every result to a value and then reducing those values to one final output
+            Execute a query, mapping every result to a value and then reducing those values to
+            one final output value.
             </summary>
             <typeparam name="TM">Type of mapper</typeparam>
             <typeparam name="TR">Type of reducer</typeparam>
@@ -7566,9 +8139,42 @@
             <param name="query">Query to select matched entities</param>
             <returns>A value calculated by reducing all intermediate values</returns>
         </member>
+        <member name="M:Myriad.ECS.Worlds.World.ExecuteMapReduce``11(``2,Myriad.ECS.Queries.QueryDescription)">
+            <summary>
+            Execute a query, mapping every result to a value and then reducing those values to
+            one final output value.
+            </summary>
+            <param name="initial">Initial value to seed the reducer. If no entities are
+            matched this is returned.</param>
+            <param name="query">Query to select matched entities</param>
+            <returns>A value calculated by reducing all intermediate values</returns>
+        </member>
+        <member name="M:Myriad.ECS.Worlds.World.ExecuteMapReduce``11(``2,Myriad.ECS.Queries.QueryDescription@)">
+            <summary>
+            Execute a query, mapping every result to a value and then reducing those values to
+            one final output value.
+            </summary>
+            <param name="initial">Initial value to seed the reducer. If no entities are
+            matched this is returned.</param>
+            <param name="query">Query to select matched entities</param>
+            <returns>A value calculated by reducing all intermediate values</returns>
+        </member>
+        <member name="M:Myriad.ECS.Worlds.World.ExecuteMapReduce``11(``0,``1,``2,Myriad.ECS.Queries.QueryDescription)">
+            <summary>
+            Execute a query, mapping every result to a value and then reducing those values to
+            one final output value.
+            </summary>
+            <param name="q">query, which produces a value per entity</param>
+            <param name="r">Reducer, for combining values</param>
+            <param name="initial">Initial value to seed the reducer. If no entities are
+            matched this is returned.</param>
+            <param name="query">Query to select matched entities</param>
+            <returns>A value calculated by reducing all intermediate values</returns>
+        </member>
         <member name="M:Myriad.ECS.Worlds.World.ExecuteMapReduce``11(``0@,``1@,``2,Myriad.ECS.Queries.QueryDescription@)">
             <summary>
-            Execute a query, mapping every result to a value and then reducing those values to one final output
+            Execute a query, mapping every result to a value and then reducing those values to
+            one final output value.
             </summary>
             <typeparam name="TM">Type of mapper</typeparam>
             <typeparam name="TR">Type of reducer</typeparam>
@@ -7587,9 +8193,42 @@
             <param name="query">Query to select matched entities</param>
             <returns>A value calculated by reducing all intermediate values</returns>
         </member>
+        <member name="M:Myriad.ECS.Worlds.World.ExecuteMapReduce``12(``2,Myriad.ECS.Queries.QueryDescription)">
+            <summary>
+            Execute a query, mapping every result to a value and then reducing those values to
+            one final output value.
+            </summary>
+            <param name="initial">Initial value to seed the reducer. If no entities are
+            matched this is returned.</param>
+            <param name="query">Query to select matched entities</param>
+            <returns>A value calculated by reducing all intermediate values</returns>
+        </member>
+        <member name="M:Myriad.ECS.Worlds.World.ExecuteMapReduce``12(``2,Myriad.ECS.Queries.QueryDescription@)">
+            <summary>
+            Execute a query, mapping every result to a value and then reducing those values to
+            one final output value.
+            </summary>
+            <param name="initial">Initial value to seed the reducer. If no entities are
+            matched this is returned.</param>
+            <param name="query">Query to select matched entities</param>
+            <returns>A value calculated by reducing all intermediate values</returns>
+        </member>
+        <member name="M:Myriad.ECS.Worlds.World.ExecuteMapReduce``12(``0,``1,``2,Myriad.ECS.Queries.QueryDescription)">
+            <summary>
+            Execute a query, mapping every result to a value and then reducing those values to
+            one final output value.
+            </summary>
+            <param name="q">query, which produces a value per entity</param>
+            <param name="r">Reducer, for combining values</param>
+            <param name="initial">Initial value to seed the reducer. If no entities are
+            matched this is returned.</param>
+            <param name="query">Query to select matched entities</param>
+            <returns>A value calculated by reducing all intermediate values</returns>
+        </member>
         <member name="M:Myriad.ECS.Worlds.World.ExecuteMapReduce``12(``0@,``1@,``2,Myriad.ECS.Queries.QueryDescription@)">
             <summary>
-            Execute a query, mapping every result to a value and then reducing those values to one final output
+            Execute a query, mapping every result to a value and then reducing those values to
+            one final output value.
             </summary>
             <typeparam name="TM">Type of mapper</typeparam>
             <typeparam name="TR">Type of reducer</typeparam>
@@ -7609,9 +8248,42 @@
             <param name="query">Query to select matched entities</param>
             <returns>A value calculated by reducing all intermediate values</returns>
         </member>
+        <member name="M:Myriad.ECS.Worlds.World.ExecuteMapReduce``13(``2,Myriad.ECS.Queries.QueryDescription)">
+            <summary>
+            Execute a query, mapping every result to a value and then reducing those values to
+            one final output value.
+            </summary>
+            <param name="initial">Initial value to seed the reducer. If no entities are
+            matched this is returned.</param>
+            <param name="query">Query to select matched entities</param>
+            <returns>A value calculated by reducing all intermediate values</returns>
+        </member>
+        <member name="M:Myriad.ECS.Worlds.World.ExecuteMapReduce``13(``2,Myriad.ECS.Queries.QueryDescription@)">
+            <summary>
+            Execute a query, mapping every result to a value and then reducing those values to
+            one final output value.
+            </summary>
+            <param name="initial">Initial value to seed the reducer. If no entities are
+            matched this is returned.</param>
+            <param name="query">Query to select matched entities</param>
+            <returns>A value calculated by reducing all intermediate values</returns>
+        </member>
+        <member name="M:Myriad.ECS.Worlds.World.ExecuteMapReduce``13(``0,``1,``2,Myriad.ECS.Queries.QueryDescription)">
+            <summary>
+            Execute a query, mapping every result to a value and then reducing those values to
+            one final output value.
+            </summary>
+            <param name="q">query, which produces a value per entity</param>
+            <param name="r">Reducer, for combining values</param>
+            <param name="initial">Initial value to seed the reducer. If no entities are
+            matched this is returned.</param>
+            <param name="query">Query to select matched entities</param>
+            <returns>A value calculated by reducing all intermediate values</returns>
+        </member>
         <member name="M:Myriad.ECS.Worlds.World.ExecuteMapReduce``13(``0@,``1@,``2,Myriad.ECS.Queries.QueryDescription@)">
             <summary>
-            Execute a query, mapping every result to a value and then reducing those values to one final output
+            Execute a query, mapping every result to a value and then reducing those values to
+            one final output value.
             </summary>
             <typeparam name="TM">Type of mapper</typeparam>
             <typeparam name="TR">Type of reducer</typeparam>
@@ -7632,9 +8304,42 @@
             <param name="query">Query to select matched entities</param>
             <returns>A value calculated by reducing all intermediate values</returns>
         </member>
+        <member name="M:Myriad.ECS.Worlds.World.ExecuteMapReduce``14(``2,Myriad.ECS.Queries.QueryDescription)">
+            <summary>
+            Execute a query, mapping every result to a value and then reducing those values to
+            one final output value.
+            </summary>
+            <param name="initial">Initial value to seed the reducer. If no entities are
+            matched this is returned.</param>
+            <param name="query">Query to select matched entities</param>
+            <returns>A value calculated by reducing all intermediate values</returns>
+        </member>
+        <member name="M:Myriad.ECS.Worlds.World.ExecuteMapReduce``14(``2,Myriad.ECS.Queries.QueryDescription@)">
+            <summary>
+            Execute a query, mapping every result to a value and then reducing those values to
+            one final output value.
+            </summary>
+            <param name="initial">Initial value to seed the reducer. If no entities are
+            matched this is returned.</param>
+            <param name="query">Query to select matched entities</param>
+            <returns>A value calculated by reducing all intermediate values</returns>
+        </member>
+        <member name="M:Myriad.ECS.Worlds.World.ExecuteMapReduce``14(``0,``1,``2,Myriad.ECS.Queries.QueryDescription)">
+            <summary>
+            Execute a query, mapping every result to a value and then reducing those values to
+            one final output value.
+            </summary>
+            <param name="q">query, which produces a value per entity</param>
+            <param name="r">Reducer, for combining values</param>
+            <param name="initial">Initial value to seed the reducer. If no entities are
+            matched this is returned.</param>
+            <param name="query">Query to select matched entities</param>
+            <returns>A value calculated by reducing all intermediate values</returns>
+        </member>
         <member name="M:Myriad.ECS.Worlds.World.ExecuteMapReduce``14(``0@,``1@,``2,Myriad.ECS.Queries.QueryDescription@)">
             <summary>
-            Execute a query, mapping every result to a value and then reducing those values to one final output
+            Execute a query, mapping every result to a value and then reducing those values to
+            one final output value.
             </summary>
             <typeparam name="TM">Type of mapper</typeparam>
             <typeparam name="TR">Type of reducer</typeparam>
@@ -7656,9 +8361,42 @@
             <param name="query">Query to select matched entities</param>
             <returns>A value calculated by reducing all intermediate values</returns>
         </member>
+        <member name="M:Myriad.ECS.Worlds.World.ExecuteMapReduce``15(``2,Myriad.ECS.Queries.QueryDescription)">
+            <summary>
+            Execute a query, mapping every result to a value and then reducing those values to
+            one final output value.
+            </summary>
+            <param name="initial">Initial value to seed the reducer. If no entities are
+            matched this is returned.</param>
+            <param name="query">Query to select matched entities</param>
+            <returns>A value calculated by reducing all intermediate values</returns>
+        </member>
+        <member name="M:Myriad.ECS.Worlds.World.ExecuteMapReduce``15(``2,Myriad.ECS.Queries.QueryDescription@)">
+            <summary>
+            Execute a query, mapping every result to a value and then reducing those values to
+            one final output value.
+            </summary>
+            <param name="initial">Initial value to seed the reducer. If no entities are
+            matched this is returned.</param>
+            <param name="query">Query to select matched entities</param>
+            <returns>A value calculated by reducing all intermediate values</returns>
+        </member>
+        <member name="M:Myriad.ECS.Worlds.World.ExecuteMapReduce``15(``0,``1,``2,Myriad.ECS.Queries.QueryDescription)">
+            <summary>
+            Execute a query, mapping every result to a value and then reducing those values to
+            one final output value.
+            </summary>
+            <param name="q">query, which produces a value per entity</param>
+            <param name="r">Reducer, for combining values</param>
+            <param name="initial">Initial value to seed the reducer. If no entities are
+            matched this is returned.</param>
+            <param name="query">Query to select matched entities</param>
+            <returns>A value calculated by reducing all intermediate values</returns>
+        </member>
         <member name="M:Myriad.ECS.Worlds.World.ExecuteMapReduce``15(``0@,``1@,``2,Myriad.ECS.Queries.QueryDescription@)">
             <summary>
-            Execute a query, mapping every result to a value and then reducing those values to one final output
+            Execute a query, mapping every result to a value and then reducing those values to
+            one final output value.
             </summary>
             <typeparam name="TM">Type of mapper</typeparam>
             <typeparam name="TR">Type of reducer</typeparam>
@@ -7681,9 +8419,42 @@
             <param name="query">Query to select matched entities</param>
             <returns>A value calculated by reducing all intermediate values</returns>
         </member>
+        <member name="M:Myriad.ECS.Worlds.World.ExecuteMapReduce``16(``2,Myriad.ECS.Queries.QueryDescription)">
+            <summary>
+            Execute a query, mapping every result to a value and then reducing those values to
+            one final output value.
+            </summary>
+            <param name="initial">Initial value to seed the reducer. If no entities are
+            matched this is returned.</param>
+            <param name="query">Query to select matched entities</param>
+            <returns>A value calculated by reducing all intermediate values</returns>
+        </member>
+        <member name="M:Myriad.ECS.Worlds.World.ExecuteMapReduce``16(``2,Myriad.ECS.Queries.QueryDescription@)">
+            <summary>
+            Execute a query, mapping every result to a value and then reducing those values to
+            one final output value.
+            </summary>
+            <param name="initial">Initial value to seed the reducer. If no entities are
+            matched this is returned.</param>
+            <param name="query">Query to select matched entities</param>
+            <returns>A value calculated by reducing all intermediate values</returns>
+        </member>
+        <member name="M:Myriad.ECS.Worlds.World.ExecuteMapReduce``16(``0,``1,``2,Myriad.ECS.Queries.QueryDescription)">
+            <summary>
+            Execute a query, mapping every result to a value and then reducing those values to
+            one final output value.
+            </summary>
+            <param name="q">query, which produces a value per entity</param>
+            <param name="r">Reducer, for combining values</param>
+            <param name="initial">Initial value to seed the reducer. If no entities are
+            matched this is returned.</param>
+            <param name="query">Query to select matched entities</param>
+            <returns>A value calculated by reducing all intermediate values</returns>
+        </member>
         <member name="M:Myriad.ECS.Worlds.World.ExecuteMapReduce``16(``0@,``1@,``2,Myriad.ECS.Queries.QueryDescription@)">
             <summary>
-            Execute a query, mapping every result to a value and then reducing those values to one final output
+            Execute a query, mapping every result to a value and then reducing those values to
+            one final output value.
             </summary>
             <typeparam name="TM">Type of mapper</typeparam>
             <typeparam name="TR">Type of reducer</typeparam>
@@ -7707,9 +8478,42 @@
             <param name="query">Query to select matched entities</param>
             <returns>A value calculated by reducing all intermediate values</returns>
         </member>
+        <member name="M:Myriad.ECS.Worlds.World.ExecuteMapReduce``17(``2,Myriad.ECS.Queries.QueryDescription)">
+            <summary>
+            Execute a query, mapping every result to a value and then reducing those values to
+            one final output value.
+            </summary>
+            <param name="initial">Initial value to seed the reducer. If no entities are
+            matched this is returned.</param>
+            <param name="query">Query to select matched entities</param>
+            <returns>A value calculated by reducing all intermediate values</returns>
+        </member>
+        <member name="M:Myriad.ECS.Worlds.World.ExecuteMapReduce``17(``2,Myriad.ECS.Queries.QueryDescription@)">
+            <summary>
+            Execute a query, mapping every result to a value and then reducing those values to
+            one final output value.
+            </summary>
+            <param name="initial">Initial value to seed the reducer. If no entities are
+            matched this is returned.</param>
+            <param name="query">Query to select matched entities</param>
+            <returns>A value calculated by reducing all intermediate values</returns>
+        </member>
+        <member name="M:Myriad.ECS.Worlds.World.ExecuteMapReduce``17(``0,``1,``2,Myriad.ECS.Queries.QueryDescription)">
+            <summary>
+            Execute a query, mapping every result to a value and then reducing those values to
+            one final output value.
+            </summary>
+            <param name="q">query, which produces a value per entity</param>
+            <param name="r">Reducer, for combining values</param>
+            <param name="initial">Initial value to seed the reducer. If no entities are
+            matched this is returned.</param>
+            <param name="query">Query to select matched entities</param>
+            <returns>A value calculated by reducing all intermediate values</returns>
+        </member>
         <member name="M:Myriad.ECS.Worlds.World.ExecuteMapReduce``17(``0@,``1@,``2,Myriad.ECS.Queries.QueryDescription@)">
             <summary>
-            Execute a query, mapping every result to a value and then reducing those values to one final output
+            Execute a query, mapping every result to a value and then reducing those values to
+            one final output value.
             </summary>
             <typeparam name="TM">Type of mapper</typeparam>
             <typeparam name="TR">Type of reducer</typeparam>
@@ -7734,9 +8538,42 @@
             <param name="query">Query to select matched entities</param>
             <returns>A value calculated by reducing all intermediate values</returns>
         </member>
+        <member name="M:Myriad.ECS.Worlds.World.ExecuteMapReduce``18(``2,Myriad.ECS.Queries.QueryDescription)">
+            <summary>
+            Execute a query, mapping every result to a value and then reducing those values to
+            one final output value.
+            </summary>
+            <param name="initial">Initial value to seed the reducer. If no entities are
+            matched this is returned.</param>
+            <param name="query">Query to select matched entities</param>
+            <returns>A value calculated by reducing all intermediate values</returns>
+        </member>
+        <member name="M:Myriad.ECS.Worlds.World.ExecuteMapReduce``18(``2,Myriad.ECS.Queries.QueryDescription@)">
+            <summary>
+            Execute a query, mapping every result to a value and then reducing those values to
+            one final output value.
+            </summary>
+            <param name="initial">Initial value to seed the reducer. If no entities are
+            matched this is returned.</param>
+            <param name="query">Query to select matched entities</param>
+            <returns>A value calculated by reducing all intermediate values</returns>
+        </member>
+        <member name="M:Myriad.ECS.Worlds.World.ExecuteMapReduce``18(``0,``1,``2,Myriad.ECS.Queries.QueryDescription)">
+            <summary>
+            Execute a query, mapping every result to a value and then reducing those values to
+            one final output value.
+            </summary>
+            <param name="q">query, which produces a value per entity</param>
+            <param name="r">Reducer, for combining values</param>
+            <param name="initial">Initial value to seed the reducer. If no entities are
+            matched this is returned.</param>
+            <param name="query">Query to select matched entities</param>
+            <returns>A value calculated by reducing all intermediate values</returns>
+        </member>
         <member name="M:Myriad.ECS.Worlds.World.ExecuteMapReduce``18(``0@,``1@,``2,Myriad.ECS.Queries.QueryDescription@)">
             <summary>
-            Execute a query, mapping every result to a value and then reducing those values to one final output
+            Execute a query, mapping every result to a value and then reducing those values to
+            one final output value.
             </summary>
             <typeparam name="TM">Type of mapper</typeparam>
             <typeparam name="TR">Type of reducer</typeparam>
@@ -7762,9 +8599,42 @@
             <param name="query">Query to select matched entities</param>
             <returns>A value calculated by reducing all intermediate values</returns>
         </member>
+        <member name="M:Myriad.ECS.Worlds.World.ExecuteMapReduce``19(``2,Myriad.ECS.Queries.QueryDescription)">
+            <summary>
+            Execute a query, mapping every result to a value and then reducing those values to
+            one final output value.
+            </summary>
+            <param name="initial">Initial value to seed the reducer. If no entities are
+            matched this is returned.</param>
+            <param name="query">Query to select matched entities</param>
+            <returns>A value calculated by reducing all intermediate values</returns>
+        </member>
+        <member name="M:Myriad.ECS.Worlds.World.ExecuteMapReduce``19(``2,Myriad.ECS.Queries.QueryDescription@)">
+            <summary>
+            Execute a query, mapping every result to a value and then reducing those values to
+            one final output value.
+            </summary>
+            <param name="initial">Initial value to seed the reducer. If no entities are
+            matched this is returned.</param>
+            <param name="query">Query to select matched entities</param>
+            <returns>A value calculated by reducing all intermediate values</returns>
+        </member>
+        <member name="M:Myriad.ECS.Worlds.World.ExecuteMapReduce``19(``0,``1,``2,Myriad.ECS.Queries.QueryDescription)">
+            <summary>
+            Execute a query, mapping every result to a value and then reducing those values to
+            one final output value.
+            </summary>
+            <param name="q">query, which produces a value per entity</param>
+            <param name="r">Reducer, for combining values</param>
+            <param name="initial">Initial value to seed the reducer. If no entities are
+            matched this is returned.</param>
+            <param name="query">Query to select matched entities</param>
+            <returns>A value calculated by reducing all intermediate values</returns>
+        </member>
         <member name="M:Myriad.ECS.Worlds.World.ExecuteMapReduce``19(``0@,``1@,``2,Myriad.ECS.Queries.QueryDescription@)">
             <summary>
-            Execute a query, mapping every result to a value and then reducing those values to one final output
+            Execute a query, mapping every result to a value and then reducing those values to
+            one final output value.
             </summary>
             <typeparam name="TM">Type of mapper</typeparam>
             <typeparam name="TR">Type of reducer</typeparam>
@@ -7798,6 +8668,18 @@
         </member>
         <member name="M:Myriad.ECS.Worlds.World.Dispose">
             <inheritdoc />
+        </member>
+        <member name="M:Myriad.ECS.Worlds.World.GetPooledCommandBuffer">
+            <summary>
+            Get a <see cref="T:Myriad.ECS.Command.CommandBuffer"/> from the pool or create a new one
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Myriad.ECS.Worlds.World.ReturnPooledCommandBuffer(Myriad.ECS.Command.CommandBuffer)">
+            <summary>
+            Return a <see cref="T:Myriad.ECS.Command.CommandBuffer"/> to the internal pool
+            </summary>
+            <param name="buffer"></param>
         </member>
         <member name="M:Myriad.ECS.Worlds.World.Overwrite``1(``0,Myriad.ECS.Queries.QueryDescription)">
             <summary>
@@ -7855,6 +8737,11 @@
         <member name="P:Myriad.ECS.Worlds.Archetypes.Archetype.Components">
             <summary>
             The components of entities in this archetype
+            </summary>
+        </member>
+        <member name="F:Myriad.ECS.Worlds.Archetypes.Archetype.ComponentsBloomFilter">
+            <summary>
+            A bloom filter of all the components in this archetype
             </summary>
         </member>
         <member name="P:Myriad.ECS.Worlds.Archetypes.Archetype.Hash">
@@ -8296,9 +9183,174 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="T:Myriad.ECS.Queries.IChunkQuery`1">
+            <summary>
+            Process entire chunks of entities together.
+            </summary>
+        </member>
+        <member name="M:Myriad.ECS.Queries.IChunkQuery`1.Execute(Myriad.ECS.Queries.ChunkHandle,System.ReadOnlySpan{Myriad.ECS.Entity},System.Span{`0})">
+            <summary>
+            Process a chunk of entities all together. Items for the same entity are at the same index in all spans.
+            </summary>
+        </member>
+        <member name="T:Myriad.ECS.Queries.IChunkQuery`2">
+            <summary>
+            Process entire chunks of entities together.
+            </summary>
+        </member>
+        <member name="M:Myriad.ECS.Queries.IChunkQuery`2.Execute(Myriad.ECS.Queries.ChunkHandle,System.ReadOnlySpan{Myriad.ECS.Entity},System.Span{`0},System.Span{`1})">
+            <summary>
+            Process a chunk of entities all together. Items for the same entity are at the same index in all spans.
+            </summary>
+        </member>
+        <member name="T:Myriad.ECS.Queries.IChunkQuery`3">
+            <summary>
+            Process entire chunks of entities together.
+            </summary>
+        </member>
+        <member name="M:Myriad.ECS.Queries.IChunkQuery`3.Execute(Myriad.ECS.Queries.ChunkHandle,System.ReadOnlySpan{Myriad.ECS.Entity},System.Span{`0},System.Span{`1},System.Span{`2})">
+            <summary>
+            Process a chunk of entities all together. Items for the same entity are at the same index in all spans.
+            </summary>
+        </member>
+        <member name="T:Myriad.ECS.Queries.IChunkQuery`4">
+            <summary>
+            Process entire chunks of entities together.
+            </summary>
+        </member>
+        <member name="M:Myriad.ECS.Queries.IChunkQuery`4.Execute(Myriad.ECS.Queries.ChunkHandle,System.ReadOnlySpan{Myriad.ECS.Entity},System.Span{`0},System.Span{`1},System.Span{`2},System.Span{`3})">
+            <summary>
+            Process a chunk of entities all together. Items for the same entity are at the same index in all spans.
+            </summary>
+        </member>
+        <member name="T:Myriad.ECS.Queries.IChunkQuery`5">
+            <summary>
+            Process entire chunks of entities together.
+            </summary>
+        </member>
+        <member name="M:Myriad.ECS.Queries.IChunkQuery`5.Execute(Myriad.ECS.Queries.ChunkHandle,System.ReadOnlySpan{Myriad.ECS.Entity},System.Span{`0},System.Span{`1},System.Span{`2},System.Span{`3},System.Span{`4})">
+            <summary>
+            Process a chunk of entities all together. Items for the same entity are at the same index in all spans.
+            </summary>
+        </member>
+        <member name="T:Myriad.ECS.Queries.IChunkQuery`6">
+            <summary>
+            Process entire chunks of entities together.
+            </summary>
+        </member>
+        <member name="M:Myriad.ECS.Queries.IChunkQuery`6.Execute(Myriad.ECS.Queries.ChunkHandle,System.ReadOnlySpan{Myriad.ECS.Entity},System.Span{`0},System.Span{`1},System.Span{`2},System.Span{`3},System.Span{`4},System.Span{`5})">
+            <summary>
+            Process a chunk of entities all together. Items for the same entity are at the same index in all spans.
+            </summary>
+        </member>
+        <member name="T:Myriad.ECS.Queries.IChunkQuery`7">
+            <summary>
+            Process entire chunks of entities together.
+            </summary>
+        </member>
+        <member name="M:Myriad.ECS.Queries.IChunkQuery`7.Execute(Myriad.ECS.Queries.ChunkHandle,System.ReadOnlySpan{Myriad.ECS.Entity},System.Span{`0},System.Span{`1},System.Span{`2},System.Span{`3},System.Span{`4},System.Span{`5},System.Span{`6})">
+            <summary>
+            Process a chunk of entities all together. Items for the same entity are at the same index in all spans.
+            </summary>
+        </member>
+        <member name="T:Myriad.ECS.Queries.IChunkQuery`8">
+            <summary>
+            Process entire chunks of entities together.
+            </summary>
+        </member>
+        <member name="M:Myriad.ECS.Queries.IChunkQuery`8.Execute(Myriad.ECS.Queries.ChunkHandle,System.ReadOnlySpan{Myriad.ECS.Entity},System.Span{`0},System.Span{`1},System.Span{`2},System.Span{`3},System.Span{`4},System.Span{`5},System.Span{`6},System.Span{`7})">
+            <summary>
+            Process a chunk of entities all together. Items for the same entity are at the same index in all spans.
+            </summary>
+        </member>
+        <member name="T:Myriad.ECS.Queries.IChunkQuery`9">
+            <summary>
+            Process entire chunks of entities together.
+            </summary>
+        </member>
+        <member name="M:Myriad.ECS.Queries.IChunkQuery`9.Execute(Myriad.ECS.Queries.ChunkHandle,System.ReadOnlySpan{Myriad.ECS.Entity},System.Span{`0},System.Span{`1},System.Span{`2},System.Span{`3},System.Span{`4},System.Span{`5},System.Span{`6},System.Span{`7},System.Span{`8})">
+            <summary>
+            Process a chunk of entities all together. Items for the same entity are at the same index in all spans.
+            </summary>
+        </member>
+        <member name="T:Myriad.ECS.Queries.IChunkQuery`10">
+            <summary>
+            Process entire chunks of entities together.
+            </summary>
+        </member>
+        <member name="M:Myriad.ECS.Queries.IChunkQuery`10.Execute(Myriad.ECS.Queries.ChunkHandle,System.ReadOnlySpan{Myriad.ECS.Entity},System.Span{`0},System.Span{`1},System.Span{`2},System.Span{`3},System.Span{`4},System.Span{`5},System.Span{`6},System.Span{`7},System.Span{`8},System.Span{`9})">
+            <summary>
+            Process a chunk of entities all together. Items for the same entity are at the same index in all spans.
+            </summary>
+        </member>
+        <member name="T:Myriad.ECS.Queries.IChunkQuery`11">
+            <summary>
+            Process entire chunks of entities together.
+            </summary>
+        </member>
+        <member name="M:Myriad.ECS.Queries.IChunkQuery`11.Execute(Myriad.ECS.Queries.ChunkHandle,System.ReadOnlySpan{Myriad.ECS.Entity},System.Span{`0},System.Span{`1},System.Span{`2},System.Span{`3},System.Span{`4},System.Span{`5},System.Span{`6},System.Span{`7},System.Span{`8},System.Span{`9},System.Span{`10})">
+            <summary>
+            Process a chunk of entities all together. Items for the same entity are at the same index in all spans.
+            </summary>
+        </member>
+        <member name="T:Myriad.ECS.Queries.IChunkQuery`12">
+            <summary>
+            Process entire chunks of entities together.
+            </summary>
+        </member>
+        <member name="M:Myriad.ECS.Queries.IChunkQuery`12.Execute(Myriad.ECS.Queries.ChunkHandle,System.ReadOnlySpan{Myriad.ECS.Entity},System.Span{`0},System.Span{`1},System.Span{`2},System.Span{`3},System.Span{`4},System.Span{`5},System.Span{`6},System.Span{`7},System.Span{`8},System.Span{`9},System.Span{`10},System.Span{`11})">
+            <summary>
+            Process a chunk of entities all together. Items for the same entity are at the same index in all spans.
+            </summary>
+        </member>
+        <member name="T:Myriad.ECS.Queries.IChunkQuery`13">
+            <summary>
+            Process entire chunks of entities together.
+            </summary>
+        </member>
+        <member name="M:Myriad.ECS.Queries.IChunkQuery`13.Execute(Myriad.ECS.Queries.ChunkHandle,System.ReadOnlySpan{Myriad.ECS.Entity},System.Span{`0},System.Span{`1},System.Span{`2},System.Span{`3},System.Span{`4},System.Span{`5},System.Span{`6},System.Span{`7},System.Span{`8},System.Span{`9},System.Span{`10},System.Span{`11},System.Span{`12})">
+            <summary>
+            Process a chunk of entities all together. Items for the same entity are at the same index in all spans.
+            </summary>
+        </member>
+        <member name="T:Myriad.ECS.Queries.IChunkQuery`14">
+            <summary>
+            Process entire chunks of entities together.
+            </summary>
+        </member>
+        <member name="M:Myriad.ECS.Queries.IChunkQuery`14.Execute(Myriad.ECS.Queries.ChunkHandle,System.ReadOnlySpan{Myriad.ECS.Entity},System.Span{`0},System.Span{`1},System.Span{`2},System.Span{`3},System.Span{`4},System.Span{`5},System.Span{`6},System.Span{`7},System.Span{`8},System.Span{`9},System.Span{`10},System.Span{`11},System.Span{`12},System.Span{`13})">
+            <summary>
+            Process a chunk of entities all together. Items for the same entity are at the same index in all spans.
+            </summary>
+        </member>
+        <member name="T:Myriad.ECS.Queries.IChunkQuery`15">
+            <summary>
+            Process entire chunks of entities together.
+            </summary>
+        </member>
+        <member name="M:Myriad.ECS.Queries.IChunkQuery`15.Execute(Myriad.ECS.Queries.ChunkHandle,System.ReadOnlySpan{Myriad.ECS.Entity},System.Span{`0},System.Span{`1},System.Span{`2},System.Span{`3},System.Span{`4},System.Span{`5},System.Span{`6},System.Span{`7},System.Span{`8},System.Span{`9},System.Span{`10},System.Span{`11},System.Span{`12},System.Span{`13},System.Span{`14})">
+            <summary>
+            Process a chunk of entities all together. Items for the same entity are at the same index in all spans.
+            </summary>
+        </member>
+        <member name="T:Myriad.ECS.Queries.IChunkQuery`16">
+            <summary>
+            Process entire chunks of entities together.
+            </summary>
+        </member>
+        <member name="M:Myriad.ECS.Queries.IChunkQuery`16.Execute(Myriad.ECS.Queries.ChunkHandle,System.ReadOnlySpan{Myriad.ECS.Entity},System.Span{`0},System.Span{`1},System.Span{`2},System.Span{`3},System.Span{`4},System.Span{`5},System.Span{`6},System.Span{`7},System.Span{`8},System.Span{`9},System.Span{`10},System.Span{`11},System.Span{`12},System.Span{`13},System.Span{`14},System.Span{`15})">
+            <summary>
+            Process a chunk of entities all together. Items for the same entity are at the same index in all spans.
+            </summary>
+        </member>
         <member name="T:Myriad.ECS.Queries.IQuery`1">
             <summary>
             A query which accepts 1 components
+            </summary>
+        </member>
+        <member name="M:Myriad.ECS.Queries.IQuery`1.Execute(Myriad.ECS.Entity,`0@)">
+            <summary>
+            Execute the query for a single entity
             </summary>
         </member>
         <member name="T:Myriad.ECS.Queries.IQuery`2">
@@ -8306,9 +9358,19 @@
             A query which accepts 2 components
             </summary>
         </member>
+        <member name="M:Myriad.ECS.Queries.IQuery`2.Execute(Myriad.ECS.Entity,`0@,`1@)">
+            <summary>
+            Execute the query for a single entity
+            </summary>
+        </member>
         <member name="T:Myriad.ECS.Queries.IQuery`3">
             <summary>
             A query which accepts 3 components
+            </summary>
+        </member>
+        <member name="M:Myriad.ECS.Queries.IQuery`3.Execute(Myriad.ECS.Entity,`0@,`1@,`2@)">
+            <summary>
+            Execute the query for a single entity
             </summary>
         </member>
         <member name="T:Myriad.ECS.Queries.IQuery`4">
@@ -8316,9 +9378,19 @@
             A query which accepts 4 components
             </summary>
         </member>
+        <member name="M:Myriad.ECS.Queries.IQuery`4.Execute(Myriad.ECS.Entity,`0@,`1@,`2@,`3@)">
+            <summary>
+            Execute the query for a single entity
+            </summary>
+        </member>
         <member name="T:Myriad.ECS.Queries.IQuery`5">
             <summary>
             A query which accepts 5 components
+            </summary>
+        </member>
+        <member name="M:Myriad.ECS.Queries.IQuery`5.Execute(Myriad.ECS.Entity,`0@,`1@,`2@,`3@,`4@)">
+            <summary>
+            Execute the query for a single entity
             </summary>
         </member>
         <member name="T:Myriad.ECS.Queries.IQuery`6">
@@ -8326,9 +9398,19 @@
             A query which accepts 6 components
             </summary>
         </member>
+        <member name="M:Myriad.ECS.Queries.IQuery`6.Execute(Myriad.ECS.Entity,`0@,`1@,`2@,`3@,`4@,`5@)">
+            <summary>
+            Execute the query for a single entity
+            </summary>
+        </member>
         <member name="T:Myriad.ECS.Queries.IQuery`7">
             <summary>
             A query which accepts 7 components
+            </summary>
+        </member>
+        <member name="M:Myriad.ECS.Queries.IQuery`7.Execute(Myriad.ECS.Entity,`0@,`1@,`2@,`3@,`4@,`5@,`6@)">
+            <summary>
+            Execute the query for a single entity
             </summary>
         </member>
         <member name="T:Myriad.ECS.Queries.IQuery`8">
@@ -8336,9 +9418,19 @@
             A query which accepts 8 components
             </summary>
         </member>
+        <member name="M:Myriad.ECS.Queries.IQuery`8.Execute(Myriad.ECS.Entity,`0@,`1@,`2@,`3@,`4@,`5@,`6@,`7@)">
+            <summary>
+            Execute the query for a single entity
+            </summary>
+        </member>
         <member name="T:Myriad.ECS.Queries.IQuery`9">
             <summary>
             A query which accepts 9 components
+            </summary>
+        </member>
+        <member name="M:Myriad.ECS.Queries.IQuery`9.Execute(Myriad.ECS.Entity,`0@,`1@,`2@,`3@,`4@,`5@,`6@,`7@,`8@)">
+            <summary>
+            Execute the query for a single entity
             </summary>
         </member>
         <member name="T:Myriad.ECS.Queries.IQuery`10">
@@ -8346,9 +9438,19 @@
             A query which accepts 10 components
             </summary>
         </member>
+        <member name="M:Myriad.ECS.Queries.IQuery`10.Execute(Myriad.ECS.Entity,`0@,`1@,`2@,`3@,`4@,`5@,`6@,`7@,`8@,`9@)">
+            <summary>
+            Execute the query for a single entity
+            </summary>
+        </member>
         <member name="T:Myriad.ECS.Queries.IQuery`11">
             <summary>
             A query which accepts 11 components
+            </summary>
+        </member>
+        <member name="M:Myriad.ECS.Queries.IQuery`11.Execute(Myriad.ECS.Entity,`0@,`1@,`2@,`3@,`4@,`5@,`6@,`7@,`8@,`9@,`10@)">
+            <summary>
+            Execute the query for a single entity
             </summary>
         </member>
         <member name="T:Myriad.ECS.Queries.IQuery`12">
@@ -8356,9 +9458,19 @@
             A query which accepts 12 components
             </summary>
         </member>
+        <member name="M:Myriad.ECS.Queries.IQuery`12.Execute(Myriad.ECS.Entity,`0@,`1@,`2@,`3@,`4@,`5@,`6@,`7@,`8@,`9@,`10@,`11@)">
+            <summary>
+            Execute the query for a single entity
+            </summary>
+        </member>
         <member name="T:Myriad.ECS.Queries.IQuery`13">
             <summary>
             A query which accepts 13 components
+            </summary>
+        </member>
+        <member name="M:Myriad.ECS.Queries.IQuery`13.Execute(Myriad.ECS.Entity,`0@,`1@,`2@,`3@,`4@,`5@,`6@,`7@,`8@,`9@,`10@,`11@,`12@)">
+            <summary>
+            Execute the query for a single entity
             </summary>
         </member>
         <member name="T:Myriad.ECS.Queries.IQuery`14">
@@ -8366,14 +9478,29 @@
             A query which accepts 14 components
             </summary>
         </member>
+        <member name="M:Myriad.ECS.Queries.IQuery`14.Execute(Myriad.ECS.Entity,`0@,`1@,`2@,`3@,`4@,`5@,`6@,`7@,`8@,`9@,`10@,`11@,`12@,`13@)">
+            <summary>
+            Execute the query for a single entity
+            </summary>
+        </member>
         <member name="T:Myriad.ECS.Queries.IQuery`15">
             <summary>
             A query which accepts 15 components
             </summary>
         </member>
+        <member name="M:Myriad.ECS.Queries.IQuery`15.Execute(Myriad.ECS.Entity,`0@,`1@,`2@,`3@,`4@,`5@,`6@,`7@,`8@,`9@,`10@,`11@,`12@,`13@,`14@)">
+            <summary>
+            Execute the query for a single entity
+            </summary>
+        </member>
         <member name="T:Myriad.ECS.Queries.IQuery`16">
             <summary>
             A query which accepts 16 components
+            </summary>
+        </member>
+        <member name="M:Myriad.ECS.Queries.IQuery`16.Execute(Myriad.ECS.Entity,`0@,`1@,`2@,`3@,`4@,`5@,`6@,`7@,`8@,`9@,`10@,`11@,`12@,`13@,`14@,`15@)">
+            <summary>
+            Execute the query for a single entity
             </summary>
         </member>
         <member name="T:Myriad.ECS.Queries.IQuery">
@@ -8399,6 +9526,14 @@
             <param name="chunk"></param>
             <param name="e"></param>
         </member>
+        <member name="T:Myriad.ECS.Queries.IVectorChunkQuery`1">
+            <summary>
+            Execute over a vector of values, taken from components. Mapping from components to vectorised values
+            depends on the exact alignment of the types selected to the component and the vector. For example if
+            a component is a Vector3 and the vector is float then the values in the vector will be the individual
+            vector elements in sequence.
+            </summary>
+        </member>
         <member name="M:Myriad.ECS.Queries.IVectorChunkQuery`1.Execute(System.Span{System.Numerics.Vector{`0}},System.Int32,System.Int32)">
             <summary>
             Execute work over SIMD vectors
@@ -8407,6 +9542,14 @@
             if the component is a vector3 then a value of 2 would indicate that Z is the first element.</param>
             <param name="padding">How many items at the end of the last vector in the span are padding items</param>
             <param name="t0">Span of vectors of values, reinterpreted from component 0</param>
+        </member>
+        <member name="T:Myriad.ECS.Queries.IVectorChunkQuery`2">
+            <summary>
+            Execute over a vector of values, taken from components. Mapping from components to vectorised values
+            depends on the exact alignment of the types selected to the component and the vector. For example if
+            a component is a Vector3 and the vector is float then the values in the vector will be the individual
+            vector elements in sequence.
+            </summary>
         </member>
         <member name="M:Myriad.ECS.Queries.IVectorChunkQuery`2.Execute(System.Span{System.Numerics.Vector{`0}},System.Span{System.Numerics.Vector{`1}},System.Int32,System.Int32)">
             <summary>
@@ -8418,6 +9561,14 @@
             <param name="t0">Span of vectors of values, reinterpreted from component 0</param>
             <param name="t1">Span of vectors of values, reinterpreted from component 1</param>
         </member>
+        <member name="T:Myriad.ECS.Queries.IVectorChunkQuery`3">
+            <summary>
+            Execute over a vector of values, taken from components. Mapping from components to vectorised values
+            depends on the exact alignment of the types selected to the component and the vector. For example if
+            a component is a Vector3 and the vector is float then the values in the vector will be the individual
+            vector elements in sequence.
+            </summary>
+        </member>
         <member name="M:Myriad.ECS.Queries.IVectorChunkQuery`3.Execute(System.Span{System.Numerics.Vector{`0}},System.Span{System.Numerics.Vector{`1}},System.Span{System.Numerics.Vector{`2}},System.Int32,System.Int32)">
             <summary>
             Execute work over SIMD vectors
@@ -8428,6 +9579,14 @@
             <param name="t0">Span of vectors of values, reinterpreted from component 0</param>
             <param name="t1">Span of vectors of values, reinterpreted from component 1</param>
             <param name="t2">Span of vectors of values, reinterpreted from component 2</param>
+        </member>
+        <member name="T:Myriad.ECS.Queries.IVectorChunkQuery`4">
+            <summary>
+            Execute over a vector of values, taken from components. Mapping from components to vectorised values
+            depends on the exact alignment of the types selected to the component and the vector. For example if
+            a component is a Vector3 and the vector is float then the values in the vector will be the individual
+            vector elements in sequence.
+            </summary>
         </member>
         <member name="M:Myriad.ECS.Queries.IVectorChunkQuery`4.Execute(System.Span{System.Numerics.Vector{`0}},System.Span{System.Numerics.Vector{`1}},System.Span{System.Numerics.Vector{`2}},System.Span{System.Numerics.Vector{`3}},System.Int32,System.Int32)">
             <summary>
@@ -8441,6 +9600,14 @@
             <param name="t2">Span of vectors of values, reinterpreted from component 2</param>
             <param name="t3">Span of vectors of values, reinterpreted from component 3</param>
         </member>
+        <member name="T:Myriad.ECS.Queries.IVectorChunkQuery`5">
+            <summary>
+            Execute over a vector of values, taken from components. Mapping from components to vectorised values
+            depends on the exact alignment of the types selected to the component and the vector. For example if
+            a component is a Vector3 and the vector is float then the values in the vector will be the individual
+            vector elements in sequence.
+            </summary>
+        </member>
         <member name="M:Myriad.ECS.Queries.IVectorChunkQuery`5.Execute(System.Span{System.Numerics.Vector{`0}},System.Span{System.Numerics.Vector{`1}},System.Span{System.Numerics.Vector{`2}},System.Span{System.Numerics.Vector{`3}},System.Span{System.Numerics.Vector{`4}},System.Int32,System.Int32)">
             <summary>
             Execute work over SIMD vectors
@@ -8453,6 +9620,14 @@
             <param name="t2">Span of vectors of values, reinterpreted from component 2</param>
             <param name="t3">Span of vectors of values, reinterpreted from component 3</param>
             <param name="t4">Span of vectors of values, reinterpreted from component 4</param>
+        </member>
+        <member name="T:Myriad.ECS.Queries.IVectorChunkQuery`6">
+            <summary>
+            Execute over a vector of values, taken from components. Mapping from components to vectorised values
+            depends on the exact alignment of the types selected to the component and the vector. For example if
+            a component is a Vector3 and the vector is float then the values in the vector will be the individual
+            vector elements in sequence.
+            </summary>
         </member>
         <member name="M:Myriad.ECS.Queries.IVectorChunkQuery`6.Execute(System.Span{System.Numerics.Vector{`0}},System.Span{System.Numerics.Vector{`1}},System.Span{System.Numerics.Vector{`2}},System.Span{System.Numerics.Vector{`3}},System.Span{System.Numerics.Vector{`4}},System.Span{System.Numerics.Vector{`5}},System.Int32,System.Int32)">
             <summary>
@@ -8468,6 +9643,14 @@
             <param name="t4">Span of vectors of values, reinterpreted from component 4</param>
             <param name="t5">Span of vectors of values, reinterpreted from component 5</param>
         </member>
+        <member name="T:Myriad.ECS.Queries.IVectorChunkQuery`7">
+            <summary>
+            Execute over a vector of values, taken from components. Mapping from components to vectorised values
+            depends on the exact alignment of the types selected to the component and the vector. For example if
+            a component is a Vector3 and the vector is float then the values in the vector will be the individual
+            vector elements in sequence.
+            </summary>
+        </member>
         <member name="M:Myriad.ECS.Queries.IVectorChunkQuery`7.Execute(System.Span{System.Numerics.Vector{`0}},System.Span{System.Numerics.Vector{`1}},System.Span{System.Numerics.Vector{`2}},System.Span{System.Numerics.Vector{`3}},System.Span{System.Numerics.Vector{`4}},System.Span{System.Numerics.Vector{`5}},System.Span{System.Numerics.Vector{`6}},System.Int32,System.Int32)">
             <summary>
             Execute work over SIMD vectors
@@ -8482,6 +9665,14 @@
             <param name="t4">Span of vectors of values, reinterpreted from component 4</param>
             <param name="t5">Span of vectors of values, reinterpreted from component 5</param>
             <param name="t6">Span of vectors of values, reinterpreted from component 6</param>
+        </member>
+        <member name="T:Myriad.ECS.Queries.IVectorChunkQuery`8">
+            <summary>
+            Execute over a vector of values, taken from components. Mapping from components to vectorised values
+            depends on the exact alignment of the types selected to the component and the vector. For example if
+            a component is a Vector3 and the vector is float then the values in the vector will be the individual
+            vector elements in sequence.
+            </summary>
         </member>
         <member name="M:Myriad.ECS.Queries.IVectorChunkQuery`8.Execute(System.Span{System.Numerics.Vector{`0}},System.Span{System.Numerics.Vector{`1}},System.Span{System.Numerics.Vector{`2}},System.Span{System.Numerics.Vector{`3}},System.Span{System.Numerics.Vector{`4}},System.Span{System.Numerics.Vector{`5}},System.Span{System.Numerics.Vector{`6}},System.Span{System.Numerics.Vector{`7}},System.Int32,System.Int32)">
             <summary>
@@ -8499,6 +9690,14 @@
             <param name="t6">Span of vectors of values, reinterpreted from component 6</param>
             <param name="t7">Span of vectors of values, reinterpreted from component 7</param>
         </member>
+        <member name="T:Myriad.ECS.Queries.IVectorChunkQuery`9">
+            <summary>
+            Execute over a vector of values, taken from components. Mapping from components to vectorised values
+            depends on the exact alignment of the types selected to the component and the vector. For example if
+            a component is a Vector3 and the vector is float then the values in the vector will be the individual
+            vector elements in sequence.
+            </summary>
+        </member>
         <member name="M:Myriad.ECS.Queries.IVectorChunkQuery`9.Execute(System.Span{System.Numerics.Vector{`0}},System.Span{System.Numerics.Vector{`1}},System.Span{System.Numerics.Vector{`2}},System.Span{System.Numerics.Vector{`3}},System.Span{System.Numerics.Vector{`4}},System.Span{System.Numerics.Vector{`5}},System.Span{System.Numerics.Vector{`6}},System.Span{System.Numerics.Vector{`7}},System.Span{System.Numerics.Vector{`8}},System.Int32,System.Int32)">
             <summary>
             Execute work over SIMD vectors
@@ -8515,6 +9714,14 @@
             <param name="t6">Span of vectors of values, reinterpreted from component 6</param>
             <param name="t7">Span of vectors of values, reinterpreted from component 7</param>
             <param name="t8">Span of vectors of values, reinterpreted from component 8</param>
+        </member>
+        <member name="T:Myriad.ECS.Queries.IVectorChunkQuery`10">
+            <summary>
+            Execute over a vector of values, taken from components. Mapping from components to vectorised values
+            depends on the exact alignment of the types selected to the component and the vector. For example if
+            a component is a Vector3 and the vector is float then the values in the vector will be the individual
+            vector elements in sequence.
+            </summary>
         </member>
         <member name="M:Myriad.ECS.Queries.IVectorChunkQuery`10.Execute(System.Span{System.Numerics.Vector{`0}},System.Span{System.Numerics.Vector{`1}},System.Span{System.Numerics.Vector{`2}},System.Span{System.Numerics.Vector{`3}},System.Span{System.Numerics.Vector{`4}},System.Span{System.Numerics.Vector{`5}},System.Span{System.Numerics.Vector{`6}},System.Span{System.Numerics.Vector{`7}},System.Span{System.Numerics.Vector{`8}},System.Span{System.Numerics.Vector{`9}},System.Int32,System.Int32)">
             <summary>
@@ -8534,6 +9741,14 @@
             <param name="t8">Span of vectors of values, reinterpreted from component 8</param>
             <param name="t9">Span of vectors of values, reinterpreted from component 9</param>
         </member>
+        <member name="T:Myriad.ECS.Queries.IVectorChunkQuery`11">
+            <summary>
+            Execute over a vector of values, taken from components. Mapping from components to vectorised values
+            depends on the exact alignment of the types selected to the component and the vector. For example if
+            a component is a Vector3 and the vector is float then the values in the vector will be the individual
+            vector elements in sequence.
+            </summary>
+        </member>
         <member name="M:Myriad.ECS.Queries.IVectorChunkQuery`11.Execute(System.Span{System.Numerics.Vector{`0}},System.Span{System.Numerics.Vector{`1}},System.Span{System.Numerics.Vector{`2}},System.Span{System.Numerics.Vector{`3}},System.Span{System.Numerics.Vector{`4}},System.Span{System.Numerics.Vector{`5}},System.Span{System.Numerics.Vector{`6}},System.Span{System.Numerics.Vector{`7}},System.Span{System.Numerics.Vector{`8}},System.Span{System.Numerics.Vector{`9}},System.Span{System.Numerics.Vector{`10}},System.Int32,System.Int32)">
             <summary>
             Execute work over SIMD vectors
@@ -8552,6 +9767,14 @@
             <param name="t8">Span of vectors of values, reinterpreted from component 8</param>
             <param name="t9">Span of vectors of values, reinterpreted from component 9</param>
             <param name="t10">Span of vectors of values, reinterpreted from component 10</param>
+        </member>
+        <member name="T:Myriad.ECS.Queries.IVectorChunkQuery`12">
+            <summary>
+            Execute over a vector of values, taken from components. Mapping from components to vectorised values
+            depends on the exact alignment of the types selected to the component and the vector. For example if
+            a component is a Vector3 and the vector is float then the values in the vector will be the individual
+            vector elements in sequence.
+            </summary>
         </member>
         <member name="M:Myriad.ECS.Queries.IVectorChunkQuery`12.Execute(System.Span{System.Numerics.Vector{`0}},System.Span{System.Numerics.Vector{`1}},System.Span{System.Numerics.Vector{`2}},System.Span{System.Numerics.Vector{`3}},System.Span{System.Numerics.Vector{`4}},System.Span{System.Numerics.Vector{`5}},System.Span{System.Numerics.Vector{`6}},System.Span{System.Numerics.Vector{`7}},System.Span{System.Numerics.Vector{`8}},System.Span{System.Numerics.Vector{`9}},System.Span{System.Numerics.Vector{`10}},System.Span{System.Numerics.Vector{`11}},System.Int32,System.Int32)">
             <summary>
@@ -8573,6 +9796,14 @@
             <param name="t10">Span of vectors of values, reinterpreted from component 10</param>
             <param name="t11">Span of vectors of values, reinterpreted from component 11</param>
         </member>
+        <member name="T:Myriad.ECS.Queries.IVectorChunkQuery`13">
+            <summary>
+            Execute over a vector of values, taken from components. Mapping from components to vectorised values
+            depends on the exact alignment of the types selected to the component and the vector. For example if
+            a component is a Vector3 and the vector is float then the values in the vector will be the individual
+            vector elements in sequence.
+            </summary>
+        </member>
         <member name="M:Myriad.ECS.Queries.IVectorChunkQuery`13.Execute(System.Span{System.Numerics.Vector{`0}},System.Span{System.Numerics.Vector{`1}},System.Span{System.Numerics.Vector{`2}},System.Span{System.Numerics.Vector{`3}},System.Span{System.Numerics.Vector{`4}},System.Span{System.Numerics.Vector{`5}},System.Span{System.Numerics.Vector{`6}},System.Span{System.Numerics.Vector{`7}},System.Span{System.Numerics.Vector{`8}},System.Span{System.Numerics.Vector{`9}},System.Span{System.Numerics.Vector{`10}},System.Span{System.Numerics.Vector{`11}},System.Span{System.Numerics.Vector{`12}},System.Int32,System.Int32)">
             <summary>
             Execute work over SIMD vectors
@@ -8593,6 +9824,14 @@
             <param name="t10">Span of vectors of values, reinterpreted from component 10</param>
             <param name="t11">Span of vectors of values, reinterpreted from component 11</param>
             <param name="t12">Span of vectors of values, reinterpreted from component 12</param>
+        </member>
+        <member name="T:Myriad.ECS.Queries.IVectorChunkQuery`14">
+            <summary>
+            Execute over a vector of values, taken from components. Mapping from components to vectorised values
+            depends on the exact alignment of the types selected to the component and the vector. For example if
+            a component is a Vector3 and the vector is float then the values in the vector will be the individual
+            vector elements in sequence.
+            </summary>
         </member>
         <member name="M:Myriad.ECS.Queries.IVectorChunkQuery`14.Execute(System.Span{System.Numerics.Vector{`0}},System.Span{System.Numerics.Vector{`1}},System.Span{System.Numerics.Vector{`2}},System.Span{System.Numerics.Vector{`3}},System.Span{System.Numerics.Vector{`4}},System.Span{System.Numerics.Vector{`5}},System.Span{System.Numerics.Vector{`6}},System.Span{System.Numerics.Vector{`7}},System.Span{System.Numerics.Vector{`8}},System.Span{System.Numerics.Vector{`9}},System.Span{System.Numerics.Vector{`10}},System.Span{System.Numerics.Vector{`11}},System.Span{System.Numerics.Vector{`12}},System.Span{System.Numerics.Vector{`13}},System.Int32,System.Int32)">
             <summary>
@@ -8616,6 +9855,14 @@
             <param name="t12">Span of vectors of values, reinterpreted from component 12</param>
             <param name="t13">Span of vectors of values, reinterpreted from component 13</param>
         </member>
+        <member name="T:Myriad.ECS.Queries.IVectorChunkQuery`15">
+            <summary>
+            Execute over a vector of values, taken from components. Mapping from components to vectorised values
+            depends on the exact alignment of the types selected to the component and the vector. For example if
+            a component is a Vector3 and the vector is float then the values in the vector will be the individual
+            vector elements in sequence.
+            </summary>
+        </member>
         <member name="M:Myriad.ECS.Queries.IVectorChunkQuery`15.Execute(System.Span{System.Numerics.Vector{`0}},System.Span{System.Numerics.Vector{`1}},System.Span{System.Numerics.Vector{`2}},System.Span{System.Numerics.Vector{`3}},System.Span{System.Numerics.Vector{`4}},System.Span{System.Numerics.Vector{`5}},System.Span{System.Numerics.Vector{`6}},System.Span{System.Numerics.Vector{`7}},System.Span{System.Numerics.Vector{`8}},System.Span{System.Numerics.Vector{`9}},System.Span{System.Numerics.Vector{`10}},System.Span{System.Numerics.Vector{`11}},System.Span{System.Numerics.Vector{`12}},System.Span{System.Numerics.Vector{`13}},System.Span{System.Numerics.Vector{`14}},System.Int32,System.Int32)">
             <summary>
             Execute work over SIMD vectors
@@ -8638,6 +9885,14 @@
             <param name="t12">Span of vectors of values, reinterpreted from component 12</param>
             <param name="t13">Span of vectors of values, reinterpreted from component 13</param>
             <param name="t14">Span of vectors of values, reinterpreted from component 14</param>
+        </member>
+        <member name="T:Myriad.ECS.Queries.IVectorChunkQuery`16">
+            <summary>
+            Execute over a vector of values, taken from components. Mapping from components to vectorised values
+            depends on the exact alignment of the types selected to the component and the vector. For example if
+            a component is a Vector3 and the vector is float then the values in the vector will be the individual
+            vector elements in sequence.
+            </summary>
         </member>
         <member name="M:Myriad.ECS.Queries.IVectorChunkQuery`16.Execute(System.Span{System.Numerics.Vector{`0}},System.Span{System.Numerics.Vector{`1}},System.Span{System.Numerics.Vector{`2}},System.Span{System.Numerics.Vector{`3}},System.Span{System.Numerics.Vector{`4}},System.Span{System.Numerics.Vector{`5}},System.Span{System.Numerics.Vector{`6}},System.Span{System.Numerics.Vector{`7}},System.Span{System.Numerics.Vector{`8}},System.Span{System.Numerics.Vector{`9}},System.Span{System.Numerics.Vector{`10}},System.Span{System.Numerics.Vector{`11}},System.Span{System.Numerics.Vector{`12}},System.Span{System.Numerics.Vector{`13}},System.Span{System.Numerics.Vector{`14}},System.Span{System.Numerics.Vector{`15}},System.Int32,System.Int32)">
             <summary>
@@ -9381,6 +10636,82 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="M:Myriad.ECS.Queries.QueryDescription.IsIncluded``1">
+            <summary>
+            Check if this query requires the given component
+            </summary>
+            <typeparam name="T"></typeparam>
+            <returns></returns>
+        </member>
+        <member name="M:Myriad.ECS.Queries.QueryDescription.IsIncluded(System.Type)">
+            <summary>
+            Check if this query requires the given component
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Myriad.ECS.Queries.QueryDescription.IsIncluded(Myriad.ECS.IDs.ComponentID)">
+            <summary>
+            Check if this query requires the given component
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Myriad.ECS.Queries.QueryDescription.IsExcluded``1">
+            <summary>
+            Check if this query excludes entities with the given component
+            </summary>
+            <typeparam name="T"></typeparam>
+            <returns></returns>
+        </member>
+        <member name="M:Myriad.ECS.Queries.QueryDescription.IsExcluded(System.Type)">
+            <summary>
+            Check if this query excludes entities with the given component
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Myriad.ECS.Queries.QueryDescription.IsExcluded(Myriad.ECS.IDs.ComponentID)">
+            <summary>
+            Check if this query excludes entities with the given component
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Myriad.ECS.Queries.QueryDescription.IsAtLeastOneOf``1">
+            <summary>
+            Check if the given component is one of the components which at least one of must be on the entity
+            </summary>
+            <typeparam name="T"></typeparam>
+            <returns></returns>
+        </member>
+        <member name="M:Myriad.ECS.Queries.QueryDescription.IsAtLeastOneOf(System.Type)">
+            <summary>
+            Check if the given component is one of the components which at least one of must be on the entity
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Myriad.ECS.Queries.QueryDescription.IsAtLeastOneOf(Myriad.ECS.IDs.ComponentID)">
+            <summary>
+            Check if the given component is one of the components which at least one of must be on the entity
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Myriad.ECS.Queries.QueryDescription.IsExactlyOneOf``1">
+            <summary>
+            Check if the given component is one of the components which exactly one of must be on the entity
+            </summary>
+            <typeparam name="T"></typeparam>
+            <returns></returns>
+        </member>
+        <member name="M:Myriad.ECS.Queries.QueryDescription.IsExactlyOneOf(System.Type)">
+            <summary>
+            Check if the given component is one of the components which exactly one of must be on the entity
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Myriad.ECS.Queries.QueryDescription.IsExactlyOneOf(Myriad.ECS.IDs.ComponentID)">
+            <summary>
+            Check if the given component is one of the components which exactly one of must be on the entity
+            </summary>
+            <returns></returns>
+        </member>
         <member name="M:Myriad.ECS.Queries.QueryDescription.GetArchetypes">
             <summary>
             Get all archetypes which match this query
@@ -9422,6 +10753,9 @@
         <member name="P:Myriad.ECS.Queries.QueryDescription.ArchetypeMatch.ExactlyOne">
             <summary>The "exactly one" component present (if there is one in this query)</summary>
         </member>
+        <member name="M:Myriad.ECS.Queries.QueryDescription.ArchetypeMatch.CompareTo(Myriad.ECS.Queries.QueryDescription.ArchetypeMatch)">
+            <inheritdoc />
+        </member>
         <member name="M:Myriad.ECS.Queries.QueryDescription.Count">
             <summary>
             Count how many entities match this query
@@ -9447,6 +10781,374 @@
             <typeparam name="T"></typeparam>
             <param name="item"></param>
             <returns>The number of entities written to</returns>
+        </member>
+        <member name="T:Myriad.ECS.Queries.IQueryMap`2">
+            <summary>
+            Map from a set of components to a single value
+            </summary>
+        </member>
+        <member name="M:Myriad.ECS.Queries.IQueryMap`2.Execute(Myriad.ECS.Entity,`1@)">
+            <summary>
+            Extract a value from the given entity and components
+            </summary>
+        </member>
+        <member name="T:Myriad.ECS.Queries.IQueryReduce1`1">
+            <summary>
+            Reduce intermediate values
+            </summary>
+        </member>
+        <member name="M:Myriad.ECS.Queries.IQueryReduce1`1.Reduce(`0,`0)">
+            <summary>
+            Reduce two intermediate value to one
+            </summary>
+            <param name="a"></param>
+            <param name="b"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Myriad.ECS.Queries.IQueryMap`3">
+            <summary>
+            Map from a set of components to a single value
+            </summary>
+        </member>
+        <member name="M:Myriad.ECS.Queries.IQueryMap`3.Execute(Myriad.ECS.Entity,`1@,`2@)">
+            <summary>
+            Extract a value from the given entity and components
+            </summary>
+        </member>
+        <member name="T:Myriad.ECS.Queries.IQueryReduce2`1">
+            <summary>
+            Reduce intermediate values
+            </summary>
+        </member>
+        <member name="M:Myriad.ECS.Queries.IQueryReduce2`1.Reduce(`0,`0)">
+            <summary>
+            Reduce two intermediate value to one
+            </summary>
+            <param name="a"></param>
+            <param name="b"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Myriad.ECS.Queries.IQueryMap`4">
+            <summary>
+            Map from a set of components to a single value
+            </summary>
+        </member>
+        <member name="M:Myriad.ECS.Queries.IQueryMap`4.Execute(Myriad.ECS.Entity,`1@,`2@,`3@)">
+            <summary>
+            Extract a value from the given entity and components
+            </summary>
+        </member>
+        <member name="T:Myriad.ECS.Queries.IQueryReduce3`1">
+            <summary>
+            Reduce intermediate values
+            </summary>
+        </member>
+        <member name="M:Myriad.ECS.Queries.IQueryReduce3`1.Reduce(`0,`0)">
+            <summary>
+            Reduce two intermediate value to one
+            </summary>
+            <param name="a"></param>
+            <param name="b"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Myriad.ECS.Queries.IQueryMap`5">
+            <summary>
+            Map from a set of components to a single value
+            </summary>
+        </member>
+        <member name="M:Myriad.ECS.Queries.IQueryMap`5.Execute(Myriad.ECS.Entity,`1@,`2@,`3@,`4@)">
+            <summary>
+            Extract a value from the given entity and components
+            </summary>
+        </member>
+        <member name="T:Myriad.ECS.Queries.IQueryReduce4`1">
+            <summary>
+            Reduce intermediate values
+            </summary>
+        </member>
+        <member name="M:Myriad.ECS.Queries.IQueryReduce4`1.Reduce(`0,`0)">
+            <summary>
+            Reduce two intermediate value to one
+            </summary>
+            <param name="a"></param>
+            <param name="b"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Myriad.ECS.Queries.IQueryMap`6">
+            <summary>
+            Map from a set of components to a single value
+            </summary>
+        </member>
+        <member name="M:Myriad.ECS.Queries.IQueryMap`6.Execute(Myriad.ECS.Entity,`1@,`2@,`3@,`4@,`5@)">
+            <summary>
+            Extract a value from the given entity and components
+            </summary>
+        </member>
+        <member name="T:Myriad.ECS.Queries.IQueryReduce5`1">
+            <summary>
+            Reduce intermediate values
+            </summary>
+        </member>
+        <member name="M:Myriad.ECS.Queries.IQueryReduce5`1.Reduce(`0,`0)">
+            <summary>
+            Reduce two intermediate value to one
+            </summary>
+            <param name="a"></param>
+            <param name="b"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Myriad.ECS.Queries.IQueryMap`7">
+            <summary>
+            Map from a set of components to a single value
+            </summary>
+        </member>
+        <member name="M:Myriad.ECS.Queries.IQueryMap`7.Execute(Myriad.ECS.Entity,`1@,`2@,`3@,`4@,`5@,`6@)">
+            <summary>
+            Extract a value from the given entity and components
+            </summary>
+        </member>
+        <member name="T:Myriad.ECS.Queries.IQueryReduce6`1">
+            <summary>
+            Reduce intermediate values
+            </summary>
+        </member>
+        <member name="M:Myriad.ECS.Queries.IQueryReduce6`1.Reduce(`0,`0)">
+            <summary>
+            Reduce two intermediate value to one
+            </summary>
+            <param name="a"></param>
+            <param name="b"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Myriad.ECS.Queries.IQueryMap`8">
+            <summary>
+            Map from a set of components to a single value
+            </summary>
+        </member>
+        <member name="M:Myriad.ECS.Queries.IQueryMap`8.Execute(Myriad.ECS.Entity,`1@,`2@,`3@,`4@,`5@,`6@,`7@)">
+            <summary>
+            Extract a value from the given entity and components
+            </summary>
+        </member>
+        <member name="T:Myriad.ECS.Queries.IQueryReduce7`1">
+            <summary>
+            Reduce intermediate values
+            </summary>
+        </member>
+        <member name="M:Myriad.ECS.Queries.IQueryReduce7`1.Reduce(`0,`0)">
+            <summary>
+            Reduce two intermediate value to one
+            </summary>
+            <param name="a"></param>
+            <param name="b"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Myriad.ECS.Queries.IQueryMap`9">
+            <summary>
+            Map from a set of components to a single value
+            </summary>
+        </member>
+        <member name="M:Myriad.ECS.Queries.IQueryMap`9.Execute(Myriad.ECS.Entity,`1@,`2@,`3@,`4@,`5@,`6@,`7@,`8@)">
+            <summary>
+            Extract a value from the given entity and components
+            </summary>
+        </member>
+        <member name="T:Myriad.ECS.Queries.IQueryReduce8`1">
+            <summary>
+            Reduce intermediate values
+            </summary>
+        </member>
+        <member name="M:Myriad.ECS.Queries.IQueryReduce8`1.Reduce(`0,`0)">
+            <summary>
+            Reduce two intermediate value to one
+            </summary>
+            <param name="a"></param>
+            <param name="b"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Myriad.ECS.Queries.IQueryMap`10">
+            <summary>
+            Map from a set of components to a single value
+            </summary>
+        </member>
+        <member name="M:Myriad.ECS.Queries.IQueryMap`10.Execute(Myriad.ECS.Entity,`1@,`2@,`3@,`4@,`5@,`6@,`7@,`8@,`9@)">
+            <summary>
+            Extract a value from the given entity and components
+            </summary>
+        </member>
+        <member name="T:Myriad.ECS.Queries.IQueryReduce9`1">
+            <summary>
+            Reduce intermediate values
+            </summary>
+        </member>
+        <member name="M:Myriad.ECS.Queries.IQueryReduce9`1.Reduce(`0,`0)">
+            <summary>
+            Reduce two intermediate value to one
+            </summary>
+            <param name="a"></param>
+            <param name="b"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Myriad.ECS.Queries.IQueryMap`11">
+            <summary>
+            Map from a set of components to a single value
+            </summary>
+        </member>
+        <member name="M:Myriad.ECS.Queries.IQueryMap`11.Execute(Myriad.ECS.Entity,`1@,`2@,`3@,`4@,`5@,`6@,`7@,`8@,`9@,`10@)">
+            <summary>
+            Extract a value from the given entity and components
+            </summary>
+        </member>
+        <member name="T:Myriad.ECS.Queries.IQueryReduce10`1">
+            <summary>
+            Reduce intermediate values
+            </summary>
+        </member>
+        <member name="M:Myriad.ECS.Queries.IQueryReduce10`1.Reduce(`0,`0)">
+            <summary>
+            Reduce two intermediate value to one
+            </summary>
+            <param name="a"></param>
+            <param name="b"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Myriad.ECS.Queries.IQueryMap`12">
+            <summary>
+            Map from a set of components to a single value
+            </summary>
+        </member>
+        <member name="M:Myriad.ECS.Queries.IQueryMap`12.Execute(Myriad.ECS.Entity,`1@,`2@,`3@,`4@,`5@,`6@,`7@,`8@,`9@,`10@,`11@)">
+            <summary>
+            Extract a value from the given entity and components
+            </summary>
+        </member>
+        <member name="T:Myriad.ECS.Queries.IQueryReduce11`1">
+            <summary>
+            Reduce intermediate values
+            </summary>
+        </member>
+        <member name="M:Myriad.ECS.Queries.IQueryReduce11`1.Reduce(`0,`0)">
+            <summary>
+            Reduce two intermediate value to one
+            </summary>
+            <param name="a"></param>
+            <param name="b"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Myriad.ECS.Queries.IQueryMap`13">
+            <summary>
+            Map from a set of components to a single value
+            </summary>
+        </member>
+        <member name="M:Myriad.ECS.Queries.IQueryMap`13.Execute(Myriad.ECS.Entity,`1@,`2@,`3@,`4@,`5@,`6@,`7@,`8@,`9@,`10@,`11@,`12@)">
+            <summary>
+            Extract a value from the given entity and components
+            </summary>
+        </member>
+        <member name="T:Myriad.ECS.Queries.IQueryReduce12`1">
+            <summary>
+            Reduce intermediate values
+            </summary>
+        </member>
+        <member name="M:Myriad.ECS.Queries.IQueryReduce12`1.Reduce(`0,`0)">
+            <summary>
+            Reduce two intermediate value to one
+            </summary>
+            <param name="a"></param>
+            <param name="b"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Myriad.ECS.Queries.IQueryMap`14">
+            <summary>
+            Map from a set of components to a single value
+            </summary>
+        </member>
+        <member name="M:Myriad.ECS.Queries.IQueryMap`14.Execute(Myriad.ECS.Entity,`1@,`2@,`3@,`4@,`5@,`6@,`7@,`8@,`9@,`10@,`11@,`12@,`13@)">
+            <summary>
+            Extract a value from the given entity and components
+            </summary>
+        </member>
+        <member name="T:Myriad.ECS.Queries.IQueryReduce13`1">
+            <summary>
+            Reduce intermediate values
+            </summary>
+        </member>
+        <member name="M:Myriad.ECS.Queries.IQueryReduce13`1.Reduce(`0,`0)">
+            <summary>
+            Reduce two intermediate value to one
+            </summary>
+            <param name="a"></param>
+            <param name="b"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Myriad.ECS.Queries.IQueryMap`15">
+            <summary>
+            Map from a set of components to a single value
+            </summary>
+        </member>
+        <member name="M:Myriad.ECS.Queries.IQueryMap`15.Execute(Myriad.ECS.Entity,`1@,`2@,`3@,`4@,`5@,`6@,`7@,`8@,`9@,`10@,`11@,`12@,`13@,`14@)">
+            <summary>
+            Extract a value from the given entity and components
+            </summary>
+        </member>
+        <member name="T:Myriad.ECS.Queries.IQueryReduce14`1">
+            <summary>
+            Reduce intermediate values
+            </summary>
+        </member>
+        <member name="M:Myriad.ECS.Queries.IQueryReduce14`1.Reduce(`0,`0)">
+            <summary>
+            Reduce two intermediate value to one
+            </summary>
+            <param name="a"></param>
+            <param name="b"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Myriad.ECS.Queries.IQueryMap`16">
+            <summary>
+            Map from a set of components to a single value
+            </summary>
+        </member>
+        <member name="M:Myriad.ECS.Queries.IQueryMap`16.Execute(Myriad.ECS.Entity,`1@,`2@,`3@,`4@,`5@,`6@,`7@,`8@,`9@,`10@,`11@,`12@,`13@,`14@,`15@)">
+            <summary>
+            Extract a value from the given entity and components
+            </summary>
+        </member>
+        <member name="T:Myriad.ECS.Queries.IQueryReduce15`1">
+            <summary>
+            Reduce intermediate values
+            </summary>
+        </member>
+        <member name="M:Myriad.ECS.Queries.IQueryReduce15`1.Reduce(`0,`0)">
+            <summary>
+            Reduce two intermediate value to one
+            </summary>
+            <param name="a"></param>
+            <param name="b"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Myriad.ECS.Queries.IQueryMap`17">
+            <summary>
+            Map from a set of components to a single value
+            </summary>
+        </member>
+        <member name="M:Myriad.ECS.Queries.IQueryMap`17.Execute(Myriad.ECS.Entity,`1@,`2@,`3@,`4@,`5@,`6@,`7@,`8@,`9@,`10@,`11@,`12@,`13@,`14@,`15@,`16@)">
+            <summary>
+            Extract a value from the given entity and components
+            </summary>
+        </member>
+        <member name="T:Myriad.ECS.Queries.IQueryReduce16`1">
+            <summary>
+            Reduce intermediate values
+            </summary>
+        </member>
+        <member name="M:Myriad.ECS.Queries.IQueryReduce16`1.Reduce(`0,`0)">
+            <summary>
+            Reduce two intermediate value to one
+            </summary>
+            <param name="a"></param>
+            <param name="b"></param>
+            <returns></returns>
         </member>
         <member name="T:Myriad.ECS.Systems.CommandBufferSystem`1">
             <summary>
@@ -9886,6 +11588,24 @@
             All the systems in this group, if any of the systems are a group they are expanded to their inner
             systems recursively.
             </summary>
+        </member>
+        <member name="T:Myriad.ECS.Systems.ParallelSystemGroup`1">
+            <summary>
+            Executes all systems in the group in parallel, with no safety assurances of any kind.
+            </summary>
+            <typeparam name="TData"></typeparam>
+        </member>
+        <member name="M:Myriad.ECS.Systems.ParallelSystemGroup`1.#ctor(System.String,Myriad.ECS.Systems.ISystem{`0}[])">
+            <inheritdoc />
+        </member>
+        <member name="M:Myriad.ECS.Systems.ParallelSystemGroup`1.BeforeUpdateInternal(System.Collections.Generic.List{Myriad.ECS.Systems.SystemGroupItem{`0}},`0)">
+            <inheritdoc />
+        </member>
+        <member name="M:Myriad.ECS.Systems.ParallelSystemGroup`1.UpdateInternal(System.Collections.Generic.List{Myriad.ECS.Systems.SystemGroupItem{`0}},`0)">
+            <inheritdoc />
+        </member>
+        <member name="M:Myriad.ECS.Systems.ParallelSystemGroup`1.AfterUpdateInternal(System.Collections.Generic.List{Myriad.ECS.Systems.SystemGroupItem{`0}},`0)">
+            <inheritdoc />
         </member>
         <member name="T:Myriad.ECS.Systems.SystemGroup`1">
             <summary>
