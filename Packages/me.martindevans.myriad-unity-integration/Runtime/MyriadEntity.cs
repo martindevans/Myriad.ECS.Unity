@@ -5,6 +5,7 @@ using Myriad.ECS;
 using Myriad.ECS.IDs;
 using Myriad.ECS.Worlds;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Packages.me.martindevans.myriad_unity_integration.Runtime
 {
@@ -22,7 +23,7 @@ namespace Packages.me.martindevans.myriad_unity_integration.Runtime
         /// <summary>
         /// Destroy this gameobject when the entity is destroyed
         /// </summary>
-        [SerializeField, UsedImplicitly] public bool AutoDestruct;
+        [FormerlySerializedAs("AutoDestruct"), SerializeField, UsedImplicitly] public bool AutoDestructGameObject;
 
         /// <summary>
         /// Enable all of these gameobjects when the Entity is set
@@ -51,7 +52,7 @@ namespace Packages.me.martindevans.myriad_unity_integration.Runtime
         {
             _hasEntity = false;
 
-            if (AutoDestruct)
+            if (AutoDestructGameObject)
                 Destroy(gameObject);
         }
 

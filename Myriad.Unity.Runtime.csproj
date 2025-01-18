@@ -63,6 +63,7 @@
     <Compile Include="Packages\me.martindevans.myriad-unity-integration\Runtime\WorldHost.cs" />
     <Compile Include="Packages\me.martindevans.myriad-unity-integration\Runtime\GameTime.cs" />
     <Compile Include="Packages\me.martindevans.myriad-unity-integration\Runtime\Extensions\GameObjectExtensions.cs" />
+    <Compile Include="Packages\me.martindevans.myriad-unity-integration\Runtime\Components\AutoDestructEntityFromGameObject.cs" />
     <Compile Include="Packages\me.martindevans.myriad-unity-integration\Runtime\MyriadEntity.cs" />
     <Compile Include="Packages\me.martindevans.myriad-unity-integration\Runtime\MyriadEntityBindingSystem.cs" />
     <Compile Include="Packages\me.martindevans.myriad-unity-integration\Runtime\ISystemQueryEntityCount.cs" />

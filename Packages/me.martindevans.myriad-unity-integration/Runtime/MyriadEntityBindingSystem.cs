@@ -5,6 +5,7 @@ using Myriad.ECS.Components;
 using Myriad.ECS.Queries;
 using Myriad.ECS.Systems;
 using Myriad.ECS.Worlds;
+using Packages.me.martindevans.myriad_unity_integration.Runtime.Components;
 
 #nullable enable
 
@@ -24,8 +25,9 @@ namespace Packages.me.martindevans.myriad_unity_integration.Runtime
 
         private readonly QueryDescription _initQuery;
         private readonly QueryDescription _destroyQuery;
+        private readonly QueryDescription _checkGameObjectsQuery;
         private readonly List<IBehaviourComponent> _tempList = new();
-
+        
         /// <summary>
         /// Create a new MyriadEntityBindingSystem
         /// </summary>
@@ -48,6 +50,11 @@ namespace Packages.me.martindevans.myriad_unity_integration.Runtime
                 .Include<Bound>()
                 .Include<Phantom>()
                 .Build(world);
+
+            _checkGameObjectsQuery = new QueryBuilder()
+                .Include<MyriadEntity>()
+                .Include<AutoDestructEntityFromGameObject>()
+                .Build(world);
         }
 
         public void BeforeUpdate(TData data)
@@ -63,7 +70,9 @@ namespace Packages.me.martindevans.myriad_unity_integration.Runtime
 
         public void AfterUpdate(TData data)
         {
+            _world.Execute<CheckGameObjects, MyriadEntity>(new CheckGameObjects(_cmd), _checkGameObjectsQuery);
             _world.Execute<DestroyBinding, MyriadEntity>(new DestroyBinding(_cmd), _destroyQuery);
+            
             if (_executeCommand)
                 _cmd.Playback().Dispose();
         }
@@ -115,6 +124,26 @@ namespace Packages.me.martindevans.myriad_unity_integration.Runtime
             {
                 binding.EntityDestroyed();
                 _cmd.Remove<Bound>(e);
+            }
+        }
+
+        private readonly struct CheckGameObjects
+            : IQuery<MyriadEntity>
+        {
+            private readonly CommandBuffer _cmd;
+
+            public CheckGameObjects(CommandBuffer cmd)
+            {
+                _cmd = cmd;
+            }
+
+            public void Execute(Entity e, ref MyriadEntity binding)
+            {
+                if (!binding.gameObject)
+                {
+                    _cmd.Remove<AutoDestructEntityFromGameObject>(e);
+                    _cmd.Delete(e);
+                }
             }
         }
     }
