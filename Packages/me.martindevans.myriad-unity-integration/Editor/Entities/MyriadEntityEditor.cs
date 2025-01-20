@@ -32,8 +32,8 @@ namespace Packages.me.martindevans.myriad_unity_integration.Editor.Entities
                     new PlaymodeSwitchSection(
                         new ComponentList(
                             new DisplayId(),
-                            new FieldValueLabel<MyriadEntity>("Exists", m => m.HasEntity ? m.Entity.Exists().ToString() : "no_binding"),
-                            new FieldValueLabel<MyriadEntity>("Phantom", m => m.HasEntity ? m.Entity.IsPhantom().ToString() : "no_binding")
+                            new FieldValueLabel<MyriadEntity>("Exists", m => m.Entity?.Exists().ToString() ?? "no_binding"),
+                            new FieldValueLabel<MyriadEntity>("Phantom", m => m.Entity?.IsPhantom().ToString() ?? "no_binding")
                         ),
                         new ComponentList(
                             new InfoBoxComponent("When this behaviour is attached to a Myriad Entity it can be used as a 'Binding' between the scene and the ECS", MessageType.Info)
@@ -63,13 +63,13 @@ namespace Packages.me.martindevans.myriad_unity_integration.Editor.Entities
 
         public void Draw()
         {
-            if (!_entity.HasEntity)
+            if (!_entity.Entity.HasValue)
             {
                 EditorGUILayout.LabelField("ID", "Unknown/Unbound");
             }
             else
             {
-                var id = _entity.Entity.UniqueID().ToString();
+                var id = _entity.Entity.Value.UniqueID().ToString();
 
                 var display = id;
                 if (_entity.HasMyriadComponent<DebugDisplayName>())
@@ -107,8 +107,8 @@ namespace Packages.me.martindevans.myriad_unity_integration.Editor.Entities
         public void Draw()
         {
             if (_drawer == null)
-                if (_entity.HasEntity)
-                    _drawer = new EntityDrawer(_entity.World, _entity.Entity);
+                if (_entity.Entity.HasValue)
+                    _drawer = new EntityDrawer(_entity.Entity.Value);
 
             _drawer?.Draw();
         }
@@ -125,8 +125,6 @@ namespace Packages.me.martindevans.myriad_unity_integration.Editor.Entities
 
     public class EntityDrawer
     {
-        private readonly Myriad.ECS.Worlds.World _world;
-
         private readonly Dictionary<ComponentID, bool> _expandedComponents = new();
 
         private readonly IReadOnlyDictionary<Type, Type> _editorTypes;
@@ -134,9 +132,8 @@ namespace Packages.me.martindevans.myriad_unity_integration.Editor.Entities
 
         public Entity Entity { get; }
 
-        public EntityDrawer(Myriad.ECS.Worlds.World world, Entity entity)
+        public EntityDrawer(Entity entity)
         {
-            _world = world;
             Entity = entity;
 
             _editorTypes = (from assembly in AppDomain.CurrentDomain.GetAssemblies()
@@ -151,7 +148,7 @@ namespace Packages.me.martindevans.myriad_unity_integration.Editor.Entities
 
         public void Draw()
         {
-            if (_world != null && Entity.Exists())
+            if (Entity.Exists())
             {
                 var components = Entity.ComponentTypes;
                 foreach (var component in components)
@@ -184,7 +181,7 @@ namespace Packages.me.martindevans.myriad_unity_integration.Editor.Entities
                     expanded = Header.Fold(new GUIContent(name), expanded);
                     if (expanded)
                         using (new EditorGUILayout.VerticalScope(Styles.LeftPadding))
-                            instance.Draw(_world, Entity);
+                            instance.Draw(Entity);
                 }
                 _expandedComponents[component] = expanded;
             }

@@ -25,10 +25,10 @@ namespace Packages.me.martindevans.myriad_unity_integration.Editor.Entities
     {
         void Draw(MyriadEntity entity)
         {
-            Draw(entity.World, entity.Entity);
+            Draw(entity.Entity!.Value);
         }
 
-        void Draw(Myriad.ECS.Worlds.World world, Entity entity);
+        void Draw(Entity entity);
     }
 
     internal interface IMyriadEmptyComponentEditor
@@ -40,7 +40,7 @@ namespace Packages.me.martindevans.myriad_unity_integration.Editor.Entities
     public abstract class BaseMyriadEmptyComponentEditor
         : IMyriadComponentEditor
     {
-        public void Draw(Myriad.ECS.Worlds.World world, Entity entity)
+        public void Draw(Entity entity)
         {
         }
     }
@@ -80,7 +80,7 @@ namespace Packages.me.martindevans.myriad_unity_integration.Editor.Entities
             }
         }
 
-        public void Draw(Myriad.ECS.Worlds.World world, Entity entity)
+        public void Draw(Entity entity)
         {
             var c = entity.GetComponentRef<TComponent>();
             var cBox = (object)c;

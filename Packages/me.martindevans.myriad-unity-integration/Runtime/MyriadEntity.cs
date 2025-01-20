@@ -5,7 +5,6 @@ using JetBrains.Annotations;
 using Myriad.ECS;
 using Myriad.ECS.Command;
 using Myriad.ECS.IDs;
-using Myriad.ECS.Worlds;
 using UnityEngine;
 
 namespace Packages.me.martindevans.myriad_unity_integration.Runtime
@@ -17,11 +16,8 @@ namespace Packages.me.martindevans.myriad_unity_integration.Runtime
     public sealed class MyriadEntity
         : MonoBehaviour, IComponent
     {
-        private (World, Entity, CommandBuffer)? _binding;
-
-        public bool HasEntity => _binding.HasValue;
-        public World World => _binding!.Value.Item1;
-        public Entity Entity => _binding!.Value.Item2;
+        private (Entity, CommandBuffer)? _binding;
+        public Entity? Entity => _binding?.Item1;
 
         /// <summary>
         /// Set how the lifetime of gameobject and entity are bound together
@@ -44,14 +40,14 @@ namespace Packages.me.martindevans.myriad_unity_integration.Runtime
 
         private void OnDestroy()
         {
-            if (_binding is var (_, entity, cmd))
+            if (_binding is var (entity, cmd))
                 if ((DestructMode & DestructMode.GameObjectDestroysEntity) != DestructMode.None)
                     cmd.Remove<MyriadEntity>(entity);
         }
 
-        internal void SetEntity(World world, Entity entity, CommandBuffer selfDestructBuffer)
+        internal void SetEntity(Entity entity, CommandBuffer selfDestructBuffer)
         {
-            _binding = (world, entity, selfDestructBuffer);
+            _binding = (entity, selfDestructBuffer);
 
             if (EnableOnEntitySet != null)
                 foreach (var item in EnableOnEntitySet)
@@ -74,7 +70,7 @@ namespace Packages.me.martindevans.myriad_unity_integration.Runtime
         public bool HasMyriadComponent<T>()
             where T : IComponent
         {
-            return _binding!.Value.Item2.HasComponent<T>();
+            return _binding!.Value.Item1.HasComponent<T>();
         }
 
         /// <summary>
@@ -85,12 +81,12 @@ namespace Packages.me.martindevans.myriad_unity_integration.Runtime
         public ref T GetMyriadComponent<T>() 
             where T : IComponent
         {
-            return ref _binding!.Value.Item2.GetComponentRef<T>();
+            return ref Entity!.Value.GetComponentRef<T>();
         }
 
         public object? GetMyriadComponent(ComponentID component)
         {
-            return _binding!.Value.Item2.GetBoxedComponent(component);
+            return Entity!.Value.GetBoxedComponent(component);
         }
     }
 

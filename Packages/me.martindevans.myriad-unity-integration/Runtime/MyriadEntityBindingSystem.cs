@@ -60,7 +60,7 @@ namespace Packages.me.martindevans.myriad_unity_integration.Runtime
 
         public void BeforeUpdate(TData data)
         {
-            _world.Execute<InitBinding, MyriadEntity>(new InitBinding(_world, _cmd, _tempList, _destructBuffer), _initQuery);
+            _world.Execute<InitBinding, MyriadEntity>(new InitBinding(_cmd, _tempList, _destructBuffer), _initQuery);
             _cmd.Playback().Dispose();
         }
 
@@ -70,7 +70,7 @@ namespace Packages.me.martindevans.myriad_unity_integration.Runtime
 
         public void AfterUpdate(TData data)
         {
-            // Execute destruct buffer. GameObjects that were being destroyed will have queued up removal of the MyriadEntity here.
+            // Execute destruct buffer. GameObjects that were being destroyed will have queued up removal of MyriadEntity here.
             _destructBuffer.Playback().Dispose();
 
             _world.Execute<DestroyBindingGo, MyriadEntity>(new DestroyBindingGo(_cmd), _destroyQueryWithGo);
@@ -86,14 +86,12 @@ namespace Packages.me.martindevans.myriad_unity_integration.Runtime
         private readonly struct InitBinding
             : IQuery<MyriadEntity>
         {
-            private readonly World _world;
             private readonly CommandBuffer _cmd;
             private readonly List<IBehaviourComponent> _temp;
             private readonly CommandBuffer _destructBuffer;
 
-            public InitBinding(World world, CommandBuffer cmd, List<IBehaviourComponent> temp, CommandBuffer destructBuffer)
+            public InitBinding(CommandBuffer cmd, List<IBehaviourComponent> temp, CommandBuffer destructBuffer)
             {
-                _world = world;
                 _cmd = cmd;
                 _temp = temp;
                 _destructBuffer = destructBuffer;
@@ -101,14 +99,14 @@ namespace Packages.me.martindevans.myriad_unity_integration.Runtime
 
             public void Execute(Entity e, ref MyriadEntity binding)
             {
-                binding.SetEntity(_world, e, _destructBuffer);
+                binding.SetEntity(e, _destructBuffer);
                 _cmd.Set(e, new Bound());
 
                 // Find all `IBehaviourComponent`s and bind them to the entity
                 _temp.Clear();
                 binding.gameObject.GetComponentsInChildren(true, _temp);
                 foreach (var item in _temp)
-                    item.Bind(_world, e, _cmd);
+                    item.Bind(e, _cmd);
                 _temp.Clear();
             }
         }

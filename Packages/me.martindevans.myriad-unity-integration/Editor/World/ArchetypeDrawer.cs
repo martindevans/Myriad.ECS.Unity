@@ -116,7 +116,7 @@ namespace Packages.me.martindevans.myriad_unity_integration.Editor.World
             foreach (var entity in _archetype.Entities)
             {
                 if (idx >= _startIndex)
-                    _entitiesDrawers.Add(new EntityDrawer(_archetype.World, entity));
+                    _entitiesDrawers.Add(new EntityDrawer(entity));
                 idx++;
 
                 if (_entitiesDrawers.Count > DRAW_COUNT)

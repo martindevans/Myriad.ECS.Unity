@@ -15,9 +15,8 @@ namespace Packages.me.martindevans.myriad_unity_integration.Runtime
         /// attached to the gameObject. Note that this will only be called once, when the entity is initially bound, components
         /// which are added later will not be bound!
         /// </summary>
-        /// <param name="world"></param>
         /// <param name="entity"></param>
         /// <param name="cmd"></param>
-        public void Bind(World world, Entity entity, CommandBuffer cmd);
+        public void Bind(Entity entity, CommandBuffer cmd);
     }
 }
