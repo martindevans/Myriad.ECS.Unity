@@ -32,8 +32,8 @@ namespace Packages.me.martindevans.myriad_unity_integration.Editor.Entities
                     new PlaymodeSwitchSection(
                         new ComponentList(
                             new DisplayId(),
-                            new FieldValueLabel<MyriadEntity>("Exists", m => m.World == null ? "null_world" : m.Entity.Exists().ToString()),
-                            new FieldValueLabel<MyriadEntity>("Phantom", m => m.World == null ? "null_world" : m.Entity.IsPhantom().ToString())
+                            new FieldValueLabel<MyriadEntity>("Exists", m => m.HasEntity ? m.Entity.Exists().ToString() : "no_binding"),
+                            new FieldValueLabel<MyriadEntity>("Phantom", m => m.HasEntity ? m.Entity.IsPhantom().ToString() : "no_binding")
                         ),
                         new ComponentList(
                             new InfoBoxComponent("When this behaviour is attached to a Myriad Entity it can be used as a 'Binding' between the scene and the ECS", MessageType.Info)
@@ -63,13 +63,20 @@ namespace Packages.me.martindevans.myriad_unity_integration.Editor.Entities
 
         public void Draw()
         {
-            var id = _entity.Entity.UniqueID().ToString();
+            if (!_entity.HasEntity)
+            {
+                EditorGUILayout.LabelField("ID", "Unknown/Unbound");
+            }
+            else
+            {
+                var id = _entity.Entity.UniqueID().ToString();
 
-            var display = id;
-            if (_entity.HasMyriadComponent<DebugDisplayName>())
-                display = $"{id} ({_entity.GetMyriadComponent<DebugDisplayName>().Name})";
+                var display = id;
+                if (_entity.HasMyriadComponent<DebugDisplayName>())
+                    display = $"{id} ({_entity.GetMyriadComponent<DebugDisplayName>().Name})";
 
-            EditorGUILayout.LabelField("ID", display);
+                EditorGUILayout.LabelField("ID", display);
+            }
         }
 
         public IEnumerable<SerializedProperty> GetChildProperties()
@@ -91,7 +98,6 @@ namespace Packages.me.martindevans.myriad_unity_integration.Editor.Entities
         public void OnEnable(SerializedObject target)
         {
             _entity = (MyriadEntity)target.targetObject;
-            _drawer = new EntityDrawer(_entity.World, _entity.Entity);
         }
 
         public void OnDisable()
@@ -100,7 +106,11 @@ namespace Packages.me.martindevans.myriad_unity_integration.Editor.Entities
 
         public void Draw()
         {
-            _drawer.Draw();
+            if (_drawer == null)
+                if (_entity.HasEntity)
+                    _drawer = new EntityDrawer(_entity.World, _entity.Entity);
+
+            _drawer?.Draw();
         }
 
         public IEnumerable<SerializedProperty> GetChildProperties()

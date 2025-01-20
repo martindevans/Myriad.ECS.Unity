@@ -271,6 +271,19 @@
             Buffers up modifications to entities and replays them all at once.
             </summary>
         </member>
+        <member name="F:Myriad.ECS.Command.CommandBuffer._archetypeEdges">
+            <summary>
+            Map from (current_archetype_key, added_component) => new_archetype_key
+            </summary>
+        </member>
+        <member name="M:Myriad.ECS.Command.CommandBuffer.GetArchetypeKey(System.Int32,Myriad.ECS.IDs.ComponentID)">
+            <summary>
+            Given an archetype key and an added component, determine the new archetype key
+            </summary>
+            <param name="currentKey"></param>
+            <param name="added"></param>
+            <returns></returns>
+        </member>
         <member name="T:Myriad.ECS.Command.CommandBuffer.BufferedEntity">
             <summary>
             An entity that has been created in a command buffer, but not yet created. Can be used to add components.
@@ -337,6 +350,12 @@
             Apply all of the operations in this buffer to the <see cref="P:Myriad.ECS.Command.CommandBuffer.World"/>
             </summary>
             <returns></returns>
+        </member>
+        <member name="M:Myriad.ECS.Command.CommandBuffer.Clear">
+            <summary>
+            Clear this <see cref="T:Myriad.ECS.Command.CommandBuffer"/>
+            </summary>
+            <exception cref="T:System.NotImplementedException"></exception>
         </member>
         <member name="M:Myriad.ECS.Command.CommandBuffer.Create">
             <summary>
@@ -406,7 +425,7 @@
         <member name="P:Myriad.ECS.Command.CommandBuffer.BufferedEntityData.Setters">
             <summary>All setters to be run on this entity</summary>
         </member>
-        <member name="P:Myriad.ECS.Command.CommandBuffer.BufferedEntityData.Node">
+        <member name="P:Myriad.ECS.Command.CommandBuffer.BufferedEntityData.ArchetypeKey">
             <summary>The "Node ID" of this entity, all buffered entities with the same node ID are in the same archetype (except -1)</summary>
         </member>
         <member name="M:Myriad.ECS.Command.CommandBuffer.BufferedEntityData.#ctor(System.UInt32,System.Collections.Generic.Dictionary{Myriad.ECS.IDs.ComponentID,Myriad.ECS.Command.ComponentSetterCollection.SetterId})">
@@ -643,23 +662,25 @@
             </summary>
             <param name="buffer">May be used to enqueue more work as a result of this disposal</param>
         </member>
-        <member name="T:Myriad.ECS.Components.GenericDisposable`1">
+        <member name="T:Myriad.ECS.Components.GenericDisposable`2">
             <summary>
             A basic container for disposable objects which will automatically be disposed when the entity is destroyed
             </summary>
+            <typeparam name="TDisposable">The generic type of the thing being disposed</typeparam>
+            <typeparam name="TTag">A "tag" which means you can use multiple of this component, each with distinct types</typeparam>
         </member>
-        <member name="F:Myriad.ECS.Components.GenericDisposable`1.IDisposable">
+        <member name="F:Myriad.ECS.Components.GenericDisposable`2.IDisposable">
             <summary>
             The object that will be disposed
             </summary>
         </member>
-        <member name="M:Myriad.ECS.Components.GenericDisposable`1.#ctor(`0)">
+        <member name="M:Myriad.ECS.Components.GenericDisposable`2.#ctor(`0)">
             <summary>
-            Create a new <see cref="T:Myriad.ECS.Components.GenericDisposable`1"/> component
+            Create a new <see cref="T:Myriad.ECS.Components.GenericDisposable`2"/> component
             </summary>
             <param name="disposable"></param>
         </member>
-        <member name="M:Myriad.ECS.Components.GenericDisposable`1.Dispose(Myriad.ECS.Command.LazyCommandBuffer@)">
+        <member name="M:Myriad.ECS.Components.GenericDisposable`2.Dispose(Myriad.ECS.Command.LazyCommandBuffer@)">
             <inheritdoc />
         </member>
         <member name="T:Myriad.ECS.Components.Disposer`1">
@@ -709,36 +730,15 @@
             The target entity of this relationship
             </summary>
         </member>
-        <member name="T:Myriad.ECS.Components.Extensions">
+        <member name="T:Myriad.ECS.Components.SelfReference">
             <summary>
-            Extensions related to sharding
+            Contains a reference to the entity it is attached to
             </summary>
         </member>
-        <member name="M:Myriad.ECS.Components.Extensions.AddSharding(Myriad.ECS.Command.CommandBuffer.BufferedEntity,System.Int32)">
+        <member name="P:Myriad.ECS.Components.SelfReference.Target">
             <summary>
-            Add a new component based on the index, forcing this entity into a different archetype. If creating many
-            entities and they need to be split up for some reason this can shard them.
+            The entity this component is attached to
             </summary>
-            <param name="buffered"></param>
-            <param name="index"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Myriad.ECS.Components.Extensions.AddSharding(Myriad.ECS.Command.CommandBuffer,Myriad.ECS.Entity,System.Int32)">
-            <summary>
-            Add a new component based on the index, forcing this entity into a different archetype. If creating many
-            entities and they need to be split up for some reason this can shard them.
-            </summary>
-            <param name="buffer"></param>
-            <param name="entity"></param>
-            <param name="index"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Myriad.ECS.Components.Extensions.RemoveSharding(Myriad.ECS.Command.CommandBuffer,Myriad.ECS.Entity)">
-            <summary>
-            Remove whatever sharding is attached to this entity
-            </summary>
-            <param name="buffer"></param>
-            <param name="entity"></param>
         </member>
         <member name="T:Myriad.ECS.Entity">
             <summary>
@@ -8669,13 +8669,13 @@
         <member name="M:Myriad.ECS.Worlds.World.Dispose">
             <inheritdoc />
         </member>
-        <member name="M:Myriad.ECS.Worlds.World.GetPooledCommandBuffer">
+        <member name="M:Myriad.ECS.Worlds.World.GetCommandBuffer">
             <summary>
             Get a <see cref="T:Myriad.ECS.Command.CommandBuffer"/> from the pool or create a new one
             </summary>
             <returns></returns>
         </member>
-        <member name="M:Myriad.ECS.Worlds.World.ReturnPooledCommandBuffer(Myriad.ECS.Command.CommandBuffer)">
+        <member name="M:Myriad.ECS.Worlds.World.ReturnCommandBuffer(Myriad.ECS.Command.CommandBuffer)">
             <summary>
             Return a <see cref="T:Myriad.ECS.Command.CommandBuffer"/> to the internal pool
             </summary>

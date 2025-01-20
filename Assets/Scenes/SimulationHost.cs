@@ -35,14 +35,14 @@ public class SimulationHost
                 .Set(new OuterGenericClass<float>.InnerDemoComponent { Value = 3 })
                 .Set(new OuterGenericClass<byte>.InnerGenericDemoComponent<int> { ValueT = 0, ValueU = 1 });
 
-            if (rng.NextDouble() < 0.5f)
-                buffered.Set(new PhantomComponent());
-            if (rng.NextDouble() < 0.5f)
-                buffered.Set(new DisposableComponent());
+            //if (rng.NextDouble() < 0.5f)
+            //    buffered.Set(new PhantomComponent());
+            //if (rng.NextDouble() < 0.5f)
+            //    buffered.Set(new DisposableComponent());
 
             // Create a GameObject to represent this entity
             var go = new GameObject($"Entity binding {i}");
-            buffered.SetupGameObjectBinding(go);
+            buffered.SetupGameObjectBinding(go, DestructMode.Both);
         }
         cmd.Playback().Dispose();
 

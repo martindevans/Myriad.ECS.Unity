@@ -5,7 +5,6 @@ using Myriad.ECS.Components;
 using Myriad.ECS.Queries;
 using Myriad.ECS.Systems;
 using Myriad.ECS.Worlds;
-using Packages.me.martindevans.myriad_unity_integration.Runtime.Components;
 
 #nullable enable
 
@@ -20,48 +19,49 @@ namespace Packages.me.martindevans.myriad_unity_integration.Runtime
     {
         private readonly World _world;
 
-        private readonly bool _executeCommand;
         private readonly CommandBuffer _cmd;
+        private readonly CommandBuffer _destructBuffer;
 
         private readonly QueryDescription _initQuery;
         private readonly QueryDescription _destroyQuery;
-        private readonly QueryDescription _checkGameObjectsQuery;
+        private readonly QueryDescription _destroyQueryWithGo;
         private readonly List<IBehaviourComponent> _tempList = new();
         
         /// <summary>
         /// Create a new MyriadEntityBindingSystem
         /// </summary>
         /// <param name="world">World to operate on</param>
-        /// <param name="cmd">Optionally, the command buffer to queue changes into</param>
-        public MyriadEntityBindingSystem(World world, CommandBuffer? cmd = null)
+        public MyriadEntityBindingSystem(World world)
         {
             _world = world;
 
-            _executeCommand = cmd == null;
-            _cmd = cmd ?? new CommandBuffer(world);
+            _cmd = new CommandBuffer(world);
+            _destructBuffer = new CommandBuffer(world);
 
             _initQuery = new QueryBuilder()
                 .Include<MyriadEntity>()
                 .Exclude<Bound>()
                 .Build(world);
 
-            _destroyQuery = new QueryBuilder()
+            // Find dead entities with a binding, then destroy the GameObject
+            _destroyQueryWithGo = new QueryBuilder()
                 .Include<MyriadEntity>()
                 .Include<Bound>()
                 .Include<Phantom>()
                 .Build(world);
 
-            _checkGameObjectsQuery = new QueryBuilder()
-                .Include<MyriadEntity>()
-                .Include<AutoDestructEntityFromGameObject>()
+            // Find **live** entities without a GameObject, but with a binding. This means it
+            // had a `MyriadEntity` GameObject in the past but it removed itself.
+            _destroyQuery = new QueryBuilder()
+                .Include<Bound>()
+                .Exclude<MyriadEntity>()
                 .Build(world);
         }
 
         public void BeforeUpdate(TData data)
         {
-            _world.Execute<InitBinding, MyriadEntity>(new InitBinding(_world, _cmd, _tempList), _initQuery);
-            if (_executeCommand)
-                _cmd.Playback().Dispose();
+            _world.Execute<InitBinding, MyriadEntity>(new InitBinding(_world, _cmd, _tempList, _destructBuffer), _initQuery);
+            _cmd.Playback().Dispose();
         }
 
         public void Update(TData data)
@@ -70,11 +70,12 @@ namespace Packages.me.martindevans.myriad_unity_integration.Runtime
 
         public void AfterUpdate(TData data)
         {
-            _world.Execute<CheckGameObjects, MyriadEntity>(new CheckGameObjects(_cmd), _checkGameObjectsQuery);
-            _world.Execute<DestroyBinding, MyriadEntity>(new DestroyBinding(_cmd), _destroyQuery);
-            
-            if (_executeCommand)
-                _cmd.Playback().Dispose();
+            // Execute destruct buffer. GameObjects that were being destroyed will have queued up removal of the MyriadEntity here.
+            _destructBuffer.Playback().Dispose();
+
+            _world.Execute<DestroyBindingGo, MyriadEntity>(new DestroyBindingGo(_cmd), _destroyQueryWithGo);
+            _world.Execute(new DestroyBinding(_cmd), _destroyQuery);
+            _cmd.Playback().Dispose();
         }
 
         private struct Bound
@@ -88,17 +89,19 @@ namespace Packages.me.martindevans.myriad_unity_integration.Runtime
             private readonly World _world;
             private readonly CommandBuffer _cmd;
             private readonly List<IBehaviourComponent> _temp;
+            private readonly CommandBuffer _destructBuffer;
 
-            public InitBinding(World world, CommandBuffer cmd, List<IBehaviourComponent> temp)
+            public InitBinding(World world, CommandBuffer cmd, List<IBehaviourComponent> temp, CommandBuffer destructBuffer)
             {
                 _world = world;
                 _cmd = cmd;
                 _temp = temp;
+                _destructBuffer = destructBuffer;
             }
 
             public void Execute(Entity e, ref MyriadEntity binding)
             {
-                binding.SetEntity(_world, e);
+                binding.SetEntity(_world, e, _destructBuffer);
                 _cmd.Set(e, new Bound());
 
                 // Find all `IBehaviourComponent`s and bind them to the entity
@@ -110,12 +113,12 @@ namespace Packages.me.martindevans.myriad_unity_integration.Runtime
             }
         }
 
-        private readonly struct DestroyBinding
+        private readonly struct DestroyBindingGo
             : IQuery<MyriadEntity>
         {
             private readonly CommandBuffer _cmd;
 
-            public DestroyBinding(CommandBuffer cmd)
+            public DestroyBindingGo(CommandBuffer cmd)
             {
                 _cmd = cmd;
             }
@@ -127,23 +130,20 @@ namespace Packages.me.martindevans.myriad_unity_integration.Runtime
             }
         }
 
-        private readonly struct CheckGameObjects
-            : IQuery<MyriadEntity>
+        private readonly struct DestroyBinding
+            : IQuery
         {
             private readonly CommandBuffer _cmd;
 
-            public CheckGameObjects(CommandBuffer cmd)
+            public DestroyBinding(CommandBuffer cmd)
             {
                 _cmd = cmd;
             }
 
-            public void Execute(Entity e, ref MyriadEntity binding)
+            public void Execute(Entity e)
             {
-                if (!binding.gameObject)
-                {
-                    _cmd.Remove<AutoDestructEntityFromGameObject>(e);
-                    _cmd.Delete(e);
-                }
+                _cmd.Remove<Bound>(e);
+                _cmd.Delete(e);
             }
         }
     }

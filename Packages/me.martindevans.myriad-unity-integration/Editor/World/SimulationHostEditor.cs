@@ -12,6 +12,7 @@ namespace Packages.me.martindevans.myriad_unity_integration.Editor.World
         protected BaseSimulationHostEditor()
             : base(
                 new DefaultInspectorSection { Expanded = true },
+                new PlaymodeSection(new WorldStatsDisplay<TSim, TData>()),
                 new PlaymodeSection(new SystemListDisplay<TSim, TData>()),
                 new PlaymodeSection(new ArchetypeListDisplay<TSim, TData>())
 

@@ -1,11 +1,12 @@
 #nullable enable
 
+using System;
 using JetBrains.Annotations;
 using Myriad.ECS;
+using Myriad.ECS.Command;
 using Myriad.ECS.IDs;
 using Myriad.ECS.Worlds;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace Packages.me.martindevans.myriad_unity_integration.Runtime
 {
@@ -16,32 +17,41 @@ namespace Packages.me.martindevans.myriad_unity_integration.Runtime
     public sealed class MyriadEntity
         : MonoBehaviour, IComponent
     {
-        private bool _hasEntity;
-        public World? World { get; private set; }
-        public Entity Entity { get; private set; }
+        private (World, Entity, CommandBuffer)? _binding;
+
+        public bool HasEntity => _binding.HasValue;
+        public World World => _binding!.Value.Item1;
+        public Entity Entity => _binding!.Value.Item2;
 
         /// <summary>
-        /// Destroy this gameobject when the entity is destroyed
+        /// Set how the lifetime of gameobject and entity are bound together
         /// </summary>
-        [FormerlySerializedAs("AutoDestruct"), SerializeField, UsedImplicitly] public bool AutoDestructGameObject;
+        [SerializeField, UsedImplicitly]
+        public DestructMode DestructMode;
 
         /// <summary>
         /// Enable all of these gameobjects when the Entity is set
         /// </summary>
-        [SerializeField, UsedImplicitly] public GameObject[]? EnableOnEntitySet;
+        [SerializeField, UsedImplicitly]
+        public GameObject[]? EnableOnEntitySet;
 
         private void Awake()
         {
-            if (EnableOnEntitySet != null && !_hasEntity)
+            if (EnableOnEntitySet != null && !_binding.HasValue)
                 foreach (var item in EnableOnEntitySet)
                     item.SetActive(false);
         }
 
-        internal void SetEntity(World world, Entity entity)
+        private void OnDestroy()
         {
-            _hasEntity = true;
-            World = world;
-            Entity = entity;
+            if (_binding is var (_, entity, cmd))
+                if ((DestructMode & DestructMode.GameObjectDestroysEntity) != DestructMode.None)
+                    cmd.Remove<MyriadEntity>(entity);
+        }
+
+        internal void SetEntity(World world, Entity entity, CommandBuffer selfDestructBuffer)
+        {
+            _binding = (world, entity, selfDestructBuffer);
 
             if (EnableOnEntitySet != null)
                 foreach (var item in EnableOnEntitySet)
@@ -50,9 +60,9 @@ namespace Packages.me.martindevans.myriad_unity_integration.Runtime
 
         internal void EntityDestroyed()
         {
-            _hasEntity = false;
+            _binding = default;
 
-            if (AutoDestructGameObject)
+            if ((DestructMode & DestructMode.EntityDestroysGameObject) != DestructMode.None)
                 Destroy(gameObject);
         }
 
@@ -64,7 +74,7 @@ namespace Packages.me.martindevans.myriad_unity_integration.Runtime
         public bool HasMyriadComponent<T>()
             where T : IComponent
         {
-            return Entity.HasComponent<T>();
+            return _binding!.Value.Item2.HasComponent<T>();
         }
 
         /// <summary>
@@ -75,13 +85,37 @@ namespace Packages.me.martindevans.myriad_unity_integration.Runtime
         public ref T GetMyriadComponent<T>() 
             where T : IComponent
         {
-            return ref Entity.GetComponentRef<T>();
+            return ref _binding!.Value.Item2.GetComponentRef<T>();
         }
 
         public object? GetMyriadComponent(ComponentID component)
         {
-            return Entity.GetBoxedComponent(component);
+            return _binding!.Value.Item2.GetBoxedComponent(component);
         }
+    }
+
+    [Flags]
+    public enum DestructMode
+    {
+        /// <summary>
+        /// GameObject and entity lifetimes are not linked
+        /// </summary>
+        None = 0b00,
+
+        /// <summary>
+        /// When the entity is destroyed, the gameobject will be destroyed
+        /// </summary>
+        EntityDestroysGameObject = 0b01,
+
+        /// <summary>
+        /// When this GameObject is destroyed, the entity will be destroyed
+        /// </summary>
+        GameObjectDestroysEntity = 0b10,
+
+        /// <summary>
+        /// If the Entity <b>or</b> the GameObject is destroyed, the other will be destroyed
+        /// </summary>
+        Both = 0b11,
     }
 }
 
