@@ -21,8 +21,10 @@ namespace Packages.me.martindevans.myriad_unity_integration.Runtime.Systems
         {
             if (_world == null)
             {
-                // Try to find world host in neaby gameobjects
+                // Try to find world host in this gameobject
                 var found = TryGetComponent<WorldHost<TData>>(out var world);
+
+                // Or maybe somewhere in the parents?
                 if (!found)
                     world = GetComponentInParent<WorldHost<TData>>();
 
