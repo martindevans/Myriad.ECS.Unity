@@ -3,6 +3,7 @@ using System.Linq;
 using System.Reflection;
 using Myriad.ECS;
 using Packages.me.martindevans.myriad_unity_integration.Runtime;
+using Packages.me.martindevans.myriad_unity_integration.Runtime.Components;
 using UnityEditor;
 using UnityEngine;
 using Object = UnityEngine.Object;

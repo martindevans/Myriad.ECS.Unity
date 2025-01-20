@@ -7,7 +7,7 @@ using Myriad.ECS.Command;
 using Myriad.ECS.IDs;
 using UnityEngine;
 
-namespace Packages.me.martindevans.myriad_unity_integration.Runtime
+namespace Packages.me.martindevans.myriad_unity_integration.Runtime.Components
 {
     /// <summary>
     /// Indicates that this GameObject is bound to a Myriad Entity. Attach this behaviour as a component

@@ -1,8 +1,7 @@
 using Myriad.ECS;
 using Myriad.ECS.Command;
-using Myriad.ECS.Worlds;
 
-namespace Packages.me.martindevans.myriad_unity_integration.Runtime
+namespace Packages.me.martindevans.myriad_unity_integration.Runtime.Components
 {
     /// <summary>
     /// A component which is also a MonoBehaviour

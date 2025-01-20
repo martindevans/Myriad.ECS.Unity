@@ -61,16 +61,17 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Packages\me.martindevans.myriad-unity-integration\Runtime\WorldHost.cs" />
+    <Compile Include="Packages\me.martindevans.myriad-unity-integration\Runtime\Systems\WorldSystemGroup.cs" />
     <Compile Include="Packages\me.martindevans.myriad-unity-integration\Runtime\GameTime.cs" />
     <Compile Include="Packages\me.martindevans.myriad-unity-integration\Runtime\Extensions\GameObjectExtensions.cs" />
-    <Compile Include="Packages\me.martindevans.myriad-unity-integration\Runtime\MyriadEntity.cs" />
-    <Compile Include="Packages\me.martindevans.myriad-unity-integration\Runtime\MyriadEntityBindingSystem.cs" />
+    <Compile Include="Packages\me.martindevans.myriad-unity-integration\Runtime\Systems\UnityMyriadSystemGroup.cs" />
+    <Compile Include="Packages\me.martindevans.myriad-unity-integration\Runtime\Components\MyriadEntity.cs" />
     <Compile Include="Packages\me.martindevans.myriad-unity-integration\Runtime\ISystemQueryEntityCount.cs" />
     <Compile Include="Packages\me.martindevans.myriad-unity-integration\Runtime\Extensions\CommandBufferExtensions.cs" />
     <Compile Include="Packages\me.martindevans.myriad-unity-integration\Runtime\BaseSimulationHost.cs" />
-    <Compile Include="Packages\me.martindevans.myriad-unity-integration\Runtime\WorldSystemGroup.cs" />
     <Compile Include="Packages\me.martindevans.myriad-unity-integration\Runtime\GameTimeWorldHost.cs" />
-    <Compile Include="Packages\me.martindevans.myriad-unity-integration\Runtime\IBehaviourComponent.cs" />
+    <Compile Include="Packages\me.martindevans.myriad-unity-integration\Runtime\Components\IBehaviourComponent.cs" />
+    <Compile Include="Packages\me.martindevans.myriad-unity-integration\Runtime\Systems\MyriadEntityBindingSystem.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Packages\me.martindevans.myriad-unity-integration\Runtime\Myriad.Unity.Runtime.asmdef" />

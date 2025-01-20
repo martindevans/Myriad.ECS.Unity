@@ -7,7 +7,9 @@ using Myriad.ECS.Queries;
 using Myriad.ECS.Systems;
 using Myriad.ECS.Worlds;
 using Packages.me.martindevans.myriad_unity_integration.Runtime;
+using Packages.me.martindevans.myriad_unity_integration.Runtime.Components;
 using Packages.me.martindevans.myriad_unity_integration.Runtime.Extensions;
+using Packages.me.martindevans.myriad_unity_integration.Runtime.Systems;
 using UnityEngine;
 using Random = System.Random;
 

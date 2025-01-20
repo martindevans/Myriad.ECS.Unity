@@ -3,7 +3,7 @@ using Myriad.ECS.Systems;
 using Myriad.ECS.Worlds;
 using UnityEngine;
 
-namespace Packages.me.martindevans.myriad_unity_integration.Runtime
+namespace Packages.me.martindevans.myriad_unity_integration.Runtime.Systems
 {
     /// <summary>
     /// A group of systems, added and removed to the WorldHost on the same layer when this behaviour is enabled/disabled

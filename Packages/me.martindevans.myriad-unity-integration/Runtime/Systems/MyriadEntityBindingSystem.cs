@@ -1,14 +1,15 @@
-﻿using System.Collections.Generic;
+﻿#nullable enable
+
+using System.Collections.Generic;
 using Myriad.ECS;
 using Myriad.ECS.Command;
 using Myriad.ECS.Components;
 using Myriad.ECS.Queries;
 using Myriad.ECS.Systems;
 using Myriad.ECS.Worlds;
+using Packages.me.martindevans.myriad_unity_integration.Runtime.Components;
 
-#nullable enable
-
-namespace Packages.me.martindevans.myriad_unity_integration.Runtime
+namespace Packages.me.martindevans.myriad_unity_integration.Runtime.Systems
 {
     /// <summary>
     /// Finds entities with a `MyriadEntity` component and initialises them with the entity ID and world reference.

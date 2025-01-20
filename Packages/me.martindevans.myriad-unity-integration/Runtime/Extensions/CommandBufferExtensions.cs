@@ -1,5 +1,6 @@
 ﻿using Myriad.ECS.Command;
 using Myriad.ECS.Components;
+using Packages.me.martindevans.myriad_unity_integration.Runtime.Components;
 using UnityEngine;
 
 namespace Packages.me.martindevans.myriad_unity_integration.Runtime.Extensions

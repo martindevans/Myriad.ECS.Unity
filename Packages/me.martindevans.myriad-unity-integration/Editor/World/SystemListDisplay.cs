@@ -1,5 +1,4 @@
-﻿using Myriad.ECS.Systems;
-using Packages.me.martindevans.myriad_unity_integration.Runtime;
+﻿using Packages.me.martindevans.myriad_unity_integration.Runtime;
 using System.Collections.Generic;
 using System;
 using Placeholder.Editor.UI.Editor;
