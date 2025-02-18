@@ -28,7 +28,7 @@ namespace Packages.me.martindevans.myriad_unity_integration.Runtime
 
         private TData _data;
 
-        private void Update()
+        protected virtual void Update()
         {
             CommandBuffer.Playback().Dispose();
 
@@ -37,7 +37,7 @@ namespace Packages.me.martindevans.myriad_unity_integration.Runtime
             _root.Update(_data);
         }
 
-        private void LateUpdate()
+        protected virtual void LateUpdate()
         {
             _root.AfterUpdate(_data);
         }

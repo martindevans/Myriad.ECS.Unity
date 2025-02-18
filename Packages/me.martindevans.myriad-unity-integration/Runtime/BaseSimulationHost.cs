@@ -24,7 +24,7 @@ namespace Packages.me.martindevans.myriad_unity_integration.Runtime
         /// <summary>
         /// Disposes the world
         /// </summary>
-        public virtual void OnDestroy()
+        protected virtual void OnDestroy()
         {
             if (DisposeSystems)
                 Systems.Dispose();
