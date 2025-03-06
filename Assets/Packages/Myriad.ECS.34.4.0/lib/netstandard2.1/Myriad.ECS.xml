@@ -11896,6 +11896,14 @@
             </summary>
             <param name="dt"></param>
         </member>
+        <member name="M:Myriad.ECS.Systems.GameTime.Set(System.Double,System.Double,System.UInt64)">
+            <summary>
+            Overwrite properties
+            </summary>
+            <param name="time"></param>
+            <param name="deltaTime"></param>
+            <param name="frameCount"></param>
+        </member>
         <member name="T:Myriad.ECS.Systems.ISystem`1">
             <summary>
             Base interface for all systems

@@ -65,8 +65,8 @@
     <Compile Include="Assets\Scenes\SimulationHost.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Assets\Packages\Myriad.ECS.34.3.0\lib\netstandard2.1\Myriad.ECS.dll" />
-    <None Include="Assets\Packages\Myriad.ECS.34.3.0\lib\netstandard2.1\Myriad.ECS.xml" />
+    <None Include="Assets\Packages\Myriad.ECS.34.4.0\lib\netstandard2.1\Myriad.ECS.dll" />
+    <None Include="Assets\Packages\Myriad.ECS.34.4.0\lib\netstandard2.1\Myriad.ECS.xml" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">
@@ -406,7 +406,7 @@
       <Private>False</Private>
     </Reference>
     <Reference Include="Myriad.ECS">
-      <HintPath>Assets\Packages\Myriad.ECS.34.3.0\lib\netstandard2.1\Myriad.ECS.dll</HintPath>
+      <HintPath>Assets\Packages\Myriad.ECS.34.4.0\lib\netstandard2.1\Myriad.ECS.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="Unity.Android.Types">
