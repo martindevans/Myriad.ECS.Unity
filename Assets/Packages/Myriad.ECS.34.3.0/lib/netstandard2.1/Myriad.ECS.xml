@@ -1061,6 +1061,15 @@
             <param name="id"></param>
             <returns></returns>
         </member>
+        <member name="M:Myriad.ECS.Extensions.EnumeratorExtensions.Skip``1(``0@,System.Int32)">
+            <summary>
+            Skip N items in a enumerator
+            </summary>
+            <typeparam name="TEnumerator"></typeparam>
+            <param name="enumerator"></param>
+            <param name="count"></param>
+            <returns></returns>
+        </member>
         <member name="T:Myriad.ECS.IComponent">
             <summary>
             Marker interface for components
@@ -3419,6 +3428,31 @@
             </param>
             <returns>The number of entities discovered by this query</returns>
         </member>
+        <member name="M:Myriad.ECS.Worlds.World.Execute``2(``0@,Myriad.ECS.Queries.QueryDescription@,Myriad.ECS.Queries.Cursor)">
+            <summary>
+            Execute a query, optionally filtering by a <see cref="T:Myriad.ECS.Queries.QueryDescription"/>. Using a cursor to early exit
+            and resume execution.
+            </summary>
+            <typeparam name="TQ">The type of the query to execute for every entity.</typeparam>
+            <typeparam name="T0">Component 0 to include in query</typeparam>
+            <param name="q">
+            The instance to execute over every entity. Passed by ref, so changes to the query
+            struct will be persistent. This can allow values from one entity to be accessed by
+            the next entity, or after the entire Execute call is complete.
+            </param>
+            <param name="cursor">Tracks how manu archetypes and chunks were executed in the query. If the number of processed entities exceeds the budget set in
+            the cursor execution will early exit. Passing the same cursor to the same query again will resume at approximately the same position. This is only
+            approximate because new archetypes may be created, or chunks may be added and removed</param>
+            <param name="query">
+            Optional query to filter by. If non-null this <b>must</b> Include all of the component
+            types specified in the type signature of this call!
+            <br /><br />
+            If null a default query will be used, selecting all entities which include the components
+            in the type signature. This query object will be written to the query parameter by ref. It
+            can be used next frame to slightly speed up query execution.
+            </param>
+            <returns>The number of entities discovered by this query</returns>
+        </member>
         <member name="M:Myriad.ECS.Worlds.World.ExecuteParallel``2(``0,Myriad.ECS.Queries.QueryDescription,System.Int32)">
             <summary>
             Execute a query in parallel over entities, blocks until complete.
@@ -3524,6 +3558,32 @@
             struct will be persistent. This can allow values from one entity to be accessed by
             the next entity, or after the entire Execute call is complete.
             </param>
+            <param name="query">
+            Optional query to filter by. If non-null this <b>must</b> Include all of the component
+            types specified in the type signature of this call!
+            <br /><br />
+            If null a default query will be used, selecting all entities which include the components
+            in the type signature. This query object will be written to the query parameter by ref. It
+            can be used next frame to slightly speed up query execution.
+            </param>
+            <returns>The number of entities discovered by this query</returns>
+        </member>
+        <member name="M:Myriad.ECS.Worlds.World.Execute``3(``0@,Myriad.ECS.Queries.QueryDescription@,Myriad.ECS.Queries.Cursor)">
+            <summary>
+            Execute a query, optionally filtering by a <see cref="T:Myriad.ECS.Queries.QueryDescription"/>. Using a cursor to early exit
+            and resume execution.
+            </summary>
+            <typeparam name="TQ">The type of the query to execute for every entity.</typeparam>
+            <typeparam name="T0">Component 0 to include in query</typeparam>
+            <typeparam name="T1">Component 1 to include in query</typeparam>
+            <param name="q">
+            The instance to execute over every entity. Passed by ref, so changes to the query
+            struct will be persistent. This can allow values from one entity to be accessed by
+            the next entity, or after the entire Execute call is complete.
+            </param>
+            <param name="cursor">Tracks how manu archetypes and chunks were executed in the query. If the number of processed entities exceeds the budget set in
+            the cursor execution will early exit. Passing the same cursor to the same query again will resume at approximately the same position. This is only
+            approximate because new archetypes may be created, or chunks may be added and removed</param>
             <param name="query">
             Optional query to filter by. If non-null this <b>must</b> Include all of the component
             types specified in the type signature of this call!
@@ -3655,6 +3715,33 @@
             </param>
             <returns>The number of entities discovered by this query</returns>
         </member>
+        <member name="M:Myriad.ECS.Worlds.World.Execute``4(``0@,Myriad.ECS.Queries.QueryDescription@,Myriad.ECS.Queries.Cursor)">
+            <summary>
+            Execute a query, optionally filtering by a <see cref="T:Myriad.ECS.Queries.QueryDescription"/>. Using a cursor to early exit
+            and resume execution.
+            </summary>
+            <typeparam name="TQ">The type of the query to execute for every entity.</typeparam>
+            <typeparam name="T0">Component 0 to include in query</typeparam>
+            <typeparam name="T1">Component 1 to include in query</typeparam>
+            <typeparam name="T2">Component 2 to include in query</typeparam>
+            <param name="q">
+            The instance to execute over every entity. Passed by ref, so changes to the query
+            struct will be persistent. This can allow values from one entity to be accessed by
+            the next entity, or after the entire Execute call is complete.
+            </param>
+            <param name="cursor">Tracks how manu archetypes and chunks were executed in the query. If the number of processed entities exceeds the budget set in
+            the cursor execution will early exit. Passing the same cursor to the same query again will resume at approximately the same position. This is only
+            approximate because new archetypes may be created, or chunks may be added and removed</param>
+            <param name="query">
+            Optional query to filter by. If non-null this <b>must</b> Include all of the component
+            types specified in the type signature of this call!
+            <br /><br />
+            If null a default query will be used, selecting all entities which include the components
+            in the type signature. This query object will be written to the query parameter by ref. It
+            can be used next frame to slightly speed up query execution.
+            </param>
+            <returns>The number of entities discovered by this query</returns>
+        </member>
         <member name="M:Myriad.ECS.Worlds.World.ExecuteParallel``4(``0,Myriad.ECS.Queries.QueryDescription,System.Int32)">
             <summary>
             Execute a query in parallel over entities, blocks until complete.
@@ -3772,6 +3859,34 @@
             struct will be persistent. This can allow values from one entity to be accessed by
             the next entity, or after the entire Execute call is complete.
             </param>
+            <param name="query">
+            Optional query to filter by. If non-null this <b>must</b> Include all of the component
+            types specified in the type signature of this call!
+            <br /><br />
+            If null a default query will be used, selecting all entities which include the components
+            in the type signature. This query object will be written to the query parameter by ref. It
+            can be used next frame to slightly speed up query execution.
+            </param>
+            <returns>The number of entities discovered by this query</returns>
+        </member>
+        <member name="M:Myriad.ECS.Worlds.World.Execute``5(``0@,Myriad.ECS.Queries.QueryDescription@,Myriad.ECS.Queries.Cursor)">
+            <summary>
+            Execute a query, optionally filtering by a <see cref="T:Myriad.ECS.Queries.QueryDescription"/>. Using a cursor to early exit
+            and resume execution.
+            </summary>
+            <typeparam name="TQ">The type of the query to execute for every entity.</typeparam>
+            <typeparam name="T0">Component 0 to include in query</typeparam>
+            <typeparam name="T1">Component 1 to include in query</typeparam>
+            <typeparam name="T2">Component 2 to include in query</typeparam>
+            <typeparam name="T3">Component 3 to include in query</typeparam>
+            <param name="q">
+            The instance to execute over every entity. Passed by ref, so changes to the query
+            struct will be persistent. This can allow values from one entity to be accessed by
+            the next entity, or after the entire Execute call is complete.
+            </param>
+            <param name="cursor">Tracks how manu archetypes and chunks were executed in the query. If the number of processed entities exceeds the budget set in
+            the cursor execution will early exit. Passing the same cursor to the same query again will resume at approximately the same position. This is only
+            approximate because new archetypes may be created, or chunks may be added and removed</param>
             <param name="query">
             Optional query to filter by. If non-null this <b>must</b> Include all of the component
             types specified in the type signature of this call!
@@ -3915,6 +4030,35 @@
             </param>
             <returns>The number of entities discovered by this query</returns>
         </member>
+        <member name="M:Myriad.ECS.Worlds.World.Execute``6(``0@,Myriad.ECS.Queries.QueryDescription@,Myriad.ECS.Queries.Cursor)">
+            <summary>
+            Execute a query, optionally filtering by a <see cref="T:Myriad.ECS.Queries.QueryDescription"/>. Using a cursor to early exit
+            and resume execution.
+            </summary>
+            <typeparam name="TQ">The type of the query to execute for every entity.</typeparam>
+            <typeparam name="T0">Component 0 to include in query</typeparam>
+            <typeparam name="T1">Component 1 to include in query</typeparam>
+            <typeparam name="T2">Component 2 to include in query</typeparam>
+            <typeparam name="T3">Component 3 to include in query</typeparam>
+            <typeparam name="T4">Component 4 to include in query</typeparam>
+            <param name="q">
+            The instance to execute over every entity. Passed by ref, so changes to the query
+            struct will be persistent. This can allow values from one entity to be accessed by
+            the next entity, or after the entire Execute call is complete.
+            </param>
+            <param name="cursor">Tracks how manu archetypes and chunks were executed in the query. If the number of processed entities exceeds the budget set in
+            the cursor execution will early exit. Passing the same cursor to the same query again will resume at approximately the same position. This is only
+            approximate because new archetypes may be created, or chunks may be added and removed</param>
+            <param name="query">
+            Optional query to filter by. If non-null this <b>must</b> Include all of the component
+            types specified in the type signature of this call!
+            <br /><br />
+            If null a default query will be used, selecting all entities which include the components
+            in the type signature. This query object will be written to the query parameter by ref. It
+            can be used next frame to slightly speed up query execution.
+            </param>
+            <returns>The number of entities discovered by this query</returns>
+        </member>
         <member name="M:Myriad.ECS.Worlds.World.ExecuteParallel``6(``0,Myriad.ECS.Queries.QueryDescription,System.Int32)">
             <summary>
             Execute a query in parallel over entities, blocks until complete.
@@ -4044,6 +4188,36 @@
             struct will be persistent. This can allow values from one entity to be accessed by
             the next entity, or after the entire Execute call is complete.
             </param>
+            <param name="query">
+            Optional query to filter by. If non-null this <b>must</b> Include all of the component
+            types specified in the type signature of this call!
+            <br /><br />
+            If null a default query will be used, selecting all entities which include the components
+            in the type signature. This query object will be written to the query parameter by ref. It
+            can be used next frame to slightly speed up query execution.
+            </param>
+            <returns>The number of entities discovered by this query</returns>
+        </member>
+        <member name="M:Myriad.ECS.Worlds.World.Execute``7(``0@,Myriad.ECS.Queries.QueryDescription@,Myriad.ECS.Queries.Cursor)">
+            <summary>
+            Execute a query, optionally filtering by a <see cref="T:Myriad.ECS.Queries.QueryDescription"/>. Using a cursor to early exit
+            and resume execution.
+            </summary>
+            <typeparam name="TQ">The type of the query to execute for every entity.</typeparam>
+            <typeparam name="T0">Component 0 to include in query</typeparam>
+            <typeparam name="T1">Component 1 to include in query</typeparam>
+            <typeparam name="T2">Component 2 to include in query</typeparam>
+            <typeparam name="T3">Component 3 to include in query</typeparam>
+            <typeparam name="T4">Component 4 to include in query</typeparam>
+            <typeparam name="T5">Component 5 to include in query</typeparam>
+            <param name="q">
+            The instance to execute over every entity. Passed by ref, so changes to the query
+            struct will be persistent. This can allow values from one entity to be accessed by
+            the next entity, or after the entire Execute call is complete.
+            </param>
+            <param name="cursor">Tracks how manu archetypes and chunks were executed in the query. If the number of processed entities exceeds the budget set in
+            the cursor execution will early exit. Passing the same cursor to the same query again will resume at approximately the same position. This is only
+            approximate because new archetypes may be created, or chunks may be added and removed</param>
             <param name="query">
             Optional query to filter by. If non-null this <b>must</b> Include all of the component
             types specified in the type signature of this call!
@@ -4199,6 +4373,37 @@
             </param>
             <returns>The number of entities discovered by this query</returns>
         </member>
+        <member name="M:Myriad.ECS.Worlds.World.Execute``8(``0@,Myriad.ECS.Queries.QueryDescription@,Myriad.ECS.Queries.Cursor)">
+            <summary>
+            Execute a query, optionally filtering by a <see cref="T:Myriad.ECS.Queries.QueryDescription"/>. Using a cursor to early exit
+            and resume execution.
+            </summary>
+            <typeparam name="TQ">The type of the query to execute for every entity.</typeparam>
+            <typeparam name="T0">Component 0 to include in query</typeparam>
+            <typeparam name="T1">Component 1 to include in query</typeparam>
+            <typeparam name="T2">Component 2 to include in query</typeparam>
+            <typeparam name="T3">Component 3 to include in query</typeparam>
+            <typeparam name="T4">Component 4 to include in query</typeparam>
+            <typeparam name="T5">Component 5 to include in query</typeparam>
+            <typeparam name="T6">Component 6 to include in query</typeparam>
+            <param name="q">
+            The instance to execute over every entity. Passed by ref, so changes to the query
+            struct will be persistent. This can allow values from one entity to be accessed by
+            the next entity, or after the entire Execute call is complete.
+            </param>
+            <param name="cursor">Tracks how manu archetypes and chunks were executed in the query. If the number of processed entities exceeds the budget set in
+            the cursor execution will early exit. Passing the same cursor to the same query again will resume at approximately the same position. This is only
+            approximate because new archetypes may be created, or chunks may be added and removed</param>
+            <param name="query">
+            Optional query to filter by. If non-null this <b>must</b> Include all of the component
+            types specified in the type signature of this call!
+            <br /><br />
+            If null a default query will be used, selecting all entities which include the components
+            in the type signature. This query object will be written to the query parameter by ref. It
+            can be used next frame to slightly speed up query execution.
+            </param>
+            <returns>The number of entities discovered by this query</returns>
+        </member>
         <member name="M:Myriad.ECS.Worlds.World.ExecuteParallel``8(``0,Myriad.ECS.Queries.QueryDescription,System.Int32)">
             <summary>
             Execute a query in parallel over entities, blocks until complete.
@@ -4340,6 +4545,38 @@
             struct will be persistent. This can allow values from one entity to be accessed by
             the next entity, or after the entire Execute call is complete.
             </param>
+            <param name="query">
+            Optional query to filter by. If non-null this <b>must</b> Include all of the component
+            types specified in the type signature of this call!
+            <br /><br />
+            If null a default query will be used, selecting all entities which include the components
+            in the type signature. This query object will be written to the query parameter by ref. It
+            can be used next frame to slightly speed up query execution.
+            </param>
+            <returns>The number of entities discovered by this query</returns>
+        </member>
+        <member name="M:Myriad.ECS.Worlds.World.Execute``9(``0@,Myriad.ECS.Queries.QueryDescription@,Myriad.ECS.Queries.Cursor)">
+            <summary>
+            Execute a query, optionally filtering by a <see cref="T:Myriad.ECS.Queries.QueryDescription"/>. Using a cursor to early exit
+            and resume execution.
+            </summary>
+            <typeparam name="TQ">The type of the query to execute for every entity.</typeparam>
+            <typeparam name="T0">Component 0 to include in query</typeparam>
+            <typeparam name="T1">Component 1 to include in query</typeparam>
+            <typeparam name="T2">Component 2 to include in query</typeparam>
+            <typeparam name="T3">Component 3 to include in query</typeparam>
+            <typeparam name="T4">Component 4 to include in query</typeparam>
+            <typeparam name="T5">Component 5 to include in query</typeparam>
+            <typeparam name="T6">Component 6 to include in query</typeparam>
+            <typeparam name="T7">Component 7 to include in query</typeparam>
+            <param name="q">
+            The instance to execute over every entity. Passed by ref, so changes to the query
+            struct will be persistent. This can allow values from one entity to be accessed by
+            the next entity, or after the entire Execute call is complete.
+            </param>
+            <param name="cursor">Tracks how manu archetypes and chunks were executed in the query. If the number of processed entities exceeds the budget set in
+            the cursor execution will early exit. Passing the same cursor to the same query again will resume at approximately the same position. This is only
+            approximate because new archetypes may be created, or chunks may be added and removed</param>
             <param name="query">
             Optional query to filter by. If non-null this <b>must</b> Include all of the component
             types specified in the type signature of this call!
@@ -4507,6 +4744,39 @@
             </param>
             <returns>The number of entities discovered by this query</returns>
         </member>
+        <member name="M:Myriad.ECS.Worlds.World.Execute``10(``0@,Myriad.ECS.Queries.QueryDescription@,Myriad.ECS.Queries.Cursor)">
+            <summary>
+            Execute a query, optionally filtering by a <see cref="T:Myriad.ECS.Queries.QueryDescription"/>. Using a cursor to early exit
+            and resume execution.
+            </summary>
+            <typeparam name="TQ">The type of the query to execute for every entity.</typeparam>
+            <typeparam name="T0">Component 0 to include in query</typeparam>
+            <typeparam name="T1">Component 1 to include in query</typeparam>
+            <typeparam name="T2">Component 2 to include in query</typeparam>
+            <typeparam name="T3">Component 3 to include in query</typeparam>
+            <typeparam name="T4">Component 4 to include in query</typeparam>
+            <typeparam name="T5">Component 5 to include in query</typeparam>
+            <typeparam name="T6">Component 6 to include in query</typeparam>
+            <typeparam name="T7">Component 7 to include in query</typeparam>
+            <typeparam name="T8">Component 8 to include in query</typeparam>
+            <param name="q">
+            The instance to execute over every entity. Passed by ref, so changes to the query
+            struct will be persistent. This can allow values from one entity to be accessed by
+            the next entity, or after the entire Execute call is complete.
+            </param>
+            <param name="cursor">Tracks how manu archetypes and chunks were executed in the query. If the number of processed entities exceeds the budget set in
+            the cursor execution will early exit. Passing the same cursor to the same query again will resume at approximately the same position. This is only
+            approximate because new archetypes may be created, or chunks may be added and removed</param>
+            <param name="query">
+            Optional query to filter by. If non-null this <b>must</b> Include all of the component
+            types specified in the type signature of this call!
+            <br /><br />
+            If null a default query will be used, selecting all entities which include the components
+            in the type signature. This query object will be written to the query parameter by ref. It
+            can be used next frame to slightly speed up query execution.
+            </param>
+            <returns>The number of entities discovered by this query</returns>
+        </member>
         <member name="M:Myriad.ECS.Worlds.World.ExecuteParallel``10(``0,Myriad.ECS.Queries.QueryDescription,System.Int32)">
             <summary>
             Execute a query in parallel over entities, blocks until complete.
@@ -4660,6 +4930,40 @@
             struct will be persistent. This can allow values from one entity to be accessed by
             the next entity, or after the entire Execute call is complete.
             </param>
+            <param name="query">
+            Optional query to filter by. If non-null this <b>must</b> Include all of the component
+            types specified in the type signature of this call!
+            <br /><br />
+            If null a default query will be used, selecting all entities which include the components
+            in the type signature. This query object will be written to the query parameter by ref. It
+            can be used next frame to slightly speed up query execution.
+            </param>
+            <returns>The number of entities discovered by this query</returns>
+        </member>
+        <member name="M:Myriad.ECS.Worlds.World.Execute``11(``0@,Myriad.ECS.Queries.QueryDescription@,Myriad.ECS.Queries.Cursor)">
+            <summary>
+            Execute a query, optionally filtering by a <see cref="T:Myriad.ECS.Queries.QueryDescription"/>. Using a cursor to early exit
+            and resume execution.
+            </summary>
+            <typeparam name="TQ">The type of the query to execute for every entity.</typeparam>
+            <typeparam name="T0">Component 0 to include in query</typeparam>
+            <typeparam name="T1">Component 1 to include in query</typeparam>
+            <typeparam name="T2">Component 2 to include in query</typeparam>
+            <typeparam name="T3">Component 3 to include in query</typeparam>
+            <typeparam name="T4">Component 4 to include in query</typeparam>
+            <typeparam name="T5">Component 5 to include in query</typeparam>
+            <typeparam name="T6">Component 6 to include in query</typeparam>
+            <typeparam name="T7">Component 7 to include in query</typeparam>
+            <typeparam name="T8">Component 8 to include in query</typeparam>
+            <typeparam name="T9">Component 9 to include in query</typeparam>
+            <param name="q">
+            The instance to execute over every entity. Passed by ref, so changes to the query
+            struct will be persistent. This can allow values from one entity to be accessed by
+            the next entity, or after the entire Execute call is complete.
+            </param>
+            <param name="cursor">Tracks how manu archetypes and chunks were executed in the query. If the number of processed entities exceeds the budget set in
+            the cursor execution will early exit. Passing the same cursor to the same query again will resume at approximately the same position. This is only
+            approximate because new archetypes may be created, or chunks may be added and removed</param>
             <param name="query">
             Optional query to filter by. If non-null this <b>must</b> Include all of the component
             types specified in the type signature of this call!
@@ -4839,6 +5143,41 @@
             </param>
             <returns>The number of entities discovered by this query</returns>
         </member>
+        <member name="M:Myriad.ECS.Worlds.World.Execute``12(``0@,Myriad.ECS.Queries.QueryDescription@,Myriad.ECS.Queries.Cursor)">
+            <summary>
+            Execute a query, optionally filtering by a <see cref="T:Myriad.ECS.Queries.QueryDescription"/>. Using a cursor to early exit
+            and resume execution.
+            </summary>
+            <typeparam name="TQ">The type of the query to execute for every entity.</typeparam>
+            <typeparam name="T0">Component 0 to include in query</typeparam>
+            <typeparam name="T1">Component 1 to include in query</typeparam>
+            <typeparam name="T2">Component 2 to include in query</typeparam>
+            <typeparam name="T3">Component 3 to include in query</typeparam>
+            <typeparam name="T4">Component 4 to include in query</typeparam>
+            <typeparam name="T5">Component 5 to include in query</typeparam>
+            <typeparam name="T6">Component 6 to include in query</typeparam>
+            <typeparam name="T7">Component 7 to include in query</typeparam>
+            <typeparam name="T8">Component 8 to include in query</typeparam>
+            <typeparam name="T9">Component 9 to include in query</typeparam>
+            <typeparam name="T10">Component 10 to include in query</typeparam>
+            <param name="q">
+            The instance to execute over every entity. Passed by ref, so changes to the query
+            struct will be persistent. This can allow values from one entity to be accessed by
+            the next entity, or after the entire Execute call is complete.
+            </param>
+            <param name="cursor">Tracks how manu archetypes and chunks were executed in the query. If the number of processed entities exceeds the budget set in
+            the cursor execution will early exit. Passing the same cursor to the same query again will resume at approximately the same position. This is only
+            approximate because new archetypes may be created, or chunks may be added and removed</param>
+            <param name="query">
+            Optional query to filter by. If non-null this <b>must</b> Include all of the component
+            types specified in the type signature of this call!
+            <br /><br />
+            If null a default query will be used, selecting all entities which include the components
+            in the type signature. This query object will be written to the query parameter by ref. It
+            can be used next frame to slightly speed up query execution.
+            </param>
+            <returns>The number of entities discovered by this query</returns>
+        </member>
         <member name="M:Myriad.ECS.Worlds.World.ExecuteParallel``12(``0,Myriad.ECS.Queries.QueryDescription,System.Int32)">
             <summary>
             Execute a query in parallel over entities, blocks until complete.
@@ -5004,6 +5343,42 @@
             struct will be persistent. This can allow values from one entity to be accessed by
             the next entity, or after the entire Execute call is complete.
             </param>
+            <param name="query">
+            Optional query to filter by. If non-null this <b>must</b> Include all of the component
+            types specified in the type signature of this call!
+            <br /><br />
+            If null a default query will be used, selecting all entities which include the components
+            in the type signature. This query object will be written to the query parameter by ref. It
+            can be used next frame to slightly speed up query execution.
+            </param>
+            <returns>The number of entities discovered by this query</returns>
+        </member>
+        <member name="M:Myriad.ECS.Worlds.World.Execute``13(``0@,Myriad.ECS.Queries.QueryDescription@,Myriad.ECS.Queries.Cursor)">
+            <summary>
+            Execute a query, optionally filtering by a <see cref="T:Myriad.ECS.Queries.QueryDescription"/>. Using a cursor to early exit
+            and resume execution.
+            </summary>
+            <typeparam name="TQ">The type of the query to execute for every entity.</typeparam>
+            <typeparam name="T0">Component 0 to include in query</typeparam>
+            <typeparam name="T1">Component 1 to include in query</typeparam>
+            <typeparam name="T2">Component 2 to include in query</typeparam>
+            <typeparam name="T3">Component 3 to include in query</typeparam>
+            <typeparam name="T4">Component 4 to include in query</typeparam>
+            <typeparam name="T5">Component 5 to include in query</typeparam>
+            <typeparam name="T6">Component 6 to include in query</typeparam>
+            <typeparam name="T7">Component 7 to include in query</typeparam>
+            <typeparam name="T8">Component 8 to include in query</typeparam>
+            <typeparam name="T9">Component 9 to include in query</typeparam>
+            <typeparam name="T10">Component 10 to include in query</typeparam>
+            <typeparam name="T11">Component 11 to include in query</typeparam>
+            <param name="q">
+            The instance to execute over every entity. Passed by ref, so changes to the query
+            struct will be persistent. This can allow values from one entity to be accessed by
+            the next entity, or after the entire Execute call is complete.
+            </param>
+            <param name="cursor">Tracks how manu archetypes and chunks were executed in the query. If the number of processed entities exceeds the budget set in
+            the cursor execution will early exit. Passing the same cursor to the same query again will resume at approximately the same position. This is only
+            approximate because new archetypes may be created, or chunks may be added and removed</param>
             <param name="query">
             Optional query to filter by. If non-null this <b>must</b> Include all of the component
             types specified in the type signature of this call!
@@ -5195,6 +5570,43 @@
             </param>
             <returns>The number of entities discovered by this query</returns>
         </member>
+        <member name="M:Myriad.ECS.Worlds.World.Execute``14(``0@,Myriad.ECS.Queries.QueryDescription@,Myriad.ECS.Queries.Cursor)">
+            <summary>
+            Execute a query, optionally filtering by a <see cref="T:Myriad.ECS.Queries.QueryDescription"/>. Using a cursor to early exit
+            and resume execution.
+            </summary>
+            <typeparam name="TQ">The type of the query to execute for every entity.</typeparam>
+            <typeparam name="T0">Component 0 to include in query</typeparam>
+            <typeparam name="T1">Component 1 to include in query</typeparam>
+            <typeparam name="T2">Component 2 to include in query</typeparam>
+            <typeparam name="T3">Component 3 to include in query</typeparam>
+            <typeparam name="T4">Component 4 to include in query</typeparam>
+            <typeparam name="T5">Component 5 to include in query</typeparam>
+            <typeparam name="T6">Component 6 to include in query</typeparam>
+            <typeparam name="T7">Component 7 to include in query</typeparam>
+            <typeparam name="T8">Component 8 to include in query</typeparam>
+            <typeparam name="T9">Component 9 to include in query</typeparam>
+            <typeparam name="T10">Component 10 to include in query</typeparam>
+            <typeparam name="T11">Component 11 to include in query</typeparam>
+            <typeparam name="T12">Component 12 to include in query</typeparam>
+            <param name="q">
+            The instance to execute over every entity. Passed by ref, so changes to the query
+            struct will be persistent. This can allow values from one entity to be accessed by
+            the next entity, or after the entire Execute call is complete.
+            </param>
+            <param name="cursor">Tracks how manu archetypes and chunks were executed in the query. If the number of processed entities exceeds the budget set in
+            the cursor execution will early exit. Passing the same cursor to the same query again will resume at approximately the same position. This is only
+            approximate because new archetypes may be created, or chunks may be added and removed</param>
+            <param name="query">
+            Optional query to filter by. If non-null this <b>must</b> Include all of the component
+            types specified in the type signature of this call!
+            <br /><br />
+            If null a default query will be used, selecting all entities which include the components
+            in the type signature. This query object will be written to the query parameter by ref. It
+            can be used next frame to slightly speed up query execution.
+            </param>
+            <returns>The number of entities discovered by this query</returns>
+        </member>
         <member name="M:Myriad.ECS.Worlds.World.ExecuteParallel``14(``0,Myriad.ECS.Queries.QueryDescription,System.Int32)">
             <summary>
             Execute a query in parallel over entities, blocks until complete.
@@ -5372,6 +5784,44 @@
             struct will be persistent. This can allow values from one entity to be accessed by
             the next entity, or after the entire Execute call is complete.
             </param>
+            <param name="query">
+            Optional query to filter by. If non-null this <b>must</b> Include all of the component
+            types specified in the type signature of this call!
+            <br /><br />
+            If null a default query will be used, selecting all entities which include the components
+            in the type signature. This query object will be written to the query parameter by ref. It
+            can be used next frame to slightly speed up query execution.
+            </param>
+            <returns>The number of entities discovered by this query</returns>
+        </member>
+        <member name="M:Myriad.ECS.Worlds.World.Execute``15(``0@,Myriad.ECS.Queries.QueryDescription@,Myriad.ECS.Queries.Cursor)">
+            <summary>
+            Execute a query, optionally filtering by a <see cref="T:Myriad.ECS.Queries.QueryDescription"/>. Using a cursor to early exit
+            and resume execution.
+            </summary>
+            <typeparam name="TQ">The type of the query to execute for every entity.</typeparam>
+            <typeparam name="T0">Component 0 to include in query</typeparam>
+            <typeparam name="T1">Component 1 to include in query</typeparam>
+            <typeparam name="T2">Component 2 to include in query</typeparam>
+            <typeparam name="T3">Component 3 to include in query</typeparam>
+            <typeparam name="T4">Component 4 to include in query</typeparam>
+            <typeparam name="T5">Component 5 to include in query</typeparam>
+            <typeparam name="T6">Component 6 to include in query</typeparam>
+            <typeparam name="T7">Component 7 to include in query</typeparam>
+            <typeparam name="T8">Component 8 to include in query</typeparam>
+            <typeparam name="T9">Component 9 to include in query</typeparam>
+            <typeparam name="T10">Component 10 to include in query</typeparam>
+            <typeparam name="T11">Component 11 to include in query</typeparam>
+            <typeparam name="T12">Component 12 to include in query</typeparam>
+            <typeparam name="T13">Component 13 to include in query</typeparam>
+            <param name="q">
+            The instance to execute over every entity. Passed by ref, so changes to the query
+            struct will be persistent. This can allow values from one entity to be accessed by
+            the next entity, or after the entire Execute call is complete.
+            </param>
+            <param name="cursor">Tracks how manu archetypes and chunks were executed in the query. If the number of processed entities exceeds the budget set in
+            the cursor execution will early exit. Passing the same cursor to the same query again will resume at approximately the same position. This is only
+            approximate because new archetypes may be created, or chunks may be added and removed</param>
             <param name="query">
             Optional query to filter by. If non-null this <b>must</b> Include all of the component
             types specified in the type signature of this call!
@@ -5575,6 +6025,45 @@
             </param>
             <returns>The number of entities discovered by this query</returns>
         </member>
+        <member name="M:Myriad.ECS.Worlds.World.Execute``16(``0@,Myriad.ECS.Queries.QueryDescription@,Myriad.ECS.Queries.Cursor)">
+            <summary>
+            Execute a query, optionally filtering by a <see cref="T:Myriad.ECS.Queries.QueryDescription"/>. Using a cursor to early exit
+            and resume execution.
+            </summary>
+            <typeparam name="TQ">The type of the query to execute for every entity.</typeparam>
+            <typeparam name="T0">Component 0 to include in query</typeparam>
+            <typeparam name="T1">Component 1 to include in query</typeparam>
+            <typeparam name="T2">Component 2 to include in query</typeparam>
+            <typeparam name="T3">Component 3 to include in query</typeparam>
+            <typeparam name="T4">Component 4 to include in query</typeparam>
+            <typeparam name="T5">Component 5 to include in query</typeparam>
+            <typeparam name="T6">Component 6 to include in query</typeparam>
+            <typeparam name="T7">Component 7 to include in query</typeparam>
+            <typeparam name="T8">Component 8 to include in query</typeparam>
+            <typeparam name="T9">Component 9 to include in query</typeparam>
+            <typeparam name="T10">Component 10 to include in query</typeparam>
+            <typeparam name="T11">Component 11 to include in query</typeparam>
+            <typeparam name="T12">Component 12 to include in query</typeparam>
+            <typeparam name="T13">Component 13 to include in query</typeparam>
+            <typeparam name="T14">Component 14 to include in query</typeparam>
+            <param name="q">
+            The instance to execute over every entity. Passed by ref, so changes to the query
+            struct will be persistent. This can allow values from one entity to be accessed by
+            the next entity, or after the entire Execute call is complete.
+            </param>
+            <param name="cursor">Tracks how manu archetypes and chunks were executed in the query. If the number of processed entities exceeds the budget set in
+            the cursor execution will early exit. Passing the same cursor to the same query again will resume at approximately the same position. This is only
+            approximate because new archetypes may be created, or chunks may be added and removed</param>
+            <param name="query">
+            Optional query to filter by. If non-null this <b>must</b> Include all of the component
+            types specified in the type signature of this call!
+            <br /><br />
+            If null a default query will be used, selecting all entities which include the components
+            in the type signature. This query object will be written to the query parameter by ref. It
+            can be used next frame to slightly speed up query execution.
+            </param>
+            <returns>The number of entities discovered by this query</returns>
+        </member>
         <member name="M:Myriad.ECS.Worlds.World.ExecuteParallel``16(``0,Myriad.ECS.Queries.QueryDescription,System.Int32)">
             <summary>
             Execute a query in parallel over entities, blocks until complete.
@@ -5764,6 +6253,46 @@
             struct will be persistent. This can allow values from one entity to be accessed by
             the next entity, or after the entire Execute call is complete.
             </param>
+            <param name="query">
+            Optional query to filter by. If non-null this <b>must</b> Include all of the component
+            types specified in the type signature of this call!
+            <br /><br />
+            If null a default query will be used, selecting all entities which include the components
+            in the type signature. This query object will be written to the query parameter by ref. It
+            can be used next frame to slightly speed up query execution.
+            </param>
+            <returns>The number of entities discovered by this query</returns>
+        </member>
+        <member name="M:Myriad.ECS.Worlds.World.Execute``17(``0@,Myriad.ECS.Queries.QueryDescription@,Myriad.ECS.Queries.Cursor)">
+            <summary>
+            Execute a query, optionally filtering by a <see cref="T:Myriad.ECS.Queries.QueryDescription"/>. Using a cursor to early exit
+            and resume execution.
+            </summary>
+            <typeparam name="TQ">The type of the query to execute for every entity.</typeparam>
+            <typeparam name="T0">Component 0 to include in query</typeparam>
+            <typeparam name="T1">Component 1 to include in query</typeparam>
+            <typeparam name="T2">Component 2 to include in query</typeparam>
+            <typeparam name="T3">Component 3 to include in query</typeparam>
+            <typeparam name="T4">Component 4 to include in query</typeparam>
+            <typeparam name="T5">Component 5 to include in query</typeparam>
+            <typeparam name="T6">Component 6 to include in query</typeparam>
+            <typeparam name="T7">Component 7 to include in query</typeparam>
+            <typeparam name="T8">Component 8 to include in query</typeparam>
+            <typeparam name="T9">Component 9 to include in query</typeparam>
+            <typeparam name="T10">Component 10 to include in query</typeparam>
+            <typeparam name="T11">Component 11 to include in query</typeparam>
+            <typeparam name="T12">Component 12 to include in query</typeparam>
+            <typeparam name="T13">Component 13 to include in query</typeparam>
+            <typeparam name="T14">Component 14 to include in query</typeparam>
+            <typeparam name="T15">Component 15 to include in query</typeparam>
+            <param name="q">
+            The instance to execute over every entity. Passed by ref, so changes to the query
+            struct will be persistent. This can allow values from one entity to be accessed by
+            the next entity, or after the entire Execute call is complete.
+            </param>
+            <param name="cursor">Tracks how manu archetypes and chunks were executed in the query. If the number of processed entities exceeds the budget set in
+            the cursor execution will early exit. Passing the same cursor to the same query again will resume at approximately the same position. This is only
+            approximate because new archetypes may be created, or chunks may be added and removed</param>
             <param name="query">
             Optional query to filter by. If non-null this <b>must</b> Include all of the component
             types specified in the type signature of this call!
@@ -7826,8 +8355,8 @@
             Execute a query, mapping every result to a value and then reducing those values to
             one final output value.
             </summary>
-            <typeparam name="TM">Type of mapper</typeparam>
-            <typeparam name="TR">Type of reducer</typeparam>
+            <typeparam name="TMapper">Type of mapper</typeparam>
+            <typeparam name="TReducer">Type of reducer</typeparam>
             <typeparam name="TOutput">Type of value returned</typeparam>
             <typeparam name="T0">Component 0 to pass into mapper</typeparam>
             <param name="q">query, which produces a value per entity</param>
@@ -7873,8 +8402,8 @@
             Execute a query, mapping every result to a value and then reducing those values to
             one final output value.
             </summary>
-            <typeparam name="TM">Type of mapper</typeparam>
-            <typeparam name="TR">Type of reducer</typeparam>
+            <typeparam name="TMapper">Type of mapper</typeparam>
+            <typeparam name="TReducer">Type of reducer</typeparam>
             <typeparam name="TOutput">Type of value returned</typeparam>
             <typeparam name="T0">Component 0 to pass into mapper</typeparam>
             <typeparam name="T1">Component 1 to pass into mapper</typeparam>
@@ -7921,8 +8450,8 @@
             Execute a query, mapping every result to a value and then reducing those values to
             one final output value.
             </summary>
-            <typeparam name="TM">Type of mapper</typeparam>
-            <typeparam name="TR">Type of reducer</typeparam>
+            <typeparam name="TMapper">Type of mapper</typeparam>
+            <typeparam name="TReducer">Type of reducer</typeparam>
             <typeparam name="TOutput">Type of value returned</typeparam>
             <typeparam name="T0">Component 0 to pass into mapper</typeparam>
             <typeparam name="T1">Component 1 to pass into mapper</typeparam>
@@ -7970,8 +8499,8 @@
             Execute a query, mapping every result to a value and then reducing those values to
             one final output value.
             </summary>
-            <typeparam name="TM">Type of mapper</typeparam>
-            <typeparam name="TR">Type of reducer</typeparam>
+            <typeparam name="TMapper">Type of mapper</typeparam>
+            <typeparam name="TReducer">Type of reducer</typeparam>
             <typeparam name="TOutput">Type of value returned</typeparam>
             <typeparam name="T0">Component 0 to pass into mapper</typeparam>
             <typeparam name="T1">Component 1 to pass into mapper</typeparam>
@@ -8020,8 +8549,8 @@
             Execute a query, mapping every result to a value and then reducing those values to
             one final output value.
             </summary>
-            <typeparam name="TM">Type of mapper</typeparam>
-            <typeparam name="TR">Type of reducer</typeparam>
+            <typeparam name="TMapper">Type of mapper</typeparam>
+            <typeparam name="TReducer">Type of reducer</typeparam>
             <typeparam name="TOutput">Type of value returned</typeparam>
             <typeparam name="T0">Component 0 to pass into mapper</typeparam>
             <typeparam name="T1">Component 1 to pass into mapper</typeparam>
@@ -8071,8 +8600,8 @@
             Execute a query, mapping every result to a value and then reducing those values to
             one final output value.
             </summary>
-            <typeparam name="TM">Type of mapper</typeparam>
-            <typeparam name="TR">Type of reducer</typeparam>
+            <typeparam name="TMapper">Type of mapper</typeparam>
+            <typeparam name="TReducer">Type of reducer</typeparam>
             <typeparam name="TOutput">Type of value returned</typeparam>
             <typeparam name="T0">Component 0 to pass into mapper</typeparam>
             <typeparam name="T1">Component 1 to pass into mapper</typeparam>
@@ -8123,8 +8652,8 @@
             Execute a query, mapping every result to a value and then reducing those values to
             one final output value.
             </summary>
-            <typeparam name="TM">Type of mapper</typeparam>
-            <typeparam name="TR">Type of reducer</typeparam>
+            <typeparam name="TMapper">Type of mapper</typeparam>
+            <typeparam name="TReducer">Type of reducer</typeparam>
             <typeparam name="TOutput">Type of value returned</typeparam>
             <typeparam name="T0">Component 0 to pass into mapper</typeparam>
             <typeparam name="T1">Component 1 to pass into mapper</typeparam>
@@ -8176,8 +8705,8 @@
             Execute a query, mapping every result to a value and then reducing those values to
             one final output value.
             </summary>
-            <typeparam name="TM">Type of mapper</typeparam>
-            <typeparam name="TR">Type of reducer</typeparam>
+            <typeparam name="TMapper">Type of mapper</typeparam>
+            <typeparam name="TReducer">Type of reducer</typeparam>
             <typeparam name="TOutput">Type of value returned</typeparam>
             <typeparam name="T0">Component 0 to pass into mapper</typeparam>
             <typeparam name="T1">Component 1 to pass into mapper</typeparam>
@@ -8230,8 +8759,8 @@
             Execute a query, mapping every result to a value and then reducing those values to
             one final output value.
             </summary>
-            <typeparam name="TM">Type of mapper</typeparam>
-            <typeparam name="TR">Type of reducer</typeparam>
+            <typeparam name="TMapper">Type of mapper</typeparam>
+            <typeparam name="TReducer">Type of reducer</typeparam>
             <typeparam name="TOutput">Type of value returned</typeparam>
             <typeparam name="T0">Component 0 to pass into mapper</typeparam>
             <typeparam name="T1">Component 1 to pass into mapper</typeparam>
@@ -8285,8 +8814,8 @@
             Execute a query, mapping every result to a value and then reducing those values to
             one final output value.
             </summary>
-            <typeparam name="TM">Type of mapper</typeparam>
-            <typeparam name="TR">Type of reducer</typeparam>
+            <typeparam name="TMapper">Type of mapper</typeparam>
+            <typeparam name="TReducer">Type of reducer</typeparam>
             <typeparam name="TOutput">Type of value returned</typeparam>
             <typeparam name="T0">Component 0 to pass into mapper</typeparam>
             <typeparam name="T1">Component 1 to pass into mapper</typeparam>
@@ -8341,8 +8870,8 @@
             Execute a query, mapping every result to a value and then reducing those values to
             one final output value.
             </summary>
-            <typeparam name="TM">Type of mapper</typeparam>
-            <typeparam name="TR">Type of reducer</typeparam>
+            <typeparam name="TMapper">Type of mapper</typeparam>
+            <typeparam name="TReducer">Type of reducer</typeparam>
             <typeparam name="TOutput">Type of value returned</typeparam>
             <typeparam name="T0">Component 0 to pass into mapper</typeparam>
             <typeparam name="T1">Component 1 to pass into mapper</typeparam>
@@ -8398,8 +8927,8 @@
             Execute a query, mapping every result to a value and then reducing those values to
             one final output value.
             </summary>
-            <typeparam name="TM">Type of mapper</typeparam>
-            <typeparam name="TR">Type of reducer</typeparam>
+            <typeparam name="TMapper">Type of mapper</typeparam>
+            <typeparam name="TReducer">Type of reducer</typeparam>
             <typeparam name="TOutput">Type of value returned</typeparam>
             <typeparam name="T0">Component 0 to pass into mapper</typeparam>
             <typeparam name="T1">Component 1 to pass into mapper</typeparam>
@@ -8456,8 +8985,8 @@
             Execute a query, mapping every result to a value and then reducing those values to
             one final output value.
             </summary>
-            <typeparam name="TM">Type of mapper</typeparam>
-            <typeparam name="TR">Type of reducer</typeparam>
+            <typeparam name="TMapper">Type of mapper</typeparam>
+            <typeparam name="TReducer">Type of reducer</typeparam>
             <typeparam name="TOutput">Type of value returned</typeparam>
             <typeparam name="T0">Component 0 to pass into mapper</typeparam>
             <typeparam name="T1">Component 1 to pass into mapper</typeparam>
@@ -8515,8 +9044,8 @@
             Execute a query, mapping every result to a value and then reducing those values to
             one final output value.
             </summary>
-            <typeparam name="TM">Type of mapper</typeparam>
-            <typeparam name="TR">Type of reducer</typeparam>
+            <typeparam name="TMapper">Type of mapper</typeparam>
+            <typeparam name="TReducer">Type of reducer</typeparam>
             <typeparam name="TOutput">Type of value returned</typeparam>
             <typeparam name="T0">Component 0 to pass into mapper</typeparam>
             <typeparam name="T1">Component 1 to pass into mapper</typeparam>
@@ -8575,8 +9104,8 @@
             Execute a query, mapping every result to a value and then reducing those values to
             one final output value.
             </summary>
-            <typeparam name="TM">Type of mapper</typeparam>
-            <typeparam name="TR">Type of reducer</typeparam>
+            <typeparam name="TMapper">Type of mapper</typeparam>
+            <typeparam name="TReducer">Type of reducer</typeparam>
             <typeparam name="TOutput">Type of value returned</typeparam>
             <typeparam name="T0">Component 0 to pass into mapper</typeparam>
             <typeparam name="T1">Component 1 to pass into mapper</typeparam>
@@ -8636,8 +9165,8 @@
             Execute a query, mapping every result to a value and then reducing those values to
             one final output value.
             </summary>
-            <typeparam name="TM">Type of mapper</typeparam>
-            <typeparam name="TR">Type of reducer</typeparam>
+            <typeparam name="TMapper">Type of mapper</typeparam>
+            <typeparam name="TReducer">Type of reducer</typeparam>
             <typeparam name="TOutput">Type of value returned</typeparam>
             <typeparam name="T0">Component 0 to pass into mapper</typeparam>
             <typeparam name="T1">Component 1 to pass into mapper</typeparam>
@@ -9182,6 +9711,32 @@
             Try to get the span of the given component type in this chunk
             </summary>
             <returns></returns>
+        </member>
+        <member name="T:Myriad.ECS.Queries.Cursor">
+            <summary>
+            Keep track of how far through execution a query got, can be used to resume execution at <b>approximately</b> the same point.
+            Some entities may be repeated, and some may be skipped, but if run every frame eventually it will get to every entity.
+            </summary>
+        </member>
+        <member name="F:Myriad.ECS.Queries.Cursor.LastArchetype">
+            <summary>
+            The last archetype that was processed
+            </summary>
+        </member>
+        <member name="F:Myriad.ECS.Queries.Cursor.Chunks">
+            <summary>
+            How many chunks of the last archetype were processed last time this cursor was used
+            </summary>
+        </member>
+        <member name="P:Myriad.ECS.Queries.Cursor.EntityBudget">
+            <summary>
+            Get or set the number of entities queries may process before early exiting
+            </summary>
+        </member>
+        <member name="M:Myriad.ECS.Queries.Cursor.Reset">
+            <summary>
+            Reset this cursor back to an empty state
+            </summary>
         </member>
         <member name="T:Myriad.ECS.Queries.IChunkQuery`1">
             <summary>
@@ -10782,6 +11337,19 @@
             <param name="item"></param>
             <returns>The number of entities written to</returns>
         </member>
+        <member name="T:Myriad.ECS.Queries.IQueryReduce`1">
+            <summary>
+            Reduce intermediate values
+            </summary>
+        </member>
+        <member name="M:Myriad.ECS.Queries.IQueryReduce`1.Reduce(`0,`0)">
+            <summary>
+            Reduce two intermediate value to one
+            </summary>
+            <param name="a"></param>
+            <param name="b"></param>
+            <returns></returns>
+        </member>
         <member name="T:Myriad.ECS.Queries.IQueryMap`2">
             <summary>
             Map from a set of components to a single value
@@ -10791,19 +11359,6 @@
             <summary>
             Extract a value from the given entity and components
             </summary>
-        </member>
-        <member name="T:Myriad.ECS.Queries.IQueryReduce1`1">
-            <summary>
-            Reduce intermediate values
-            </summary>
-        </member>
-        <member name="M:Myriad.ECS.Queries.IQueryReduce1`1.Reduce(`0,`0)">
-            <summary>
-            Reduce two intermediate value to one
-            </summary>
-            <param name="a"></param>
-            <param name="b"></param>
-            <returns></returns>
         </member>
         <member name="T:Myriad.ECS.Queries.IQueryMap`3">
             <summary>
@@ -10815,19 +11370,6 @@
             Extract a value from the given entity and components
             </summary>
         </member>
-        <member name="T:Myriad.ECS.Queries.IQueryReduce2`1">
-            <summary>
-            Reduce intermediate values
-            </summary>
-        </member>
-        <member name="M:Myriad.ECS.Queries.IQueryReduce2`1.Reduce(`0,`0)">
-            <summary>
-            Reduce two intermediate value to one
-            </summary>
-            <param name="a"></param>
-            <param name="b"></param>
-            <returns></returns>
-        </member>
         <member name="T:Myriad.ECS.Queries.IQueryMap`4">
             <summary>
             Map from a set of components to a single value
@@ -10837,19 +11379,6 @@
             <summary>
             Extract a value from the given entity and components
             </summary>
-        </member>
-        <member name="T:Myriad.ECS.Queries.IQueryReduce3`1">
-            <summary>
-            Reduce intermediate values
-            </summary>
-        </member>
-        <member name="M:Myriad.ECS.Queries.IQueryReduce3`1.Reduce(`0,`0)">
-            <summary>
-            Reduce two intermediate value to one
-            </summary>
-            <param name="a"></param>
-            <param name="b"></param>
-            <returns></returns>
         </member>
         <member name="T:Myriad.ECS.Queries.IQueryMap`5">
             <summary>
@@ -10861,19 +11390,6 @@
             Extract a value from the given entity and components
             </summary>
         </member>
-        <member name="T:Myriad.ECS.Queries.IQueryReduce4`1">
-            <summary>
-            Reduce intermediate values
-            </summary>
-        </member>
-        <member name="M:Myriad.ECS.Queries.IQueryReduce4`1.Reduce(`0,`0)">
-            <summary>
-            Reduce two intermediate value to one
-            </summary>
-            <param name="a"></param>
-            <param name="b"></param>
-            <returns></returns>
-        </member>
         <member name="T:Myriad.ECS.Queries.IQueryMap`6">
             <summary>
             Map from a set of components to a single value
@@ -10883,19 +11399,6 @@
             <summary>
             Extract a value from the given entity and components
             </summary>
-        </member>
-        <member name="T:Myriad.ECS.Queries.IQueryReduce5`1">
-            <summary>
-            Reduce intermediate values
-            </summary>
-        </member>
-        <member name="M:Myriad.ECS.Queries.IQueryReduce5`1.Reduce(`0,`0)">
-            <summary>
-            Reduce two intermediate value to one
-            </summary>
-            <param name="a"></param>
-            <param name="b"></param>
-            <returns></returns>
         </member>
         <member name="T:Myriad.ECS.Queries.IQueryMap`7">
             <summary>
@@ -10907,19 +11410,6 @@
             Extract a value from the given entity and components
             </summary>
         </member>
-        <member name="T:Myriad.ECS.Queries.IQueryReduce6`1">
-            <summary>
-            Reduce intermediate values
-            </summary>
-        </member>
-        <member name="M:Myriad.ECS.Queries.IQueryReduce6`1.Reduce(`0,`0)">
-            <summary>
-            Reduce two intermediate value to one
-            </summary>
-            <param name="a"></param>
-            <param name="b"></param>
-            <returns></returns>
-        </member>
         <member name="T:Myriad.ECS.Queries.IQueryMap`8">
             <summary>
             Map from a set of components to a single value
@@ -10929,19 +11419,6 @@
             <summary>
             Extract a value from the given entity and components
             </summary>
-        </member>
-        <member name="T:Myriad.ECS.Queries.IQueryReduce7`1">
-            <summary>
-            Reduce intermediate values
-            </summary>
-        </member>
-        <member name="M:Myriad.ECS.Queries.IQueryReduce7`1.Reduce(`0,`0)">
-            <summary>
-            Reduce two intermediate value to one
-            </summary>
-            <param name="a"></param>
-            <param name="b"></param>
-            <returns></returns>
         </member>
         <member name="T:Myriad.ECS.Queries.IQueryMap`9">
             <summary>
@@ -10953,19 +11430,6 @@
             Extract a value from the given entity and components
             </summary>
         </member>
-        <member name="T:Myriad.ECS.Queries.IQueryReduce8`1">
-            <summary>
-            Reduce intermediate values
-            </summary>
-        </member>
-        <member name="M:Myriad.ECS.Queries.IQueryReduce8`1.Reduce(`0,`0)">
-            <summary>
-            Reduce two intermediate value to one
-            </summary>
-            <param name="a"></param>
-            <param name="b"></param>
-            <returns></returns>
-        </member>
         <member name="T:Myriad.ECS.Queries.IQueryMap`10">
             <summary>
             Map from a set of components to a single value
@@ -10975,19 +11439,6 @@
             <summary>
             Extract a value from the given entity and components
             </summary>
-        </member>
-        <member name="T:Myriad.ECS.Queries.IQueryReduce9`1">
-            <summary>
-            Reduce intermediate values
-            </summary>
-        </member>
-        <member name="M:Myriad.ECS.Queries.IQueryReduce9`1.Reduce(`0,`0)">
-            <summary>
-            Reduce two intermediate value to one
-            </summary>
-            <param name="a"></param>
-            <param name="b"></param>
-            <returns></returns>
         </member>
         <member name="T:Myriad.ECS.Queries.IQueryMap`11">
             <summary>
@@ -10999,19 +11450,6 @@
             Extract a value from the given entity and components
             </summary>
         </member>
-        <member name="T:Myriad.ECS.Queries.IQueryReduce10`1">
-            <summary>
-            Reduce intermediate values
-            </summary>
-        </member>
-        <member name="M:Myriad.ECS.Queries.IQueryReduce10`1.Reduce(`0,`0)">
-            <summary>
-            Reduce two intermediate value to one
-            </summary>
-            <param name="a"></param>
-            <param name="b"></param>
-            <returns></returns>
-        </member>
         <member name="T:Myriad.ECS.Queries.IQueryMap`12">
             <summary>
             Map from a set of components to a single value
@@ -11021,19 +11459,6 @@
             <summary>
             Extract a value from the given entity and components
             </summary>
-        </member>
-        <member name="T:Myriad.ECS.Queries.IQueryReduce11`1">
-            <summary>
-            Reduce intermediate values
-            </summary>
-        </member>
-        <member name="M:Myriad.ECS.Queries.IQueryReduce11`1.Reduce(`0,`0)">
-            <summary>
-            Reduce two intermediate value to one
-            </summary>
-            <param name="a"></param>
-            <param name="b"></param>
-            <returns></returns>
         </member>
         <member name="T:Myriad.ECS.Queries.IQueryMap`13">
             <summary>
@@ -11045,19 +11470,6 @@
             Extract a value from the given entity and components
             </summary>
         </member>
-        <member name="T:Myriad.ECS.Queries.IQueryReduce12`1">
-            <summary>
-            Reduce intermediate values
-            </summary>
-        </member>
-        <member name="M:Myriad.ECS.Queries.IQueryReduce12`1.Reduce(`0,`0)">
-            <summary>
-            Reduce two intermediate value to one
-            </summary>
-            <param name="a"></param>
-            <param name="b"></param>
-            <returns></returns>
-        </member>
         <member name="T:Myriad.ECS.Queries.IQueryMap`14">
             <summary>
             Map from a set of components to a single value
@@ -11067,19 +11479,6 @@
             <summary>
             Extract a value from the given entity and components
             </summary>
-        </member>
-        <member name="T:Myriad.ECS.Queries.IQueryReduce13`1">
-            <summary>
-            Reduce intermediate values
-            </summary>
-        </member>
-        <member name="M:Myriad.ECS.Queries.IQueryReduce13`1.Reduce(`0,`0)">
-            <summary>
-            Reduce two intermediate value to one
-            </summary>
-            <param name="a"></param>
-            <param name="b"></param>
-            <returns></returns>
         </member>
         <member name="T:Myriad.ECS.Queries.IQueryMap`15">
             <summary>
@@ -11091,19 +11490,6 @@
             Extract a value from the given entity and components
             </summary>
         </member>
-        <member name="T:Myriad.ECS.Queries.IQueryReduce14`1">
-            <summary>
-            Reduce intermediate values
-            </summary>
-        </member>
-        <member name="M:Myriad.ECS.Queries.IQueryReduce14`1.Reduce(`0,`0)">
-            <summary>
-            Reduce two intermediate value to one
-            </summary>
-            <param name="a"></param>
-            <param name="b"></param>
-            <returns></returns>
-        </member>
         <member name="T:Myriad.ECS.Queries.IQueryMap`16">
             <summary>
             Map from a set of components to a single value
@@ -11113,19 +11499,6 @@
             <summary>
             Extract a value from the given entity and components
             </summary>
-        </member>
-        <member name="T:Myriad.ECS.Queries.IQueryReduce15`1">
-            <summary>
-            Reduce intermediate values
-            </summary>
-        </member>
-        <member name="M:Myriad.ECS.Queries.IQueryReduce15`1.Reduce(`0,`0)">
-            <summary>
-            Reduce two intermediate value to one
-            </summary>
-            <param name="a"></param>
-            <param name="b"></param>
-            <returns></returns>
         </member>
         <member name="T:Myriad.ECS.Queries.IQueryMap`17">
             <summary>
@@ -11137,18 +11510,269 @@
             Extract a value from the given entity and components
             </summary>
         </member>
-        <member name="T:Myriad.ECS.Queries.IQueryReduce16`1">
-            <summary>
-            Reduce intermediate values
-            </summary>
+        <member name="T:Myriad.ECS.Queries.Reduce">
+            <summary>Standard reducers for Map/Reduce queries</summary>
+            <summary>Standard reducers for Map/Reduce queries</summary>
+            <summary>Standard reducers for Map/Reduce queries</summary>
+            <summary>Standard reducers for Map/Reduce queries</summary>
+            <summary>Standard reducers for Map/Reduce queries</summary>
+            <summary>Standard reducers for Map/Reduce queries</summary>
+            <summary>Standard reducers for Map/Reduce queries</summary>
         </member>
-        <member name="M:Myriad.ECS.Queries.IQueryReduce16`1.Reduce(`0,`0)">
-            <summary>
-            Reduce two intermediate value to one
-            </summary>
-            <param name="a"></param>
-            <param name="b"></param>
-            <returns></returns>
+        <member name="T:Myriad.ECS.Queries.Reduce.I32">
+            <summary>Container class for reducer of int</summary>
+        </member>
+        <member name="T:Myriad.ECS.Queries.Reduce.I32.Min">
+            <summary>Get the minimum of 2 values</summary>
+        </member>
+        <member name="M:Myriad.ECS.Queries.Reduce.I32.Min.Reduce(System.Int32,System.Int32)">
+            <inheritdoc />
+        </member>
+        <member name="T:Myriad.ECS.Queries.Reduce.I32.Max">
+            <summary>Get the maximum of 2 values</summary>
+        </member>
+        <member name="M:Myriad.ECS.Queries.Reduce.I32.Max.Reduce(System.Int32,System.Int32)">
+            <inheritdoc />
+        </member>
+        <member name="T:Myriad.ECS.Queries.Reduce.I32.Add">
+            <summary>Add the 2 values</summary>
+        </member>
+        <member name="M:Myriad.ECS.Queries.Reduce.I32.Add.Reduce(System.Int32,System.Int32)">
+            <inheritdoc />
+        </member>
+        <member name="T:Myriad.ECS.Queries.Reduce.I32.Mul">
+            <summary>Multiply the 2 values</summary>
+        </member>
+        <member name="M:Myriad.ECS.Queries.Reduce.I32.Mul.Reduce(System.Int32,System.Int32)">
+            <inheritdoc />
+        </member>
+        <member name="T:Myriad.ECS.Queries.Reduce.I32.Xor">
+            <summary>XOR the 2 values</summary>
+        </member>
+        <member name="M:Myriad.ECS.Queries.Reduce.I32.Xor.Reduce(System.Int32,System.Int32)">
+            <inheritdoc />
+        </member>
+        <member name="T:Myriad.ECS.Queries.Reduce.I32.And">
+            <summary>AND the 2 values</summary>
+        </member>
+        <member name="M:Myriad.ECS.Queries.Reduce.I32.And.Reduce(System.Int32,System.Int32)">
+            <inheritdoc />
+        </member>
+        <member name="T:Myriad.ECS.Queries.Reduce.I32.Or">
+            <summary>OR the 2 values</summary>
+        </member>
+        <member name="M:Myriad.ECS.Queries.Reduce.I32.Or.Reduce(System.Int32,System.Int32)">
+            <inheritdoc />
+        </member>
+        <member name="T:Myriad.ECS.Queries.Reduce.U32">
+            <summary>Container class for reducer of uint</summary>
+        </member>
+        <member name="T:Myriad.ECS.Queries.Reduce.U32.Min">
+            <summary>Get the minimum of 2 values</summary>
+        </member>
+        <member name="M:Myriad.ECS.Queries.Reduce.U32.Min.Reduce(System.UInt32,System.UInt32)">
+            <inheritdoc />
+        </member>
+        <member name="T:Myriad.ECS.Queries.Reduce.U32.Max">
+            <summary>Get the maximum of 2 values</summary>
+        </member>
+        <member name="M:Myriad.ECS.Queries.Reduce.U32.Max.Reduce(System.UInt32,System.UInt32)">
+            <inheritdoc />
+        </member>
+        <member name="T:Myriad.ECS.Queries.Reduce.U32.Add">
+            <summary>Add the 2 values</summary>
+        </member>
+        <member name="M:Myriad.ECS.Queries.Reduce.U32.Add.Reduce(System.UInt32,System.UInt32)">
+            <inheritdoc />
+        </member>
+        <member name="T:Myriad.ECS.Queries.Reduce.U32.Mul">
+            <summary>Multiply the 2 values</summary>
+        </member>
+        <member name="M:Myriad.ECS.Queries.Reduce.U32.Mul.Reduce(System.UInt32,System.UInt32)">
+            <inheritdoc />
+        </member>
+        <member name="T:Myriad.ECS.Queries.Reduce.U32.Xor">
+            <summary>XOR the 2 values</summary>
+        </member>
+        <member name="M:Myriad.ECS.Queries.Reduce.U32.Xor.Reduce(System.UInt32,System.UInt32)">
+            <inheritdoc />
+        </member>
+        <member name="T:Myriad.ECS.Queries.Reduce.U32.And">
+            <summary>AND the 2 values</summary>
+        </member>
+        <member name="M:Myriad.ECS.Queries.Reduce.U32.And.Reduce(System.UInt32,System.UInt32)">
+            <inheritdoc />
+        </member>
+        <member name="T:Myriad.ECS.Queries.Reduce.U32.Or">
+            <summary>OR the 2 values</summary>
+        </member>
+        <member name="M:Myriad.ECS.Queries.Reduce.U32.Or.Reduce(System.UInt32,System.UInt32)">
+            <inheritdoc />
+        </member>
+        <member name="T:Myriad.ECS.Queries.Reduce.I64">
+            <summary>Container class for reducer of long</summary>
+        </member>
+        <member name="T:Myriad.ECS.Queries.Reduce.I64.Min">
+            <summary>Get the minimum of 2 values</summary>
+        </member>
+        <member name="M:Myriad.ECS.Queries.Reduce.I64.Min.Reduce(System.Int64,System.Int64)">
+            <inheritdoc />
+        </member>
+        <member name="T:Myriad.ECS.Queries.Reduce.I64.Max">
+            <summary>Get the maximum of 2 values</summary>
+        </member>
+        <member name="M:Myriad.ECS.Queries.Reduce.I64.Max.Reduce(System.Int64,System.Int64)">
+            <inheritdoc />
+        </member>
+        <member name="T:Myriad.ECS.Queries.Reduce.I64.Add">
+            <summary>Add the 2 values</summary>
+        </member>
+        <member name="M:Myriad.ECS.Queries.Reduce.I64.Add.Reduce(System.Int64,System.Int64)">
+            <inheritdoc />
+        </member>
+        <member name="T:Myriad.ECS.Queries.Reduce.I64.Mul">
+            <summary>Multiply the 2 values</summary>
+        </member>
+        <member name="M:Myriad.ECS.Queries.Reduce.I64.Mul.Reduce(System.Int64,System.Int64)">
+            <inheritdoc />
+        </member>
+        <member name="T:Myriad.ECS.Queries.Reduce.I64.Xor">
+            <summary>XOR the 2 values</summary>
+        </member>
+        <member name="M:Myriad.ECS.Queries.Reduce.I64.Xor.Reduce(System.Int64,System.Int64)">
+            <inheritdoc />
+        </member>
+        <member name="T:Myriad.ECS.Queries.Reduce.I64.And">
+            <summary>AND the 2 values</summary>
+        </member>
+        <member name="M:Myriad.ECS.Queries.Reduce.I64.And.Reduce(System.Int64,System.Int64)">
+            <inheritdoc />
+        </member>
+        <member name="T:Myriad.ECS.Queries.Reduce.I64.Or">
+            <summary>OR the 2 values</summary>
+        </member>
+        <member name="M:Myriad.ECS.Queries.Reduce.I64.Or.Reduce(System.Int64,System.Int64)">
+            <inheritdoc />
+        </member>
+        <member name="T:Myriad.ECS.Queries.Reduce.U64">
+            <summary>Container class for reducer of ulong</summary>
+        </member>
+        <member name="T:Myriad.ECS.Queries.Reduce.U64.Min">
+            <summary>Get the minimum of 2 values</summary>
+        </member>
+        <member name="M:Myriad.ECS.Queries.Reduce.U64.Min.Reduce(System.UInt64,System.UInt64)">
+            <inheritdoc />
+        </member>
+        <member name="T:Myriad.ECS.Queries.Reduce.U64.Max">
+            <summary>Get the maximum of 2 values</summary>
+        </member>
+        <member name="M:Myriad.ECS.Queries.Reduce.U64.Max.Reduce(System.UInt64,System.UInt64)">
+            <inheritdoc />
+        </member>
+        <member name="T:Myriad.ECS.Queries.Reduce.U64.Add">
+            <summary>Add the 2 values</summary>
+        </member>
+        <member name="M:Myriad.ECS.Queries.Reduce.U64.Add.Reduce(System.UInt64,System.UInt64)">
+            <inheritdoc />
+        </member>
+        <member name="T:Myriad.ECS.Queries.Reduce.U64.Mul">
+            <summary>Multiply the 2 values</summary>
+        </member>
+        <member name="M:Myriad.ECS.Queries.Reduce.U64.Mul.Reduce(System.UInt64,System.UInt64)">
+            <inheritdoc />
+        </member>
+        <member name="T:Myriad.ECS.Queries.Reduce.U64.Xor">
+            <summary>XOR the 2 values</summary>
+        </member>
+        <member name="M:Myriad.ECS.Queries.Reduce.U64.Xor.Reduce(System.UInt64,System.UInt64)">
+            <inheritdoc />
+        </member>
+        <member name="T:Myriad.ECS.Queries.Reduce.U64.And">
+            <summary>AND the 2 values</summary>
+        </member>
+        <member name="M:Myriad.ECS.Queries.Reduce.U64.And.Reduce(System.UInt64,System.UInt64)">
+            <inheritdoc />
+        </member>
+        <member name="T:Myriad.ECS.Queries.Reduce.U64.Or">
+            <summary>OR the 2 values</summary>
+        </member>
+        <member name="M:Myriad.ECS.Queries.Reduce.U64.Or.Reduce(System.UInt64,System.UInt64)">
+            <inheritdoc />
+        </member>
+        <member name="T:Myriad.ECS.Queries.Reduce.F32">
+            <summary>Container class for reducer of float</summary>
+        </member>
+        <member name="T:Myriad.ECS.Queries.Reduce.F32.Min">
+            <summary>Get the minimum of 2 values</summary>
+        </member>
+        <member name="M:Myriad.ECS.Queries.Reduce.F32.Min.Reduce(System.Single,System.Single)">
+            <inheritdoc />
+        </member>
+        <member name="T:Myriad.ECS.Queries.Reduce.F32.Max">
+            <summary>Get the maximum of 2 values</summary>
+        </member>
+        <member name="M:Myriad.ECS.Queries.Reduce.F32.Max.Reduce(System.Single,System.Single)">
+            <inheritdoc />
+        </member>
+        <member name="T:Myriad.ECS.Queries.Reduce.F32.Add">
+            <summary>Add the 2 values</summary>
+        </member>
+        <member name="M:Myriad.ECS.Queries.Reduce.F32.Add.Reduce(System.Single,System.Single)">
+            <inheritdoc />
+        </member>
+        <member name="T:Myriad.ECS.Queries.Reduce.F32.Mul">
+            <summary>Multiply the 2 values</summary>
+        </member>
+        <member name="M:Myriad.ECS.Queries.Reduce.F32.Mul.Reduce(System.Single,System.Single)">
+            <inheritdoc />
+        </member>
+        <member name="T:Myriad.ECS.Queries.Reduce.F64">
+            <summary>Container class for reducer of double</summary>
+        </member>
+        <member name="T:Myriad.ECS.Queries.Reduce.F64.Min">
+            <summary>Get the minimum of 2 values</summary>
+        </member>
+        <member name="M:Myriad.ECS.Queries.Reduce.F64.Min.Reduce(System.Double,System.Double)">
+            <inheritdoc />
+        </member>
+        <member name="T:Myriad.ECS.Queries.Reduce.F64.Max">
+            <summary>Get the maximum of 2 values</summary>
+        </member>
+        <member name="M:Myriad.ECS.Queries.Reduce.F64.Max.Reduce(System.Double,System.Double)">
+            <inheritdoc />
+        </member>
+        <member name="T:Myriad.ECS.Queries.Reduce.F64.Add">
+            <summary>Add the 2 values</summary>
+        </member>
+        <member name="M:Myriad.ECS.Queries.Reduce.F64.Add.Reduce(System.Double,System.Double)">
+            <inheritdoc />
+        </member>
+        <member name="T:Myriad.ECS.Queries.Reduce.F64.Mul">
+            <summary>Multiply the 2 values</summary>
+        </member>
+        <member name="M:Myriad.ECS.Queries.Reduce.F64.Mul.Reduce(System.Double,System.Double)">
+            <inheritdoc />
+        </member>
+        <member name="T:Myriad.ECS.Queries.Reduce.Boolean">
+            <summary>Container class for reducer of bool</summary>
+        </member>
+        <member name="T:Myriad.ECS.Queries.Reduce.Boolean.Xor">
+            <summary>XOR the 2 values</summary>
+        </member>
+        <member name="M:Myriad.ECS.Queries.Reduce.Boolean.Xor.Reduce(System.Boolean,System.Boolean)">
+            <inheritdoc />
+        </member>
+        <member name="T:Myriad.ECS.Queries.Reduce.Boolean.And">
+            <summary>AND the 2 values</summary>
+        </member>
+        <member name="M:Myriad.ECS.Queries.Reduce.Boolean.And.Reduce(System.Boolean,System.Boolean)">
+            <inheritdoc />
+        </member>
+        <member name="T:Myriad.ECS.Queries.Reduce.Boolean.Or">
+            <summary>OR the 2 values</summary>
+        </member>
+        <member name="M:Myriad.ECS.Queries.Reduce.Boolean.Or.Reduce(System.Boolean,System.Boolean)">
+            <inheritdoc />
         </member>
         <member name="T:Myriad.ECS.Systems.CommandBufferSystem`1">
             <summary>
@@ -11245,6 +11869,32 @@
         </member>
         <member name="M:Myriad.ECS.Systems.LateCommandBufferSystem`1.AfterUpdate(`0)">
             <inheritdoc />
+        </member>
+        <member name="T:Myriad.ECS.Systems.GameTime">
+            <summary>
+            Stores the current simulation time
+            </summary>
+        </member>
+        <member name="P:Myriad.ECS.Systems.GameTime.Time">
+            <summary>
+            The current time
+            </summary>
+        </member>
+        <member name="P:Myriad.ECS.Systems.GameTime.DeltaTime">
+            <summary>
+            The change in time since the last frame
+            </summary>
+        </member>
+        <member name="P:Myriad.ECS.Systems.GameTime.Frame">
+            <summary>
+            The total number of elapsed frames
+            </summary>
+        </member>
+        <member name="M:Myriad.ECS.Systems.GameTime.Tick(System.Double)">
+            <summary>
+            Advance the time by one step
+            </summary>
+            <param name="dt"></param>
         </member>
         <member name="T:Myriad.ECS.Systems.ISystem`1">
             <summary>

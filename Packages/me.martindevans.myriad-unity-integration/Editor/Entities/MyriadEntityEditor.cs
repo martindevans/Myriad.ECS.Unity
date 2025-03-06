@@ -8,7 +8,6 @@ using Myriad.ECS.Components;
 using Myriad.ECS.IDs;
 using Packages.me.martindevans.myriad_unity_integration.Editor.Extensions;
 using Packages.me.martindevans.myriad_unity_integration.Editor.UIComponents;
-using Packages.me.martindevans.myriad_unity_integration.Runtime;
 using Packages.me.martindevans.myriad_unity_integration.Runtime.Components;
 using Placeholder.Editor.UI.Editor;
 using Placeholder.Editor.UI.Editor.Components;

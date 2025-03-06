@@ -19,7 +19,7 @@ namespace Packages.me.martindevans.myriad_unity_integration.Runtime.Systems
 
         protected virtual void OnEnable()
         {
-            if (_world == null)
+            if (!_world)
             {
                 // Try to find world host in this gameobject
                 var found = TryGetComponent<WorldHost<TData>>(out var world);

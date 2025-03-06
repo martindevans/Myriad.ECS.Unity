@@ -1,3 +1,4 @@
+using Myriad.ECS.Systems;
 using Myriad.ECS.Worlds;
 using UnityEngine;
 
@@ -31,11 +32,7 @@ namespace Packages.me.martindevans.myriad_unity_integration.Runtime
 
         protected override GameTime GetData()
         {
-            _time.TimeSpeed = TimeSpeed;
-            _time.Time += Time.deltaTime * TimeSpeed;
-            _time.DeltaTime = Time.deltaTime * TimeSpeed;
-            _time.Frame++;
-
+            _time.Tick(Time.deltaTime * TimeSpeed);
             return _time;
         }
     }

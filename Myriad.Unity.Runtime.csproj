@@ -62,7 +62,6 @@
   <ItemGroup>
     <Compile Include="Packages\me.martindevans.myriad-unity-integration\Runtime\WorldHost.cs" />
     <Compile Include="Packages\me.martindevans.myriad-unity-integration\Runtime\Systems\WorldSystemGroup.cs" />
-    <Compile Include="Packages\me.martindevans.myriad-unity-integration\Runtime\GameTime.cs" />
     <Compile Include="Packages\me.martindevans.myriad-unity-integration\Runtime\Extensions\GameObjectExtensions.cs" />
     <Compile Include="Packages\me.martindevans.myriad-unity-integration\Runtime\Systems\UnityMyriadSystemGroup.cs" />
     <Compile Include="Packages\me.martindevans.myriad-unity-integration\Runtime\Components\MyriadEntity.cs" />
@@ -426,7 +425,7 @@
       <Private>False</Private>
     </Reference>
     <Reference Include="Myriad.ECS">
-      <HintPath>Assets\Packages\Myriad.ECS.33.0.1\lib\netstandard2.1\Myriad.ECS.dll</HintPath>
+      <HintPath>Assets\Packages\Myriad.ECS.34.3.0\lib\netstandard2.1\Myriad.ECS.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="NuGetForUnity.PluginAPI">
