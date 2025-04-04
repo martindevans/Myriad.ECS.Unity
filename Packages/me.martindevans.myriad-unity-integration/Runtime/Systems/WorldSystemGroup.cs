@@ -12,7 +12,7 @@ namespace Packages.me.martindevans.myriad_unity_integration.Runtime.Systems
     public abstract class WorldSystemGroup<TData>
         : MonoBehaviour
     {
-        private WorldHost<TData> _world;
+        private BaseSimulationHost<TData> _world;
         public ISystemGroup<TData> Group { get; private set; }
 
         protected abstract ISystemGroup<TData> CreateGroup(World world);
@@ -22,16 +22,16 @@ namespace Packages.me.martindevans.myriad_unity_integration.Runtime.Systems
             if (!_world)
             {
                 // Try to find world host in this gameobject
-                var found = TryGetComponent<WorldHost<TData>>(out var world);
+                var found = TryGetComponent<BaseSimulationHost<TData>>(out var world);
 
-                // Or maybe somewhere in the parents?
+                // Maybe somewhere in the parents?
                 if (!found)
-                    world = GetComponentInParent<WorldHost<TData>>();
+                    world = GetComponentInParent<BaseSimulationHost<TData>>();
 
-                // Ok just search the whole damn scene
+                // Just search the whole damn scene
                 if (!found)
                 {
-                    var worlds = FindObjectsOfType<WorldHost<TData>>(true);
+                    var worlds = FindObjectsOfType<BaseSimulationHost<TData>>(true);
                     world = worlds.Single(a => a.gameObject.layer == gameObject.layer);
                 }
 

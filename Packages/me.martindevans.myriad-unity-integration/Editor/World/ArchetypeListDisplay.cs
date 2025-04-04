@@ -10,9 +10,9 @@ using IComponent = Placeholder.Editor.UI.Editor.Components.IComponent;
 
 namespace Packages.me.martindevans.myriad_unity_integration.Editor.World
 {
-    public class ArchetypeListDisplay<TSim, TData>
+    public class ArchetypeListDisplay<TSim>
         : IComponent
-        where TSim : BaseSimulationHost<TData>
+        where TSim : BaseWorldHost
     {
         private readonly Dictionary<Archetype, ArchetypeDrawer> _drawers = new();
 
@@ -34,7 +34,7 @@ namespace Packages.me.martindevans.myriad_unity_integration.Editor.World
         public void Draw()
         {
             // ReSharper disable once ConditionIsAlwaysTrueOrFalse
-            if (_host != null && _host.Systems != null)
+            if (_host)
                 DrawArchetypes(_host.World);
         }
 

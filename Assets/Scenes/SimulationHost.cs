@@ -14,7 +14,7 @@ using UnityEngine;
 using Random = System.Random;
 
 public class SimulationHost
-    : GameTimeWorldHost
+    : GameTimeSimulationHost
 {
     [NonSerialized] private World _world;
     public override World World => _world;

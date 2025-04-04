@@ -11,9 +11,9 @@ using UnityEngine;
 
 namespace Packages.me.martindevans.myriad_unity_integration.Editor.World
 {
-    public class WorldStatsDisplay<TSim, TData>
+    public class WorldStatsDisplay<TSim>
         : IComponent
-        where TSim : BaseSimulationHost<TData>
+        where TSim : BaseWorldHost
     {
         private TSim _host;
         private bool _expanded = true;

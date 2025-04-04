@@ -4,8 +4,11 @@ using UnityEngine;
 
 namespace Packages.me.martindevans.myriad_unity_integration.Runtime
 {
-    public class GameTimeWorldHost
-        : WorldHost<GameTime>
+    /// <summary>
+    /// Automatically pumps a simulation every frame
+    /// </summary>
+    public class GameTimeSimulationHost
+        : BaseSimulationHost<GameTime>
     {
         private readonly GameTime _time = new();
 

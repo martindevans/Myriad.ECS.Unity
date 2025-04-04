@@ -28,7 +28,7 @@ namespace Packages.me.martindevans.myriad_unity_integration.Editor.World
         public void Draw()
         {
             // ReSharper disable once ConditionIsAlwaysTrueOrFalse
-            if (_host != null && _host.Systems != null)
+            if (_host && _host.Systems != null)
                 _groupDrawer.DrawSystemGroup(_host.Systems, _host.Systems.TotalExecutionTime, TimeSpan.FromMilliseconds(12));
         }
 
