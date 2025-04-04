@@ -21,13 +21,17 @@ namespace Packages.me.martindevans.myriad_unity_integration.Runtime
 
         private readonly DynamicSystemGroup<TData> _root = new("Root");
 
-        /// <summary>
-        /// Get an instance of TData that will be used for the next update phase
-        /// </summary>
-        /// <returns></returns>
-        protected abstract TData GetData();
-
         private TData _data;
+
+        /// <summary>
+        /// Get the current simulation time
+        /// </summary>
+        public abstract double CurrentTime { get; }
+
+        /// <summary>
+        /// Get the current simulation frame count
+        /// </summary>
+        public abstract ulong CurrentFrame { get; }
 
         protected override void Update()
         {
@@ -41,6 +45,14 @@ namespace Packages.me.martindevans.myriad_unity_integration.Runtime
         protected virtual void LateUpdate()
         {
             _root.AfterUpdate(_data);
+        }
+
+        protected override void OnDestroy()
+        {
+            if (DisposeSystems)
+                Systems.Dispose();
+
+            base.OnDestroy();
         }
 
         /// <summary>
@@ -62,12 +74,10 @@ namespace Packages.me.martindevans.myriad_unity_integration.Runtime
             return _root.Remove(system);
         }
 
-        protected override void OnDestroy()
-        {
-            if (DisposeSystems)
-                Systems.Dispose();
-
-            base.OnDestroy();
-        }
+        /// <summary>
+        /// Get an instance of TData that will be used for the next update phase
+        /// </summary>
+        /// <returns></returns>
+        protected abstract TData GetData();
     }
 }

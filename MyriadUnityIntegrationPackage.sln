@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Myriad.Unity.Editor", "Myriad.Unity.Editor.csproj", "{C693D694-538F-35ED-E14B-2FA8A933E775}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Myriad.Unity.Runtime", "Myriad.Unity.Runtime.csproj", "{F1E476DA-1A43-95A6-5E34-E60561FAEE0C}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Assembly-CSharp-Editor", "Assembly-CSharp-Editor.csproj", "{149A2383-BEE7-DC25-A698-9EB8B89AB1EC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Myriad.Unity.Runtime", "Myriad.Unity.Runtime.csproj", "{F1E476DA-1A43-95A6-5E34-E60561FAEE0C}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Assembly-CSharp", "Assembly-CSharp.csproj", "{D0EA489A-1B21-604E-31C3-9D306BAC0CE4}"
 EndProject
@@ -19,14 +19,14 @@ Global
 		{C693D694-538F-35ED-E14B-2FA8A933E775}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C693D694-538F-35ED-E14B-2FA8A933E775}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C693D694-538F-35ED-E14B-2FA8A933E775}.Release|Any CPU.Build.0 = Release|Any CPU
-		{F1E476DA-1A43-95A6-5E34-E60561FAEE0C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F1E476DA-1A43-95A6-5E34-E60561FAEE0C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F1E476DA-1A43-95A6-5E34-E60561FAEE0C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F1E476DA-1A43-95A6-5E34-E60561FAEE0C}.Release|Any CPU.Build.0 = Release|Any CPU
 		{149A2383-BEE7-DC25-A698-9EB8B89AB1EC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{149A2383-BEE7-DC25-A698-9EB8B89AB1EC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{149A2383-BEE7-DC25-A698-9EB8B89AB1EC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{149A2383-BEE7-DC25-A698-9EB8B89AB1EC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F1E476DA-1A43-95A6-5E34-E60561FAEE0C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F1E476DA-1A43-95A6-5E34-E60561FAEE0C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F1E476DA-1A43-95A6-5E34-E60561FAEE0C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F1E476DA-1A43-95A6-5E34-E60561FAEE0C}.Release|Any CPU.Build.0 = Release|Any CPU
 		{D0EA489A-1B21-604E-31C3-9D306BAC0CE4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{D0EA489A-1B21-604E-31C3-9D306BAC0CE4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D0EA489A-1B21-604E-31C3-9D306BAC0CE4}.Release|Any CPU.ActiveCfg = Release|Any CPU

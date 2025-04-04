@@ -25,8 +25,8 @@ namespace Packages.me.martindevans.myriad_unity_integration.Runtime
 
         public double TimeSpeed = 1.0;
 
-        public double CurrentTime => _time.Time;
-        public ulong CurrentFrame => _time.Frame;
+        public override double CurrentTime => _time.Time;
+        public override ulong CurrentFrame => _time.Frame;
 
         protected virtual WorldBuilder GetBuilder()
         {

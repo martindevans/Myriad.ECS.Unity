@@ -9,8 +9,7 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <RootNamespace>
-    </RootNamespace>
+    <RootNamespace></RootNamespace>
     <ProjectGuid>{F1E476DA-1A43-95A6-5E34-E60561FAEE0C}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
@@ -61,15 +60,15 @@
     <Analyzer Include="D:\Unity\2022.3.27f1\Editor\Data\Tools\Unity.SourceGenerators\Unity.Properties.SourceGenerator.dll" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Packages\me.martindevans.myriad-unity-integration\Runtime\BaseSimulationHost.cs" />
     <Compile Include="Packages\me.martindevans.myriad-unity-integration\Runtime\Systems\WorldSystemGroup.cs" />
     <Compile Include="Packages\me.martindevans.myriad-unity-integration\Runtime\Extensions\GameObjectExtensions.cs" />
+    <Compile Include="Packages\me.martindevans.myriad-unity-integration\Runtime\GameTimeSimulationHost.cs" />
     <Compile Include="Packages\me.martindevans.myriad-unity-integration\Runtime\Systems\UnityMyriadSystemGroup.cs" />
     <Compile Include="Packages\me.martindevans.myriad-unity-integration\Runtime\Components\MyriadEntity.cs" />
     <Compile Include="Packages\me.martindevans.myriad-unity-integration\Runtime\ISystemQueryEntityCount.cs" />
     <Compile Include="Packages\me.martindevans.myriad-unity-integration\Runtime\Extensions\CommandBufferExtensions.cs" />
     <Compile Include="Packages\me.martindevans.myriad-unity-integration\Runtime\BaseWorldHost.cs" />
-    <Compile Include="Packages\me.martindevans.myriad-unity-integration\Runtime\GameTimeSimulationHost.cs" />
+    <Compile Include="Packages\me.martindevans.myriad-unity-integration\Runtime\BaseSimulationHost.cs" />
     <Compile Include="Packages\me.martindevans.myriad-unity-integration\Runtime\Components\IBehaviourComponent.cs" />
     <Compile Include="Packages\me.martindevans.myriad-unity-integration\Runtime\Systems\MyriadEntityBindingSystem.cs" />
   </ItemGroup>
