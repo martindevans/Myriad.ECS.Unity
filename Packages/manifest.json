@@ -1,9 +1,11 @@
 {
   "dependencies": {
     "com.github-glitchenzo.nugetforunity": "https://github.com/GlitchEnzo/NuGetForUnity.git?path=/src/NuGetForUnity",
-    "com.unity.feature.development": "1.0.1",
-    "com.unity.ugui": "1.0.0",
+    "com.unity.feature.development": "1.0.2",
+    "com.unity.multiplayer.center": "1.0.0",
+    "com.unity.ugui": "2.0.0",
     "software.placeholder.editor-ui": "git@github.com:Placeholder-Software/Placeholder.Unity.UI.git?path=/Packages/software.placeholder.editor-ui",
+    "com.unity.modules.accessibility": "1.0.0",
     "com.unity.modules.ai": "1.0.0",
     "com.unity.modules.androidjni": "1.0.0",
     "com.unity.modules.animation": "1.0.0",

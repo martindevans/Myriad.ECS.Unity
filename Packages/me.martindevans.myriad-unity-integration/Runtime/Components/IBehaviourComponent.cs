@@ -10,6 +10,12 @@ namespace Packages.me.martindevans.myriad_unity_integration.Runtime.Components
         : IComponent
     {
         /// <summary>
+        /// Called automatically when this GameObject is bound to an unconstructed Myriad entity.
+        /// </summary>
+        /// <param name="entity"></param>
+        public void EarlyBind(CommandBuffer.BufferedEntity entity);
+
+        /// <summary>
         /// Called automatically when this GameObject is bound to a Myriad entity. Requires a <see cref="MyriadEntity"/> component
         /// attached to the gameObject. Note that this will only be called once, when the entity is initially bound, components
         /// which are added later will not be bound!

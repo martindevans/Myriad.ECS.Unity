@@ -31,7 +31,7 @@ namespace Packages.me.martindevans.myriad_unity_integration.Runtime.Systems
                 // Just search the whole damn scene
                 if (!found)
                 {
-                    var worlds = FindObjectsOfType<BaseSimulationHost<TData>>(true);
+                    var worlds = FindObjectsByType<BaseSimulationHost<TData>>(FindObjectsInactive.Include, FindObjectsSortMode.None);
                     world = worlds.Single(a => a.gameObject.layer == gameObject.layer);
                 }
 

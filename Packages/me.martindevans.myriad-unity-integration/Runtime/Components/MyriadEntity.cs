@@ -3,9 +3,11 @@
 using System;
 using JetBrains.Annotations;
 using Myriad.ECS;
-using Myriad.ECS.Command;
+using Myriad.ECS.Components;
 using Myriad.ECS.IDs;
+using Packages.me.martindevans.myriad_unity_integration.Runtime.Systems;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Packages.me.martindevans.myriad_unity_integration.Runtime.Components
 {
@@ -14,16 +16,19 @@ namespace Packages.me.martindevans.myriad_unity_integration.Runtime.Components
     /// to an entity and ensure the `MyriadEntityBindingSystem` is running in the system schedule.
     /// </summary>
     public sealed class MyriadEntity
-        : MonoBehaviour, IComponent
+        : MonoBehaviour, IPhantomComponent, IEntityRelationComponent
     {
-        private (Entity, CommandBuffer)? _binding;
-        public Entity? Entity => _binding?.Item1;
+        private Entity? _binding;
+        public Entity? Entity => _binding;
 
         /// <summary>
-        /// Set how the lifetime of gameobject and entity are bound together
+        /// Indicates how the lifetime of gameobject and entity are bound together
         /// </summary>
+        public DestructMode DestructMode => _destructMode;
+
+        [FormerlySerializedAs("DestructMode")]
         [SerializeField, UsedImplicitly]
-        public DestructMode DestructMode;
+        internal DestructMode _destructMode;
 
         /// <summary>
         /// Enable all of these gameobjects when the Entity is set
@@ -31,8 +36,28 @@ namespace Packages.me.martindevans.myriad_unity_integration.Runtime.Components
         [SerializeField, UsedImplicitly]
         public GameObject[]? EnableOnEntitySet;
 
+        /// <summary>
+        /// Indicates if this object is destroyed
+        /// </summary>
+        internal bool IsDestroyed { get; private set; }
+
+        /// <summary>
+        /// Set entity relation, when entity is constructed
+        /// </summary>
+        Entity IEntityRelationComponent.Target
+        {
+            get => _binding!.Value;
+            set
+            {
+                if (_binding.HasValue)
+                    throw new InvalidOperationException("Cannot set binding - MyriadEntity is already bound");
+                _binding = value;
+            }
+        }
+
         private void Awake()
         {
+            // Disable everything that wants to be enabled when bound (if not already bound)
             if (EnableOnEntitySet != null && !_binding.HasValue)
                 foreach (var item in EnableOnEntitySet)
                     item.SetActive(false);
@@ -40,28 +65,23 @@ namespace Packages.me.martindevans.myriad_unity_integration.Runtime.Components
 
         private void OnDestroy()
         {
-            if (_binding is var (entity, cmd))
-                if ((DestructMode & DestructMode.GameObjectDestroysEntity) != DestructMode.None)
-                    cmd.Remove<MyriadEntity>(entity);
+            IsDestroyed = true;
+
+            // No need to notify if this event will not destroy the entity
+            if ((_destructMode & DestructMode.GameObjectDestroysEntity) == 0)
+                return;
+
+            // Cannot notify if the entity is not yet bound
+            if (!_binding.HasValue)
+                return;
+
+            // Notification is done through the binding component, if it's not yet attached we can't notify
+            var entity = _binding.Value;
+            if (entity.HasComponent<MyriadEntityBinding>())
+                entity.GetComponentRef<MyriadEntityBinding>().NotifyGameObjectDestroyed(entity);
         }
 
-        internal void SetEntity(Entity entity, CommandBuffer selfDestructBuffer)
-        {
-            _binding = (entity, selfDestructBuffer);
-
-            if (EnableOnEntitySet != null)
-                foreach (var item in EnableOnEntitySet)
-                    item.SetActive(true);
-        }
-
-        internal void EntityDestroyed()
-        {
-            _binding = default;
-
-            if ((DestructMode & DestructMode.EntityDestroysGameObject) != DestructMode.None)
-                Destroy(gameObject);
-        }
-
+        #region get components
         /// <summary>
         /// Check if the Myriad Entity bound to this gameObject has a specific component.
         /// </summary>
@@ -70,7 +90,7 @@ namespace Packages.me.martindevans.myriad_unity_integration.Runtime.Components
         public bool HasMyriadComponent<T>()
             where T : IComponent
         {
-            return _binding!.Value.Item1.HasComponent<T>();
+            return Entity?.HasComponent<T>() ?? false;
         }
 
         /// <summary>
@@ -84,10 +104,16 @@ namespace Packages.me.martindevans.myriad_unity_integration.Runtime.Components
             return ref Entity!.Value.GetComponentRef<T>();
         }
 
+        /// <summary>
+        /// Get a boxed component attached to the entity bound to this gameObject
+        /// </summary>
+        /// <param name="component"></param>
+        /// <returns></returns>
         public object? GetMyriadComponent(ComponentID component)
         {
             return Entity!.Value.GetBoxedComponent(component);
         }
+        #endregion
     }
 
     [Flags]

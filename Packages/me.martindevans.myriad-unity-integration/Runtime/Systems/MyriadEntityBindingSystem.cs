@@ -1,5 +1,6 @@
 ﻿#nullable enable
 
+using System;
 using System.Collections.Generic;
 using Myriad.ECS;
 using Myriad.ECS.Command;
@@ -8,6 +9,8 @@ using Myriad.ECS.Queries;
 using Myriad.ECS.Systems;
 using Myriad.ECS.Worlds;
 using Packages.me.martindevans.myriad_unity_integration.Runtime.Components;
+using UnityEngine;
+using Object = UnityEngine.Object;
 
 namespace Packages.me.martindevans.myriad_unity_integration.Runtime.Systems
 {
@@ -16,18 +19,18 @@ namespace Packages.me.martindevans.myriad_unity_integration.Runtime.Systems
     /// </summary>
     /// <typeparam name="TData"></typeparam>
     public sealed class MyriadEntityBindingSystem<TData>
-        : ISystemBefore<TData>, ISystemAfter<TData>
+        : ISystemBefore<TData>, IMyriadEntityDestructCallback
     {
         private readonly World _world;
 
         private readonly CommandBuffer _cmd;
-        private readonly CommandBuffer _destructBuffer;
 
-        private readonly QueryDescription _initQuery;
-        private readonly QueryDescription _destroyQuery;
-        private readonly QueryDescription _destroyQueryWithGo;
         private readonly List<IBehaviourComponent> _tempList = new();
-        
+
+        private readonly QueryDescription _createBindingAlive;
+        private readonly QueryDescription _createBindingPhantom;
+        private readonly QueryDescription _destroyBindingPhantom;
+
         /// <summary>
         /// Create a new MyriadEntityBindingSystem
         /// </summary>
@@ -37,100 +40,115 @@ namespace Packages.me.martindevans.myriad_unity_integration.Runtime.Systems
             _world = world;
 
             _cmd = new CommandBuffer(world);
-            _destructBuffer = new CommandBuffer(world);
 
-            _initQuery = new QueryBuilder()
+            _createBindingAlive = new QueryBuilder()
                 .Include<MyriadEntity>()
-                .Exclude<Bound>()
+                .Exclude<MyriadEntityBinding>()
                 .Build(world);
 
-            // Find dead entities with a binding, then destroy the GameObject
-            _destroyQueryWithGo = new QueryBuilder()
+            _createBindingPhantom = new QueryBuilder()
                 .Include<MyriadEntity>()
-                .Include<Bound>()
                 .Include<Phantom>()
+                .Exclude<MyriadEntityBinding>()
                 .Build(world);
 
-            // Find **live** entities without a GameObject, but with a binding. This means it
-            // had a `MyriadEntity` GameObject in the past but it removed itself.
-            _destroyQuery = new QueryBuilder()
-                .Include<Bound>()
-                .Exclude<MyriadEntity>()
+            _destroyBindingPhantom = new QueryBuilder()
+                .Include<MyriadEntity>()
+                .Include<Phantom>()
+                .Include<MyriadEntityBinding>()
                 .Build(world);
+        }
+
+        void IMyriadEntityDestructCallback.NotifyGameObjectDestroyed(Entity entity)
+        {
+            // GO was destroyed, destroy the entity
+            if (entity.Exists() && !entity.IsPhantom())
+            {
+                _cmd.Remove<MyriadEntity>(entity);
+                _cmd.Delete(entity);
+            }
         }
 
         public void BeforeUpdate(TData data)
         {
-            _world.Execute<InitBinding, MyriadEntity>(new InitBinding(_cmd, _tempList, _destructBuffer), _initQuery);
+            // 100 - enity alive
+            // 010 - bound (i.e. has MyriadEntityBinding)
+            // 001 - GO alive
+
+            // Playback any queued destruction events (from `NotifyGameObjectDestroyed`)
             _cmd.Playback().Dispose();
+
+            // Create bindings for living and dead entities (Add MyriadEntityBinding)
+            // 001 - Entity dead,  unbound, GO alive 
+            // 100 - Entity alive, unbound, GO dead
+            // 101 - Entity alive, unbound, GO alive
+            _world.Execute<CreateBinding, MyriadEntity>(new CreateBinding(_cmd, _tempList, this), _createBindingAlive);
+            _world.Execute<CreateBinding, MyriadEntity>(new CreateBinding(_cmd, _tempList, this), _createBindingPhantom);
+            _cmd.Playback().Dispose();
+
+            // Destroy bindings (remove MyriadEntity, destroy GO if appropriate)
+            // 010 - Entity dead,  bound, GO dead  
+            // 011 - Entity dead,  bound, GO alive
+            _world.Execute<DestroyBinding, MyriadEntity>(new DestroyBinding(_cmd), _destroyBindingPhantom);
+            _cmd.Playback().Dispose();
+
+            // 110 - Entity alive, bound, GO dead  (remove MyriadEntity, destroy entity if destruct mode is appropriate)
+            // The `NotifyGameObjectDestroyed` callback will destroy the entity, converting this into 010
         }
 
         public void Update(TData data)
         {
         }
 
-        public void AfterUpdate(TData data)
-        {
-            // Execute destruct buffer. GameObjects that were being destroyed will have queued up removal of MyriadEntity here.
-            _destructBuffer.Playback().Dispose();
-
-            _world.Execute<DestroyBindingGo, MyriadEntity>(new DestroyBindingGo(_cmd), _destroyQueryWithGo);
-            _world.Execute(new DestroyBinding(_cmd), _destroyQuery);
-            _cmd.Playback().Dispose();
-        }
-
-        private struct Bound
-            : IPhantomComponent
-        {
-        }
-
-        private readonly struct InitBinding
+        private readonly struct CreateBinding
             : IQuery<MyriadEntity>
         {
             private readonly CommandBuffer _cmd;
             private readonly List<IBehaviourComponent> _temp;
-            private readonly CommandBuffer _destructBuffer;
+            private readonly IMyriadEntityDestructCallback _callback;
 
-            public InitBinding(CommandBuffer cmd, List<IBehaviourComponent> temp, CommandBuffer destructBuffer)
+            public CreateBinding(CommandBuffer cmd, List<IBehaviourComponent> temp, IMyriadEntityDestructCallback callback)
             {
                 _cmd = cmd;
                 _temp = temp;
-                _destructBuffer = destructBuffer;
+                _callback = callback;
             }
 
             public void Execute(Entity e, ref MyriadEntity binding)
             {
-                binding.SetEntity(e, _destructBuffer);
-                _cmd.Set(e, new Bound());
+                // Add the binding
+                _cmd.Set(e, new MyriadEntityBinding(_callback));
 
-                // Find all `IBehaviourComponent`s and bind them to the entity
-                _temp.Clear();
-                binding.gameObject.GetComponentsInChildren(true, _temp);
-                foreach (var item in _temp)
-                    item.Bind(e, _cmd);
-                _temp.Clear();
-            }
-        }
+                // Check if the gameobject is already destroyed. If so run the callback (which was missed)
+                var go = binding.gameObject;
+                if (!binding.IsDestroyed && go)
+                {
+                    // Bind entity to all child behaviours that care
+                    if (e.Exists())
+                    {
+                        _temp.Clear();
+                        go.GetComponentsInChildren(true, _temp);
+                        foreach (var item in _temp)
+                            item.Bind(e, _cmd);
+                        _temp.Clear();
 
-        private readonly struct DestroyBindingGo
-            : IQuery<MyriadEntity>
-        {
-            private readonly CommandBuffer _cmd;
-
-            public DestroyBindingGo(CommandBuffer cmd)
-            {
-                _cmd = cmd;
-            }
-
-            public void Execute(Entity e, ref MyriadEntity binding)
-            {
-                binding.EntityDestroyed();
-                _cmd.Remove<Bound>(e);
+                        // Enable everything that asked to be activated when bound
+                        foreach (var item in binding.EnableOnEntitySet ?? Array.Empty<GameObject>())
+                            if (item)
+                                item.SetActive(true);
+                    }
+                }
+                else
+                {
+                    // Run the NotifyGameObjectDestroyed callback, this was missed because the GO
+                    // was destroyed before this binding even ran.
+                    _callback.NotifyGameObjectDestroyed(e);
+                }
             }
         }
 
         private readonly struct DestroyBinding
-            : IQuery
+            : IQuery<MyriadEntity>
         {
             private readonly CommandBuffer _cmd;
 
@@ -139,11 +157,34 @@ namespace Packages.me.martindevans.myriad_unity_integration.Runtime.Systems
                 _cmd = cmd;
             }
 
-            public void Execute(Entity e)
+            public void Execute(Entity e, ref MyriadEntity binding)
             {
-                _cmd.Remove<Bound>(e);
-                _cmd.Delete(e);
+                _cmd.Remove<MyriadEntity>(e);
+
+                if ((binding.DestructMode & DestructMode.EntityDestroysGameObject) != 0)
+                    Object.Destroy(binding.gameObject);
             }
         }
+    }
+
+    internal readonly struct MyriadEntityBinding
+        : IComponent
+    {
+        private readonly IMyriadEntityDestructCallback _callback;
+
+        public MyriadEntityBinding(IMyriadEntityDestructCallback callback)
+        {
+            _callback = callback;
+        }
+
+        public void NotifyGameObjectDestroyed(Entity entity)
+        {
+            _callback.NotifyGameObjectDestroyed(entity);
+        }
+    }
+
+    internal interface IMyriadEntityDestructCallback
+    {
+        void NotifyGameObjectDestroyed(Entity entity);
     }
 }
