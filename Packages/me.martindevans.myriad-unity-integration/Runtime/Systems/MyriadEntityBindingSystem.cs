@@ -120,14 +120,13 @@ namespace Packages.me.martindevans.myriad_unity_integration.Runtime.Systems
                 _cmd.Set(e, new MyriadEntityBinding(_callback));
 
                 // Check if the gameobject is already destroyed. If so run the callback (which was missed)
-                var go = binding.gameObject;
-                if (!binding.IsDestroyed && go)
+                if (!binding.IsDestroyed && binding && binding.gameObject)
                 {
                     // Bind entity to all child behaviours that care
                     if (e.Exists())
                     {
                         _temp.Clear();
-                        go.GetComponentsInChildren(true, _temp);
+                        binding.gameObject.GetComponentsInChildren(true, _temp);
                         foreach (var item in _temp)
                             item.Bind(e, _cmd);
                         _temp.Clear();
@@ -142,6 +141,9 @@ namespace Packages.me.martindevans.myriad_unity_integration.Runtime.Systems
                 {
                     // Run the NotifyGameObjectDestroyed callback, this was missed because the GO
                     // was destroyed before this binding even ran.
+
+                    if ((binding.DestructMode & DestructMode.GameObjectDestroysEntity) == 0)
+                        return;
                     _callback.NotifyGameObjectDestroyed(e);
                 }
             }
@@ -162,7 +164,13 @@ namespace Packages.me.martindevans.myriad_unity_integration.Runtime.Systems
                 _cmd.Remove<MyriadEntity>(e);
 
                 if ((binding.DestructMode & DestructMode.EntityDestroysGameObject) != 0)
-                    Object.Destroy(binding.gameObject);
+                {
+                    // Check needed for edit mode tests
+                    if (Application.isPlaying)
+                        Object.Destroy(binding.gameObject);
+                    else
+                        Object.DestroyImmediate(binding.gameObject);
+                }
             }
         }
     }
