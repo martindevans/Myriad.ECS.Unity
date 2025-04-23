@@ -703,6 +703,18 @@
             </para>
             </summary>
         </member>
+        <member name="T:Myriad.ECS.Components.IPhantomNotifierComponent">
+            <summary>
+            This component received a notification when the entity it is attached to becomes a phantom.
+            </summary>
+            <remarks>Note that this component is <b>not</b> an <see cref="T:Myriad.ECS.Components.IPhantomComponent"/>.</remarks>
+        </member>
+        <member name="M:Myriad.ECS.Components.IPhantomNotifierComponent.OnBecomePhantom(Myriad.ECS.EntityId)">
+            <summary>
+            Called when the entity this component is attached to becomes a phantom.
+            </summary>
+            <param name="self">A reference to the entity this component is attached to</param>
+        </member>
         <member name="T:Myriad.ECS.Components.Phantom">
             <summary>
             <para>
@@ -1185,6 +1197,11 @@
             </summary>
         </member>
         <member name="P:Myriad.ECS.IDs.ComponentID.IsDisposableComponent">
+            <summary>
+            Indicates if this component implements <see cref="T:Myriad.ECS.Components.IDisposableComponent"/>
+            </summary>
+        </member>
+        <member name="P:Myriad.ECS.IDs.ComponentID.IsPhantomNotifierComponent">
             <summary>
             Indicates if this component implements <see cref="T:Myriad.ECS.Components.IDisposableComponent"/>
             </summary>
@@ -6415,6 +6432,38 @@
             <param name="query"></param>
             <returns></returns>
         </member>
+        <member name="T:Myriad.ECS.Worlds.World.IQueryCollector">
+            <summary>
+            A query which collects entities
+            </summary>
+        </member>
+        <member name="M:Myriad.ECS.Worlds.World.IQueryCollector.Add(Myriad.ECS.Entity)">
+            <summary>
+            Execute the query for a single entity
+            </summary>
+        </member>
+        <member name="M:Myriad.ECS.Worlds.World.IQueryCollector.AddCapacity(System.Int32)">
+            <summary>
+            Expand the collection
+            </summary>
+        </member>
+        <member name="M:Myriad.ECS.Worlds.World.Collect(System.Collections.Generic.List{Myriad.ECS.Entity},Myriad.ECS.Queries.QueryDescription)">
+            <summary>
+            Collect all entities which match the query into a list
+            </summary>
+            <param name="output">The list to add entities to.</param>
+            <param name="query"></param>
+            <returns>The number of entities discovered by this query</returns>
+        </member>
+        <member name="M:Myriad.ECS.Worlds.World.Collect``1(``0,Myriad.ECS.Queries.QueryDescription)">
+            <summary>
+            Execute a query, optionally filtering by a <see cref="T:Myriad.ECS.Queries.QueryDescription"/>.
+            </summary>
+            <typeparam name="TQ">The type of the query to execute for every entity.</typeparam>
+            <param name="q">The instance to execute over every entity.</param>
+            <param name="query"></param>
+            <returns>The number of entities discovered by this query</returns>
+        </member>
         <member name="M:Myriad.ECS.Worlds.World.Collect``1(System.Collections.Generic.List{Myriad.ECS.Entity},Myriad.ECS.Queries.QueryDescription)">
             <summary>
             Collect all entities which match the query into a list
@@ -9602,6 +9651,17 @@
             <param name="query"></param>
             <param name="data">The object passed into every call</param>
         </member>
+        <member name="M:Myriad.ECS.Worlds.World.ExecuteMapReduce``3(``1,Myriad.ECS.Queries.MapperDelegateEntity{``1,``2},Myriad.ECS.Queries.QueryDescription)">
+            <summary>
+            Execute a query, mapping every result to a value and then reducing those values to
+            one final output value.
+            </summary>
+            <param name="initial">Initial value to seed the reducer. If no entities are
+            matched this is returned.</param>
+            <param name="mapper">Delegate to extract values from entities</param>
+            <param name="query">Query to select matched entities</param>
+            <returns>A value calculated by reducing all intermediate values</returns>
+        </member>
         <member name="M:Myriad.ECS.Worlds.World.ExecuteMapReduce``3(``1,Myriad.ECS.Queries.MapperDelegate{``1,``2},Myriad.ECS.Queries.QueryDescription)">
             <summary>
             Execute a query, mapping every result to a value and then reducing those values to
@@ -9657,6 +9717,17 @@
             <param name="q">query, which produces a value per entity</param>
             <param name="r">Reducer, for combining values</param>
             <param name="initial">Initial value to start reducing from</param>
+            <param name="query">Query to select matched entities</param>
+            <returns>A value calculated by reducing all intermediate values</returns>
+        </member>
+        <member name="M:Myriad.ECS.Worlds.World.ExecuteMapReduce``4(``1,Myriad.ECS.Queries.MapperDelegateEntity{``1,``2,``3},Myriad.ECS.Queries.QueryDescription)">
+            <summary>
+            Execute a query, mapping every result to a value and then reducing those values to
+            one final output value.
+            </summary>
+            <param name="initial">Initial value to seed the reducer. If no entities are
+            matched this is returned.</param>
+            <param name="mapper">Delegate to extract values from entities</param>
             <param name="query">Query to select matched entities</param>
             <returns>A value calculated by reducing all intermediate values</returns>
         </member>
@@ -9719,6 +9790,17 @@
             <param name="query">Query to select matched entities</param>
             <returns>A value calculated by reducing all intermediate values</returns>
         </member>
+        <member name="M:Myriad.ECS.Worlds.World.ExecuteMapReduce``5(``1,Myriad.ECS.Queries.MapperDelegateEntity{``1,``2,``3,``4},Myriad.ECS.Queries.QueryDescription)">
+            <summary>
+            Execute a query, mapping every result to a value and then reducing those values to
+            one final output value.
+            </summary>
+            <param name="initial">Initial value to seed the reducer. If no entities are
+            matched this is returned.</param>
+            <param name="mapper">Delegate to extract values from entities</param>
+            <param name="query">Query to select matched entities</param>
+            <returns>A value calculated by reducing all intermediate values</returns>
+        </member>
         <member name="M:Myriad.ECS.Worlds.World.ExecuteMapReduce``5(``1,Myriad.ECS.Queries.MapperDelegate{``1,``2,``3,``4},Myriad.ECS.Queries.QueryDescription)">
             <summary>
             Execute a query, mapping every result to a value and then reducing those values to
@@ -9776,6 +9858,17 @@
             <param name="q">query, which produces a value per entity</param>
             <param name="r">Reducer, for combining values</param>
             <param name="initial">Initial value to start reducing from</param>
+            <param name="query">Query to select matched entities</param>
+            <returns>A value calculated by reducing all intermediate values</returns>
+        </member>
+        <member name="M:Myriad.ECS.Worlds.World.ExecuteMapReduce``6(``1,Myriad.ECS.Queries.MapperDelegateEntity{``1,``2,``3,``4,``5},Myriad.ECS.Queries.QueryDescription)">
+            <summary>
+            Execute a query, mapping every result to a value and then reducing those values to
+            one final output value.
+            </summary>
+            <param name="initial">Initial value to seed the reducer. If no entities are
+            matched this is returned.</param>
+            <param name="mapper">Delegate to extract values from entities</param>
             <param name="query">Query to select matched entities</param>
             <returns>A value calculated by reducing all intermediate values</returns>
         </member>
@@ -9840,6 +9933,17 @@
             <param name="query">Query to select matched entities</param>
             <returns>A value calculated by reducing all intermediate values</returns>
         </member>
+        <member name="M:Myriad.ECS.Worlds.World.ExecuteMapReduce``7(``1,Myriad.ECS.Queries.MapperDelegateEntity{``1,``2,``3,``4,``5,``6},Myriad.ECS.Queries.QueryDescription)">
+            <summary>
+            Execute a query, mapping every result to a value and then reducing those values to
+            one final output value.
+            </summary>
+            <param name="initial">Initial value to seed the reducer. If no entities are
+            matched this is returned.</param>
+            <param name="mapper">Delegate to extract values from entities</param>
+            <param name="query">Query to select matched entities</param>
+            <returns>A value calculated by reducing all intermediate values</returns>
+        </member>
         <member name="M:Myriad.ECS.Worlds.World.ExecuteMapReduce``7(``1,Myriad.ECS.Queries.MapperDelegate{``1,``2,``3,``4,``5,``6},Myriad.ECS.Queries.QueryDescription)">
             <summary>
             Execute a query, mapping every result to a value and then reducing those values to
@@ -9899,6 +10003,17 @@
             <param name="q">query, which produces a value per entity</param>
             <param name="r">Reducer, for combining values</param>
             <param name="initial">Initial value to start reducing from</param>
+            <param name="query">Query to select matched entities</param>
+            <returns>A value calculated by reducing all intermediate values</returns>
+        </member>
+        <member name="M:Myriad.ECS.Worlds.World.ExecuteMapReduce``8(``1,Myriad.ECS.Queries.MapperDelegateEntity{``1,``2,``3,``4,``5,``6,``7},Myriad.ECS.Queries.QueryDescription)">
+            <summary>
+            Execute a query, mapping every result to a value and then reducing those values to
+            one final output value.
+            </summary>
+            <param name="initial">Initial value to seed the reducer. If no entities are
+            matched this is returned.</param>
+            <param name="mapper">Delegate to extract values from entities</param>
             <param name="query">Query to select matched entities</param>
             <returns>A value calculated by reducing all intermediate values</returns>
         </member>
@@ -9965,6 +10080,17 @@
             <param name="query">Query to select matched entities</param>
             <returns>A value calculated by reducing all intermediate values</returns>
         </member>
+        <member name="M:Myriad.ECS.Worlds.World.ExecuteMapReduce``9(``1,Myriad.ECS.Queries.MapperDelegateEntity{``1,``2,``3,``4,``5,``6,``7,``8},Myriad.ECS.Queries.QueryDescription)">
+            <summary>
+            Execute a query, mapping every result to a value and then reducing those values to
+            one final output value.
+            </summary>
+            <param name="initial">Initial value to seed the reducer. If no entities are
+            matched this is returned.</param>
+            <param name="mapper">Delegate to extract values from entities</param>
+            <param name="query">Query to select matched entities</param>
+            <returns>A value calculated by reducing all intermediate values</returns>
+        </member>
         <member name="M:Myriad.ECS.Worlds.World.ExecuteMapReduce``9(``1,Myriad.ECS.Queries.MapperDelegate{``1,``2,``3,``4,``5,``6,``7,``8},Myriad.ECS.Queries.QueryDescription)">
             <summary>
             Execute a query, mapping every result to a value and then reducing those values to
@@ -10026,6 +10152,17 @@
             <param name="q">query, which produces a value per entity</param>
             <param name="r">Reducer, for combining values</param>
             <param name="initial">Initial value to start reducing from</param>
+            <param name="query">Query to select matched entities</param>
+            <returns>A value calculated by reducing all intermediate values</returns>
+        </member>
+        <member name="M:Myriad.ECS.Worlds.World.ExecuteMapReduce``10(``1,Myriad.ECS.Queries.MapperDelegateEntity{``1,``2,``3,``4,``5,``6,``7,``8,``9},Myriad.ECS.Queries.QueryDescription)">
+            <summary>
+            Execute a query, mapping every result to a value and then reducing those values to
+            one final output value.
+            </summary>
+            <param name="initial">Initial value to seed the reducer. If no entities are
+            matched this is returned.</param>
+            <param name="mapper">Delegate to extract values from entities</param>
             <param name="query">Query to select matched entities</param>
             <returns>A value calculated by reducing all intermediate values</returns>
         </member>
@@ -10094,6 +10231,17 @@
             <param name="query">Query to select matched entities</param>
             <returns>A value calculated by reducing all intermediate values</returns>
         </member>
+        <member name="M:Myriad.ECS.Worlds.World.ExecuteMapReduce``11(``1,Myriad.ECS.Queries.MapperDelegateEntity{``1,``2,``3,``4,``5,``6,``7,``8,``9,``10},Myriad.ECS.Queries.QueryDescription)">
+            <summary>
+            Execute a query, mapping every result to a value and then reducing those values to
+            one final output value.
+            </summary>
+            <param name="initial">Initial value to seed the reducer. If no entities are
+            matched this is returned.</param>
+            <param name="mapper">Delegate to extract values from entities</param>
+            <param name="query">Query to select matched entities</param>
+            <returns>A value calculated by reducing all intermediate values</returns>
+        </member>
         <member name="M:Myriad.ECS.Worlds.World.ExecuteMapReduce``11(``1,Myriad.ECS.Queries.MapperDelegate{``1,``2,``3,``4,``5,``6,``7,``8,``9,``10},Myriad.ECS.Queries.QueryDescription)">
             <summary>
             Execute a query, mapping every result to a value and then reducing those values to
@@ -10157,6 +10305,17 @@
             <param name="q">query, which produces a value per entity</param>
             <param name="r">Reducer, for combining values</param>
             <param name="initial">Initial value to start reducing from</param>
+            <param name="query">Query to select matched entities</param>
+            <returns>A value calculated by reducing all intermediate values</returns>
+        </member>
+        <member name="M:Myriad.ECS.Worlds.World.ExecuteMapReduce``12(``1,Myriad.ECS.Queries.MapperDelegateEntity{``1,``2,``3,``4,``5,``6,``7,``8,``9,``10,``11},Myriad.ECS.Queries.QueryDescription)">
+            <summary>
+            Execute a query, mapping every result to a value and then reducing those values to
+            one final output value.
+            </summary>
+            <param name="initial">Initial value to seed the reducer. If no entities are
+            matched this is returned.</param>
+            <param name="mapper">Delegate to extract values from entities</param>
             <param name="query">Query to select matched entities</param>
             <returns>A value calculated by reducing all intermediate values</returns>
         </member>
@@ -10227,6 +10386,17 @@
             <param name="query">Query to select matched entities</param>
             <returns>A value calculated by reducing all intermediate values</returns>
         </member>
+        <member name="M:Myriad.ECS.Worlds.World.ExecuteMapReduce``13(``1,Myriad.ECS.Queries.MapperDelegateEntity{``1,``2,``3,``4,``5,``6,``7,``8,``9,``10,``11,``12},Myriad.ECS.Queries.QueryDescription)">
+            <summary>
+            Execute a query, mapping every result to a value and then reducing those values to
+            one final output value.
+            </summary>
+            <param name="initial">Initial value to seed the reducer. If no entities are
+            matched this is returned.</param>
+            <param name="mapper">Delegate to extract values from entities</param>
+            <param name="query">Query to select matched entities</param>
+            <returns>A value calculated by reducing all intermediate values</returns>
+        </member>
         <member name="M:Myriad.ECS.Worlds.World.ExecuteMapReduce``13(``1,Myriad.ECS.Queries.MapperDelegate{``1,``2,``3,``4,``5,``6,``7,``8,``9,``10,``11,``12},Myriad.ECS.Queries.QueryDescription)">
             <summary>
             Execute a query, mapping every result to a value and then reducing those values to
@@ -10292,6 +10462,17 @@
             <param name="q">query, which produces a value per entity</param>
             <param name="r">Reducer, for combining values</param>
             <param name="initial">Initial value to start reducing from</param>
+            <param name="query">Query to select matched entities</param>
+            <returns>A value calculated by reducing all intermediate values</returns>
+        </member>
+        <member name="M:Myriad.ECS.Worlds.World.ExecuteMapReduce``14(``1,Myriad.ECS.Queries.MapperDelegateEntity{``1,``2,``3,``4,``5,``6,``7,``8,``9,``10,``11,``12,``13},Myriad.ECS.Queries.QueryDescription)">
+            <summary>
+            Execute a query, mapping every result to a value and then reducing those values to
+            one final output value.
+            </summary>
+            <param name="initial">Initial value to seed the reducer. If no entities are
+            matched this is returned.</param>
+            <param name="mapper">Delegate to extract values from entities</param>
             <param name="query">Query to select matched entities</param>
             <returns>A value calculated by reducing all intermediate values</returns>
         </member>
@@ -10364,6 +10545,17 @@
             <param name="query">Query to select matched entities</param>
             <returns>A value calculated by reducing all intermediate values</returns>
         </member>
+        <member name="M:Myriad.ECS.Worlds.World.ExecuteMapReduce``15(``1,Myriad.ECS.Queries.MapperDelegateEntity{``1,``2,``3,``4,``5,``6,``7,``8,``9,``10,``11,``12,``13,``14},Myriad.ECS.Queries.QueryDescription)">
+            <summary>
+            Execute a query, mapping every result to a value and then reducing those values to
+            one final output value.
+            </summary>
+            <param name="initial">Initial value to seed the reducer. If no entities are
+            matched this is returned.</param>
+            <param name="mapper">Delegate to extract values from entities</param>
+            <param name="query">Query to select matched entities</param>
+            <returns>A value calculated by reducing all intermediate values</returns>
+        </member>
         <member name="M:Myriad.ECS.Worlds.World.ExecuteMapReduce``15(``1,Myriad.ECS.Queries.MapperDelegate{``1,``2,``3,``4,``5,``6,``7,``8,``9,``10,``11,``12,``13,``14},Myriad.ECS.Queries.QueryDescription)">
             <summary>
             Execute a query, mapping every result to a value and then reducing those values to
@@ -10431,6 +10623,17 @@
             <param name="q">query, which produces a value per entity</param>
             <param name="r">Reducer, for combining values</param>
             <param name="initial">Initial value to start reducing from</param>
+            <param name="query">Query to select matched entities</param>
+            <returns>A value calculated by reducing all intermediate values</returns>
+        </member>
+        <member name="M:Myriad.ECS.Worlds.World.ExecuteMapReduce``16(``1,Myriad.ECS.Queries.MapperDelegateEntity{``1,``2,``3,``4,``5,``6,``7,``8,``9,``10,``11,``12,``13,``14,``15},Myriad.ECS.Queries.QueryDescription)">
+            <summary>
+            Execute a query, mapping every result to a value and then reducing those values to
+            one final output value.
+            </summary>
+            <param name="initial">Initial value to seed the reducer. If no entities are
+            matched this is returned.</param>
+            <param name="mapper">Delegate to extract values from entities</param>
             <param name="query">Query to select matched entities</param>
             <returns>A value calculated by reducing all intermediate values</returns>
         </member>
@@ -10505,6 +10708,17 @@
             <param name="query">Query to select matched entities</param>
             <returns>A value calculated by reducing all intermediate values</returns>
         </member>
+        <member name="M:Myriad.ECS.Worlds.World.ExecuteMapReduce``17(``1,Myriad.ECS.Queries.MapperDelegateEntity{``1,``2,``3,``4,``5,``6,``7,``8,``9,``10,``11,``12,``13,``14,``15,``16},Myriad.ECS.Queries.QueryDescription)">
+            <summary>
+            Execute a query, mapping every result to a value and then reducing those values to
+            one final output value.
+            </summary>
+            <param name="initial">Initial value to seed the reducer. If no entities are
+            matched this is returned.</param>
+            <param name="mapper">Delegate to extract values from entities</param>
+            <param name="query">Query to select matched entities</param>
+            <returns>A value calculated by reducing all intermediate values</returns>
+        </member>
         <member name="M:Myriad.ECS.Worlds.World.ExecuteMapReduce``17(``1,Myriad.ECS.Queries.MapperDelegate{``1,``2,``3,``4,``5,``6,``7,``8,``9,``10,``11,``12,``13,``14,``15,``16},Myriad.ECS.Queries.QueryDescription)">
             <summary>
             Execute a query, mapping every result to a value and then reducing those values to
@@ -10574,6 +10788,17 @@
             <param name="q">query, which produces a value per entity</param>
             <param name="r">Reducer, for combining values</param>
             <param name="initial">Initial value to start reducing from</param>
+            <param name="query">Query to select matched entities</param>
+            <returns>A value calculated by reducing all intermediate values</returns>
+        </member>
+        <member name="M:Myriad.ECS.Worlds.World.ExecuteMapReduce``18(``1,Myriad.ECS.Queries.MapperDelegateEntity{``1,``2,``3,``4,``5,``6,``7,``8,``9,``10,``11,``12,``13,``14,``15,``16,``17},Myriad.ECS.Queries.QueryDescription)">
+            <summary>
+            Execute a query, mapping every result to a value and then reducing those values to
+            one final output value.
+            </summary>
+            <param name="initial">Initial value to seed the reducer. If no entities are
+            matched this is returned.</param>
+            <param name="mapper">Delegate to extract values from entities</param>
             <param name="query">Query to select matched entities</param>
             <returns>A value calculated by reducing all intermediate values</returns>
         </member>
@@ -10790,12 +11015,17 @@
         </member>
         <member name="P:Myriad.ECS.Worlds.Archetypes.Archetype.HasRelationComponents">
             <summary>
-            Indicates if ant of the components in this Archetype im[lement <see cref="T:Myriad.ECS.Components.IEntityRelationComponent"/>
+            Indicates if any of the components in this Archetype im[lement <see cref="T:Myriad.ECS.Components.IEntityRelationComponent"/>
             </summary>
         </member>
         <member name="P:Myriad.ECS.Worlds.Archetypes.Archetype.HasDisposableComponents">
             <summary>
-            Indicates if ant of the components in this Archetype im[lement <see cref="T:Myriad.ECS.Components.IDisposableComponent"/>
+            Indicates if any of the components in this Archetype im[lement <see cref="T:Myriad.ECS.Components.IDisposableComponent"/>
+            </summary>
+        </member>
+        <member name="P:Myriad.ECS.Worlds.Archetypes.Archetype.HasPhantomNotifierComponents">
+            <summary>
+            Indicates if any of the components in this Archetype im[lement <see cref="T:Myriad.ECS.Components.IPhantomNotifierComponent"/>
             </summary>
         </member>
         <member name="M:Myriad.ECS.Worlds.Archetypes.Archetype.Clear(Myriad.ECS.Command.LazyCommandBuffer@)">
@@ -13110,6 +13340,11 @@
             Map from a set of components to a single value
             </summary>
         </member>
+        <member name="T:Myriad.ECS.Queries.MapperDelegateEntity`2">
+            <summary>
+            Map from a set of components to a single value
+            </summary>
+        </member>
         <member name="T:Myriad.ECS.Queries.IQueryMap`3">
             <summary>
             Map from a set of components to a single value
@@ -13121,6 +13356,11 @@
             </summary>
         </member>
         <member name="T:Myriad.ECS.Queries.MapperDelegate`3">
+            <summary>
+            Map from a set of components to a single value
+            </summary>
+        </member>
+        <member name="T:Myriad.ECS.Queries.MapperDelegateEntity`3">
             <summary>
             Map from a set of components to a single value
             </summary>
@@ -13140,6 +13380,11 @@
             Map from a set of components to a single value
             </summary>
         </member>
+        <member name="T:Myriad.ECS.Queries.MapperDelegateEntity`4">
+            <summary>
+            Map from a set of components to a single value
+            </summary>
+        </member>
         <member name="T:Myriad.ECS.Queries.IQueryMap`5">
             <summary>
             Map from a set of components to a single value
@@ -13151,6 +13396,11 @@
             </summary>
         </member>
         <member name="T:Myriad.ECS.Queries.MapperDelegate`5">
+            <summary>
+            Map from a set of components to a single value
+            </summary>
+        </member>
+        <member name="T:Myriad.ECS.Queries.MapperDelegateEntity`5">
             <summary>
             Map from a set of components to a single value
             </summary>
@@ -13170,6 +13420,11 @@
             Map from a set of components to a single value
             </summary>
         </member>
+        <member name="T:Myriad.ECS.Queries.MapperDelegateEntity`6">
+            <summary>
+            Map from a set of components to a single value
+            </summary>
+        </member>
         <member name="T:Myriad.ECS.Queries.IQueryMap`7">
             <summary>
             Map from a set of components to a single value
@@ -13181,6 +13436,11 @@
             </summary>
         </member>
         <member name="T:Myriad.ECS.Queries.MapperDelegate`7">
+            <summary>
+            Map from a set of components to a single value
+            </summary>
+        </member>
+        <member name="T:Myriad.ECS.Queries.MapperDelegateEntity`7">
             <summary>
             Map from a set of components to a single value
             </summary>
@@ -13200,6 +13460,11 @@
             Map from a set of components to a single value
             </summary>
         </member>
+        <member name="T:Myriad.ECS.Queries.MapperDelegateEntity`8">
+            <summary>
+            Map from a set of components to a single value
+            </summary>
+        </member>
         <member name="T:Myriad.ECS.Queries.IQueryMap`9">
             <summary>
             Map from a set of components to a single value
@@ -13211,6 +13476,11 @@
             </summary>
         </member>
         <member name="T:Myriad.ECS.Queries.MapperDelegate`9">
+            <summary>
+            Map from a set of components to a single value
+            </summary>
+        </member>
+        <member name="T:Myriad.ECS.Queries.MapperDelegateEntity`9">
             <summary>
             Map from a set of components to a single value
             </summary>
@@ -13230,6 +13500,11 @@
             Map from a set of components to a single value
             </summary>
         </member>
+        <member name="T:Myriad.ECS.Queries.MapperDelegateEntity`10">
+            <summary>
+            Map from a set of components to a single value
+            </summary>
+        </member>
         <member name="T:Myriad.ECS.Queries.IQueryMap`11">
             <summary>
             Map from a set of components to a single value
@@ -13241,6 +13516,11 @@
             </summary>
         </member>
         <member name="T:Myriad.ECS.Queries.MapperDelegate`11">
+            <summary>
+            Map from a set of components to a single value
+            </summary>
+        </member>
+        <member name="T:Myriad.ECS.Queries.MapperDelegateEntity`11">
             <summary>
             Map from a set of components to a single value
             </summary>
@@ -13260,6 +13540,11 @@
             Map from a set of components to a single value
             </summary>
         </member>
+        <member name="T:Myriad.ECS.Queries.MapperDelegateEntity`12">
+            <summary>
+            Map from a set of components to a single value
+            </summary>
+        </member>
         <member name="T:Myriad.ECS.Queries.IQueryMap`13">
             <summary>
             Map from a set of components to a single value
@@ -13271,6 +13556,11 @@
             </summary>
         </member>
         <member name="T:Myriad.ECS.Queries.MapperDelegate`13">
+            <summary>
+            Map from a set of components to a single value
+            </summary>
+        </member>
+        <member name="T:Myriad.ECS.Queries.MapperDelegateEntity`13">
             <summary>
             Map from a set of components to a single value
             </summary>
@@ -13290,6 +13580,11 @@
             Map from a set of components to a single value
             </summary>
         </member>
+        <member name="T:Myriad.ECS.Queries.MapperDelegateEntity`14">
+            <summary>
+            Map from a set of components to a single value
+            </summary>
+        </member>
         <member name="T:Myriad.ECS.Queries.IQueryMap`15">
             <summary>
             Map from a set of components to a single value
@@ -13301,6 +13596,11 @@
             </summary>
         </member>
         <member name="T:Myriad.ECS.Queries.MapperDelegate`15">
+            <summary>
+            Map from a set of components to a single value
+            </summary>
+        </member>
+        <member name="T:Myriad.ECS.Queries.MapperDelegateEntity`15">
             <summary>
             Map from a set of components to a single value
             </summary>
@@ -13320,6 +13620,11 @@
             Map from a set of components to a single value
             </summary>
         </member>
+        <member name="T:Myriad.ECS.Queries.MapperDelegateEntity`16">
+            <summary>
+            Map from a set of components to a single value
+            </summary>
+        </member>
         <member name="T:Myriad.ECS.Queries.IQueryMap`17">
             <summary>
             Map from a set of components to a single value
@@ -13331,6 +13636,11 @@
             </summary>
         </member>
         <member name="T:Myriad.ECS.Queries.MapperDelegate`17">
+            <summary>
+            Map from a set of components to a single value
+            </summary>
+        </member>
+        <member name="T:Myriad.ECS.Queries.MapperDelegateEntity`17">
             <summary>
             Map from a set of components to a single value
             </summary>
