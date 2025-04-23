@@ -48,7 +48,7 @@ MonoBehaviour:
   m_MinSize: {x: 300, y: 100}
   m_MaxSize: {x: 24288, y: 16192}
   vertical: 0
-  controlID: 84
+  controlID: 78
   draggingID: 0
 --- !u!114 &3
 MonoBehaviour:
@@ -319,7 +319,7 @@ MonoBehaviour:
     m_ContainerData: []
     m_OverlaysVisible: 1
   m_Spl:
-    ID: 216
+    ID: 87
     splitterInitialOffset: 252
     currentActiveSplitter: -1
     realSizes:
@@ -346,7 +346,7 @@ MonoBehaviour:
   m_TestListGUIs:
   - m_Window: {fileID: 12}
     runProgress:
-      RunGuid: 31ca40eb-b58f-4da0-9845-fb0be37b5f3f
+      RunGuid: f28f0865-1060-4ab0-a257-97a60072cc5d
       ExecutionSettings:
         m_TargetPlatform: 0
         m_HasTargetPlatform: 0
@@ -408,7 +408,7 @@ MonoBehaviour:
       description: 
       isSuite: 1
       categories: []
-      parentId: 1013
+      parentId: 1000
       parentUniqueId: '[MyriadUnityIntegrationPackage][suite]'
     - id: 1008
       uniqueId: 'Tests.dll/[Tests][suite]'
@@ -447,7 +447,7 @@ MonoBehaviour:
       name: GameObjectEntityBindingSimple
       fullName: Tests.GameObjectEntityBinding.GameObjectEntityBindingSimple
       resultStatus: 1
-      duration: 0.0314058
+      duration: 0.0032074
       messages: 
       output: 
       stacktrace: 
@@ -464,7 +464,7 @@ MonoBehaviour:
       name: GameObjectEntityBindingSimple_DeadEntityObject_Master
       fullName: Tests.GameObjectEntityBinding.GameObjectEntityBindingSimple_DeadEntityObject_Master
       resultStatus: 1
-      duration: 0.0090879
+      duration: 0.0003313
       messages: 
       output: 
       stacktrace: 
@@ -481,7 +481,7 @@ MonoBehaviour:
       name: GameObjectEntityBindingSimple_DeadEntityObject_Slave
       fullName: Tests.GameObjectEntityBinding.GameObjectEntityBindingSimple_DeadEntityObject_Slave
       resultStatus: 1
-      duration: 0.0004533
+      duration: 0.000255
       messages: 
       output: 
       stacktrace: 
@@ -498,7 +498,7 @@ MonoBehaviour:
       name: GameObjectEntityBindingSimple_DeadGameObject_Master
       fullName: Tests.GameObjectEntityBinding.GameObjectEntityBindingSimple_DeadGameObject_Master
       resultStatus: 1
-      duration: 0.0010783
+      duration: 0.0002234
       messages: 
       output: 
       stacktrace: 
@@ -515,7 +515,7 @@ MonoBehaviour:
       name: GameObjectEntityBindingSimple_DeadGameObject_Slave
       fullName: Tests.GameObjectEntityBinding.GameObjectEntityBindingSimple_DeadGameObject_Slave
       resultStatus: 1
-      duration: 0.0004106
+      duration: 0.0002391
       messages: 
       output: 
       stacktrace: 
@@ -527,12 +527,12 @@ MonoBehaviour:
       - Uncategorized
       parentId: 1001
       parentUniqueId: 'Tests.dll/Tests/[Tests][Tests.GameObjectEntityBinding][suite]'
-    m_ResultText: GameObjectEntityBinding (5 tests) (0.000s)
+    m_ResultText: GameObjectEntityBindingSimple_DeadEntityObject_Master (0.000s)
     m_ResultStacktrace: 
     m_TestListState:
       scrollPos: {x: 0, y: 0}
-      m_SelectedIDs: 9d1c6709
-      m_LastClickedID: 157752477
+      m_SelectedIDs: 6eb7a3e0
+      m_LastClickedID: -526141586
       m_ExpandedIDs: e557abf79d1c6709bf1a890c8359db41ffffff7f
       m_RenameOverlay:
         m_UserAcceptedRename: 0
@@ -563,7 +563,7 @@ MonoBehaviour:
     m_SelectedOption: 0
   - m_Window: {fileID: 0}
     runProgress:
-      RunGuid: 31ca40eb-b58f-4da0-9845-fb0be37b5f3f
+      RunGuid: f28f0865-1060-4ab0-a257-97a60072cc5d
       ExecutionSettings:
         m_TargetPlatform: 0
         m_HasTargetPlatform: 0
@@ -630,7 +630,7 @@ MonoBehaviour:
     m_SelectedOption: 0
   - m_Window: {fileID: 0}
     runProgress:
-      RunGuid: 31ca40eb-b58f-4da0-9845-fb0be37b5f3f
+      RunGuid: f28f0865-1060-4ab0-a257-97a60072cc5d
       ExecutionSettings:
         m_TargetPlatform: 0
         m_HasTargetPlatform: 0
@@ -974,7 +974,7 @@ MonoBehaviour:
       scrollPos: {x: 0, y: 0}
       m_SelectedIDs: 
       m_LastClickedID: 0
-      m_ExpandedIDs: 60daffff3adcffff7addffffb4deffff7ae0ffffa2e1ffff0ee4ffffb0e4ffff70e6ffff9ee7ffff5ae8ffffb4e9fffff6ebffff24edffffdeeefffffeefffffa0f4ffffcaf5ffff8cf6ffffb4f7ffff46f8ffffd6f8ffff06fbffff
+      m_ExpandedIDs: c8f8ffff86f9ffff06fbffff
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 

@@ -75,6 +75,10 @@ namespace Packages.me.martindevans.myriad_unity_integration.Runtime.Components
             if (!_binding.HasValue)
                 return;
 
+            // Cannot notify if the entity is already destroyed)
+            if (!_binding.Value.Exists())
+                return;
+
             // Notification is done through the binding component, if it's not yet attached we can't notify
             var entity = _binding.Value;
             if (entity.HasComponent<MyriadEntityBinding>())
