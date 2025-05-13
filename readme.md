@@ -10,7 +10,7 @@ Install in Unity package manager, git url: `git@github.com:martindevans/Myriad.E
 
 1. Create a `WorldHost<TData>` in the scene (most likely a `GameTimeWorldHost`)
 2. Create a new `MonoBehaviour`, extending `WorldSystemGroup<TData>`
-3. When the system group is enabled/disable in the scene, it will be added/remove to the Myriad system list
+3. When the system group is enabled/disabled in the scene, it will be added/removed to the Myriad system list
 
 ## Advanced Usage
 
