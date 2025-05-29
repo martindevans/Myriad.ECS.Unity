@@ -705,7 +705,7 @@
         </member>
         <member name="T:Myriad.ECS.Components.IPhantomNotifierComponent">
             <summary>
-            This component received a notification when the entity it is attached to becomes a phantom.
+            This component receives a notification when the entity it is attached to becomes a phantom.
             </summary>
             <remarks>Note that this component is <b>not</b> an <see cref="T:Myriad.ECS.Components.IPhantomComponent"/>.</remarks>
         </member>
@@ -1203,7 +1203,7 @@
         </member>
         <member name="P:Myriad.ECS.IDs.ComponentID.IsPhantomNotifierComponent">
             <summary>
-            Indicates if this component implements <see cref="T:Myriad.ECS.Components.IDisposableComponent"/>
+            Indicates if this component implements <see cref="T:Myriad.ECS.Components.IPhantomNotifierComponent"/>
             </summary>
         </member>
         <member name="M:Myriad.ECS.IDs.ComponentID.CompareTo(Myriad.ECS.IDs.ComponentID)">
