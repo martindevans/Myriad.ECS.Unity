@@ -18,7 +18,7 @@ namespace Packages.me.martindevans.myriad_unity_integration.Editor
         private readonly Dictionary<string, bool> _expandedGroups = new();
         private readonly Dictionary<ISystem<TData>, bool> _expandedSystems = new();
 
-        private const float smoothing = 0.1f;
+        private const float smoothing = 0.2f;
         private readonly Dictionary<string, float> _smoothedProgressIndicator = new();
 
         private readonly Dictionary<(string name, Type type), IMyriadSystemEditor> _editorInstances = new();
