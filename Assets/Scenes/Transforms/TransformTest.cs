@@ -1,10 +1,11 @@
-using System;
 using System.Collections.Generic;
 using Myriad.ECS.Command;
 using Myriad.ECS.Components;
+using Myriad.ECS.Systems;
 using Packages.me.martindevans.myriad_unity_integration.Runtime;
 using Packages.me.martindevans.myriad_unity_integration.Runtime.Components;
 using Packages.me.martindevans.myriad_unity_integration.Runtime.Extensions;
+using Packages.me.martindevans.myriad_unity_integration.Runtime.Systems;
 using UnityEngine;
 
 namespace Assets.Scenes.Transforms
@@ -34,8 +35,8 @@ namespace Assets.Scenes.Transforms
 
                 be
                    .SetupGameObjectBinding(item, DestructMode.Both)
-                   .Set(new LocalTransformMatrix())
-                   .Set(new WorldTransformMatrix());
+                   .Set(new MyriadTransformSystem<GameTime>.LocalTransformMatrix())
+                   .Set(new MyriadTransformSystem<GameTime>.WorldTransformMatrix());
 
                 if (item.parent)
                 {
@@ -53,18 +54,18 @@ namespace Assets.Scenes.Transforms
         public void Update()
         {
             // Copy from Unity local transforms into Myriad local transforms
-            foreach (var (_, m, l) in Sim.World.Query<MyriadEntity, LocalTransformMatrix>())
+            foreach (var (_, m, l) in Sim.World.Query<MyriadEntity, MyriadTransformSystem<GameTime>.LocalTransformMatrix>())
             {
                 var t = m.Ref.transform;
                 var localMatrix = Matrix4x4.TRS(t.localPosition, t.localRotation, t.localScale);
-                l.Ref.Transform = new TransformMatrix { Matrix = localMatrix };
+                l.Ref.Transform = new MyriadTransformSystem<GameTime>.TransformMatrix { Matrix = localMatrix };
             }
         }
 
         public void OnDrawGizmos()
         {
             // Draw cubes according to Myriad world transforms
-            foreach (var (_, w) in Sim.World.Query<WorldTransformMatrix>())
+            foreach (var (_, w) in Sim.World.Query<MyriadTransformSystem<GameTime>.WorldTransformMatrix>())
             {
                 Gizmos.matrix = w.Ref.Transform.Matrix;
                 Gizmos.DrawWireCube(Vector3.zero, Vector3.one * 1.05f);

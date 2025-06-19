@@ -66,6 +66,7 @@
     <Compile Include="Packages\me.martindevans.myriad-unity-integration\Runtime\Components\MyriadEntity.cs" />
     <Compile Include="Packages\me.martindevans.myriad-unity-integration\Runtime\ISystemQueryEntityCount.cs" />
     <Compile Include="Packages\me.martindevans.myriad-unity-integration\Runtime\Extensions\CommandBufferExtensions.cs" />
+    <Compile Include="Packages\me.martindevans.myriad-unity-integration\Runtime\Systems\TransformSystem.cs" />
     <Compile Include="Packages\me.martindevans.myriad-unity-integration\Runtime\Systems\MyriadEntityBindingSystem.cs" />
     <Compile Include="Packages\me.martindevans.myriad-unity-integration\Runtime\Systems\WorldSystemGroup.cs" />
     <Compile Include="Packages\me.martindevans.myriad-unity-integration\Runtime\Extensions\GameObjectExtensions.cs" />

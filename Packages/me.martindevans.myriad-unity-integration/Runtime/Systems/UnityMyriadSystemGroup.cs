@@ -9,8 +9,9 @@ namespace Packages.me.martindevans.myriad_unity_integration.Runtime.Systems
         protected override ISystemGroup<GameTime> CreateGroup(World world)
         {
             return new SystemGroup<GameTime>(
-                "Unity/Myriad Binding",
-                new MyriadEntityBindingSystem<GameTime>(world)
+                "Unity/Myriad Integration",
+                new MyriadEntityBindingSystem<GameTime>(world),
+                new MyriadTransformSystem<GameTime>(world)
             );
         }
     }
