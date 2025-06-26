@@ -1,7 +1,10 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using JetBrains.Annotations;
 using Myriad.ECS;
+using Myriad.ECS.IDs;
 using Packages.me.martindevans.myriad_unity_integration.Runtime.Components;
 using UnityEditor;
 using UnityEngine;
@@ -9,6 +12,35 @@ using Object = UnityEngine.Object;
 
 namespace Packages.me.martindevans.myriad_unity_integration.Editor.Entities
 {
+    public static class MyriadComponentEditorHelper
+    {
+        private static readonly IReadOnlyDictionary<Type, Type> _editorTypes;
+
+        static MyriadComponentEditorHelper()
+        {
+            _editorTypes = (from assembly in AppDomain.CurrentDomain.GetAssemblies()
+                            from type in assembly.GetTypes()
+                            where typeof(IMyriadComponentEditor).IsAssignableFrom(type)
+                            let editor = type
+                            let attr = editor.GetCustomAttribute<MyriadComponentEditorAttribute>()
+                            where attr != null
+                            let tgt = attr.Type
+                            select (editor, tgt)).ToDictionary(x => x.tgt, x => x.editor);
+        }
+
+        [CanBeNull]
+        public static IMyriadComponentEditor CreateEditorInstance(ComponentID id)
+        {
+            IMyriadComponentEditor editor;
+            if (!_editorTypes.TryGetValue(id.Type, out var editorType))
+                editor = DefaultComponentEditor.Create(id.Type);
+            else
+                editor = (IMyriadComponentEditor)Activator.CreateInstance(editorType);
+
+            return editor;
+        }
+    }
+
     [AttributeUsage(AttributeTargets.Class)]
     public class MyriadComponentEditorAttribute
         : Attribute

@@ -127,7 +127,6 @@ namespace Packages.me.martindevans.myriad_unity_integration.Editor.Entities
     {
         private readonly Dictionary<ComponentID, bool> _expandedComponents = new();
 
-        private readonly IReadOnlyDictionary<Type, Type> _editorTypes;
         private readonly Dictionary<ComponentID, IMyriadComponentEditor> _editorInstances = new();
 
         public Entity Entity { get; }
@@ -135,15 +134,6 @@ namespace Packages.me.martindevans.myriad_unity_integration.Editor.Entities
         public EntityDrawer(Entity entity)
         {
             Entity = entity;
-
-            _editorTypes = (from assembly in AppDomain.CurrentDomain.GetAssemblies()
-                            from type in assembly.GetTypes()
-                            where typeof(IMyriadComponentEditor).IsAssignableFrom(type)
-                            let editor = type
-                            let attr = editor.GetCustomAttribute<MyriadComponentEditorAttribute>()
-                            where attr != null
-                            let tgt = attr.Type
-                            select (editor, tgt)).ToDictionary(x => x.tgt, x => x.editor);
         }
 
         public void Draw()
@@ -193,12 +183,9 @@ namespace Packages.me.martindevans.myriad_unity_integration.Editor.Entities
             if (_editorInstances.TryGetValue(id, out var editor))
                 return editor;
 
-            if (!_editorTypes.TryGetValue(id.Type, out var editorType))
-                editor = DefaultComponentEditor.Create(id.Type);
-            else
-                editor = (IMyriadComponentEditor)Activator.CreateInstance(editorType);
-
+            editor = MyriadComponentEditorHelper.CreateEditorInstance(id);
             _editorInstances.Add(id, editor);
+
             return editor;
         }
     }
