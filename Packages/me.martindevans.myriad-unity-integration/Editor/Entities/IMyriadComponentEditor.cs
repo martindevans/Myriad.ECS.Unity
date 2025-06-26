@@ -5,7 +5,10 @@ using System.Reflection;
 using JetBrains.Annotations;
 using Myriad.ECS;
 using Myriad.ECS.IDs;
+using Packages.me.martindevans.myriad_unity_integration.Editor.Extensions;
 using Packages.me.martindevans.myriad_unity_integration.Runtime.Components;
+using Placeholder.Editor.UI.Editor.Helpers;
+using Placeholder.Editor.UI.Editor.Style;
 using UnityEditor;
 using UnityEngine;
 using Object = UnityEngine.Object;
@@ -38,6 +41,13 @@ namespace Packages.me.martindevans.myriad_unity_integration.Editor.Entities
                 editor = (IMyriadComponentEditor)Activator.CreateInstance(editorType);
 
             return editor;
+        }
+
+        [CanBeNull]
+        public static IMyriadComponentEditor CreateEditorInstanceWithHeaderWrapper(ComponentID id)
+        {
+            var editor = CreateEditorInstance(id);
+            return new ComponentEditorHeaderWrapper(editor, id);
         }
     }
 
@@ -127,6 +137,48 @@ namespace Packages.me.martindevans.myriad_unity_integration.Editor.Entities
             {
                 var v = propInfo.GetValue(cBox);
                 EditorGUILayout.LabelField(propInfo.Name, v?.ToString() ?? "null");
+            }
+        }
+    }
+
+    public class ComponentEditorHeaderWrapper
+        : IMyriadComponentEditor
+    {
+        private readonly IMyriadComponentEditor _inner;
+
+        private readonly string _name;
+        private readonly bool _empty;
+
+        private bool _expanded = true;
+
+        public ComponentEditorHeaderWrapper(IMyriadComponentEditor inner, ComponentID id)
+        {
+            _inner = inner;
+
+            _name = id.Type.GetFormattedName();
+            if (id.IsPhantomComponent)
+                _name += " (PHANTOM)";
+            if (id.IsDisposableComponent)
+                _name += " (DISPOSE)";
+
+            _empty = inner is IMyriadEmptyComponentEditor { IsEmpty: true };
+        }
+
+        public void Draw(Entity entity)
+        {
+            if (_empty)
+            {
+                Header.Simple(new GUIContent(_name));
+            }
+            else
+            {
+                using (new EditorGUILayout.VerticalScope(_expanded ? Styles.ContentOutline : GUIStyle.none))
+                {
+                    _expanded = Header.Fold(new GUIContent(_name), _expanded);
+                    if (_expanded)
+                        using (new EditorGUILayout.VerticalScope(Styles.LeftPadding))
+                            _inner.Draw(entity);
+                }
             }
         }
     }

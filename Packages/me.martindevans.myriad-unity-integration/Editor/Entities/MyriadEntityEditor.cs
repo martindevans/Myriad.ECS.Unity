@@ -1,20 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
+﻿using System.Collections.Generic;
 using JetBrains.Annotations;
 using Myriad.ECS;
 using Myriad.ECS.Components;
 using Myriad.ECS.IDs;
-using Packages.me.martindevans.myriad_unity_integration.Editor.Extensions;
 using Packages.me.martindevans.myriad_unity_integration.Editor.UIComponents;
 using Packages.me.martindevans.myriad_unity_integration.Runtime.Components;
 using Placeholder.Editor.UI.Editor;
 using Placeholder.Editor.UI.Editor.Components;
 using Placeholder.Editor.UI.Editor.Components.Section;
 using Placeholder.Editor.UI.Editor.Components.Sections;
-using Placeholder.Editor.UI.Editor.Helpers;
-using Placeholder.Editor.UI.Editor.Style;
 using UnityEditor;
 using UnityEngine;
 using IComponent = Placeholder.Editor.UI.Editor.Components.IComponent;
@@ -125,8 +119,6 @@ namespace Packages.me.martindevans.myriad_unity_integration.Editor.Entities
 
     public class EntityDrawer
     {
-        private readonly Dictionary<ComponentID, bool> _expandedComponents = new();
-
         private readonly Dictionary<ComponentID, IMyriadComponentEditor> _editorInstances = new();
 
         public Entity Entity { get; }
@@ -150,31 +142,8 @@ namespace Packages.me.martindevans.myriad_unity_integration.Editor.Entities
 
         private void DrawComponent(ComponentID component)
         {
-            var name = component.Type.GetFormattedName();
-            if (component.IsPhantomComponent)
-                name += " (PHANTOM)";
-            if (component.IsDisposableComponent)
-                name += " (DISPOSE)";
-
-            var instance = GetEditorInstance(component);
-            var emptyable = instance as IMyriadEmptyComponentEditor;
-
-            if (instance == null || emptyable is { IsEmpty: true })
-            {
-                Header.Simple(new GUIContent(name));
-            }
-            else
-            {
-                var expanded = _expandedComponents.GetValueOrDefault(component, true);
-                using (new EditorGUILayout.VerticalScope(expanded ? Styles.ContentOutline : GUIStyle.none))
-                {
-                    expanded = Header.Fold(new GUIContent(name), expanded);
-                    if (expanded)
-                        using (new EditorGUILayout.VerticalScope(Styles.LeftPadding))
-                            instance.Draw(Entity);
-                }
-                _expandedComponents[component] = expanded;
-            }
+            var inst = GetEditorInstance(component)!;
+            inst.Draw(Entity);
         }
 
         [CanBeNull]
@@ -183,7 +152,7 @@ namespace Packages.me.martindevans.myriad_unity_integration.Editor.Entities
             if (_editorInstances.TryGetValue(id, out var editor))
                 return editor;
 
-            editor = MyriadComponentEditorHelper.CreateEditorInstance(id);
+            editor = MyriadComponentEditorHelper.CreateEditorInstanceWithHeaderWrapper(id);
             _editorInstances.Add(id, editor);
 
             return editor;
