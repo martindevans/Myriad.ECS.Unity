@@ -10,8 +10,7 @@ namespace Packages.me.martindevans.myriad_unity_integration.Runtime.Systems
         {
             return new SystemGroup<GameTime>(
                 "Unity/Myriad Integration",
-                new MyriadEntityBindingSystem<GameTime>(world),
-                new MyriadTransformSystem<GameTime>(world)
+                new MyriadEntityBindingSystem<GameTime>(world)
             );
         }
     }
