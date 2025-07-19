@@ -19,7 +19,7 @@ MonoBehaviour:
     width: 2560
     height: 1357.3334
   m_ShowMode: 4
-  m_Title: Scene
+  m_Title: Hierarchy
   m_RootView: {fileID: 6}
   m_MinSize: {x: 875, y: 300}
   m_MaxSize: {x: 10000, y: 10000}
@@ -778,7 +778,7 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Packages/me.martindevans.myriad-unity-integration/Editor
+    - Packages/me.martindevans.myriad-unity-integration/Runtime/Systems
     m_Globs: []
     m_ProductIds: 
     m_AnyWithAssetOrigin: 0
@@ -788,15 +788,15 @@ MonoBehaviour:
   m_ViewMode: 1
   m_StartGridSize: 16
   m_LastFolders:
-  - Packages/me.martindevans.myriad-unity-integration/Editor
+  - Packages/me.martindevans.myriad-unity-integration/Runtime/Systems
   m_LastFoldersGridSize: 16
   m_LastProjectPath: C:\Users\Martin\Documents\Unity\MyriadUnityIntegrationPackage
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
     scrollPos: {x: 0, y: 0}
-    m_SelectedIDs: ba5a0000
-    m_LastClickedID: 23226
+    m_SelectedIDs: 4c5b0000
+    m_LastClickedID: 23372
     m_ExpandedIDs: 00000000be5a0000c05a0000c25a0000c45a0000c65a0000c85a0000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
@@ -974,7 +974,7 @@ MonoBehaviour:
       scrollPos: {x: 0, y: 0}
       m_SelectedIDs: 
       m_LastClickedID: 0
-      m_ExpandedIDs: 06fbffff685a0000785a0000
+      m_ExpandedIDs: 06fbffff7c5a0000
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -1468,7 +1468,7 @@ MonoBehaviour:
   m_Position:
     m_Target: {x: 15.689295, y: 18.730446, z: 8.253179}
     speed: 2
-    m_Value: {x: 18.540276, y: 22.569504, z: 14.890364}
+    m_Value: {x: 15.689295, y: 18.730446, z: 8.253179}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -1516,7 +1516,7 @@ MonoBehaviour:
   m_Rotation:
     m_Target: {x: -0.25606528, y: 0.71188295, z: -0.31945413, w: -0.5706257}
     speed: 2
-    m_Value: {x: -0.12545653, y: 0.8742815, z: -0.31994012, w: -0.3428276}
+    m_Value: {x: -0.25606528, y: 0.711883, z: -0.31945416, w: -0.5706257}
   m_Size:
     m_Target: 10
     speed: 2

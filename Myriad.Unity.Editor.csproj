@@ -571,11 +571,15 @@
       <Private>False</Private>
     </Reference>
     <Reference Include="Myriad.ECS">
-      <HintPath>Assets\Packages\Myriad.ECS.36.3.0\lib\netstandard2.1\Myriad.ECS.dll</HintPath>
+      <HintPath>Assets\Packages\Myriad.ECS.37.0.0\lib\netstandard2.1\Myriad.ECS.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="NuGetForUnity.PluginAPI">
       <HintPath>Library\PackageCache\com.github-glitchenzo.nugetforunity\Editor\PluginAPI\NuGetForUnity.PluginAPI.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Runtime.CompilerServices.Unsafe">
+      <HintPath>Assets\Packages\System.Runtime.CompilerServices.Unsafe.6.1.2\lib\netstandard2.0\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="mscorlib">
