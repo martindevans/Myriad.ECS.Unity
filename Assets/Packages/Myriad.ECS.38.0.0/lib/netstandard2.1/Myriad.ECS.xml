@@ -14594,7 +14594,7 @@
             The archetype this chunk belongs to
             </summary>
         </member>
-        <member name="P:Myriad.ECS.Queries.ChunkHandle.EntityCount">
+        <member name="F:Myriad.ECS.Queries.ChunkHandle.EntityCount">
             <summary>
             Get the total number of entities in this chunk
             </summary>

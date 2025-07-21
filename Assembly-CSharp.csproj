@@ -68,10 +68,10 @@
     <Compile Include="Assets\Scenes\SimulationHost.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Assets\Packages\Myriad.ECS.37.0.0\lib\netstandard2.1\Myriad.ECS.xml" />
-    <None Include="Assets\Packages\Myriad.ECS.37.0.0\lib\netstandard2.1\Myriad.ECS.dll" />
+    <None Include="Assets\Packages\Myriad.ECS.38.0.0\lib\netstandard2.1\Myriad.ECS.xml" />
     <None Include="Assets\Packages\System.Runtime.CompilerServices.Unsafe.6.1.2\lib\netstandard2.0\System.Runtime.CompilerServices.Unsafe.xml" />
     <None Include="Assets\Packages\System.Runtime.CompilerServices.Unsafe.6.1.2\lib\netstandard2.0\System.Runtime.CompilerServices.Unsafe.dll" />
+    <None Include="Assets\Packages\Myriad.ECS.38.0.0\lib\netstandard2.1\Myriad.ECS.dll" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">
@@ -547,7 +547,7 @@
       <Private>False</Private>
     </Reference>
     <Reference Include="Myriad.ECS">
-      <HintPath>Assets\Packages\Myriad.ECS.37.0.0\lib\netstandard2.1\Myriad.ECS.dll</HintPath>
+      <HintPath>Assets\Packages\Myriad.ECS.38.0.0\lib\netstandard2.1\Myriad.ECS.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="System.Runtime.CompilerServices.Unsafe">
