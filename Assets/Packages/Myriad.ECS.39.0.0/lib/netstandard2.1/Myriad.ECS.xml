@@ -870,6 +870,9 @@
             Get a boxed array of all components. <b>DO NOT</b> use this for anything other than debugging!
             </summary>
         </member>
+        <member name="M:Myriad.ECS.Entity.GetHashCode">
+            <inheritdoc />
+        </member>
         <member name="M:Myriad.ECS.Entity.ToString">
             <inheritdoc />
         </member>
@@ -1245,6 +1248,9 @@
             <summary>
             The version number of this ID, may also be re-used but only after the full 32 bit counter has been overflowed for this specific ID.
             </summary>
+        </member>
+        <member name="M:Myriad.ECS.EntityId.GetHashCode">
+            <inheritdoc />
         </member>
         <member name="M:Myriad.ECS.EntityId.ToString">
             <inheritdoc />
@@ -17777,6 +17783,11 @@
             Get all systems in this group, expanding out all system groups into contained systems
             </summary>
         </member>
+        <member name="P:Myriad.ECS.Systems.ISystemGroup`1.Enabled">
+            <summary>
+            Enable or disable this system. Disables systems will not receive any update calls (including early and late)
+            </summary>
+        </member>
         <member name="M:Myriad.ECS.Systems.ISystemGroup`1.TryGet``1">
             <summary>
             Get a system of the given type
@@ -17850,6 +17861,9 @@
             <summary>
             Total time consumed in this system in the previous update call
             </summary>
+        </member>
+        <member name="P:Myriad.ECS.Systems.BaseSystemGroup`1.Enabled">
+            <inheritdoc />
         </member>
         <member name="M:Myriad.ECS.Systems.BaseSystemGroup`1.#ctor(System.String,Myriad.ECS.Systems.ISystem{`0}[])">
             <summary>

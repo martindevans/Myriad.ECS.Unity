@@ -23,7 +23,7 @@ namespace Packages.me.martindevans.myriad_unity_integration.Editor
 
         private readonly Dictionary<(string name, Type type), IMyriadSystemEditor> _editorInstances = new();
 
-        public void DrawSystemGroup(ISystemGroup<TData> group, TimeSpan parentTime, TimeSpan highTimeThreshold)
+        public void DrawSystemGroup(ISystemGroup<TData> group, TimeSpan parentTime, TimeSpan highTimeThreshold, bool parentDisabled)
         {
             if (group == null)
                 return;
@@ -31,14 +31,23 @@ namespace Packages.me.martindevans.myriad_unity_integration.Editor
             var childGroups = Math.Max(1, group.Systems.Count(a => a.System is ISystemGroup<TData>));
             var childTimeThreshold = highTimeThreshold / childGroups;
 
-            var expanded = _expandedGroups.GetValueOrDefault(group.Name, true);
-            var micros = group.TotalExecutionTime.Ticks / (double)TimeSpan.TicksPerMillisecond * 1000;
+            // Set total exectuon time to zero if this group is disabled
+            var totalExecutionTime = group.TotalExecutionTime;
+            var ancestorDisabled = parentDisabled || !group.Enabled;
+            if (ancestorDisabled)
+                totalExecutionTime = TimeSpan.Zero;
 
-            var opts = GetHeaderOptions(group.Name, group.TotalExecutionTime, parentTime, 0, (float)highTimeThreshold.TotalMilliseconds / 2f, (float)highTimeThreshold.TotalMilliseconds);
+            var expanded = _expandedGroups.GetValueOrDefault(group.Name, true);
+            var micros = totalExecutionTime.Ticks / (double)TimeSpan.TicksPerMillisecond * 1000;
+
+            var opts = GetHeaderOptions(group.Name, totalExecutionTime, parentTime, 0, (float)highTimeThreshold.TotalMilliseconds / 2f, (float)highTimeThreshold.TotalMilliseconds);
 
             using (new EditorGUILayout.VerticalScope(expanded ? Styles.ContentOutline : GUIStyle.none))
             {
-                expanded = Header.Fold(new GUIContent($"{group.Name} : {micros:F0}us"), expanded, opts);
+                var ticked = group.Enabled;
+                Header.Toggle(new GUIContent($"{group.Name} : {micros:F0}us"), ref ticked, ref expanded, ToggleType.Tick, opts);
+                group.Enabled = ticked;
+
                 if (expanded)
                 {
                     using (new EditorGUILayout.VerticalScope(Styles.LeftPadding))
@@ -57,11 +66,11 @@ namespace Packages.me.martindevans.myriad_unity_integration.Editor
                         {
                             if (item.System is ISystemGroup<TData> sg)
                             {
-                                DrawSystemGroup(sg, group.TotalExecutionTime, childTimeThreshold);
+                                DrawSystemGroup(sg, totalExecutionTime, childTimeThreshold, ancestorDisabled);
                             }
                             else
                             {
-                                DrawSystem(item, group.TotalExecutionTime);
+                                DrawSystem(item, totalExecutionTime, ancestorDisabled);
                             }
                         }
                     }
@@ -71,7 +80,7 @@ namespace Packages.me.martindevans.myriad_unity_integration.Editor
             _expandedGroups[group.Name] = expanded;
         }
 
-        private void DrawSystem(SystemGroupItem<TData> item, TimeSpan groupTime)
+        private void DrawSystem(SystemGroupItem<TData> item, TimeSpan groupTime, bool ancestorDisabled)
         {
             var name = item.Type.GetFormattedName();
 
@@ -92,14 +101,17 @@ namespace Packages.me.martindevans.myriad_unity_integration.Editor
                 {
                     using (new EditorGUILayout.VerticalScope(Styles.LeftPadding))
                     {
-                        if (item.HasBeforeUpdate)
-                            EditorGUILayout.LabelField($"Before Update: {microsPre:F0}us");
-                        EditorGUILayout.LabelField($"Update:        {micros:F0}us");
-                        if (item.HasAfterUpdate)
-                            EditorGUILayout.LabelField($"After Update:  {microsPost:F0}us");
+                        if (!ancestorDisabled)
+                        {
+                            if (item.HasBeforeUpdate)
+                                EditorGUILayout.LabelField($"Before Update: {microsPre:F0}us");
+                            EditorGUILayout.LabelField($"Update:        {micros:F0}us");
+                            if (item.HasAfterUpdate)
+                                EditorGUILayout.LabelField($"After Update:  {microsPost:F0}us");
 
-                        if (item.System is ISystemQueryEntityCount sqec)
-                            EditorGUILayout.LabelField($"Queried Entities:  {sqec.QueryEntityCount}");
+                            if (item.System is ISystemQueryEntityCount sqec)
+                                EditorGUILayout.LabelField($"Queried Entities:  {sqec.QueryEntityCount}");
+                        }
 
                         var editor = GetEditorInstance(name, item.Type);
                         editor?.Draw(item.System);

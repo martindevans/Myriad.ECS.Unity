@@ -26,7 +26,10 @@ namespace Packages.me.martindevans.myriad_unity_integration.Runtime.Systems
 
                 // Maybe somewhere in the parents?
                 if (!found)
+                {
                     world = GetComponentInParent<BaseSimulationHost<TData>>();
+                    found = world;
+                }
 
                 // Just search the whole damn scene
                 if (!found)
