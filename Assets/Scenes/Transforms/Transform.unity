@@ -8899,7 +8899,6 @@ GameObject:
   - component: {fileID: 2081827062}
   - component: {fileID: 2081827063}
   - component: {fileID: 2081827064}
-  - component: {fileID: 2081827065}
   m_Layer: 0
   m_Name: Sim
   m_TagString: Untagged
@@ -8951,18 +8950,6 @@ MonoBehaviour:
   Sim: {fileID: 2081827063}
   Root: {fileID: 2057156496}
   Count: 0
---- !u!114 &2081827065
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2081827061}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5aaf8ee5853a7874b9a5b3354402bd2f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &2125625763
 GameObject:
   m_ObjectHideFlags: 0

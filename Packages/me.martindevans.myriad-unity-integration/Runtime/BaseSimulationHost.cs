@@ -1,4 +1,6 @@
 using Myriad.ECS.Systems;
+using Packages.me.martindevans.myriad_unity_integration.Runtime.Systems;
+using System;
 
 namespace Packages.me.martindevans.myriad_unity_integration.Runtime
 {
@@ -32,6 +34,13 @@ namespace Packages.me.martindevans.myriad_unity_integration.Runtime
         /// Get the current simulation frame count
         /// </summary>
         public abstract ulong CurrentFrame { get; }
+
+        private void Awake()
+        {
+            var groups = GetComponentsInChildren<WorldSystemGroup<TData>>();
+            foreach (var group in groups)
+                group.Init(this);
+        }
 
         protected override void Update()
         {
