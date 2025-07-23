@@ -37,7 +37,7 @@ namespace Packages.me.martindevans.myriad_unity_integration.Runtime
 
         private void Awake()
         {
-            var groups = GetComponentsInChildren<WorldSystemGroup<TData>>();
+            var groups = GetComponentsInChildren<WorldSystemGroup<TData>>(includeInactive:true);
             foreach (var group in groups)
                 group.Init(this);
         }
