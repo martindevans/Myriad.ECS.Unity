@@ -42,17 +42,5 @@ namespace Packages.me.martindevans.myriad_unity_integration.Runtime.Systems
             if (Group != null)
                 Group.Enabled = false;
         }
-
-        protected virtual void OnDestroy()
-        {
-            if (Group != null && !ReferenceEquals(_world, null))
-            {
-                _world.Remove(Group);
-                Group.Dispose();
-            }
-
-            Group = null;
-            _world = null;
-        }
     }
 }
