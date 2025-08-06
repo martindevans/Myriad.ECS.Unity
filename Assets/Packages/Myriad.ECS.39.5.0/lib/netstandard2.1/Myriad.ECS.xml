@@ -14630,6 +14630,29 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="M:Myriad.ECS.Queries.ChunkHandle.Danger">
+            <summary>
+            Unlock unsafe access to the chunk
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:Myriad.ECS.Queries.ChunkHandle.Unsafe">
+            <summary>
+            Unsafe things to do with a chunk handle
+            </summary>
+        </member>
+        <member name="M:Myriad.ECS.Queries.ChunkHandle.Unsafe.GetComponentArray``1">
+            <summary>
+            Get the raw array storing component data. Accessing beyond the entity count will be junk data.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Myriad.ECS.Queries.ChunkHandle.Unsafe.GetEntityArray">
+            <summary>
+            Get the raw array storing entity data. Accessing beyond the entity count will be junk data.
+            </summary>
+            <returns></returns>
+        </member>
         <member name="T:Myriad.ECS.Queries.Cursor">
             <summary>
             Keep track of how far through execution a query got, can be used to resume execution at <b>approximately</b> the same point.
