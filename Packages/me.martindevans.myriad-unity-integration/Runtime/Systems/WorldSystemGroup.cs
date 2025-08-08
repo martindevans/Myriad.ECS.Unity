@@ -1,6 +1,5 @@
 using System;
 using Myriad.ECS.Systems;
-using Myriad.ECS.Worlds;
 using UnityEngine;
 
 namespace Packages.me.martindevans.myriad_unity_integration.Runtime.Systems
@@ -15,7 +14,7 @@ namespace Packages.me.martindevans.myriad_unity_integration.Runtime.Systems
         private BaseSimulationHost<TData> _world;
         public ISystemGroup<TData> Group { get; private set; }
 
-        protected abstract ISystemGroup<TData> CreateGroup(World world);
+        protected abstract ISystemGroup<TData> CreateGroup(BaseSimulationHost<TData> world);
 
         public void Init(BaseSimulationHost<TData> world)
         {
@@ -24,7 +23,7 @@ namespace Packages.me.martindevans.myriad_unity_integration.Runtime.Systems
 
             _world = world;
 
-            Group = CreateGroup(_world.World);
+            Group = CreateGroup(_world);
             Group.Init();
             _world.Add(Group);
 

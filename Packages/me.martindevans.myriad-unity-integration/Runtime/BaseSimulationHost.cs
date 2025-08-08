@@ -1,6 +1,8 @@
 using Myriad.ECS.Systems;
 using Packages.me.martindevans.myriad_unity_integration.Runtime.Systems;
 using System;
+using System.Collections.Generic;
+using JetBrains.Annotations;
 
 namespace Packages.me.martindevans.myriad_unity_integration.Runtime
 {
@@ -88,5 +90,35 @@ namespace Packages.me.martindevans.myriad_unity_integration.Runtime
         /// </summary>
         /// <returns></returns>
         protected abstract TData GetData();
+
+        #region Primitive DI
+        private readonly Dictionary<Type, object> _dependencies = new();
+
+        [CanBeNull] public T TryGet<T>()
+            where T : class
+        {
+            if (!_dependencies.TryGetValue(typeof(T), out var obj))
+                return null;
+            return (T)obj;
+        }
+
+        public T GetOrAdd<T>(Func<T> create)
+            where T : class
+        {
+            if (!_dependencies.TryGetValue(typeof(T), out var obj))
+            {
+                obj = create();
+                _dependencies[typeof(T)] = obj;
+            }
+
+            return (T)obj;
+        }
+
+        public void Add<T>(T item)
+            where T : class
+        {
+            _dependencies.Add(typeof(T), item);
+        }
+        #endregion
     }
 }

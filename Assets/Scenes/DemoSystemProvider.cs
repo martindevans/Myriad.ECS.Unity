@@ -8,7 +8,7 @@ namespace Assets.Scenes
     public class DemoSystemProvider
         : WorldSystemGroup<GameTime>
     {
-        protected override ISystemGroup<GameTime> CreateGroup(World world)
+        protected override ISystemGroup<GameTime> CreateGroup(BaseSimulationHost<GameTime> world)
         {
             return new OrderedParallelSystemGroup<GameTime>(
                 "parallel group",
