@@ -94,16 +94,23 @@ namespace Packages.me.martindevans.myriad_unity_integration.Runtime
         #region Primitive DI
         private readonly Dictionary<Type, object> _resources = new();
 
+        [NotNull] public T GetRequiredResource<T>()
+        {
+            if (!_resources.TryGetValue(typeof(T), out var obj))
+                throw new InvalidOperationException($"Failed to get required resource of type: {typeof(T).FullName}");
+            return (T)obj;
+        }
+
         [CanBeNull] public T TryGetResource<T>()
-            where T : class
+            where T : class, IResource
         {
             if (!_resources.TryGetValue(typeof(T), out var obj))
                 return null;
             return (T)obj;
         }
 
-        public T GetOrAddResource<T>(Func<T> create)
-            where T : class
+        [NotNull] public T GetOrAddResource<T>(Func<T> create)
+            where T : class, IResource
         {
             if (!_resources.TryGetValue(typeof(T), out var obj))
             {
@@ -114,11 +121,18 @@ namespace Packages.me.martindevans.myriad_unity_integration.Runtime
             return (T)obj;
         }
 
-        public void AddResource<T>(T item)
-            where T : class
+        public void AddResource<T>([NotNull] T item)
+            where T : class, IResource
         {
             _resources.Add(typeof(T), item);
         }
         #endregion
+    }
+
+    /// <summary>
+    /// Marker interface for resource containers
+    /// </summary>
+    public interface IResource
+    {
     }
 }
