@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Myriad.ECS;
 using Myriad.ECS.Worlds.Archetypes;
 using Placeholder.Editor.UI.Editor.Helpers;
 using Placeholder.Editor.UI.Editor.Style;
@@ -20,7 +21,7 @@ namespace Packages.me.martindevans.myriad_unity_integration.Editor.World
 
         private bool _viewingEntities;
 
-        private List<EntityDrawer> _entitiesDrawers = new List<EntityDrawer>();
+        private readonly List<EntityDrawer> _entitiesDrawers = new List<EntityDrawer>();
         private int _startIndex = -1;
 
         public ArchetypeDrawer(Archetype archetype)
@@ -32,12 +33,33 @@ namespace Packages.me.martindevans.myriad_unity_integration.Editor.World
         {
             using (new EditorGUILayout.VerticalScope(_expanded ? Styles.ContentOutline : GUIStyle.none))
             {
+                var opts = new Header.HeaderOptions
+                {
+                    DetailMenu = new GenericMenu(),
+                };
+                opts.DetailMenu.AddItem(new GUIContent("Delete All"), false, () =>
+                {
+                    var cmd = _archetype.World.GetCommandBuffer();
+                    try
+                    {
+                        var entities = new List<Entity>();
+                        foreach (var archetypeEntity in _archetype.Entities)
+                            entities.Add(archetypeEntity);
+                        cmd.Delete(entities);
+                        cmd.Playback().Dispose();
+                    }
+                    finally
+                    {
+                        _archetype.World.ReturnCommandBuffer(cmd);
+                    }
+                });
+
                 var title = new GUIContent($"{unchecked((uint)_archetype.GetHashCode())} ({_archetype.EntityCount} entities)")
                 {
                     image = _archetype.IsPhantom ? EditorGUIUtility.IconContent("BuildSettings.Lumin On@2x").image : null,
                 };
 
-                _expanded = Header.Fold(title, _expanded);
+                _expanded = Header.Fold(title, _expanded, opts);
                 if (_expanded)
                 {
                     using (new EditorGUILayout.VerticalScope(Styles.LeftPadding))
