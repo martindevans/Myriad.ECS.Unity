@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Myriad.ECS.IDs;
 using Packages.me.martindevans.myriad_unity_integration.Runtime;
@@ -91,7 +92,7 @@ namespace Packages.me.martindevans.myriad_unity_integration.Editor.World
 
         private static bool MatchesFilter(ComponentID component, string filter)
         {
-            return (component.Type.FullName ?? component.Type.Name).Contains(filter);
+            return (component.Type.FullName ?? component.Type.Name).Contains(filter, StringComparison.InvariantCultureIgnoreCase);
         }
 
         public IEnumerable<SerializedProperty> GetChildProperties()

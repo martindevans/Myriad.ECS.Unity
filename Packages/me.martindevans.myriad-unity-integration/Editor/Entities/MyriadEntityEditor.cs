@@ -63,11 +63,11 @@ namespace Packages.me.martindevans.myriad_unity_integration.Editor.Entities
             }
             else
             {
-                var id = _entity.Entity.Value.UniqueID().ToString();
+                var id = _entity.Entity.Value;
 
-                var display = id;
-                if (_entity.HasMyriadComponent<DebugDisplayName>())
-                    display = $"{id} ({_entity.GetMyriadComponent<DebugDisplayName>().Name})";
+                var display = _entity.HasMyriadComponent<DebugDisplayName>()
+                    ? $"{id} ({_entity.GetMyriadComponent<DebugDisplayName>().Name})"
+                    : $"{id.UniqueID()} ({id.ToString()})";
 
                 EditorGUILayout.LabelField("ID", display);
             }

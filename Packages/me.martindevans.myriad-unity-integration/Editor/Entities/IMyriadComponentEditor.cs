@@ -65,11 +65,6 @@ namespace Packages.me.martindevans.myriad_unity_integration.Editor.Entities
 
     public interface IMyriadComponentEditor
     {
-        void Draw(MyriadEntity entity)
-        {
-            Draw(entity.Entity!.Value);
-        }
-
         void Draw(Entity entity);
     }
 
@@ -139,6 +134,8 @@ namespace Packages.me.martindevans.myriad_unity_integration.Editor.Entities
                 EditorGUILayout.LabelField(propInfo.Name, v?.ToString() ?? "null");
             }
         }
+
+
     }
 
     public class ComponentEditorHeaderWrapper

@@ -117,7 +117,7 @@ namespace Packages.me.martindevans.myriad_unity_integration.Editor.World
                     {
                         using (new EditorGUILayout.VerticalScope(Styles.ContentOutline))
                         {
-                            Header.Simple(new GUIContent($"{entitiesDrawer.Entity.UniqueID()}"));
+                            Header.Simple(new GUIContent($"{entitiesDrawer.Entity.UniqueID()} ({entitiesDrawer.Entity.ID})"));
                             using (new EditorGUILayout.VerticalScope(Styles.LeftPadding))
                                 entitiesDrawer.Draw();
                         }
