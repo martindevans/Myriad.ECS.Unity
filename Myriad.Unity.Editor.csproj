@@ -61,22 +61,22 @@
     <Analyzer Include="D:\Unity\6000.0.23f1\Editor\Data\Tools\Unity.SourceGenerators\Unity.UIToolkit.SourceGenerator.dll" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Packages\me.martindevans.myriad-unity-integration\Editor\Entities\MyriadEntityEditor.cs" />
+    <Compile Include="Packages\me.martindevans.myriad-unity-integration\Editor\World\EntityQueryComponent.cs" />
+    <Compile Include="Packages\me.martindevans.myriad-unity-integration\Editor\World\ISystemEditor.cs" />
+    <Compile Include="Packages\me.martindevans.myriad-unity-integration\Editor\Extensions\TypeExtensions.cs" />
+    <Compile Include="Packages\me.martindevans.myriad-unity-integration\Editor\Entities\IMyriadComponentEditor.cs" />
     <Compile Include="Packages\me.martindevans.myriad-unity-integration\Editor\World\BaseWorldSystemGroupEditor.cs" />
     <Compile Include="Packages\me.martindevans.myriad-unity-integration\Editor\World\ArchetypeDrawer.cs" />
     <Compile Include="Packages\me.martindevans.myriad-unity-integration\Editor\World\GameTimeWorldSystemGroupEditor.cs" />
-    <Compile Include="Packages\me.martindevans.myriad-unity-integration\Editor\Entities\MyriadEntityEditor.cs" />
     <Compile Include="Packages\me.martindevans.myriad-unity-integration\Editor\World\SimulationHostEditor.cs" />
     <Compile Include="Packages\me.martindevans.myriad-unity-integration\Editor\World\GameTimeWorldHostEditor.cs" />
     <Compile Include="Packages\me.martindevans.myriad-unity-integration\Editor\UIComponents\FieldValueLabel.cs" />
     <Compile Include="Packages\me.martindevans.myriad-unity-integration\Editor\SystemEditorHelper.cs" />
-    <Compile Include="Packages\me.martindevans.myriad-unity-integration\Editor\World\EntityQueryComponent.cs" />
-    <Compile Include="Packages\me.martindevans.myriad-unity-integration\Editor\World\ISystemEditor.cs" />
     <Compile Include="Packages\me.martindevans.myriad-unity-integration\Editor\World\SystemListDisplay.cs" />
     <Compile Include="Packages\me.martindevans.myriad-unity-integration\Editor\SystemGroupDrawer.cs" />
-    <Compile Include="Packages\me.martindevans.myriad-unity-integration\Editor\Extensions\TypeExtensions.cs" />
     <Compile Include="Packages\me.martindevans.myriad-unity-integration\Editor\World\WorldStatsDisplay.cs" />
     <Compile Include="Packages\me.martindevans.myriad-unity-integration\Editor\World\ArchetypeListDisplay.cs" />
-    <Compile Include="Packages\me.martindevans.myriad-unity-integration\Editor\Entities\IMyriadComponentEditor.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Packages\me.martindevans.myriad-unity-integration\Editor\Myriad.Unity.Editor.asmdef" />
@@ -562,6 +562,14 @@
       <HintPath>D:\Unity\6000.0.23f1\Editor\Data\PlaybackEngines\WindowsStandaloneSupport\UnityEditor.WindowsStandalone.Extensions.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="Myriad.ECS">
+      <HintPath>Assets\Packages\Myriad.ECS.40.4.0\lib\netstandard2.1\Myriad.ECS.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Unity.Collections.LowLevel.ILSupport">
+      <HintPath>Library\PackageCache\com.unity.collections\Unity.Collections.LowLevel.ILSupport\Unity.Collections.LowLevel.ILSupport.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
     <Reference Include="nunit.framework">
       <HintPath>Library\PackageCache\com.unity.ext.nunit\net40\unity-custom\nunit.framework.dll</HintPath>
       <Private>False</Private>
@@ -570,12 +578,16 @@
       <HintPath>Library\PackageCache\com.unity.testtools.codecoverage\lib\ReportGenerator\ReportGeneratorMerged.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="Myriad.ECS">
-      <HintPath>Assets\Packages\Myriad.ECS.39.5.0\lib\netstandard2.1\Myriad.ECS.dll</HintPath>
+    <Reference Include="System.IO.Hashing">
+      <HintPath>Library\PackageCache\com.unity.collections\Unity.Collections.Tests\System.IO.Hashing\System.IO.Hashing.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="NuGetForUnity.PluginAPI">
       <HintPath>Library\PackageCache\com.github-glitchenzo.nugetforunity\Editor\PluginAPI\NuGetForUnity.PluginAPI.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Mono.Cecil">
+      <HintPath>Library\PackageCache\com.unity.nuget.mono-cecil\Mono.Cecil.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="System.Runtime.CompilerServices.Unsafe">
@@ -1094,12 +1106,12 @@
       <HintPath>Library\ScriptAssemblies\UnityEngine.UI.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="UnityEditor.TestRunner">
-      <HintPath>Library\ScriptAssemblies\UnityEditor.TestRunner.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
     <Reference Include="UnityEngine.TestRunner">
       <HintPath>Library\ScriptAssemblies\UnityEngine.TestRunner.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UnityEditor.TestRunner">
+      <HintPath>Library\ScriptAssemblies\UnityEditor.TestRunner.dll</HintPath>
       <Private>False</Private>
     </Reference>
   </ItemGroup>

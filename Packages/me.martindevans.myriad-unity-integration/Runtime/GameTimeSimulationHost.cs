@@ -30,7 +30,8 @@ namespace Packages.me.martindevans.myriad_unity_integration.Runtime
 
         protected virtual WorldBuilder GetBuilder()
         {
-            return new WorldBuilder();
+            return new WorldBuilder()
+               .WithSafetySystem(new UnityMyriadSafetySystemAdapter());
         }
 
         protected override GameTime GetData()
