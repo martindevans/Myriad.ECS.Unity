@@ -1,0 +1,279 @@
+<#@ template debug="false" hostspecific="false" language="C#" #>
+<#@ assembly name="System.Core" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Text" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ output extension=".cs" #>
+<#
+    const int PARAM_COUNT = 16;
+#>
+using System;
+using Myriad.ECS.Queries;
+using System.Runtime.InteropServices;
+using JetBrains.Annotations;
+using Packages.me.martindevans.myriad_unity_integration.Runtime;
+using Unity.Collections;
+using Unity.Collections.LowLevel.Unsafe;
+using Unity.Jobs;
+
+// ReSharper disable UnusedType.Global
+// ReSharper disable UnusedParameter.Global
+// ReSharper disable LoopCanBeConvertedToQuery
+// ReSharper disable CheckNamespace
+// ReSharper disable ArrangeAccessorOwnerBody
+
+namespace Myriad.ECS.Worlds
+{
+    public static class WorldJobExtensions
+    {
+        /// <summary>
+        /// A handle for a Unity job based Myriad query. <b>MUST</b> be waited on at least once for correctness!
+        /// </summary>
+        public struct QueryJobHandle
+            : IDisposable
+        {
+            private JobHandle _jobHandle;
+            private NativeList<GCHandle> _pins;
+
+            public bool IsCompleted => _jobHandle.IsCompleted;
+
+            public JobHandle Handle => _jobHandle;
+
+            internal QueryJobHandle(JobHandle handle, NativeList<GCHandle> pins)
+            {
+                _jobHandle = handle;
+                _pins = pins;
+            }
+
+            public void Complete()
+            {
+                _jobHandle.Complete();
+
+                if (_pins.IsCreated)
+                {
+                    for (var i = 0; i < _pins.Length; i++)
+                        _pins[i].Free();
+                    _pins.Dispose();
+                }
+            }
+
+            public void Dispose()
+            {
+                Complete();
+            }
+        }
+
+        public ref struct JobChunkHandle
+        {
+            private readonly ChunkHandle _handle;
+            private NativeList<GCHandle> _pins;
+
+            public int EntityCount => _handle.EntityCount;
+
+            public JobChunkHandle(ChunkHandle handle, NativeList<GCHandle> pins)
+            {
+                _handle = handle;
+                _pins = pins;
+            }
+
+            /// <summary>Test if this chunk contains a specific component</summary>
+            /// <typeparam name="T">Component type</typeparam>
+            /// <returns></returns>
+            public bool HasComponent<T>()
+                where T : IComponent
+            {
+                return _handle.HasComponent<T>();
+            }
+
+            /// <summary>
+            /// Get a native array with a view of component data that can be passed into a job.
+            /// Array will automatically be disposed after job is complete
+            /// </summary>
+            /// <typeparam name="T"></typeparam>
+            /// <returns></returns>
+            public NativeArray<T> GetComponentArray<T>()
+                where T : struct, IComponent
+            {
+                // Pin array for component
+                var array = _handle.Danger().GetComponentArray<T>();
+                var pin = GCHandle.Alloc(array, GCHandleType.Pinned);
+                _pins.Add(pin);
+
+                unsafe
+                {
+                    // Wrap as native array
+                    var nArray = NativeArrayUnsafeUtility.ConvertExistingDataToNativeArray<T>(
+                        (void*)pin.AddrOfPinnedObject(), _handle.EntityCount, Allocator.None
+                    );
+
+#if ENABLE_UNITY_COLLECTIONS_CHECKS
+                    NativeArrayUnsafeUtility.SetAtomicSafetyHandle(
+                        ref nArray,
+                        AtomicSafetyHandle.Create()
+                    );
+#endif
+
+                    return nArray;
+                }
+            }
+        }
+
+<# for (var i = 1; i <= PARAM_COUNT; i++)
+{
+        var queryConstraints = string.Join(", ", Enumerable.Range(0, i).Select(x => "T" + x));
+#>
+        public interface IJobQueryScheduler<<#= queryConstraints #>>
+            <#= Constraints(i, 12) #>
+        {
+            JobHandle Schedule(
+                JobChunkHandle chunk,
+<# for (var j = 0; j < i; j++) { #>
+                NativeArray<T<#= j #>> t<#= j #>,
+<# } #>
+                JobHandle dependsOn
+            );
+        }
+
+        private struct JobQuery<TScheduler, <#= queryConstraints #>>
+            : IChunkQuery<<#= queryConstraints #>>
+            <#= Constraints(i, 12) #>
+            where TScheduler : IJobQueryScheduler<<#= queryConstraints #>>
+        {
+            private readonly TScheduler _scheduler;
+            private readonly UnityMyriadSafetySystemAdapter _safety;
+            private readonly JobHandle _dependsOn;
+
+            private NativeReference<JobHandle> _handle;
+
+#pragma warning disable IDE0044
+            private NativeList<GCHandle> _pins;
+#pragma warning restore IDE0044
+
+            public JobQuery(TScheduler scheduler, UnityMyriadSafetySystemAdapter safety, JobHandle dependsOn, NativeReference<JobHandle> handle, NativeList<GCHandle> pins)
+            {
+                _scheduler = scheduler;
+                _safety = safety;
+                _dependsOn = dependsOn;
+
+                _handle = handle;
+                _pins = pins;
+            }
+
+            public void Execute(
+                ChunkHandle chunk,
+<# for (var j = 0; j < i; j++) { #>
+                Span<T<#= j #>> t<#= j #><#= j < (i - 1) ? "," : "" #>
+<# } #>
+            )
+            {
+                // Early out if there's no work to do
+                var entityCount = chunk.EntityCount;
+                if (entityCount == 0)
+                    return;
+
+                // Wrap chunk handle
+                var jobChunkHandle = new JobChunkHandle(chunk, _pins);
+
+                // Get components arrays
+<# for (var j = 0; j < i; j++) { #>
+                var nArray<#= j #> = jobChunkHandle.GetComponentArray<T<#= j #>>();
+<# } #>
+
+                // Call user code to schedule a job
+                var jHandle = _scheduler.Schedule(
+                    jobChunkHandle,
+<# for (var j = 0; j < i; j++) { #>
+                    nArray<#= j #>,
+<# } #>
+                    JobHandle.CombineDependencies(
+                        _dependsOn,
+                        _safety.GetAttachedJob(chunk.Archetype.ArchetypeId)
+                    )
+                );
+
+                // Dispose the auto arrays
+<# for (var j = 0; j < i; j++) { #>
+                jHandle = nArray<#= j #>.Dispose(jHandle);
+<# } #>
+
+                // Chain this handle with all the others generated for other chunks
+                _handle.Value = JobHandle.CombineDependencies(_handle.Value, jHandle);
+            }
+        }
+
+        /// <summary>
+        /// Schedule jobs to run over component data. Different jobs can be scheduled per chunk, this is controlled
+        /// through the <see cref="TScheduler"/> struct.
+        /// 
+        /// Note that the Unity safety system does <b>NOT</b> apply to the data here, if two different queries are
+        /// scheduled they may both access the same data in parallel and cause serious issues. it's up to the caller
+        /// to ensure this does not happen!
+        /// </summary>
+        /// <typeparam name="TScheduler">Schedules jobs for chunks</typeparam>
+<# for (var j = 0; j < i; j++) { #>
+        /// <typeparam name="T<#= j #>"></typeparam>
+<# } #>
+        /// <param name="world"></param>
+        /// <param name="sched"></param>
+        /// <param name="query"></param>
+        /// <param name="dependsOn"></param>
+        /// <returns>Combined job handle of all chunk jobs</returns>
+        public static QueryJobHandle Schedule<TScheduler, <#= queryConstraints #>>(this World world, TScheduler sched, [CanBeNull] ref QueryDescription query, JobHandle dependsOn = default)
+            where TScheduler : IJobQueryScheduler<<#= queryConstraints #>>
+            <#= Constraints(i, 12) #>
+        {
+            query ??= world.GetCachedQuery<<#= queryConstraints #>>();
+
+            var chunkCount = query.CountChunks();
+            if (chunkCount == 0)
+                return default;
+
+            // Get the safety system
+            var safety = (UnityMyriadSafetySystemAdapter)world.LockManager;
+
+            // Create collections to accumulate things we'll need to clean up afterwards
+            var pins = new NativeList<GCHandle>(chunkCount * <#= i #>, Allocator.TempJob);
+            var handle = new NativeReference<JobHandle>(default, Allocator.TempJob);
+
+            // Execute standard Myriad.ECS query which will schedule a job per chunk
+            world.ExecuteChunk<
+                JobQuery<TScheduler, <#= queryConstraints #>>,
+                <#= queryConstraints #>
+            >(new JobQuery<TScheduler, <#= queryConstraints #>>(sched, safety, dependsOn, handle, pins));
+
+            // Ensure all jobs are started before we wait on them
+            JobHandle.ScheduleBatchedJobs();
+
+            // Take the handle
+            var jobHandle = handle.Value;
+            handle.Dispose();
+
+            return new QueryJobHandle(jobHandle, pins);
+        }
+<# } #>
+    }
+}
+
+
+<#+ 
+    static string CoverageAttribute(int index)
+	{
+		if (index < 4)
+			return "";
+		return "[ExcludeFromCodeCoverage]";
+	}
+
+    static string Constraints(int count, int spaces = 4)
+    {
+        if (count == 0)
+            return "";
+
+        var prefix = new string(' ', spaces);
+        var str = "where " + string.Join(
+            $"\r\n{prefix}where ",
+            Enumerable.Range(0, count).Select(x => $"T{x} : struct, IComponent")
+        );
+
+        return str;
+    }
+#>

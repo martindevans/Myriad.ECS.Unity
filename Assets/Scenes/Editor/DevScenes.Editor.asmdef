@@ -1,0 +1,20 @@
+{
+    "name": "DevScenes.Editor",
+    "rootNamespace": "",
+    "references": [
+        "GUID:188cfc6c3dfb168419c4994c6fffd39a",
+        "GUID:accbe837cd2fb4943979d47c5ce56275",
+        "GUID:44fce5119b5475f47abee7b97dd9cfbf",
+        "GUID:dd0f4ba0ceb2ed04391de9e01fda6642",
+        "GUID:d611460ef38a65541a1166751330cb1b"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

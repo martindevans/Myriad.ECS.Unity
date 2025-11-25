@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: 4c12663eada24cc44aedf4087886497c
+ScriptedImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 2
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+  script: {fileID: 11500000, guid: a5a7145f8d02420daa711354ca837e5d, type: 3}
+  generationTriggers: 2
+  triggerDelay: 500
+  generationOutput: 0
+  outputPath: 
+  watchedAssets:
+  - Assets/Scenes/JobSystem/test.t4
