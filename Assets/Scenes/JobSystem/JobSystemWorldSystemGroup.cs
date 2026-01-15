@@ -21,7 +21,9 @@ namespace Assets.Scenes.JobSystem
             var cmd = world.World.GetCommandBuffer();
             for (var i = 0; i < Count; i++)
             {
-                var eb = cmd.Create().Set(new DemoComponent());
+                var eb = cmd.Create()
+                            .Set(new DemoComponent())
+                            .Set(new GenericDemoComponent<ulong>());
 
                 if (rng.NextDouble() < 0.2)
                     eb.Set(new GenericDemoComponent<int>());
@@ -40,7 +42,8 @@ namespace Assets.Scenes.JobSystem
             return new SystemGroup<GameTime>(
                 "test",
                 new DoStuffBasic(world.World),
-                new DoStuffInJob(world.World)
+                new DoStuffInJob(world.World),
+                new DoStuffBasic(world.World)
             );
         }
     }
@@ -65,11 +68,12 @@ namespace Assets.Scenes.JobSystem
     }
 
     public class DoStuffInJob
-        : ISystem<GameTime>
+        : ISystem<GameTime>, IDisposable
     {
         private readonly World _world;
 
         private QueryDescription _query;
+        private WorldJobExtensions.QueryJobHandle _handle;
 
         public DoStuffInJob(World world)
         {
@@ -77,20 +81,15 @@ namespace Assets.Scenes.JobSystem
             _query = new QueryBuilder().Include<DemoComponent>().Build(world);
         }
 
+        public void Dispose()
+        {
+            _handle.Dispose();
+        }
+
         public void Update(GameTime data)
         {
-            using var handle = _world.Schedule<JobScheduler, DemoComponent>(new JobScheduler(), ref _query);
-            handle.Complete();
-
-            // It's safe to wait on the handle multiple times
-            handle.Handle.Complete();
-            handle.Complete();
-            // ReSharper disable once DisposeOnUsingVariable
-            handle.Dispose();
-            handle.Handle.Complete();
-            handle.Complete();
-            // ReSharper disable once DisposeOnUsingVariable
-            handle.Dispose();
+            _handle.Complete();
+            _handle = _world.Schedule<JobScheduler, DemoComponent>(new JobScheduler(), ref _query);
         }
 
         private struct JobScheduler
@@ -98,7 +97,11 @@ namespace Assets.Scenes.JobSystem
         {
             public JobHandle Schedule(WorldJobExtensions.JobChunkHandle chunk, NativeArray<DemoComponent> t0, JobHandle dependsOn)
             {
-                return new JobWork(t0).Schedule(t0.Length, 32, dependsOn);
+                var arr = chunk.GetComponentArray<GenericDemoComponent<ulong>>();
+
+                dependsOn = new JobWork(t0).Schedule(t0.Length, 32, dependsOn);
+
+                return dependsOn;
             }
         }
 

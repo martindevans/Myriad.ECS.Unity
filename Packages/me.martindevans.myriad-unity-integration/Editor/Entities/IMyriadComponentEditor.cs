@@ -6,7 +6,6 @@ using JetBrains.Annotations;
 using Myriad.ECS;
 using Myriad.ECS.IDs;
 using Packages.me.martindevans.myriad_unity_integration.Editor.Extensions;
-using Packages.me.martindevans.myriad_unity_integration.Runtime.Components;
 using Placeholder.Editor.UI.Editor.Helpers;
 using Placeholder.Editor.UI.Editor.Style;
 using UnityEditor;

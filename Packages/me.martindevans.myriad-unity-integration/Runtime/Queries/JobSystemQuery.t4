@@ -29,11 +29,18 @@ namespace Myriad.ECS.Worlds
         /// <summary>
         /// A handle for a Unity job based Myriad query. <b>MUST</b> be waited on at least once for correctness!
         /// </summary>
+        [MustDisposeResource]
         public struct QueryJobHandle
             : IDisposable
         {
             private JobHandle _jobHandle;
             private NativeList<GCHandle> _pins;
+
+#if ENABLE_UNITY_COLLECTIONS_CHECKS
+            private AtomicSafetyHandle _safety;
+            private DisposeSentinel _dispose;
+#endif
+
 
             public bool IsCompleted => _jobHandle.IsCompleted;
 
@@ -43,10 +50,23 @@ namespace Myriad.ECS.Worlds
             {
                 _jobHandle = handle;
                 _pins = pins;
+
+#if ENABLE_UNITY_COLLECTIONS_CHECKS
+                DisposeSentinel.Create(out _safety, out _dispose, 32, Allocator.Persistent);
+#endif
             }
 
             public void Complete()
             {
+#if ENABLE_UNITY_COLLECTIONS_CHECKS
+                if (_dispose != null)
+                {
+                    DisposeSentinel.Dispose(ref _safety, ref _dispose);
+                    _dispose = null;
+                    _safety = default;
+                }
+#endif
+
                 _jobHandle.Complete();
 
                 if (_pins.IsCreated)
@@ -63,14 +83,20 @@ namespace Myriad.ECS.Worlds
             }
         }
 
+        /// <summary>
+        /// Provides access to chunk data in a job safe wat
+        /// </summary>
         public ref struct JobChunkHandle
         {
             private readonly ChunkHandle _handle;
             private NativeList<GCHandle> _pins;
 
+            /// <summary>
+            /// Get the number of entities in this chunk
+            /// </summary>
             public int EntityCount => _handle.EntityCount;
 
-            public JobChunkHandle(ChunkHandle handle, NativeList<GCHandle> pins)
+            internal JobChunkHandle(ChunkHandle handle, NativeList<GCHandle> pins)
             {
                 _handle = handle;
                 _pins = pins;
@@ -87,7 +113,7 @@ namespace Myriad.ECS.Worlds
 
             /// <summary>
             /// Get a native array with a view of component data that can be passed into a job.
-            /// Array will automatically be disposed after job is complete
+            /// <b>Arrays retrieved through this method must be disposed!</b>
             /// </summary>
             /// <typeparam name="T"></typeparam>
             /// <returns></returns>
@@ -122,9 +148,17 @@ namespace Myriad.ECS.Worlds
 {
         var queryConstraints = string.Join(", ", Enumerable.Range(0, i).Select(x => "T" + x));
 #>
+        
+        /// <summary>
+        /// Given a chunk handle and all of the component arrays requested by the query
+        /// type, schedules a job to process this chunk.
+        /// </summary>
         public interface IJobQueryScheduler<<#= queryConstraints #>>
             <#= Constraints(i, 12) #>
         {
+            /// <summary>
+            /// Schedule a job to process the given chunk
+            /// </summary>
             JobHandle Schedule(
                 JobChunkHandle chunk,
 <# for (var j = 0; j < i; j++) { #>
@@ -205,9 +239,9 @@ namespace Myriad.ECS.Worlds
         /// Schedule jobs to run over component data. Different jobs can be scheduled per chunk, this is controlled
         /// through the <see cref="TScheduler"/> struct.
         /// 
-        /// Note that the Unity safety system does <b>NOT</b> apply to the data here, if two different queries are
-        /// scheduled they may both access the same data in parallel and cause serious issues. it's up to the caller
-        /// to ensure this does not happen!
+        /// Access to chunk data is managed through the Unity safety system. If two job queries are scheduled that
+        /// touch the same Archetypes, the second will implicitly depends on the first. Normal Myriad queries will
+        /// block on any jobs which touch archetypes they access.
         /// </summary>
         /// <typeparam name="TScheduler">Schedules jobs for chunks</typeparam>
 <# for (var j = 0; j < i; j++) { #>

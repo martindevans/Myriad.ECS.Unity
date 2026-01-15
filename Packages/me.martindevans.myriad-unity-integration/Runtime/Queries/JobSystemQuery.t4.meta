@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 4c12663eada24cc44aedf4087886497c
+guid: 738c88b6c40c97f428b2912f6ca838bd
 ScriptedImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -13,4 +13,4 @@ ScriptedImporter:
   generationOutput: 0
   outputPath: 
   watchedAssets:
-  - Assets/Scenes/JobSystem/test.t4
+  - Packages/me.martindevans.myriad-unity-integration/Runtime/Queries/JobSystemQuery.t4

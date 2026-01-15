@@ -71,6 +71,7 @@
     <Compile Include="Packages\me.martindevans.myriad-unity-integration\Runtime\Systems\UnityMyriadSystemGroup.cs" />
     <Compile Include="Packages\me.martindevans.myriad-unity-integration\Runtime\Components\MyriadEntity.cs" />
     <Compile Include="Packages\me.martindevans.myriad-unity-integration\Runtime\Extensions\CommandBufferExtensions.cs" />
+    <Compile Include="Packages\me.martindevans.myriad-unity-integration\Runtime\Queries\JobSystemQuery.cs" />
     <Compile Include="Packages\me.martindevans.myriad-unity-integration\Runtime\Systems\MyriadEntityBindingSystem.cs" />
     <Compile Include="Packages\me.martindevans.myriad-unity-integration\Runtime\Extensions\GameObjectExtensions.cs" />
     <Compile Include="Packages\me.martindevans.myriad-unity-integration\Runtime\Components\IBehaviourComponent.cs" />
@@ -551,10 +552,6 @@
       <HintPath>D:\Unity\6000.0.23f1\Editor\Data\PlaybackEngines\WindowsStandaloneSupport\UnityEditor.WindowsStandalone.Extensions.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="Myriad.ECS">
-      <HintPath>Assets\Packages\Myriad.ECS.40.4.0\lib\netstandard2.1\Myriad.ECS.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
     <Reference Include="Unity.Collections.LowLevel.ILSupport">
       <HintPath>Library\PackageCache\com.unity.collections\Unity.Collections.LowLevel.ILSupport\Unity.Collections.LowLevel.ILSupport.dll</HintPath>
       <Private>False</Private>
@@ -581,6 +578,10 @@
     </Reference>
     <Reference Include="System.Runtime.CompilerServices.Unsafe">
       <HintPath>Assets\Packages\System.Runtime.CompilerServices.Unsafe.6.1.2\lib\netstandard2.0\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Myriad.ECS">
+      <HintPath>Assets\Packages\Myriad.ECS.40.4.1\lib\netstandard2.1\Myriad.ECS.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="netstandard">
@@ -1069,6 +1070,10 @@
     </Reference>
     <Reference Include="System.Xml.Serialization">
       <HintPath>D:\Unity\6000.0.23f1\Editor\Data\NetStandard\compat\2.1.0\shims\netfx\System.Xml.Serialization.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Unity.Collections">
+      <HintPath>Library\ScriptAssemblies\Unity.Collections.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="UnityEditor.UI">

@@ -5,11 +5,18 @@ using Unity.Jobs;
 
 namespace Packages.me.martindevans.myriad_unity_integration.Runtime
 {
+    /// <summary>
+    /// Stores a handle for each archetype. Allowing blocking on work using that archetype.
+    /// </summary>
     public class UnityMyriadSafetySystemAdapter
         : IWorldArchetypeSafetyManager
     {
         private readonly Dictionary<long, JobHandle> _handles = new();
 
+        /// <summary>
+        /// Block on the job handle for this archetype
+        /// </summary>
+        /// <param name="archetype"></param>
         public void Block(Archetype archetype)
         {
             if (_handles.Remove(archetype.ArchetypeId, out var handle))

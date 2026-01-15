@@ -20,11 +20,18 @@ namespace Myriad.ECS.Worlds
         /// <summary>
         /// A handle for a Unity job based Myriad query. <b>MUST</b> be waited on at least once for correctness!
         /// </summary>
+        [MustDisposeResource]
         public struct QueryJobHandle
             : IDisposable
         {
             private JobHandle _jobHandle;
             private NativeList<GCHandle> _pins;
+
+#if ENABLE_UNITY_COLLECTIONS_CHECKS
+            private AtomicSafetyHandle _safety;
+            private DisposeSentinel _dispose;
+#endif
+
 
             public bool IsCompleted => _jobHandle.IsCompleted;
 
@@ -34,10 +41,23 @@ namespace Myriad.ECS.Worlds
             {
                 _jobHandle = handle;
                 _pins = pins;
+
+#if ENABLE_UNITY_COLLECTIONS_CHECKS
+                DisposeSentinel.Create(out _safety, out _dispose, 32, Allocator.Persistent);
+#endif
             }
 
             public void Complete()
             {
+#if ENABLE_UNITY_COLLECTIONS_CHECKS
+                if (_dispose != null)
+                {
+                    DisposeSentinel.Dispose(ref _safety, ref _dispose);
+                    _dispose = null;
+                    _safety = default;
+                }
+#endif
+
                 _jobHandle.Complete();
 
                 if (_pins.IsCreated)
@@ -54,14 +74,20 @@ namespace Myriad.ECS.Worlds
             }
         }
 
+        /// <summary>
+        /// Provides access to chunk data in a job safe wat
+        /// </summary>
         public ref struct JobChunkHandle
         {
             private readonly ChunkHandle _handle;
             private NativeList<GCHandle> _pins;
 
+            /// <summary>
+            /// Get the number of entities in this chunk
+            /// </summary>
             public int EntityCount => _handle.EntityCount;
 
-            public JobChunkHandle(ChunkHandle handle, NativeList<GCHandle> pins)
+            internal JobChunkHandle(ChunkHandle handle, NativeList<GCHandle> pins)
             {
                 _handle = handle;
                 _pins = pins;
@@ -78,7 +104,7 @@ namespace Myriad.ECS.Worlds
 
             /// <summary>
             /// Get a native array with a view of component data that can be passed into a job.
-            /// Array will automatically be disposed after job is complete
+            /// <b>Arrays retrieved through this method must be disposed!</b>
             /// </summary>
             /// <typeparam name="T"></typeparam>
             /// <returns></returns>
@@ -109,9 +135,17 @@ namespace Myriad.ECS.Worlds
             }
         }
 
+        
+        /// <summary>
+        /// Given a chunk handle and all of the component arrays requested by the query
+        /// type, schedules a job to process this chunk.
+        /// </summary>
         public interface IJobQueryScheduler<T0>
             where T0 : struct, IComponent
         {
+            /// <summary>
+            /// Schedule a job to process the given chunk
+            /// </summary>
             JobHandle Schedule(
                 JobChunkHandle chunk,
                 NativeArray<T0> t0,
@@ -182,9 +216,9 @@ namespace Myriad.ECS.Worlds
         /// Schedule jobs to run over component data. Different jobs can be scheduled per chunk, this is controlled
         /// through the <see cref="TScheduler"/> struct.
         /// 
-        /// Note that the Unity safety system does <b>NOT</b> apply to the data here, if two different queries are
-        /// scheduled they may both access the same data in parallel and cause serious issues. it's up to the caller
-        /// to ensure this does not happen!
+        /// Access to chunk data is managed through the Unity safety system. If two job queries are scheduled that
+        /// touch the same Archetypes, the second will implicitly depends on the first. Normal Myriad queries will
+        /// block on any jobs which touch archetypes they access.
         /// </summary>
         /// <typeparam name="TScheduler">Schedules jobs for chunks</typeparam>
         /// <typeparam name="T0"></typeparam>
@@ -225,12 +259,18 @@ namespace Myriad.ECS.Worlds
 
             return new QueryJobHandle(jobHandle, pins);
         }
-
-        // proof x
+        
+        /// <summary>
+        /// Given a chunk handle and all of the component arrays requested by the query
+        /// type, schedules a job to process this chunk.
+        /// </summary>
         public interface IJobQueryScheduler<T0, T1>
             where T0 : struct, IComponent
             where T1 : struct, IComponent
         {
+            /// <summary>
+            /// Schedule a job to process the given chunk
+            /// </summary>
             JobHandle Schedule(
                 JobChunkHandle chunk,
                 NativeArray<T0> t0,
@@ -307,9 +347,9 @@ namespace Myriad.ECS.Worlds
         /// Schedule jobs to run over component data. Different jobs can be scheduled per chunk, this is controlled
         /// through the <see cref="TScheduler"/> struct.
         /// 
-        /// Note that the Unity safety system does <b>NOT</b> apply to the data here, if two different queries are
-        /// scheduled they may both access the same data in parallel and cause serious issues. it's up to the caller
-        /// to ensure this does not happen!
+        /// Access to chunk data is managed through the Unity safety system. If two job queries are scheduled that
+        /// touch the same Archetypes, the second will implicitly depends on the first. Normal Myriad queries will
+        /// block on any jobs which touch archetypes they access.
         /// </summary>
         /// <typeparam name="TScheduler">Schedules jobs for chunks</typeparam>
         /// <typeparam name="T0"></typeparam>
@@ -352,13 +392,19 @@ namespace Myriad.ECS.Worlds
 
             return new QueryJobHandle(jobHandle, pins);
         }
-
-        // proof x
+        
+        /// <summary>
+        /// Given a chunk handle and all of the component arrays requested by the query
+        /// type, schedules a job to process this chunk.
+        /// </summary>
         public interface IJobQueryScheduler<T0, T1, T2>
             where T0 : struct, IComponent
             where T1 : struct, IComponent
             where T2 : struct, IComponent
         {
+            /// <summary>
+            /// Schedule a job to process the given chunk
+            /// </summary>
             JobHandle Schedule(
                 JobChunkHandle chunk,
                 NativeArray<T0> t0,
@@ -441,9 +487,9 @@ namespace Myriad.ECS.Worlds
         /// Schedule jobs to run over component data. Different jobs can be scheduled per chunk, this is controlled
         /// through the <see cref="TScheduler"/> struct.
         /// 
-        /// Note that the Unity safety system does <b>NOT</b> apply to the data here, if two different queries are
-        /// scheduled they may both access the same data in parallel and cause serious issues. it's up to the caller
-        /// to ensure this does not happen!
+        /// Access to chunk data is managed through the Unity safety system. If two job queries are scheduled that
+        /// touch the same Archetypes, the second will implicitly depends on the first. Normal Myriad queries will
+        /// block on any jobs which touch archetypes they access.
         /// </summary>
         /// <typeparam name="TScheduler">Schedules jobs for chunks</typeparam>
         /// <typeparam name="T0"></typeparam>
@@ -488,14 +534,20 @@ namespace Myriad.ECS.Worlds
 
             return new QueryJobHandle(jobHandle, pins);
         }
-
-        // proof x
+        
+        /// <summary>
+        /// Given a chunk handle and all of the component arrays requested by the query
+        /// type, schedules a job to process this chunk.
+        /// </summary>
         public interface IJobQueryScheduler<T0, T1, T2, T3>
             where T0 : struct, IComponent
             where T1 : struct, IComponent
             where T2 : struct, IComponent
             where T3 : struct, IComponent
         {
+            /// <summary>
+            /// Schedule a job to process the given chunk
+            /// </summary>
             JobHandle Schedule(
                 JobChunkHandle chunk,
                 NativeArray<T0> t0,
@@ -584,9 +636,9 @@ namespace Myriad.ECS.Worlds
         /// Schedule jobs to run over component data. Different jobs can be scheduled per chunk, this is controlled
         /// through the <see cref="TScheduler"/> struct.
         /// 
-        /// Note that the Unity safety system does <b>NOT</b> apply to the data here, if two different queries are
-        /// scheduled they may both access the same data in parallel and cause serious issues. it's up to the caller
-        /// to ensure this does not happen!
+        /// Access to chunk data is managed through the Unity safety system. If two job queries are scheduled that
+        /// touch the same Archetypes, the second will implicitly depends on the first. Normal Myriad queries will
+        /// block on any jobs which touch archetypes they access.
         /// </summary>
         /// <typeparam name="TScheduler">Schedules jobs for chunks</typeparam>
         /// <typeparam name="T0"></typeparam>
@@ -633,8 +685,11 @@ namespace Myriad.ECS.Worlds
 
             return new QueryJobHandle(jobHandle, pins);
         }
-
-        // proof x
+        
+        /// <summary>
+        /// Given a chunk handle and all of the component arrays requested by the query
+        /// type, schedules a job to process this chunk.
+        /// </summary>
         public interface IJobQueryScheduler<T0, T1, T2, T3, T4>
             where T0 : struct, IComponent
             where T1 : struct, IComponent
@@ -642,6 +697,9 @@ namespace Myriad.ECS.Worlds
             where T3 : struct, IComponent
             where T4 : struct, IComponent
         {
+            /// <summary>
+            /// Schedule a job to process the given chunk
+            /// </summary>
             JobHandle Schedule(
                 JobChunkHandle chunk,
                 NativeArray<T0> t0,
@@ -736,9 +794,9 @@ namespace Myriad.ECS.Worlds
         /// Schedule jobs to run over component data. Different jobs can be scheduled per chunk, this is controlled
         /// through the <see cref="TScheduler"/> struct.
         /// 
-        /// Note that the Unity safety system does <b>NOT</b> apply to the data here, if two different queries are
-        /// scheduled they may both access the same data in parallel and cause serious issues. it's up to the caller
-        /// to ensure this does not happen!
+        /// Access to chunk data is managed through the Unity safety system. If two job queries are scheduled that
+        /// touch the same Archetypes, the second will implicitly depends on the first. Normal Myriad queries will
+        /// block on any jobs which touch archetypes they access.
         /// </summary>
         /// <typeparam name="TScheduler">Schedules jobs for chunks</typeparam>
         /// <typeparam name="T0"></typeparam>
@@ -787,8 +845,11 @@ namespace Myriad.ECS.Worlds
 
             return new QueryJobHandle(jobHandle, pins);
         }
-
-        // proof x
+        
+        /// <summary>
+        /// Given a chunk handle and all of the component arrays requested by the query
+        /// type, schedules a job to process this chunk.
+        /// </summary>
         public interface IJobQueryScheduler<T0, T1, T2, T3, T4, T5>
             where T0 : struct, IComponent
             where T1 : struct, IComponent
@@ -797,6 +858,9 @@ namespace Myriad.ECS.Worlds
             where T4 : struct, IComponent
             where T5 : struct, IComponent
         {
+            /// <summary>
+            /// Schedule a job to process the given chunk
+            /// </summary>
             JobHandle Schedule(
                 JobChunkHandle chunk,
                 NativeArray<T0> t0,
@@ -897,9 +961,9 @@ namespace Myriad.ECS.Worlds
         /// Schedule jobs to run over component data. Different jobs can be scheduled per chunk, this is controlled
         /// through the <see cref="TScheduler"/> struct.
         /// 
-        /// Note that the Unity safety system does <b>NOT</b> apply to the data here, if two different queries are
-        /// scheduled they may both access the same data in parallel and cause serious issues. it's up to the caller
-        /// to ensure this does not happen!
+        /// Access to chunk data is managed through the Unity safety system. If two job queries are scheduled that
+        /// touch the same Archetypes, the second will implicitly depends on the first. Normal Myriad queries will
+        /// block on any jobs which touch archetypes they access.
         /// </summary>
         /// <typeparam name="TScheduler">Schedules jobs for chunks</typeparam>
         /// <typeparam name="T0"></typeparam>
@@ -950,8 +1014,11 @@ namespace Myriad.ECS.Worlds
 
             return new QueryJobHandle(jobHandle, pins);
         }
-
-        // proof x
+        
+        /// <summary>
+        /// Given a chunk handle and all of the component arrays requested by the query
+        /// type, schedules a job to process this chunk.
+        /// </summary>
         public interface IJobQueryScheduler<T0, T1, T2, T3, T4, T5, T6>
             where T0 : struct, IComponent
             where T1 : struct, IComponent
@@ -961,6 +1028,9 @@ namespace Myriad.ECS.Worlds
             where T5 : struct, IComponent
             where T6 : struct, IComponent
         {
+            /// <summary>
+            /// Schedule a job to process the given chunk
+            /// </summary>
             JobHandle Schedule(
                 JobChunkHandle chunk,
                 NativeArray<T0> t0,
@@ -1067,9 +1137,9 @@ namespace Myriad.ECS.Worlds
         /// Schedule jobs to run over component data. Different jobs can be scheduled per chunk, this is controlled
         /// through the <see cref="TScheduler"/> struct.
         /// 
-        /// Note that the Unity safety system does <b>NOT</b> apply to the data here, if two different queries are
-        /// scheduled they may both access the same data in parallel and cause serious issues. it's up to the caller
-        /// to ensure this does not happen!
+        /// Access to chunk data is managed through the Unity safety system. If two job queries are scheduled that
+        /// touch the same Archetypes, the second will implicitly depends on the first. Normal Myriad queries will
+        /// block on any jobs which touch archetypes they access.
         /// </summary>
         /// <typeparam name="TScheduler">Schedules jobs for chunks</typeparam>
         /// <typeparam name="T0"></typeparam>
@@ -1122,8 +1192,11 @@ namespace Myriad.ECS.Worlds
 
             return new QueryJobHandle(jobHandle, pins);
         }
-
-        // proof x
+        
+        /// <summary>
+        /// Given a chunk handle and all of the component arrays requested by the query
+        /// type, schedules a job to process this chunk.
+        /// </summary>
         public interface IJobQueryScheduler<T0, T1, T2, T3, T4, T5, T6, T7>
             where T0 : struct, IComponent
             where T1 : struct, IComponent
@@ -1134,6 +1207,9 @@ namespace Myriad.ECS.Worlds
             where T6 : struct, IComponent
             where T7 : struct, IComponent
         {
+            /// <summary>
+            /// Schedule a job to process the given chunk
+            /// </summary>
             JobHandle Schedule(
                 JobChunkHandle chunk,
                 NativeArray<T0> t0,
@@ -1246,9 +1322,9 @@ namespace Myriad.ECS.Worlds
         /// Schedule jobs to run over component data. Different jobs can be scheduled per chunk, this is controlled
         /// through the <see cref="TScheduler"/> struct.
         /// 
-        /// Note that the Unity safety system does <b>NOT</b> apply to the data here, if two different queries are
-        /// scheduled they may both access the same data in parallel and cause serious issues. it's up to the caller
-        /// to ensure this does not happen!
+        /// Access to chunk data is managed through the Unity safety system. If two job queries are scheduled that
+        /// touch the same Archetypes, the second will implicitly depends on the first. Normal Myriad queries will
+        /// block on any jobs which touch archetypes they access.
         /// </summary>
         /// <typeparam name="TScheduler">Schedules jobs for chunks</typeparam>
         /// <typeparam name="T0"></typeparam>
@@ -1303,8 +1379,11 @@ namespace Myriad.ECS.Worlds
 
             return new QueryJobHandle(jobHandle, pins);
         }
-
-        // proof x
+        
+        /// <summary>
+        /// Given a chunk handle and all of the component arrays requested by the query
+        /// type, schedules a job to process this chunk.
+        /// </summary>
         public interface IJobQueryScheduler<T0, T1, T2, T3, T4, T5, T6, T7, T8>
             where T0 : struct, IComponent
             where T1 : struct, IComponent
@@ -1316,6 +1395,9 @@ namespace Myriad.ECS.Worlds
             where T7 : struct, IComponent
             where T8 : struct, IComponent
         {
+            /// <summary>
+            /// Schedule a job to process the given chunk
+            /// </summary>
             JobHandle Schedule(
                 JobChunkHandle chunk,
                 NativeArray<T0> t0,
@@ -1434,9 +1516,9 @@ namespace Myriad.ECS.Worlds
         /// Schedule jobs to run over component data. Different jobs can be scheduled per chunk, this is controlled
         /// through the <see cref="TScheduler"/> struct.
         /// 
-        /// Note that the Unity safety system does <b>NOT</b> apply to the data here, if two different queries are
-        /// scheduled they may both access the same data in parallel and cause serious issues. it's up to the caller
-        /// to ensure this does not happen!
+        /// Access to chunk data is managed through the Unity safety system. If two job queries are scheduled that
+        /// touch the same Archetypes, the second will implicitly depends on the first. Normal Myriad queries will
+        /// block on any jobs which touch archetypes they access.
         /// </summary>
         /// <typeparam name="TScheduler">Schedules jobs for chunks</typeparam>
         /// <typeparam name="T0"></typeparam>
@@ -1493,8 +1575,11 @@ namespace Myriad.ECS.Worlds
 
             return new QueryJobHandle(jobHandle, pins);
         }
-
-        // proof x
+        
+        /// <summary>
+        /// Given a chunk handle and all of the component arrays requested by the query
+        /// type, schedules a job to process this chunk.
+        /// </summary>
         public interface IJobQueryScheduler<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9>
             where T0 : struct, IComponent
             where T1 : struct, IComponent
@@ -1507,6 +1592,9 @@ namespace Myriad.ECS.Worlds
             where T8 : struct, IComponent
             where T9 : struct, IComponent
         {
+            /// <summary>
+            /// Schedule a job to process the given chunk
+            /// </summary>
             JobHandle Schedule(
                 JobChunkHandle chunk,
                 NativeArray<T0> t0,
@@ -1631,9 +1719,9 @@ namespace Myriad.ECS.Worlds
         /// Schedule jobs to run over component data. Different jobs can be scheduled per chunk, this is controlled
         /// through the <see cref="TScheduler"/> struct.
         /// 
-        /// Note that the Unity safety system does <b>NOT</b> apply to the data here, if two different queries are
-        /// scheduled they may both access the same data in parallel and cause serious issues. it's up to the caller
-        /// to ensure this does not happen!
+        /// Access to chunk data is managed through the Unity safety system. If two job queries are scheduled that
+        /// touch the same Archetypes, the second will implicitly depends on the first. Normal Myriad queries will
+        /// block on any jobs which touch archetypes they access.
         /// </summary>
         /// <typeparam name="TScheduler">Schedules jobs for chunks</typeparam>
         /// <typeparam name="T0"></typeparam>
@@ -1692,8 +1780,11 @@ namespace Myriad.ECS.Worlds
 
             return new QueryJobHandle(jobHandle, pins);
         }
-
-        // proof x
+        
+        /// <summary>
+        /// Given a chunk handle and all of the component arrays requested by the query
+        /// type, schedules a job to process this chunk.
+        /// </summary>
         public interface IJobQueryScheduler<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10>
             where T0 : struct, IComponent
             where T1 : struct, IComponent
@@ -1707,6 +1798,9 @@ namespace Myriad.ECS.Worlds
             where T9 : struct, IComponent
             where T10 : struct, IComponent
         {
+            /// <summary>
+            /// Schedule a job to process the given chunk
+            /// </summary>
             JobHandle Schedule(
                 JobChunkHandle chunk,
                 NativeArray<T0> t0,
@@ -1837,9 +1931,9 @@ namespace Myriad.ECS.Worlds
         /// Schedule jobs to run over component data. Different jobs can be scheduled per chunk, this is controlled
         /// through the <see cref="TScheduler"/> struct.
         /// 
-        /// Note that the Unity safety system does <b>NOT</b> apply to the data here, if two different queries are
-        /// scheduled they may both access the same data in parallel and cause serious issues. it's up to the caller
-        /// to ensure this does not happen!
+        /// Access to chunk data is managed through the Unity safety system. If two job queries are scheduled that
+        /// touch the same Archetypes, the second will implicitly depends on the first. Normal Myriad queries will
+        /// block on any jobs which touch archetypes they access.
         /// </summary>
         /// <typeparam name="TScheduler">Schedules jobs for chunks</typeparam>
         /// <typeparam name="T0"></typeparam>
@@ -1900,8 +1994,11 @@ namespace Myriad.ECS.Worlds
 
             return new QueryJobHandle(jobHandle, pins);
         }
-
-        // proof x
+        
+        /// <summary>
+        /// Given a chunk handle and all of the component arrays requested by the query
+        /// type, schedules a job to process this chunk.
+        /// </summary>
         public interface IJobQueryScheduler<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11>
             where T0 : struct, IComponent
             where T1 : struct, IComponent
@@ -1916,6 +2013,9 @@ namespace Myriad.ECS.Worlds
             where T10 : struct, IComponent
             where T11 : struct, IComponent
         {
+            /// <summary>
+            /// Schedule a job to process the given chunk
+            /// </summary>
             JobHandle Schedule(
                 JobChunkHandle chunk,
                 NativeArray<T0> t0,
@@ -2052,9 +2152,9 @@ namespace Myriad.ECS.Worlds
         /// Schedule jobs to run over component data. Different jobs can be scheduled per chunk, this is controlled
         /// through the <see cref="TScheduler"/> struct.
         /// 
-        /// Note that the Unity safety system does <b>NOT</b> apply to the data here, if two different queries are
-        /// scheduled they may both access the same data in parallel and cause serious issues. it's up to the caller
-        /// to ensure this does not happen!
+        /// Access to chunk data is managed through the Unity safety system. If two job queries are scheduled that
+        /// touch the same Archetypes, the second will implicitly depends on the first. Normal Myriad queries will
+        /// block on any jobs which touch archetypes they access.
         /// </summary>
         /// <typeparam name="TScheduler">Schedules jobs for chunks</typeparam>
         /// <typeparam name="T0"></typeparam>
@@ -2117,8 +2217,11 @@ namespace Myriad.ECS.Worlds
 
             return new QueryJobHandle(jobHandle, pins);
         }
-
-        // proof x
+        
+        /// <summary>
+        /// Given a chunk handle and all of the component arrays requested by the query
+        /// type, schedules a job to process this chunk.
+        /// </summary>
         public interface IJobQueryScheduler<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12>
             where T0 : struct, IComponent
             where T1 : struct, IComponent
@@ -2134,6 +2237,9 @@ namespace Myriad.ECS.Worlds
             where T11 : struct, IComponent
             where T12 : struct, IComponent
         {
+            /// <summary>
+            /// Schedule a job to process the given chunk
+            /// </summary>
             JobHandle Schedule(
                 JobChunkHandle chunk,
                 NativeArray<T0> t0,
@@ -2276,9 +2382,9 @@ namespace Myriad.ECS.Worlds
         /// Schedule jobs to run over component data. Different jobs can be scheduled per chunk, this is controlled
         /// through the <see cref="TScheduler"/> struct.
         /// 
-        /// Note that the Unity safety system does <b>NOT</b> apply to the data here, if two different queries are
-        /// scheduled they may both access the same data in parallel and cause serious issues. it's up to the caller
-        /// to ensure this does not happen!
+        /// Access to chunk data is managed through the Unity safety system. If two job queries are scheduled that
+        /// touch the same Archetypes, the second will implicitly depends on the first. Normal Myriad queries will
+        /// block on any jobs which touch archetypes they access.
         /// </summary>
         /// <typeparam name="TScheduler">Schedules jobs for chunks</typeparam>
         /// <typeparam name="T0"></typeparam>
@@ -2343,8 +2449,11 @@ namespace Myriad.ECS.Worlds
 
             return new QueryJobHandle(jobHandle, pins);
         }
-
-        // proof x
+        
+        /// <summary>
+        /// Given a chunk handle and all of the component arrays requested by the query
+        /// type, schedules a job to process this chunk.
+        /// </summary>
         public interface IJobQueryScheduler<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13>
             where T0 : struct, IComponent
             where T1 : struct, IComponent
@@ -2361,6 +2470,9 @@ namespace Myriad.ECS.Worlds
             where T12 : struct, IComponent
             where T13 : struct, IComponent
         {
+            /// <summary>
+            /// Schedule a job to process the given chunk
+            /// </summary>
             JobHandle Schedule(
                 JobChunkHandle chunk,
                 NativeArray<T0> t0,
@@ -2509,9 +2621,9 @@ namespace Myriad.ECS.Worlds
         /// Schedule jobs to run over component data. Different jobs can be scheduled per chunk, this is controlled
         /// through the <see cref="TScheduler"/> struct.
         /// 
-        /// Note that the Unity safety system does <b>NOT</b> apply to the data here, if two different queries are
-        /// scheduled they may both access the same data in parallel and cause serious issues. it's up to the caller
-        /// to ensure this does not happen!
+        /// Access to chunk data is managed through the Unity safety system. If two job queries are scheduled that
+        /// touch the same Archetypes, the second will implicitly depends on the first. Normal Myriad queries will
+        /// block on any jobs which touch archetypes they access.
         /// </summary>
         /// <typeparam name="TScheduler">Schedules jobs for chunks</typeparam>
         /// <typeparam name="T0"></typeparam>
@@ -2578,8 +2690,11 @@ namespace Myriad.ECS.Worlds
 
             return new QueryJobHandle(jobHandle, pins);
         }
-
-        // proof x
+        
+        /// <summary>
+        /// Given a chunk handle and all of the component arrays requested by the query
+        /// type, schedules a job to process this chunk.
+        /// </summary>
         public interface IJobQueryScheduler<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14>
             where T0 : struct, IComponent
             where T1 : struct, IComponent
@@ -2597,6 +2712,9 @@ namespace Myriad.ECS.Worlds
             where T13 : struct, IComponent
             where T14 : struct, IComponent
         {
+            /// <summary>
+            /// Schedule a job to process the given chunk
+            /// </summary>
             JobHandle Schedule(
                 JobChunkHandle chunk,
                 NativeArray<T0> t0,
@@ -2751,9 +2869,9 @@ namespace Myriad.ECS.Worlds
         /// Schedule jobs to run over component data. Different jobs can be scheduled per chunk, this is controlled
         /// through the <see cref="TScheduler"/> struct.
         /// 
-        /// Note that the Unity safety system does <b>NOT</b> apply to the data here, if two different queries are
-        /// scheduled they may both access the same data in parallel and cause serious issues. it's up to the caller
-        /// to ensure this does not happen!
+        /// Access to chunk data is managed through the Unity safety system. If two job queries are scheduled that
+        /// touch the same Archetypes, the second will implicitly depends on the first. Normal Myriad queries will
+        /// block on any jobs which touch archetypes they access.
         /// </summary>
         /// <typeparam name="TScheduler">Schedules jobs for chunks</typeparam>
         /// <typeparam name="T0"></typeparam>
@@ -2822,8 +2940,11 @@ namespace Myriad.ECS.Worlds
 
             return new QueryJobHandle(jobHandle, pins);
         }
-
-        // proof x
+        
+        /// <summary>
+        /// Given a chunk handle and all of the component arrays requested by the query
+        /// type, schedules a job to process this chunk.
+        /// </summary>
         public interface IJobQueryScheduler<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15>
             where T0 : struct, IComponent
             where T1 : struct, IComponent
@@ -2842,6 +2963,9 @@ namespace Myriad.ECS.Worlds
             where T14 : struct, IComponent
             where T15 : struct, IComponent
         {
+            /// <summary>
+            /// Schedule a job to process the given chunk
+            /// </summary>
             JobHandle Schedule(
                 JobChunkHandle chunk,
                 NativeArray<T0> t0,
@@ -3002,9 +3126,9 @@ namespace Myriad.ECS.Worlds
         /// Schedule jobs to run over component data. Different jobs can be scheduled per chunk, this is controlled
         /// through the <see cref="TScheduler"/> struct.
         /// 
-        /// Note that the Unity safety system does <b>NOT</b> apply to the data here, if two different queries are
-        /// scheduled they may both access the same data in parallel and cause serious issues. it's up to the caller
-        /// to ensure this does not happen!
+        /// Access to chunk data is managed through the Unity safety system. If two job queries are scheduled that
+        /// touch the same Archetypes, the second will implicitly depends on the first. Normal Myriad queries will
+        /// block on any jobs which touch archetypes they access.
         /// </summary>
         /// <typeparam name="TScheduler">Schedules jobs for chunks</typeparam>
         /// <typeparam name="T0"></typeparam>
@@ -3075,8 +3199,6 @@ namespace Myriad.ECS.Worlds
 
             return new QueryJobHandle(jobHandle, pins);
         }
-
-        // proof x
     }
 }
 

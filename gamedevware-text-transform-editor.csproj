@@ -101,6 +101,7 @@
     <Compile Include="Packages\com.gamedevware.text-transform\Editor\CodeCompilationTrigger.cs" />
     <Compile Include="Packages\com.gamedevware.text-transform\Editor\Processor\RequiresProvidesDirectiveProcessor.cs" />
     <Compile Include="Packages\com.gamedevware.text-transform\Editor\Processor\RoslynCodeProvider\Util\ProviderOptions.cs" />
+    <Compile Include="Packages\com.gamedevware.text-transform\Editor\TtTemplateImporter.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Packages\com.gamedevware.text-transform\Editor\GameDevWare.TextTransform.asmdef" />
@@ -586,10 +587,6 @@
       <HintPath>D:\Unity\6000.0.23f1\Editor\Data\PlaybackEngines\WindowsStandaloneSupport\UnityEditor.WindowsStandalone.Extensions.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="Myriad.ECS">
-      <HintPath>Assets\Packages\Myriad.ECS.40.4.0\lib\netstandard2.1\Myriad.ECS.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
     <Reference Include="Unity.Collections.LowLevel.ILSupport">
       <HintPath>Library\PackageCache\com.unity.collections\Unity.Collections.LowLevel.ILSupport\Unity.Collections.LowLevel.ILSupport.dll</HintPath>
       <Private>False</Private>
@@ -616,6 +613,10 @@
     </Reference>
     <Reference Include="System.Runtime.CompilerServices.Unsafe">
       <HintPath>Assets\Packages\System.Runtime.CompilerServices.Unsafe.6.1.2\lib\netstandard2.0\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Myriad.ECS">
+      <HintPath>Assets\Packages\Myriad.ECS.40.4.1\lib\netstandard2.1\Myriad.ECS.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="mscorlib">

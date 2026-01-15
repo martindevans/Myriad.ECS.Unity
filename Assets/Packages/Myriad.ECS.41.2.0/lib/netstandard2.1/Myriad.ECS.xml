@@ -110,15 +110,15 @@
             <typeparam name="T"></typeparam>
             <param name="item"></param>
         </member>
-        <member name="T:Myriad.ECS.Collections.ComponentBloomFilter">
+        <member name="T:Myriad.ECS.Collections.BloomFilter32x512">
              <summary>
-             Probabalistic set of component IDs. Can be used to check if two sets intersect.<br />
+             Probabalistic set of 32 bit values (e.g. component IDs), with 512 total bits and 8 hash functions. Can be used to check if two sets intersect.<br />
             
              False positives are possible (i.e. If Intersects returns true, then there <b>might</b> be an overlap).<br />
              False negatives are <b>not</b> possible (i.e. If Intersects return false, then there <b>definitely</b> is no overlap).<br />
              </summary>
         </member>
-        <member name="M:Myriad.ECS.Collections.ComponentBloomFilter.MaybeIntersects(Myriad.ECS.Collections.ComponentBloomFilter@)">
+        <member name="M:Myriad.ECS.Collections.BloomFilter32x512.MaybeIntersects(Myriad.ECS.Collections.BloomFilter32x512@)">
             <summary>
             Check if this bloom filter <b>might</b> intersect with another.
             <br /><br />
@@ -127,6 +127,12 @@
             </summary>
             <param name="other"></param>
             <returns></returns>
+        </member>
+        <member name="M:Myriad.ECS.Collections.BloomFilter32x512.Union(Myriad.ECS.Collections.BloomFilter32x512@)">
+            <summary>
+            Modify this bloom filter to the union of this and other.
+            </summary>
+            <param name="other"></param>
         </member>
         <member name="T:Myriad.ECS.Collections.FrozenOrderedListSet`1">
             <summary>
@@ -278,6 +284,81 @@
         <member name="M:Myriad.ECS.Collections.SegmentedList`1.Grow">
             <summary>
             Add another segment
+            </summary>
+        </member>
+        <member name="T:Myriad.ECS.Collections.SortedListOfComponents`2">
+            <summary>
+            Get a precalculated span of components IDs from generic type. Returned span is deduplicated.
+            </summary>
+        </member>
+        <member name="T:Myriad.ECS.Collections.SortedListOfComponents`3">
+            <summary>
+            Get a precalculated span of components IDs from generic type. Returned span is deduplicated.
+            </summary>
+        </member>
+        <member name="T:Myriad.ECS.Collections.SortedListOfComponents`4">
+            <summary>
+            Get a precalculated span of components IDs from generic type. Returned span is deduplicated.
+            </summary>
+        </member>
+        <member name="T:Myriad.ECS.Collections.SortedListOfComponents`5">
+            <summary>
+            Get a precalculated span of components IDs from generic type. Returned span is deduplicated.
+            </summary>
+        </member>
+        <member name="T:Myriad.ECS.Collections.SortedListOfComponents`6">
+            <summary>
+            Get a precalculated span of components IDs from generic type. Returned span is deduplicated.
+            </summary>
+        </member>
+        <member name="T:Myriad.ECS.Collections.SortedListOfComponents`7">
+            <summary>
+            Get a precalculated span of components IDs from generic type. Returned span is deduplicated.
+            </summary>
+        </member>
+        <member name="T:Myriad.ECS.Collections.SortedListOfComponents`8">
+            <summary>
+            Get a precalculated span of components IDs from generic type. Returned span is deduplicated.
+            </summary>
+        </member>
+        <member name="T:Myriad.ECS.Collections.SortedListOfComponents`9">
+            <summary>
+            Get a precalculated span of components IDs from generic type. Returned span is deduplicated.
+            </summary>
+        </member>
+        <member name="T:Myriad.ECS.Collections.SortedListOfComponents`10">
+            <summary>
+            Get a precalculated span of components IDs from generic type. Returned span is deduplicated.
+            </summary>
+        </member>
+        <member name="T:Myriad.ECS.Collections.SortedListOfComponents`11">
+            <summary>
+            Get a precalculated span of components IDs from generic type. Returned span is deduplicated.
+            </summary>
+        </member>
+        <member name="T:Myriad.ECS.Collections.SortedListOfComponents`12">
+            <summary>
+            Get a precalculated span of components IDs from generic type. Returned span is deduplicated.
+            </summary>
+        </member>
+        <member name="T:Myriad.ECS.Collections.SortedListOfComponents`13">
+            <summary>
+            Get a precalculated span of components IDs from generic type. Returned span is deduplicated.
+            </summary>
+        </member>
+        <member name="T:Myriad.ECS.Collections.SortedListOfComponents`14">
+            <summary>
+            Get a precalculated span of components IDs from generic type. Returned span is deduplicated.
+            </summary>
+        </member>
+        <member name="T:Myriad.ECS.Collections.SortedListOfComponents`15">
+            <summary>
+            Get a precalculated span of components IDs from generic type. Returned span is deduplicated.
+            </summary>
+        </member>
+        <member name="T:Myriad.ECS.Collections.SortedListOfComponents`16">
+            <summary>
+            Get a precalculated span of components IDs from generic type. Returned span is deduplicated.
             </summary>
         </member>
         <member name="T:Myriad.ECS.Command.CommandBuffer">
@@ -953,6 +1034,12 @@
             <param name="id"></param>
             <returns></returns>
         </member>
+        <member name="M:Myriad.ECS.Entity.op_Implicit(Myriad.ECS.Entity)~Myriad.ECS.EntityId">
+            <summary>
+            Cast this entity to an <see cref="T:Myriad.ECS.EntityId"/>. Exactly the same as simply accessing the <see cref="F:Myriad.ECS.Entity.ID"/> property.
+            </summary>
+            <param name="e"></param>
+        </member>
         <member name="M:Myriad.ECS.Entity.GetComponentRef``2">
             <summary>
             Get a tuple of several components
@@ -1309,6 +1396,40 @@
         </member>
         <member name="M:Myriad.ECS.EntityId.CompareTo(Myriad.ECS.EntityId)">
             <inheritdoc />
+        </member>
+        <member name="M:Myriad.ECS.EntityId.Equals(Myriad.ECS.EntityId)">
+            <inheritdoc />
+        </member>
+        <member name="M:Myriad.ECS.EntityId.Equals(System.Object)">
+            <inheritdoc />
+        </member>
+        <member name="M:Myriad.ECS.EntityId.op_Equality(Myriad.ECS.EntityId,Myriad.ECS.EntityId)">
+            <summary>
+            Compares this <see cref="T:Myriad.ECS.EntityId"/> to another and returns if they are equal
+            </summary>
+            <param name="a"></param>
+            <param name="b"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Myriad.ECS.EntityId.op_Inequality(Myriad.ECS.EntityId,Myriad.ECS.EntityId)">
+            <summary>
+            Compares this <see cref="T:Myriad.ECS.EntityId"/> to another and returns if they are not equal
+            </summary>
+            <param name="a"></param>
+            <param name="b"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Myriad.ECS.EntityId.op_Explicit(Myriad.ECS.EntityId)~System.UInt64">
+            <summary>
+            Convert this EntityID into a raw 64 bit number
+            </summary>
+            <param name="id"></param>
+        </member>
+        <member name="M:Myriad.ECS.EntityId.op_Explicit(System.UInt64)~Myriad.ECS.EntityId">
+            <summary>
+            Convert a raw 64 bit number into an entity ID
+            </summary>
+            <param name="id"></param>
         </member>
         <member name="M:Myriad.ECS.EntityId.UniqueID">
             <summary>
@@ -8580,9 +8701,9 @@
             Execute the query for a single entity
             </summary>
         </member>
-        <member name="M:Myriad.ECS.Worlds.World.IQueryCollector.AddCapacity(System.Int32)">
+        <member name="M:Myriad.ECS.Worlds.World.IQueryCollector.EnsureCapacity(System.Int32)">
             <summary>
-            Expand the collection
+            Ensure the collection has capacity to add a certain number of items
             </summary>
         </member>
         <member name="M:Myriad.ECS.Worlds.World.Collect(System.Collections.Generic.List{Myriad.ECS.Entity},Myriad.ECS.Queries.QueryDescription)">
@@ -14969,6 +15090,81 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="M:Myriad.ECS.Queries.ChunkHandle.HasComponent``2">
+            <summary>
+            Check if this chunk contains a tuple of several components
+            </summary>
+        </member>
+        <member name="M:Myriad.ECS.Queries.ChunkHandle.HasComponent``3">
+            <summary>
+            Check if this chunk contains a tuple of several components
+            </summary>
+        </member>
+        <member name="M:Myriad.ECS.Queries.ChunkHandle.HasComponent``4">
+            <summary>
+            Check if this chunk contains a tuple of several components
+            </summary>
+        </member>
+        <member name="M:Myriad.ECS.Queries.ChunkHandle.HasComponent``5">
+            <summary>
+            Check if this chunk contains a tuple of several components
+            </summary>
+        </member>
+        <member name="M:Myriad.ECS.Queries.ChunkHandle.HasComponent``6">
+            <summary>
+            Check if this chunk contains a tuple of several components
+            </summary>
+        </member>
+        <member name="M:Myriad.ECS.Queries.ChunkHandle.HasComponent``7">
+            <summary>
+            Check if this chunk contains a tuple of several components
+            </summary>
+        </member>
+        <member name="M:Myriad.ECS.Queries.ChunkHandle.HasComponent``8">
+            <summary>
+            Check if this chunk contains a tuple of several components
+            </summary>
+        </member>
+        <member name="M:Myriad.ECS.Queries.ChunkHandle.HasComponent``9">
+            <summary>
+            Check if this chunk contains a tuple of several components
+            </summary>
+        </member>
+        <member name="M:Myriad.ECS.Queries.ChunkHandle.HasComponent``10">
+            <summary>
+            Check if this chunk contains a tuple of several components
+            </summary>
+        </member>
+        <member name="M:Myriad.ECS.Queries.ChunkHandle.HasComponent``11">
+            <summary>
+            Check if this chunk contains a tuple of several components
+            </summary>
+        </member>
+        <member name="M:Myriad.ECS.Queries.ChunkHandle.HasComponent``12">
+            <summary>
+            Check if this chunk contains a tuple of several components
+            </summary>
+        </member>
+        <member name="M:Myriad.ECS.Queries.ChunkHandle.HasComponent``13">
+            <summary>
+            Check if this chunk contains a tuple of several components
+            </summary>
+        </member>
+        <member name="M:Myriad.ECS.Queries.ChunkHandle.HasComponent``14">
+            <summary>
+            Check if this chunk contains a tuple of several components
+            </summary>
+        </member>
+        <member name="M:Myriad.ECS.Queries.ChunkHandle.HasComponent``15">
+            <summary>
+            Check if this chunk contains a tuple of several components
+            </summary>
+        </member>
+        <member name="M:Myriad.ECS.Queries.ChunkHandle.HasComponent``16">
+            <summary>
+            Check if this chunk contains a tuple of several components
+            </summary>
+        </member>
         <member name="T:Myriad.ECS.Queries.Cursor">
             <summary>
             Keep track of how far through execution a query got, can be used to resume execution at <b>approximately</b> the same point.
@@ -15348,9 +15544,9 @@
             Execute the query for a single entity
             </summary>
         </member>
-        <member name="M:Myriad.ECS.Queries.IQueryCollector`1.AddCapacity(System.Int32)">
+        <member name="M:Myriad.ECS.Queries.IQueryCollector`1.EnsureCapacity(System.Int32)">
             <summary>
-            Expand the collection
+            Ensure the collection has capacity to add a certain number of items
             </summary>
         </member>
         <member name="T:Myriad.ECS.Queries.IQueryCollector`2">
@@ -15363,9 +15559,9 @@
             Execute the query for a single entity
             </summary>
         </member>
-        <member name="M:Myriad.ECS.Queries.IQueryCollector`2.AddCapacity(System.Int32)">
+        <member name="M:Myriad.ECS.Queries.IQueryCollector`2.EnsureCapacity(System.Int32)">
             <summary>
-            Expand the collection
+            Ensure the collection has capacity to add a certain number of items
             </summary>
         </member>
         <member name="T:Myriad.ECS.Queries.IQueryCollector`3">
@@ -15378,9 +15574,9 @@
             Execute the query for a single entity
             </summary>
         </member>
-        <member name="M:Myriad.ECS.Queries.IQueryCollector`3.AddCapacity(System.Int32)">
+        <member name="M:Myriad.ECS.Queries.IQueryCollector`3.EnsureCapacity(System.Int32)">
             <summary>
-            Expand the collection
+            Ensure the collection has capacity to add a certain number of items
             </summary>
         </member>
         <member name="T:Myriad.ECS.Queries.IQueryCollector`4">
@@ -15393,9 +15589,9 @@
             Execute the query for a single entity
             </summary>
         </member>
-        <member name="M:Myriad.ECS.Queries.IQueryCollector`4.AddCapacity(System.Int32)">
+        <member name="M:Myriad.ECS.Queries.IQueryCollector`4.EnsureCapacity(System.Int32)">
             <summary>
-            Expand the collection
+            Ensure the collection has capacity to add a certain number of items
             </summary>
         </member>
         <member name="T:Myriad.ECS.Queries.IQueryCollector`5">
@@ -15408,9 +15604,9 @@
             Execute the query for a single entity
             </summary>
         </member>
-        <member name="M:Myriad.ECS.Queries.IQueryCollector`5.AddCapacity(System.Int32)">
+        <member name="M:Myriad.ECS.Queries.IQueryCollector`5.EnsureCapacity(System.Int32)">
             <summary>
-            Expand the collection
+            Ensure the collection has capacity to add a certain number of items
             </summary>
         </member>
         <member name="T:Myriad.ECS.Queries.IQueryCollector`6">
@@ -15423,9 +15619,9 @@
             Execute the query for a single entity
             </summary>
         </member>
-        <member name="M:Myriad.ECS.Queries.IQueryCollector`6.AddCapacity(System.Int32)">
+        <member name="M:Myriad.ECS.Queries.IQueryCollector`6.EnsureCapacity(System.Int32)">
             <summary>
-            Expand the collection
+            Ensure the collection has capacity to add a certain number of items
             </summary>
         </member>
         <member name="T:Myriad.ECS.Queries.IQueryCollector`7">
@@ -15438,9 +15634,9 @@
             Execute the query for a single entity
             </summary>
         </member>
-        <member name="M:Myriad.ECS.Queries.IQueryCollector`7.AddCapacity(System.Int32)">
+        <member name="M:Myriad.ECS.Queries.IQueryCollector`7.EnsureCapacity(System.Int32)">
             <summary>
-            Expand the collection
+            Ensure the collection has capacity to add a certain number of items
             </summary>
         </member>
         <member name="T:Myriad.ECS.Queries.IQueryCollector`8">
@@ -15453,9 +15649,9 @@
             Execute the query for a single entity
             </summary>
         </member>
-        <member name="M:Myriad.ECS.Queries.IQueryCollector`8.AddCapacity(System.Int32)">
+        <member name="M:Myriad.ECS.Queries.IQueryCollector`8.EnsureCapacity(System.Int32)">
             <summary>
-            Expand the collection
+            Ensure the collection has capacity to add a certain number of items
             </summary>
         </member>
         <member name="T:Myriad.ECS.Queries.IQueryCollector`9">
@@ -15468,9 +15664,9 @@
             Execute the query for a single entity
             </summary>
         </member>
-        <member name="M:Myriad.ECS.Queries.IQueryCollector`9.AddCapacity(System.Int32)">
+        <member name="M:Myriad.ECS.Queries.IQueryCollector`9.EnsureCapacity(System.Int32)">
             <summary>
-            Expand the collection
+            Ensure the collection has capacity to add a certain number of items
             </summary>
         </member>
         <member name="T:Myriad.ECS.Queries.IQueryCollector`10">
@@ -15483,9 +15679,9 @@
             Execute the query for a single entity
             </summary>
         </member>
-        <member name="M:Myriad.ECS.Queries.IQueryCollector`10.AddCapacity(System.Int32)">
+        <member name="M:Myriad.ECS.Queries.IQueryCollector`10.EnsureCapacity(System.Int32)">
             <summary>
-            Expand the collection
+            Ensure the collection has capacity to add a certain number of items
             </summary>
         </member>
         <member name="T:Myriad.ECS.Queries.IQueryCollector`11">
@@ -15498,9 +15694,9 @@
             Execute the query for a single entity
             </summary>
         </member>
-        <member name="M:Myriad.ECS.Queries.IQueryCollector`11.AddCapacity(System.Int32)">
+        <member name="M:Myriad.ECS.Queries.IQueryCollector`11.EnsureCapacity(System.Int32)">
             <summary>
-            Expand the collection
+            Ensure the collection has capacity to add a certain number of items
             </summary>
         </member>
         <member name="T:Myriad.ECS.Queries.IQueryCollector`12">
@@ -15513,9 +15709,9 @@
             Execute the query for a single entity
             </summary>
         </member>
-        <member name="M:Myriad.ECS.Queries.IQueryCollector`12.AddCapacity(System.Int32)">
+        <member name="M:Myriad.ECS.Queries.IQueryCollector`12.EnsureCapacity(System.Int32)">
             <summary>
-            Expand the collection
+            Ensure the collection has capacity to add a certain number of items
             </summary>
         </member>
         <member name="T:Myriad.ECS.Queries.IQueryCollector`13">
@@ -15528,9 +15724,9 @@
             Execute the query for a single entity
             </summary>
         </member>
-        <member name="M:Myriad.ECS.Queries.IQueryCollector`13.AddCapacity(System.Int32)">
+        <member name="M:Myriad.ECS.Queries.IQueryCollector`13.EnsureCapacity(System.Int32)">
             <summary>
-            Expand the collection
+            Ensure the collection has capacity to add a certain number of items
             </summary>
         </member>
         <member name="T:Myriad.ECS.Queries.IQueryCollector`14">
@@ -15543,9 +15739,9 @@
             Execute the query for a single entity
             </summary>
         </member>
-        <member name="M:Myriad.ECS.Queries.IQueryCollector`14.AddCapacity(System.Int32)">
+        <member name="M:Myriad.ECS.Queries.IQueryCollector`14.EnsureCapacity(System.Int32)">
             <summary>
-            Expand the collection
+            Ensure the collection has capacity to add a certain number of items
             </summary>
         </member>
         <member name="T:Myriad.ECS.Queries.IQueryCollector`15">
@@ -15558,9 +15754,9 @@
             Execute the query for a single entity
             </summary>
         </member>
-        <member name="M:Myriad.ECS.Queries.IQueryCollector`15.AddCapacity(System.Int32)">
+        <member name="M:Myriad.ECS.Queries.IQueryCollector`15.EnsureCapacity(System.Int32)">
             <summary>
-            Expand the collection
+            Ensure the collection has capacity to add a certain number of items
             </summary>
         </member>
         <member name="T:Myriad.ECS.Queries.IQueryCollector`16">
@@ -15573,9 +15769,9 @@
             Execute the query for a single entity
             </summary>
         </member>
-        <member name="M:Myriad.ECS.Queries.IQueryCollector`16.AddCapacity(System.Int32)">
+        <member name="M:Myriad.ECS.Queries.IQueryCollector`16.EnsureCapacity(System.Int32)">
             <summary>
-            Expand the collection
+            Ensure the collection has capacity to add a certain number of items
             </summary>
         </member>
         <member name="T:Myriad.ECS.Queries.IVectorChunkQuery`1">
