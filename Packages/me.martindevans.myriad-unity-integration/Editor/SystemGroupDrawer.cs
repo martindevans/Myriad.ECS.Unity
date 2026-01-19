@@ -19,7 +19,7 @@ namespace Packages.me.martindevans.myriad_unity_integration.Editor
         private readonly Dictionary<ISystem<TData>, bool> _expandedSystems = new();
 
         private const float smoothing = 0.2f;
-        private readonly Dictionary<string, float> _smoothedProgressIndicator = new();
+        private readonly Dictionary<string, HeaderProgressMarkerData> _progressData = new();
 
         private readonly Dictionary<(string name, Type type), IMyriadSystemEditor> _editorInstances = new();
 
@@ -129,9 +129,14 @@ namespace Packages.me.martindevans.myriad_unity_integration.Editor
             // with the progress value from last frame.
             var timeThisFrame = (float)itemTime.TotalMilliseconds;
             var progressThisFrame = timeThisFrame / (float)(parentTime.TotalMilliseconds + 0.001);
-            var prevProgress = _smoothedProgressIndicator.GetValueOrDefault(name, progressThisFrame);
-            var progress = Mathf.Clamp01(Mathf.Lerp(prevProgress, progressThisFrame, smoothing));
-            _smoothedProgressIndicator[name] = progress;
+
+            // Get progress data container
+            if (!_progressData.TryGetValue(name, out var progressData))
+            {
+                progressData = new HeaderProgressMarkerData(progressThisFrame);
+                _progressData[name] = progressData;
+            }
+            progressData.Update(progressThisFrame);
 
             // < low time == green
             // low -> mid == green to yellow
@@ -145,7 +150,7 @@ namespace Packages.me.martindevans.myriad_unity_integration.Editor
 
             return new Header.HeaderOptions
             {
-                Progress = progress,
+                Progress = progressData.SmoothedProgress,
                 ProgressColor = c,
             };
         }
@@ -167,9 +172,24 @@ namespace Packages.me.martindevans.myriad_unity_integration.Editor
         public void Clear()
         {
             _editorInstances.Clear();
-            _smoothedProgressIndicator.Clear();
+            _progressData.Clear();
             _expandedGroups.Clear();
             _expandedSystems.Clear();
+        }
+
+        private class HeaderProgressMarkerData
+        {
+            public float SmoothedProgress { get; private set; }
+
+            public HeaderProgressMarkerData(float value)
+            {
+                SmoothedProgress = value;
+            }
+
+            public void Update(float value)
+            {
+                SmoothedProgress = Mathf.Clamp01(Mathf.Lerp(SmoothedProgress, value, smoothing));
+            }
         }
     }
 }
