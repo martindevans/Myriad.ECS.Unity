@@ -68,7 +68,7 @@ namespace Assets.Scenes.JobSystem
     }
 
     public class DoStuffInJob
-        : ISystem<GameTime>, IDisposable
+        : ISystem<GameTime>, IDisposable, ISystemDisable<GameTime>
     {
         private readonly World _world;
 
@@ -82,6 +82,11 @@ namespace Assets.Scenes.JobSystem
         }
 
         public void Dispose()
+        {
+            _handle.Dispose();
+        }
+
+        public void OnDisableSystem()
         {
             _handle.Dispose();
         }

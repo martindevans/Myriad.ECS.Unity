@@ -1027,6 +1027,11 @@
             <typeparam name="T"></typeparam>
             <returns></returns>
         </member>
+        <member name="M:Myriad.ECS.Entity.TryGetComponentRef``1(Myriad.ECS.Collections.RefTuple{``0}@)">
+            <summary>
+            Try to get a tuple of one component, returns false if the entity does not exist or if the component is missing
+            </summary>
+        </member>
         <member name="M:Myriad.ECS.Entity.GetBoxedComponent(Myriad.ECS.IDs.ComponentID)">
             <summary>
             Get a <b>boxed copy</b> of a component from this entity. Only use for debugging!
@@ -1045,6 +1050,12 @@
             Get a tuple of several components
             </summary>
         </member>
+        <member name="M:Myriad.ECS.Entity.TryGetComponentRef``2(Myriad.ECS.Collections.RefTuple{``0,``1}@)">
+            <summary>
+            Try to get a tuple of several components, returns false if the entity does not exist or if any of the components
+            are missing.
+            </summary>
+        </member>
         <member name="M:Myriad.ECS.Entity.HasComponent``2">
             <summary>
             Get a tuple of several components
@@ -1053,6 +1064,12 @@
         <member name="M:Myriad.ECS.Entity.GetComponentRef``3">
             <summary>
             Get a tuple of several components
+            </summary>
+        </member>
+        <member name="M:Myriad.ECS.Entity.TryGetComponentRef``3(Myriad.ECS.Collections.RefTuple{``0,``1,``2}@)">
+            <summary>
+            Try to get a tuple of several components, returns false if the entity does not exist or if any of the components
+            are missing.
             </summary>
         </member>
         <member name="M:Myriad.ECS.Entity.HasComponent``3">
@@ -1065,6 +1082,12 @@
             Get a tuple of several components
             </summary>
         </member>
+        <member name="M:Myriad.ECS.Entity.TryGetComponentRef``4(Myriad.ECS.Collections.RefTuple{``0,``1,``2,``3}@)">
+            <summary>
+            Try to get a tuple of several components, returns false if the entity does not exist or if any of the components
+            are missing.
+            </summary>
+        </member>
         <member name="M:Myriad.ECS.Entity.HasComponent``4">
             <summary>
             Get a tuple of several components
@@ -1073,6 +1096,12 @@
         <member name="M:Myriad.ECS.Entity.GetComponentRef``5">
             <summary>
             Get a tuple of several components
+            </summary>
+        </member>
+        <member name="M:Myriad.ECS.Entity.TryGetComponentRef``5(Myriad.ECS.Collections.RefTuple{``0,``1,``2,``3,``4}@)">
+            <summary>
+            Try to get a tuple of several components, returns false if the entity does not exist or if any of the components
+            are missing.
             </summary>
         </member>
         <member name="M:Myriad.ECS.Entity.HasComponent``5">
@@ -1085,6 +1114,12 @@
             Get a tuple of several components
             </summary>
         </member>
+        <member name="M:Myriad.ECS.Entity.TryGetComponentRef``6(Myriad.ECS.Collections.RefTuple{``0,``1,``2,``3,``4,``5}@)">
+            <summary>
+            Try to get a tuple of several components, returns false if the entity does not exist or if any of the components
+            are missing.
+            </summary>
+        </member>
         <member name="M:Myriad.ECS.Entity.HasComponent``6">
             <summary>
             Get a tuple of several components
@@ -1093,6 +1128,12 @@
         <member name="M:Myriad.ECS.Entity.GetComponentRef``7">
             <summary>
             Get a tuple of several components
+            </summary>
+        </member>
+        <member name="M:Myriad.ECS.Entity.TryGetComponentRef``7(Myriad.ECS.Collections.RefTuple{``0,``1,``2,``3,``4,``5,``6}@)">
+            <summary>
+            Try to get a tuple of several components, returns false if the entity does not exist or if any of the components
+            are missing.
             </summary>
         </member>
         <member name="M:Myriad.ECS.Entity.HasComponent``7">
@@ -1105,6 +1146,12 @@
             Get a tuple of several components
             </summary>
         </member>
+        <member name="M:Myriad.ECS.Entity.TryGetComponentRef``8(Myriad.ECS.Collections.RefTuple{``0,``1,``2,``3,``4,``5,``6,``7}@)">
+            <summary>
+            Try to get a tuple of several components, returns false if the entity does not exist or if any of the components
+            are missing.
+            </summary>
+        </member>
         <member name="M:Myriad.ECS.Entity.HasComponent``8">
             <summary>
             Get a tuple of several components
@@ -1113,6 +1160,12 @@
         <member name="M:Myriad.ECS.Entity.GetComponentRef``9">
             <summary>
             Get a tuple of several components
+            </summary>
+        </member>
+        <member name="M:Myriad.ECS.Entity.TryGetComponentRef``9(Myriad.ECS.Collections.RefTuple{``0,``1,``2,``3,``4,``5,``6,``7,``8}@)">
+            <summary>
+            Try to get a tuple of several components, returns false if the entity does not exist or if any of the components
+            are missing.
             </summary>
         </member>
         <member name="M:Myriad.ECS.Entity.HasComponent``9">
@@ -1125,6 +1178,12 @@
             Get a tuple of several components
             </summary>
         </member>
+        <member name="M:Myriad.ECS.Entity.TryGetComponentRef``10(Myriad.ECS.Collections.RefTuple{``0,``1,``2,``3,``4,``5,``6,``7,``8,``9}@)">
+            <summary>
+            Try to get a tuple of several components, returns false if the entity does not exist or if any of the components
+            are missing.
+            </summary>
+        </member>
         <member name="M:Myriad.ECS.Entity.HasComponent``10">
             <summary>
             Get a tuple of several components
@@ -1133,6 +1192,12 @@
         <member name="M:Myriad.ECS.Entity.GetComponentRef``11">
             <summary>
             Get a tuple of several components
+            </summary>
+        </member>
+        <member name="M:Myriad.ECS.Entity.TryGetComponentRef``11(Myriad.ECS.Collections.RefTuple{``0,``1,``2,``3,``4,``5,``6,``7,``8,``9,``10}@)">
+            <summary>
+            Try to get a tuple of several components, returns false if the entity does not exist or if any of the components
+            are missing.
             </summary>
         </member>
         <member name="M:Myriad.ECS.Entity.HasComponent``11">
@@ -1145,6 +1210,12 @@
             Get a tuple of several components
             </summary>
         </member>
+        <member name="M:Myriad.ECS.Entity.TryGetComponentRef``12(Myriad.ECS.Collections.RefTuple{``0,``1,``2,``3,``4,``5,``6,``7,``8,``9,``10,``11}@)">
+            <summary>
+            Try to get a tuple of several components, returns false if the entity does not exist or if any of the components
+            are missing.
+            </summary>
+        </member>
         <member name="M:Myriad.ECS.Entity.HasComponent``12">
             <summary>
             Get a tuple of several components
@@ -1153,6 +1224,12 @@
         <member name="M:Myriad.ECS.Entity.GetComponentRef``13">
             <summary>
             Get a tuple of several components
+            </summary>
+        </member>
+        <member name="M:Myriad.ECS.Entity.TryGetComponentRef``13(Myriad.ECS.Collections.RefTuple{``0,``1,``2,``3,``4,``5,``6,``7,``8,``9,``10,``11,``12}@)">
+            <summary>
+            Try to get a tuple of several components, returns false if the entity does not exist or if any of the components
+            are missing.
             </summary>
         </member>
         <member name="M:Myriad.ECS.Entity.HasComponent``13">
@@ -1165,6 +1242,12 @@
             Get a tuple of several components
             </summary>
         </member>
+        <member name="M:Myriad.ECS.Entity.TryGetComponentRef``14(Myriad.ECS.Collections.RefTuple{``0,``1,``2,``3,``4,``5,``6,``7,``8,``9,``10,``11,``12,``13}@)">
+            <summary>
+            Try to get a tuple of several components, returns false if the entity does not exist or if any of the components
+            are missing.
+            </summary>
+        </member>
         <member name="M:Myriad.ECS.Entity.HasComponent``14">
             <summary>
             Get a tuple of several components
@@ -1175,6 +1258,12 @@
             Get a tuple of several components
             </summary>
         </member>
+        <member name="M:Myriad.ECS.Entity.TryGetComponentRef``15(Myriad.ECS.Collections.RefTuple{``0,``1,``2,``3,``4,``5,``6,``7,``8,``9,``10,``11,``12,``13,``14}@)">
+            <summary>
+            Try to get a tuple of several components, returns false if the entity does not exist or if any of the components
+            are missing.
+            </summary>
+        </member>
         <member name="M:Myriad.ECS.Entity.HasComponent``15">
             <summary>
             Get a tuple of several components
@@ -1183,6 +1272,12 @@
         <member name="M:Myriad.ECS.Entity.GetComponentRef``16">
             <summary>
             Get a tuple of several components
+            </summary>
+        </member>
+        <member name="M:Myriad.ECS.Entity.TryGetComponentRef``16(Myriad.ECS.Collections.RefTuple{``0,``1,``2,``3,``4,``5,``6,``7,``8,``9,``10,``11,``12,``13,``14,``15}@)">
+            <summary>
+            Try to get a tuple of several components, returns false if the entity does not exist or if any of the components
+            are missing.
             </summary>
         </member>
         <member name="M:Myriad.ECS.Entity.HasComponent``16">
@@ -1200,6 +1295,12 @@
             Get a tuple of several components
             </summary>
         </member>
+        <member name="M:Myriad.ECS.EntityId.TryGetComponentRef``2(Myriad.ECS.Worlds.World,Myriad.ECS.Collections.RefTuple{``0,``1}@)">
+            <summary>
+            Try to get a tuple of several components, returns false if the entity does not exist or if any of the components
+            are missing.
+            </summary>
+        </member>
         <member name="M:Myriad.ECS.EntityId.HasComponent``2(Myriad.ECS.Worlds.World)">
             <summary>
             Check if this entity contains a tuple of several components
@@ -1208,6 +1309,12 @@
         <member name="M:Myriad.ECS.EntityId.GetComponentRef``3(Myriad.ECS.Worlds.World)">
             <summary>
             Get a tuple of several components
+            </summary>
+        </member>
+        <member name="M:Myriad.ECS.EntityId.TryGetComponentRef``3(Myriad.ECS.Worlds.World,Myriad.ECS.Collections.RefTuple{``0,``1,``2}@)">
+            <summary>
+            Try to get a tuple of several components, returns false if the entity does not exist or if any of the components
+            are missing.
             </summary>
         </member>
         <member name="M:Myriad.ECS.EntityId.HasComponent``3(Myriad.ECS.Worlds.World)">
@@ -1220,6 +1327,12 @@
             Get a tuple of several components
             </summary>
         </member>
+        <member name="M:Myriad.ECS.EntityId.TryGetComponentRef``4(Myriad.ECS.Worlds.World,Myriad.ECS.Collections.RefTuple{``0,``1,``2,``3}@)">
+            <summary>
+            Try to get a tuple of several components, returns false if the entity does not exist or if any of the components
+            are missing.
+            </summary>
+        </member>
         <member name="M:Myriad.ECS.EntityId.HasComponent``4(Myriad.ECS.Worlds.World)">
             <summary>
             Check if this entity contains a tuple of several components
@@ -1228,6 +1341,12 @@
         <member name="M:Myriad.ECS.EntityId.GetComponentRef``5(Myriad.ECS.Worlds.World)">
             <summary>
             Get a tuple of several components
+            </summary>
+        </member>
+        <member name="M:Myriad.ECS.EntityId.TryGetComponentRef``5(Myriad.ECS.Worlds.World,Myriad.ECS.Collections.RefTuple{``0,``1,``2,``3,``4}@)">
+            <summary>
+            Try to get a tuple of several components, returns false if the entity does not exist or if any of the components
+            are missing.
             </summary>
         </member>
         <member name="M:Myriad.ECS.EntityId.HasComponent``5(Myriad.ECS.Worlds.World)">
@@ -1240,6 +1359,12 @@
             Get a tuple of several components
             </summary>
         </member>
+        <member name="M:Myriad.ECS.EntityId.TryGetComponentRef``6(Myriad.ECS.Worlds.World,Myriad.ECS.Collections.RefTuple{``0,``1,``2,``3,``4,``5}@)">
+            <summary>
+            Try to get a tuple of several components, returns false if the entity does not exist or if any of the components
+            are missing.
+            </summary>
+        </member>
         <member name="M:Myriad.ECS.EntityId.HasComponent``6(Myriad.ECS.Worlds.World)">
             <summary>
             Check if this entity contains a tuple of several components
@@ -1248,6 +1373,12 @@
         <member name="M:Myriad.ECS.EntityId.GetComponentRef``7(Myriad.ECS.Worlds.World)">
             <summary>
             Get a tuple of several components
+            </summary>
+        </member>
+        <member name="M:Myriad.ECS.EntityId.TryGetComponentRef``7(Myriad.ECS.Worlds.World,Myriad.ECS.Collections.RefTuple{``0,``1,``2,``3,``4,``5,``6}@)">
+            <summary>
+            Try to get a tuple of several components, returns false if the entity does not exist or if any of the components
+            are missing.
             </summary>
         </member>
         <member name="M:Myriad.ECS.EntityId.HasComponent``7(Myriad.ECS.Worlds.World)">
@@ -1260,6 +1391,12 @@
             Get a tuple of several components
             </summary>
         </member>
+        <member name="M:Myriad.ECS.EntityId.TryGetComponentRef``8(Myriad.ECS.Worlds.World,Myriad.ECS.Collections.RefTuple{``0,``1,``2,``3,``4,``5,``6,``7}@)">
+            <summary>
+            Try to get a tuple of several components, returns false if the entity does not exist or if any of the components
+            are missing.
+            </summary>
+        </member>
         <member name="M:Myriad.ECS.EntityId.HasComponent``8(Myriad.ECS.Worlds.World)">
             <summary>
             Check if this entity contains a tuple of several components
@@ -1268,6 +1405,12 @@
         <member name="M:Myriad.ECS.EntityId.GetComponentRef``9(Myriad.ECS.Worlds.World)">
             <summary>
             Get a tuple of several components
+            </summary>
+        </member>
+        <member name="M:Myriad.ECS.EntityId.TryGetComponentRef``9(Myriad.ECS.Worlds.World,Myriad.ECS.Collections.RefTuple{``0,``1,``2,``3,``4,``5,``6,``7,``8}@)">
+            <summary>
+            Try to get a tuple of several components, returns false if the entity does not exist or if any of the components
+            are missing.
             </summary>
         </member>
         <member name="M:Myriad.ECS.EntityId.HasComponent``9(Myriad.ECS.Worlds.World)">
@@ -1280,6 +1423,12 @@
             Get a tuple of several components
             </summary>
         </member>
+        <member name="M:Myriad.ECS.EntityId.TryGetComponentRef``10(Myriad.ECS.Worlds.World,Myriad.ECS.Collections.RefTuple{``0,``1,``2,``3,``4,``5,``6,``7,``8,``9}@)">
+            <summary>
+            Try to get a tuple of several components, returns false if the entity does not exist or if any of the components
+            are missing.
+            </summary>
+        </member>
         <member name="M:Myriad.ECS.EntityId.HasComponent``10(Myriad.ECS.Worlds.World)">
             <summary>
             Check if this entity contains a tuple of several components
@@ -1288,6 +1437,12 @@
         <member name="M:Myriad.ECS.EntityId.GetComponentRef``11(Myriad.ECS.Worlds.World)">
             <summary>
             Get a tuple of several components
+            </summary>
+        </member>
+        <member name="M:Myriad.ECS.EntityId.TryGetComponentRef``11(Myriad.ECS.Worlds.World,Myriad.ECS.Collections.RefTuple{``0,``1,``2,``3,``4,``5,``6,``7,``8,``9,``10}@)">
+            <summary>
+            Try to get a tuple of several components, returns false if the entity does not exist or if any of the components
+            are missing.
             </summary>
         </member>
         <member name="M:Myriad.ECS.EntityId.HasComponent``11(Myriad.ECS.Worlds.World)">
@@ -1300,6 +1455,12 @@
             Get a tuple of several components
             </summary>
         </member>
+        <member name="M:Myriad.ECS.EntityId.TryGetComponentRef``12(Myriad.ECS.Worlds.World,Myriad.ECS.Collections.RefTuple{``0,``1,``2,``3,``4,``5,``6,``7,``8,``9,``10,``11}@)">
+            <summary>
+            Try to get a tuple of several components, returns false if the entity does not exist or if any of the components
+            are missing.
+            </summary>
+        </member>
         <member name="M:Myriad.ECS.EntityId.HasComponent``12(Myriad.ECS.Worlds.World)">
             <summary>
             Check if this entity contains a tuple of several components
@@ -1308,6 +1469,12 @@
         <member name="M:Myriad.ECS.EntityId.GetComponentRef``13(Myriad.ECS.Worlds.World)">
             <summary>
             Get a tuple of several components
+            </summary>
+        </member>
+        <member name="M:Myriad.ECS.EntityId.TryGetComponentRef``13(Myriad.ECS.Worlds.World,Myriad.ECS.Collections.RefTuple{``0,``1,``2,``3,``4,``5,``6,``7,``8,``9,``10,``11,``12}@)">
+            <summary>
+            Try to get a tuple of several components, returns false if the entity does not exist or if any of the components
+            are missing.
             </summary>
         </member>
         <member name="M:Myriad.ECS.EntityId.HasComponent``13(Myriad.ECS.Worlds.World)">
@@ -1320,6 +1487,12 @@
             Get a tuple of several components
             </summary>
         </member>
+        <member name="M:Myriad.ECS.EntityId.TryGetComponentRef``14(Myriad.ECS.Worlds.World,Myriad.ECS.Collections.RefTuple{``0,``1,``2,``3,``4,``5,``6,``7,``8,``9,``10,``11,``12,``13}@)">
+            <summary>
+            Try to get a tuple of several components, returns false if the entity does not exist or if any of the components
+            are missing.
+            </summary>
+        </member>
         <member name="M:Myriad.ECS.EntityId.HasComponent``14(Myriad.ECS.Worlds.World)">
             <summary>
             Check if this entity contains a tuple of several components
@@ -1330,6 +1503,12 @@
             Get a tuple of several components
             </summary>
         </member>
+        <member name="M:Myriad.ECS.EntityId.TryGetComponentRef``15(Myriad.ECS.Worlds.World,Myriad.ECS.Collections.RefTuple{``0,``1,``2,``3,``4,``5,``6,``7,``8,``9,``10,``11,``12,``13,``14}@)">
+            <summary>
+            Try to get a tuple of several components, returns false if the entity does not exist or if any of the components
+            are missing.
+            </summary>
+        </member>
         <member name="M:Myriad.ECS.EntityId.HasComponent``15(Myriad.ECS.Worlds.World)">
             <summary>
             Check if this entity contains a tuple of several components
@@ -1338,6 +1517,12 @@
         <member name="M:Myriad.ECS.EntityId.GetComponentRef``16(Myriad.ECS.Worlds.World)">
             <summary>
             Get a tuple of several components
+            </summary>
+        </member>
+        <member name="M:Myriad.ECS.EntityId.TryGetComponentRef``16(Myriad.ECS.Worlds.World,Myriad.ECS.Collections.RefTuple{``0,``1,``2,``3,``4,``5,``6,``7,``8,``9,``10,``11,``12,``13,``14,``15}@)">
+            <summary>
+            Try to get a tuple of several components, returns false if the entity does not exist or if any of the components
+            are missing.
             </summary>
         </member>
         <member name="M:Myriad.ECS.EntityId.HasComponent``16(Myriad.ECS.Worlds.World)">
@@ -1465,6 +1650,12 @@
             </summary>
             <typeparam name="T"></typeparam>
             <returns></returns>
+        </member>
+        <member name="M:Myriad.ECS.EntityId.TryGetComponentRef``1(Myriad.ECS.Worlds.World,Myriad.ECS.Collections.RefTuple{``0}@)">
+            <summary>
+            Try to get a tuple of several components, returns false if the entity does not exist or if any of the components
+            are missing.
+            </summary>
         </member>
         <member name="M:Myriad.ECS.EntityId.GetBoxedComponent(Myriad.ECS.Worlds.World,Myriad.ECS.IDs.ComponentID)">
             <summary>
@@ -16369,7 +16560,31 @@
             </summary>
             <returns>The query builder</returns>
         </member>
+        <member name="M:Myriad.ECS.Queries.QueryBuilder.IncludeQuery``3">
+            <summary>
+            Include only entities which have all of these components
+            </summary>
+            <returns>The query builder</returns>
+        </member>
+        <member name="M:Myriad.ECS.Queries.QueryBuilder.IncludeChunkQuery``3">
+            <summary>
+            Include only entities which have all of these components
+            </summary>
+            <returns>The query builder</returns>
+        </member>
         <member name="M:Myriad.ECS.Queries.QueryBuilder.Include``3">
+            <summary>
+            Include only entities which have all of these components
+            </summary>
+            <returns>The query builder</returns>
+        </member>
+        <member name="M:Myriad.ECS.Queries.QueryBuilder.IncludeQuery``4">
+            <summary>
+            Include only entities which have all of these components
+            </summary>
+            <returns>The query builder</returns>
+        </member>
+        <member name="M:Myriad.ECS.Queries.QueryBuilder.IncludeChunkQuery``4">
             <summary>
             Include only entities which have all of these components
             </summary>
@@ -16381,7 +16596,31 @@
             </summary>
             <returns>The query builder</returns>
         </member>
+        <member name="M:Myriad.ECS.Queries.QueryBuilder.IncludeQuery``5">
+            <summary>
+            Include only entities which have all of these components
+            </summary>
+            <returns>The query builder</returns>
+        </member>
+        <member name="M:Myriad.ECS.Queries.QueryBuilder.IncludeChunkQuery``5">
+            <summary>
+            Include only entities which have all of these components
+            </summary>
+            <returns>The query builder</returns>
+        </member>
         <member name="M:Myriad.ECS.Queries.QueryBuilder.Include``5">
+            <summary>
+            Include only entities which have all of these components
+            </summary>
+            <returns>The query builder</returns>
+        </member>
+        <member name="M:Myriad.ECS.Queries.QueryBuilder.IncludeQuery``6">
+            <summary>
+            Include only entities which have all of these components
+            </summary>
+            <returns>The query builder</returns>
+        </member>
+        <member name="M:Myriad.ECS.Queries.QueryBuilder.IncludeChunkQuery``6">
             <summary>
             Include only entities which have all of these components
             </summary>
@@ -16393,7 +16632,31 @@
             </summary>
             <returns>The query builder</returns>
         </member>
+        <member name="M:Myriad.ECS.Queries.QueryBuilder.IncludeQuery``7">
+            <summary>
+            Include only entities which have all of these components
+            </summary>
+            <returns>The query builder</returns>
+        </member>
+        <member name="M:Myriad.ECS.Queries.QueryBuilder.IncludeChunkQuery``7">
+            <summary>
+            Include only entities which have all of these components
+            </summary>
+            <returns>The query builder</returns>
+        </member>
         <member name="M:Myriad.ECS.Queries.QueryBuilder.Include``7">
+            <summary>
+            Include only entities which have all of these components
+            </summary>
+            <returns>The query builder</returns>
+        </member>
+        <member name="M:Myriad.ECS.Queries.QueryBuilder.IncludeQuery``8">
+            <summary>
+            Include only entities which have all of these components
+            </summary>
+            <returns>The query builder</returns>
+        </member>
+        <member name="M:Myriad.ECS.Queries.QueryBuilder.IncludeChunkQuery``8">
             <summary>
             Include only entities which have all of these components
             </summary>
@@ -16405,7 +16668,31 @@
             </summary>
             <returns>The query builder</returns>
         </member>
+        <member name="M:Myriad.ECS.Queries.QueryBuilder.IncludeQuery``9">
+            <summary>
+            Include only entities which have all of these components
+            </summary>
+            <returns>The query builder</returns>
+        </member>
+        <member name="M:Myriad.ECS.Queries.QueryBuilder.IncludeChunkQuery``9">
+            <summary>
+            Include only entities which have all of these components
+            </summary>
+            <returns>The query builder</returns>
+        </member>
         <member name="M:Myriad.ECS.Queries.QueryBuilder.Include``9">
+            <summary>
+            Include only entities which have all of these components
+            </summary>
+            <returns>The query builder</returns>
+        </member>
+        <member name="M:Myriad.ECS.Queries.QueryBuilder.IncludeQuery``10">
+            <summary>
+            Include only entities which have all of these components
+            </summary>
+            <returns>The query builder</returns>
+        </member>
+        <member name="M:Myriad.ECS.Queries.QueryBuilder.IncludeChunkQuery``10">
             <summary>
             Include only entities which have all of these components
             </summary>
@@ -16417,7 +16704,31 @@
             </summary>
             <returns>The query builder</returns>
         </member>
+        <member name="M:Myriad.ECS.Queries.QueryBuilder.IncludeQuery``11">
+            <summary>
+            Include only entities which have all of these components
+            </summary>
+            <returns>The query builder</returns>
+        </member>
+        <member name="M:Myriad.ECS.Queries.QueryBuilder.IncludeChunkQuery``11">
+            <summary>
+            Include only entities which have all of these components
+            </summary>
+            <returns>The query builder</returns>
+        </member>
         <member name="M:Myriad.ECS.Queries.QueryBuilder.Include``11">
+            <summary>
+            Include only entities which have all of these components
+            </summary>
+            <returns>The query builder</returns>
+        </member>
+        <member name="M:Myriad.ECS.Queries.QueryBuilder.IncludeQuery``12">
+            <summary>
+            Include only entities which have all of these components
+            </summary>
+            <returns>The query builder</returns>
+        </member>
+        <member name="M:Myriad.ECS.Queries.QueryBuilder.IncludeChunkQuery``12">
             <summary>
             Include only entities which have all of these components
             </summary>
@@ -16429,7 +16740,31 @@
             </summary>
             <returns>The query builder</returns>
         </member>
+        <member name="M:Myriad.ECS.Queries.QueryBuilder.IncludeQuery``13">
+            <summary>
+            Include only entities which have all of these components
+            </summary>
+            <returns>The query builder</returns>
+        </member>
+        <member name="M:Myriad.ECS.Queries.QueryBuilder.IncludeChunkQuery``13">
+            <summary>
+            Include only entities which have all of these components
+            </summary>
+            <returns>The query builder</returns>
+        </member>
         <member name="M:Myriad.ECS.Queries.QueryBuilder.Include``13">
+            <summary>
+            Include only entities which have all of these components
+            </summary>
+            <returns>The query builder</returns>
+        </member>
+        <member name="M:Myriad.ECS.Queries.QueryBuilder.IncludeQuery``14">
+            <summary>
+            Include only entities which have all of these components
+            </summary>
+            <returns>The query builder</returns>
+        </member>
+        <member name="M:Myriad.ECS.Queries.QueryBuilder.IncludeChunkQuery``14">
             <summary>
             Include only entities which have all of these components
             </summary>
@@ -16441,13 +16776,49 @@
             </summary>
             <returns>The query builder</returns>
         </member>
+        <member name="M:Myriad.ECS.Queries.QueryBuilder.IncludeQuery``15">
+            <summary>
+            Include only entities which have all of these components
+            </summary>
+            <returns>The query builder</returns>
+        </member>
+        <member name="M:Myriad.ECS.Queries.QueryBuilder.IncludeChunkQuery``15">
+            <summary>
+            Include only entities which have all of these components
+            </summary>
+            <returns>The query builder</returns>
+        </member>
         <member name="M:Myriad.ECS.Queries.QueryBuilder.Include``15">
             <summary>
             Include only entities which have all of these components
             </summary>
             <returns>The query builder</returns>
         </member>
+        <member name="M:Myriad.ECS.Queries.QueryBuilder.IncludeQuery``16">
+            <summary>
+            Include only entities which have all of these components
+            </summary>
+            <returns>The query builder</returns>
+        </member>
+        <member name="M:Myriad.ECS.Queries.QueryBuilder.IncludeChunkQuery``16">
+            <summary>
+            Include only entities which have all of these components
+            </summary>
+            <returns>The query builder</returns>
+        </member>
         <member name="M:Myriad.ECS.Queries.QueryBuilder.Include``16">
+            <summary>
+            Include only entities which have all of these components
+            </summary>
+            <returns>The query builder</returns>
+        </member>
+        <member name="M:Myriad.ECS.Queries.QueryBuilder.IncludeQuery``17">
+            <summary>
+            Include only entities which have all of these components
+            </summary>
+            <returns>The query builder</returns>
+        </member>
+        <member name="M:Myriad.ECS.Queries.QueryBuilder.IncludeChunkQuery``17">
             <summary>
             Include only entities which have all of these components
             </summary>
@@ -18160,6 +18531,16 @@
             Called one per tick, after the normal Update call
             </summary>
             <param name="data"></param>
+        </member>
+        <member name="T:Myriad.ECS.Systems.ISystemDisable`1">
+            <summary>
+            Callback whenever a system is disabled (due to <see cref="P:Myriad.ECS.Systems.ISystemGroup`1.Enabled"/> being set to false
+            </summary>
+        </member>
+        <member name="M:Myriad.ECS.Systems.ISystemDisable`1.OnDisableSystem">
+            <summary>
+            Called when this system is disabled due to system group becoming disabled
+            </summary>
         </member>
         <member name="T:Myriad.ECS.Systems.ISystemDeclare`1">
             <summary>
