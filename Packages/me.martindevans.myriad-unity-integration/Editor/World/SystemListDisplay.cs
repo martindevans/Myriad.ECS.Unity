@@ -29,7 +29,7 @@ namespace Packages.me.martindevans.myriad_unity_integration.Editor.World
         {
             // ReSharper disable once ConditionIsAlwaysTrueOrFalse
             if (_host && _host.Systems != null)
-                _groupDrawer.DrawSystemGroup(_host.Systems, _host.Systems.TotalExecutionTime, TimeSpan.FromMilliseconds(12), false);
+                _groupDrawer.DrawSystemGroup(_host.Systems, TimeSpan.FromMilliseconds(16), TimeSpan.FromMilliseconds(12), parentDisabled:false);
         }
 
         public IEnumerable<SerializedProperty> GetChildProperties()
