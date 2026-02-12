@@ -13,7 +13,7 @@ namespace Assets.Scenes.JobSystem
     public class JobSystemWorldSystemGroup
         : WorldSystemGroup<GameTime>
     {
-        public int Count = 1000;
+        public int Count = 10000;
 
         protected override ISystemGroup<GameTime> CreateGroup(BaseSimulationHost<GameTime> world)
         {
@@ -42,7 +42,13 @@ namespace Assets.Scenes.JobSystem
             return new SystemGroup<GameTime>(
                 "test",
                 new DoStuffBasic(world.World),
+                new DoStuffBasic(world.World),
+                new DoStuffBasic(world.World),
+                new DoStuffBasic(world.World),
                 new DoStuffInJob(world.World),
+                new DoStuffBasic(world.World),
+                new DoStuffBasic(world.World),
+                new DoStuffBasic(world.World),
                 new DoStuffBasic(world.World)
             );
         }
