@@ -252,6 +252,34 @@ namespace Myriad.ECS.Worlds
         /// <param name="query"></param>
         /// <param name="dependsOn"></param>
         /// <returns>Combined job handle of all chunk jobs</returns>
+        public static QueryJobHandle Schedule<TScheduler, <#= queryConstraints #>>(this World world, TScheduler sched, [CanBeNull] QueryDescription query = null, JobHandle dependsOn = default)
+            where TScheduler : IJobQueryScheduler<<#= queryConstraints #>>
+            <#= Constraints(i, 12) #>
+        {
+            return world.Schedule<TScheduler, <#= queryConstraints #>>(
+                sched,
+                ref query,
+                dependsOn
+            );
+        }
+
+        /// <summary>
+        /// Schedule jobs to run over component data. Different jobs can be scheduled per chunk, this is controlled
+        /// through the <see cref="TScheduler"/> struct.
+        /// 
+        /// Access to chunk data is managed through the Unity safety system. If two job queries are scheduled that
+        /// touch the same Archetypes, the second will implicitly depends on the first. Normal Myriad queries will
+        /// block on any jobs which touch archetypes they access.
+        /// </summary>
+        /// <typeparam name="TScheduler">Schedules jobs for chunks</typeparam>
+<# for (var j = 0; j < i; j++) { #>
+        /// <typeparam name="T<#= j #>"></typeparam>
+<# } #>
+        /// <param name="world"></param>
+        /// <param name="sched"></param>
+        /// <param name="query"></param>
+        /// <param name="dependsOn"></param>
+        /// <returns>Combined job handle of all chunk jobs</returns>
         public static QueryJobHandle Schedule<TScheduler, <#= queryConstraints #>>(this World world, TScheduler sched, [CanBeNull] ref QueryDescription query, JobHandle dependsOn = default)
             where TScheduler : IJobQueryScheduler<<#= queryConstraints #>>
             <#= Constraints(i, 12) #>

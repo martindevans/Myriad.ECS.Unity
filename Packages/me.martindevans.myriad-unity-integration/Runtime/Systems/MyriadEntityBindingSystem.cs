@@ -2,6 +2,7 @@
 
 using System;
 using System.Collections.Generic;
+using JetBrains.Annotations;
 using Myriad.ECS;
 using Myriad.ECS.Command;
 using Myriad.ECS.Components;
@@ -142,7 +143,7 @@ namespace Packages.me.martindevans.myriad_unity_integration.Runtime.Systems
                     // Run the NotifyGameObjectDestroyed callback, this was missed because the GO
                     // was destroyed before this binding even ran.
 
-                    if ((binding.DestructMode & DestructMode.GameObjectDestroysEntity) == 0)
+                    if ((binding!.DestructMode & DestructMode.GameObjectDestroysEntity) == 0)
                         return;
                     _callback.NotifyGameObjectDestroyed(e);
                 }
