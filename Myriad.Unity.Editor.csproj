@@ -64,6 +64,7 @@
     <Compile Include="Packages\me.martindevans.myriad-unity-integration\Editor\Entities\MyriadEntityEditor.cs" />
     <Compile Include="Packages\me.martindevans.myriad-unity-integration\Editor\World\EntityQueryComponent.cs" />
     <Compile Include="Packages\me.martindevans.myriad-unity-integration\Editor\World\ISystemEditor.cs" />
+    <Compile Include="Packages\me.martindevans.myriad-unity-integration\Editor\Systems\BaseQueryJobHandleCompletionGateEditor.cs" />
     <Compile Include="Packages\me.martindevans.myriad-unity-integration\Editor\Extensions\TypeExtensions.cs" />
     <Compile Include="Packages\me.martindevans.myriad-unity-integration\Editor\Entities\IMyriadComponentEditor.cs" />
     <Compile Include="Packages\me.martindevans.myriad-unity-integration\Editor\World\BaseWorldSystemGroupEditor.cs" />

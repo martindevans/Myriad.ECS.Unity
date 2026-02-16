@@ -24,7 +24,19 @@ namespace Packages.me.martindevans.myriad_unity_integration.Editor
 
         public static bool TryGet(Type type, out Type o)
         {
-            return _editorTypes.TryGetValue(type, out o);
+            // Try to get an editor for the type directly
+            if (_editorTypes.TryGetValue(type, out o))
+                return true;
+
+            // If the editor is generic, try to get an editor for the generic type
+            if (type.IsGenericType)
+            {
+                var openGeneric = type.GetGenericTypeDefinition();
+                if (_editorTypes.TryGetValue(openGeneric, out o))
+                    return true;
+            }
+
+            return false;
         }
     }
 }

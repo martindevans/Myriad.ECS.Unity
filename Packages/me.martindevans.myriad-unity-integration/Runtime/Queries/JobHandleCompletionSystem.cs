@@ -19,6 +19,8 @@ namespace Packages.me.martindevans.myriad_unity_integration.Runtime.Queries
     {
         private readonly List<QueryJobHandle> _handles = new();
 
+        public int PreviousCompleteHandleCount { get; private set; }
+
         public void AddHandle(QueryJobHandle handle)
         {
             _handles.Add(handle);
@@ -26,6 +28,8 @@ namespace Packages.me.martindevans.myriad_unity_integration.Runtime.Queries
 
         protected void Complete()
         {
+            PreviousCompleteHandleCount = _handles.Count;
+
             foreach (var handle in _handles)
                 handle.Dispose();
             _handles.Clear();

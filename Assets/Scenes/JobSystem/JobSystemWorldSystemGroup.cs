@@ -3,6 +3,7 @@ using Myriad.ECS.Queries;
 using Myriad.ECS.Systems;
 using Myriad.ECS.Worlds;
 using Packages.me.martindevans.myriad_unity_integration.Runtime;
+using Packages.me.martindevans.myriad_unity_integration.Runtime.Queries;
 using Packages.me.martindevans.myriad_unity_integration.Runtime.Systems;
 using Unity.Burst;
 using Unity.Collections;
@@ -49,7 +50,8 @@ namespace Assets.Scenes.JobSystem
                 new DoStuffBasic(world.World),
                 new DoStuffBasic(world.World),
                 new DoStuffBasic(world.World),
-                new DoStuffBasic(world.World)
+                new DoStuffBasic(world.World),
+                new QueryJobHandleCompletionGateUpdate<GameTime>()
             );
         }
     }
