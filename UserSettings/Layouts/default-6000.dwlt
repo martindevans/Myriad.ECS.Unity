@@ -19,7 +19,7 @@ MonoBehaviour:
     width: 2560
     height: 1349.3334
   m_ShowMode: 4
-  m_Title: Project
+  m_Title: Inspector
   m_RootView: {fileID: 6}
   m_MinSize: {x: 875, y: 300}
   m_MaxSize: {x: 10000, y: 10000}
@@ -48,7 +48,7 @@ MonoBehaviour:
   m_MinSize: {x: 300, y: 112}
   m_MaxSize: {x: 24288, y: 16192}
   vertical: 0
-  controlID: 77
+  controlID: 113
   draggingID: 0
 --- !u!114 &3
 MonoBehaviour:
@@ -619,7 +619,7 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Packages/me.martindevans.myriad-unity-integration/Runtime/Queries
+    - Packages/me.martindevans.myriad-unity-integration/Editor/World
     m_Globs: []
     m_ProductIds: 
     m_AnyWithAssetOrigin: 0
@@ -629,7 +629,7 @@ MonoBehaviour:
   m_ViewMode: 1
   m_StartGridSize: 16
   m_LastFolders:
-  - Packages/me.martindevans.myriad-unity-integration/Runtime/Queries
+  - Packages/me.martindevans.myriad-unity-integration/Editor/World
   m_LastFoldersGridSize: 16
   m_LastProjectPath: C:\Users\Martin\Documents\Unity\MyriadUnityIntegrationPackage
   m_LockTracker:
@@ -638,16 +638,17 @@ MonoBehaviour:
   m_FolderTreeState:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs:
-    - m_Data: 25610
+    - m_Data: 25634
     m_LastClickedID:
-      m_Data: 25610
+      m_Data: 25634
     m_ExpandedIDs:
     - m_Data: 0
-    - m_Data: 25470
-    - m_Data: 25472
     - m_Data: 25474
     - m_Data: 25476
     - m_Data: 25478
+    - m_Data: 25480
+    - m_Data: 25482
+    - m_Data: 25484
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -680,11 +681,12 @@ MonoBehaviour:
       m_Data: 0
     m_ExpandedIDs:
     - m_Data: 0
-    - m_Data: 25470
-    - m_Data: 25472
     - m_Data: 25474
     - m_Data: 25476
     - m_Data: 25478
+    - m_Data: 25480
+    - m_Data: 25482
+    - m_Data: 25484
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -712,8 +714,8 @@ MonoBehaviour:
       m_ResourceFile: 
   m_ListAreaState:
     m_SelectedInstanceIDs:
-    - m_Data: 25378
-    m_LastClickedInstanceID: 25378
+    - m_Data: 25414
+    m_LastClickedInstanceID: 25414
     m_HadKeyboardFocusLastEvent: 1
     m_ExpandedInstanceIDs: []
     m_RenameOverlay:
@@ -1476,7 +1478,7 @@ MonoBehaviour:
     x: 482
     y: 78.66667
     width: 1470
-    height: 712
+    height: 629.3333
   m_SerializedDataModeController:
     m_DataMode: 0
     m_PreferredDataMode: 0
@@ -1496,7 +1498,7 @@ MonoBehaviour:
   m_ShowGizmos: 1
   m_TargetDisplay: 0
   m_ClearColor: {r: 0, g: 0, b: 0, a: 0}
-  m_TargetSize: {x: 2205, y: 1036.5}
+  m_TargetSize: {x: 2205, y: 912.5}
   m_TextureFilterMode: 0
   m_TextureHideFlags: 61
   m_RenderIMGUI: 1
@@ -1513,8 +1515,8 @@ MonoBehaviour:
     vZoomLockedByDefault: 0
     m_HBaseRangeMin: -735
     m_HBaseRangeMax: 735
-    m_VBaseRangeMin: -345.5
-    m_VBaseRangeMax: 345.5
+    m_VBaseRangeMin: -304.1667
+    m_VBaseRangeMax: 304.1667
     m_HAllowExceedBaseRangeMin: 1
     m_HAllowExceedBaseRangeMax: 1
     m_VAllowExceedBaseRangeMin: 1
@@ -1533,22 +1535,22 @@ MonoBehaviour:
       x: 0
       y: 21
       width: 1470
-      height: 691
-    m_Scale: {x: 1, y: 1}
-    m_Translation: {x: 735, y: 345.5}
+      height: 608.3333
+    m_Scale: {x: 0.99999994, y: 0.9999999}
+    m_Translation: {x: 735, y: 304.16666}
     m_MarginLeft: 0
     m_MarginRight: 0
     m_MarginTop: 0
     m_MarginBottom: 0
     m_LastShownAreaInsideMargins:
       serializedVersion: 2
-      x: -735
-      y: -345.5
-      width: 1470
-      height: 691
+      x: -735.00006
+      y: -304.1667
+      width: 1470.0001
+      height: 608.3334
     m_MinimalGUI: 1
-  m_defaultScale: 1
-  m_LastWindowPixelSize: {x: 2205, y: 1068}
+  m_defaultScale: 0.9999999
+  m_LastWindowPixelSize: {x: 2205, y: 944}
   m_ClearInEditMode: 1
   m_NoCameraWarning: 1
   m_LowResolutionForAspectRatios: 00000000000000000000

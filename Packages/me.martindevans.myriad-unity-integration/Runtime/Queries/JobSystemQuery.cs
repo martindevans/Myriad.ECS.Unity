@@ -133,6 +133,17 @@ namespace Myriad.ECS.Worlds
                     return nArray;
                 }
             }
+
+            /// <summary>
+            /// Get direct access to components
+            /// </summary>
+            /// <typeparam name="T"></typeparam>
+            /// <returns></returns>
+            public Span<T> GetComponentSpan<T>()
+                where T : IComponent
+            {
+                return _handle.GetComponentSpan<T>();
+            }
         }
 
         
