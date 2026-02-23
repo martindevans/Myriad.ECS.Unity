@@ -2452,6 +2452,77 @@
             Marker interface for components
             </summary>
         </member>
+        <member name="T:Myriad.ECS.IDs.IChunkBitFlag">
+            <summary>
+            Tag interface for chunk bit flag types
+            </summary>
+        </member>
+        <member name="T:Myriad.ECS.IDs.ChunkBitFlagID">
+            <summary>
+            Unique numeric ID for a type which implements IChunkBitFlag
+            </summary>
+        </member>
+        <member name="P:Myriad.ECS.IDs.ChunkBitFlagID.Value">
+            <summary>
+            Get the raw value of this ID
+            </summary>
+        </member>
+        <member name="P:Myriad.ECS.IDs.ChunkBitFlagID.Type">
+            <summary>
+            The <see cref="T:System.Type"/> of the flag this ID is for
+            </summary>
+        </member>
+        <member name="M:Myriad.ECS.IDs.ChunkBitFlagID.CompareTo(Myriad.ECS.IDs.ChunkBitFlagID)">
+            <inheritdoc />
+        </member>
+        <member name="M:Myriad.ECS.IDs.ChunkBitFlagID.ToString">
+            <inheritdoc />
+        </member>
+        <member name="M:Myriad.ECS.IDs.ChunkBitFlagID.Get(System.Type)">
+            <summary>
+            Get the component ID for the given type
+            </summary>
+            <param name="type"></param>
+            <exception cref="T:System.ArgumentException">Thrown if 'type' does not implement <see cref="T:Myriad.ECS.IDs.IChunkBitFlag"/></exception>
+            <returns></returns>
+        </member>
+        <member name="T:Myriad.ECS.IDs.ChunkBitFlagID`1">
+            <summary>
+            Retrieve the component ID for a type
+            </summary>
+            <typeparam name="TBitFlag"></typeparam>
+        </member>
+        <member name="F:Myriad.ECS.IDs.ChunkBitFlagID`1.ID">
+            <summary>
+            The ID for <typeparamref name="TBitFlag" />
+            </summary>
+        </member>
+        <member name="T:Myriad.ECS.IDs.ChunkBitFlagRegistry">
+            <summary>
+            Store a lookup from chunk bit flag type to unique 32 bit ID.
+            </summary>
+        </member>
+        <member name="M:Myriad.ECS.IDs.ChunkBitFlagRegistry.Get``1">
+            <summary>
+            Get the ID for the given type
+            </summary>
+            <typeparam name="T"></typeparam>
+            <returns></returns>
+        </member>
+        <member name="M:Myriad.ECS.IDs.ChunkBitFlagRegistry.Get(System.Type)">
+            <summary>
+            Get the ID for the given type
+            </summary>
+            <param name="type"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Myriad.ECS.IDs.ChunkBitFlagRegistry.Get(Myriad.ECS.IDs.ChunkBitFlagID)">
+            <summary>
+            Get the type for a given ID
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
         <member name="T:Myriad.ECS.IDs.ComponentID">
             <summary>
             Unique numeric ID for a type which implements IComponent
@@ -15751,6 +15822,20 @@
             <param name="id"></param>
             <returns></returns>
         </member>
+        <member name="M:Myriad.ECS.Worlds.Chunks.Chunk.GetFlag``1">
+            <summary>
+            Get the value of the given chunk flag bit
+            </summary>
+            <typeparam name="TFlag"></typeparam>
+            <returns></returns>
+        </member>
+        <member name="M:Myriad.ECS.Worlds.Chunks.Chunk.SetFlag``1(System.Boolean)">
+            <summary>
+            Set the value of the given chunk flag bit
+            </summary>
+            <typeparam name="TFlag"></typeparam>
+            <param name="value"></param>
+        </member>
         <member name="M:Myriad.ECS.Worlds.Chunks.Chunk.GetRefTuple``1(System.Int32,Myriad.ECS.IDs.ComponentID)">
             <summary>
             Get a tuple of several components
@@ -16109,6 +16194,20 @@
             <summary>
             Try to get the span of the given component type in this chunk
             </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Myriad.ECS.Queries.ChunkHandle.SetBit``1(System.Boolean)">
+            <summary>
+            Set the value of the given chunk flag
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="value"></param>
+        </member>
+        <member name="M:Myriad.ECS.Queries.ChunkHandle.GetBit``1">
+            <summary>
+            Get the value of the given chunk flag
+            </summary>
+            <typeparam name="T"></typeparam>
             <returns></returns>
         </member>
         <member name="M:Myriad.ECS.Queries.ChunkHandle.Danger">
@@ -18512,28 +18611,18 @@
         </member>
         <member name="T:Myriad.ECS.Queries.QueryDescription.ArchetypeMatch">
             <summary>
-            An archetype which matches a query
+            An archetype which matches a query (ordered list sets can only contain structs, so this is needed)
             </summary>
             <param name="Archetype">The archetype</param>
-            <param name="AtLeastOne">All of the "at least one" components present (if there are any in this query)</param>
-            <param name="ExactlyOne">The "exactly one" component present (if there is one in this query)</param>
         </member>
-        <member name="M:Myriad.ECS.Queries.QueryDescription.ArchetypeMatch.#ctor(Myriad.ECS.Worlds.Archetypes.Archetype,Myriad.ECS.Collections.FrozenOrderedListSet{Myriad.ECS.IDs.ComponentID},System.Nullable{Myriad.ECS.IDs.ComponentID})">
+        <member name="M:Myriad.ECS.Queries.QueryDescription.ArchetypeMatch.#ctor(Myriad.ECS.Worlds.Archetypes.Archetype)">
             <summary>
-            An archetype which matches a query
+            An archetype which matches a query (ordered list sets can only contain structs, so this is needed)
             </summary>
             <param name="Archetype">The archetype</param>
-            <param name="AtLeastOne">All of the "at least one" components present (if there are any in this query)</param>
-            <param name="ExactlyOne">The "exactly one" component present (if there is one in this query)</param>
         </member>
         <member name="P:Myriad.ECS.Queries.QueryDescription.ArchetypeMatch.Archetype">
             <summary>The archetype</summary>
-        </member>
-        <member name="P:Myriad.ECS.Queries.QueryDescription.ArchetypeMatch.AtLeastOne">
-            <summary>All of the "at least one" components present (if there are any in this query)</summary>
-        </member>
-        <member name="P:Myriad.ECS.Queries.QueryDescription.ArchetypeMatch.ExactlyOne">
-            <summary>The "exactly one" component present (if there is one in this query)</summary>
         </member>
         <member name="M:Myriad.ECS.Queries.QueryDescription.ArchetypeMatch.CompareTo(Myriad.ECS.Queries.QueryDescription.ArchetypeMatch)">
             <inheritdoc />
@@ -18553,6 +18642,12 @@
         <member name="M:Myriad.ECS.Queries.QueryDescription.IsCountGreaterThan(System.Int32)">
             <summary>
             Check if the count of entities matching this query is greater than a given value
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Myriad.ECS.Queries.QueryDescription.IsCountLessThan(System.Int32)">
+            <summary>
+            Check if the count of entities matching this query is less than a given value
             </summary>
             <returns></returns>
         </member>
