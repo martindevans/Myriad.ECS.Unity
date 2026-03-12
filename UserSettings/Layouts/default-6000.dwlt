@@ -48,7 +48,7 @@ MonoBehaviour:
   m_MinSize: {x: 300, y: 112}
   m_MaxSize: {x: 24288, y: 16192}
   vertical: 0
-  controlID: 113
+  controlID: 48
   draggingID: 0
 --- !u!114 &3
 MonoBehaviour:
@@ -94,7 +94,7 @@ MonoBehaviour:
     x: 0
     y: 0
     width: 482
-    height: 655.3333
+    height: 615.3333
   m_MinSize: {x: 201, y: 226}
   m_MaxSize: {x: 4001, y: 4026}
   m_ActualView: {fileID: 16}
@@ -118,9 +118,9 @@ MonoBehaviour:
   m_Position:
     serializedVersion: 2
     x: 0
-    y: 655.3333
+    y: 615.3333
     width: 1954
-    height: 638.00006
+    height: 678.00006
   m_MinSize: {x: 231, y: 276}
   m_MaxSize: {x: 10001, y: 10026}
   m_ActualView: {fileID: 14}
@@ -246,11 +246,11 @@ MonoBehaviour:
     x: 0
     y: 0
     width: 1954
-    height: 655.3333
+    height: 615.3333
   m_MinSize: {x: 200, y: 56}
   m_MaxSize: {x: 16192, y: 8096}
   vertical: 0
-  controlID: 18
+  controlID: 39
   draggingID: 0
 --- !u!114 &11
 MonoBehaviour:
@@ -270,7 +270,7 @@ MonoBehaviour:
     x: 482
     y: 0
     width: 1472
-    height: 655.3333
+    height: 615.3333
   m_MinSize: {x: 202, y: 226}
   m_MaxSize: {x: 4002, y: 4026}
   m_ActualView: {fileID: 17}
@@ -592,9 +592,9 @@ MonoBehaviour:
   m_Pos:
     serializedVersion: 2
     x: 0
-    y: 679.3333
+    y: 639.3333
     width: 1953
-    height: 612.00006
+    height: 652.00006
   m_SerializedDataModeController:
     m_DataMode: 0
     m_PreferredDataMode: 0
@@ -619,7 +619,7 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Packages/me.martindevans.myriad-unity-integration/Runtime/Queries
+    - Packages/me.martindevans.myriad-unity-integration/Runtime
     m_Globs: []
     m_ProductIds: 
     m_AnyWithAssetOrigin: 0
@@ -629,7 +629,7 @@ MonoBehaviour:
   m_ViewMode: 1
   m_StartGridSize: 16
   m_LastFolders:
-  - Packages/me.martindevans.myriad-unity-integration/Runtime/Queries
+  - Packages/me.martindevans.myriad-unity-integration/Runtime
   m_LastFoldersGridSize: 16
   m_LastProjectPath: C:\Users\Martin\Documents\Unity\MyriadUnityIntegrationPackage
   m_LockTracker:
@@ -638,17 +638,17 @@ MonoBehaviour:
   m_FolderTreeState:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs:
-    - m_Data: 25594
+    - m_Data: 25488
     m_LastClickedID:
-      m_Data: 25594
+      m_Data: 25488
     m_ExpandedIDs:
     - m_Data: 0
-    - m_Data: 25474
-    - m_Data: 25476
-    - m_Data: 25478
     - m_Data: 25480
     - m_Data: 25482
     - m_Data: 25484
+    - m_Data: 25486
+    - m_Data: 25488
+    - m_Data: 25490
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -681,12 +681,12 @@ MonoBehaviour:
       m_Data: 0
     m_ExpandedIDs:
     - m_Data: 0
-    - m_Data: 25474
-    - m_Data: 25476
-    - m_Data: 25478
     - m_Data: 25480
     - m_Data: 25482
     - m_Data: 25484
+    - m_Data: 25486
+    - m_Data: 25488
+    - m_Data: 25490
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -715,7 +715,7 @@ MonoBehaviour:
   m_ListAreaState:
     m_SelectedInstanceIDs: []
     m_LastClickedInstanceID: 0
-    m_HadKeyboardFocusLastEvent: 0
+    m_HadKeyboardFocusLastEvent: 1
     m_ExpandedInstanceIDs: []
     m_RenameOverlay:
       m_UserAcceptedRename: 0
@@ -821,7 +821,7 @@ MonoBehaviour:
     x: 0
     y: 24
     width: 481
-    height: 629.3333
+    height: 589.3333
   m_SerializedDataModeController:
     m_DataMode: 0
     m_PreferredDataMode: 0
@@ -892,7 +892,7 @@ MonoBehaviour:
     x: 483
     y: 24
     width: 1470
-    height: 629.3333
+    height: 589.3333
   m_SerializedDataModeController:
     m_DataMode: 0
     m_PreferredDataMode: 0
@@ -1578,9 +1578,9 @@ MonoBehaviour:
   m_Pos:
     serializedVersion: 2
     x: 0
-    y: 734
+    y: 694
     width: 1953
-    height: 612.00006
+    height: 652.00006
   m_SerializedDataModeController:
     m_DataMode: 0
     m_PreferredDataMode: 0

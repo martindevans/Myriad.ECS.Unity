@@ -26,7 +26,7 @@ namespace Myriad.ECS.Worlds
 {
     public static class WorldJobExtensions
     {
-        /// <summary>
+                /// <summary>
         /// A handle for a Unity job based Myriad query. <b>MUST</b> be waited on at least once for correctness!
         /// </summary>
         [MustDisposeResource]
@@ -37,8 +37,7 @@ namespace Myriad.ECS.Worlds
             private NativeList<GCHandle> _pins;
 
 #if ENABLE_UNITY_COLLECTIONS_CHECKS
-            private AtomicSafetyHandle _safety;
-            private DisposeSentinel _dispose;
+            private readonly SafetyObject _safety;
 #endif
 
 
@@ -48,23 +47,23 @@ namespace Myriad.ECS.Worlds
 
             internal QueryJobHandle(JobHandle handle, NativeList<GCHandle> pins)
             {
+                if (!pins.IsCreated)
+                    throw new ArgumentException("`pins` NativeList must be created", nameof(pins));
+
                 _jobHandle = handle;
                 _pins = pins;
 
 #if ENABLE_UNITY_COLLECTIONS_CHECKS
-                DisposeSentinel.Create(out _safety, out _dispose, 32, Allocator.Persistent);
+                _safety = new SafetyObject();
 #endif
             }
 
             public void Complete()
             {
 #if ENABLE_UNITY_COLLECTIONS_CHECKS
-                if (_dispose != null)
-                {
-                    DisposeSentinel.Dispose(ref _safety, ref _dispose);
-                    _dispose = null;
-                    _safety = default;
-                }
+                // Completing a default handle is valid - so null safety is allowed!
+                if (_safety != null)
+                    _safety.Dispose();
 #endif
 
                 _jobHandle.Complete();
@@ -81,6 +80,35 @@ namespace Myriad.ECS.Worlds
             {
                 Complete();
             }
+
+#if ENABLE_UNITY_COLLECTIONS_CHECKS
+            /// <summary>
+            /// Safety stuff is held in this object, so the handle can be passed around and they all share a reference to the same safety
+            /// </summary>
+            private class SafetyObject
+                : IDisposable
+            {
+                private AtomicSafetyHandle _safety;
+                private DisposeSentinel _sentinel;
+                private bool _disposed;
+
+                public SafetyObject()
+                {
+                    DisposeSentinel.Create(out _safety, out _sentinel, 32, Allocator.Persistent);
+                }
+
+                public void Dispose()
+                {
+                    if (_disposed)
+                        return;
+                    _disposed = true;
+
+                    DisposeSentinel.Dispose(ref _safety, ref _sentinel);
+                    _sentinel = null;
+                    _safety = default;
+                }
+            }
+#endif
         }
 
         /// <summary>
