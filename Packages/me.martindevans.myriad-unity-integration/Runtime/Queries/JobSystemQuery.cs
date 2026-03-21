@@ -322,6 +322,10 @@ namespace Myriad.ECS.Worlds
             var jobHandle = handle.Value;
             handle.Dispose();
 
+            // Attach job to all archetypes
+            foreach (var archetype in query.GetArchetypes())
+                safety.AttachJob(archetype.Archetype.ArchetypeId, jobHandle);
+
             return new QueryJobHandle(jobHandle, pins);
         }
         
@@ -482,6 +486,10 @@ namespace Myriad.ECS.Worlds
             // Take the handle
             var jobHandle = handle.Value;
             handle.Dispose();
+
+            // Attach job to all archetypes
+            foreach (var archetype in query.GetArchetypes())
+                safety.AttachJob(archetype.Archetype.ArchetypeId, jobHandle);
 
             return new QueryJobHandle(jobHandle, pins);
         }
@@ -654,6 +662,10 @@ namespace Myriad.ECS.Worlds
             // Take the handle
             var jobHandle = handle.Value;
             handle.Dispose();
+
+            // Attach job to all archetypes
+            foreach (var archetype in query.GetArchetypes())
+                safety.AttachJob(archetype.Archetype.ArchetypeId, jobHandle);
 
             return new QueryJobHandle(jobHandle, pins);
         }
@@ -837,6 +849,10 @@ namespace Myriad.ECS.Worlds
             // Take the handle
             var jobHandle = handle.Value;
             handle.Dispose();
+
+            // Attach job to all archetypes
+            foreach (var archetype in query.GetArchetypes())
+                safety.AttachJob(archetype.Archetype.ArchetypeId, jobHandle);
 
             return new QueryJobHandle(jobHandle, pins);
         }
@@ -1031,6 +1047,10 @@ namespace Myriad.ECS.Worlds
             // Take the handle
             var jobHandle = handle.Value;
             handle.Dispose();
+
+            // Attach job to all archetypes
+            foreach (var archetype in query.GetArchetypes())
+                safety.AttachJob(archetype.Archetype.ArchetypeId, jobHandle);
 
             return new QueryJobHandle(jobHandle, pins);
         }
@@ -1236,6 +1256,10 @@ namespace Myriad.ECS.Worlds
             // Take the handle
             var jobHandle = handle.Value;
             handle.Dispose();
+
+            // Attach job to all archetypes
+            foreach (var archetype in query.GetArchetypes())
+                safety.AttachJob(archetype.Archetype.ArchetypeId, jobHandle);
 
             return new QueryJobHandle(jobHandle, pins);
         }
@@ -1452,6 +1476,10 @@ namespace Myriad.ECS.Worlds
             // Take the handle
             var jobHandle = handle.Value;
             handle.Dispose();
+
+            // Attach job to all archetypes
+            foreach (var archetype in query.GetArchetypes())
+                safety.AttachJob(archetype.Archetype.ArchetypeId, jobHandle);
 
             return new QueryJobHandle(jobHandle, pins);
         }
@@ -1679,6 +1707,10 @@ namespace Myriad.ECS.Worlds
             // Take the handle
             var jobHandle = handle.Value;
             handle.Dispose();
+
+            // Attach job to all archetypes
+            foreach (var archetype in query.GetArchetypes())
+                safety.AttachJob(archetype.Archetype.ArchetypeId, jobHandle);
 
             return new QueryJobHandle(jobHandle, pins);
         }
@@ -1917,6 +1949,10 @@ namespace Myriad.ECS.Worlds
             // Take the handle
             var jobHandle = handle.Value;
             handle.Dispose();
+
+            // Attach job to all archetypes
+            foreach (var archetype in query.GetArchetypes())
+                safety.AttachJob(archetype.Archetype.ArchetypeId, jobHandle);
 
             return new QueryJobHandle(jobHandle, pins);
         }
@@ -2166,6 +2202,10 @@ namespace Myriad.ECS.Worlds
             // Take the handle
             var jobHandle = handle.Value;
             handle.Dispose();
+
+            // Attach job to all archetypes
+            foreach (var archetype in query.GetArchetypes())
+                safety.AttachJob(archetype.Archetype.ArchetypeId, jobHandle);
 
             return new QueryJobHandle(jobHandle, pins);
         }
@@ -2426,6 +2466,10 @@ namespace Myriad.ECS.Worlds
             // Take the handle
             var jobHandle = handle.Value;
             handle.Dispose();
+
+            // Attach job to all archetypes
+            foreach (var archetype in query.GetArchetypes())
+                safety.AttachJob(archetype.Archetype.ArchetypeId, jobHandle);
 
             return new QueryJobHandle(jobHandle, pins);
         }
@@ -2697,6 +2741,10 @@ namespace Myriad.ECS.Worlds
             // Take the handle
             var jobHandle = handle.Value;
             handle.Dispose();
+
+            // Attach job to all archetypes
+            foreach (var archetype in query.GetArchetypes())
+                safety.AttachJob(archetype.Archetype.ArchetypeId, jobHandle);
 
             return new QueryJobHandle(jobHandle, pins);
         }
@@ -2979,6 +3027,10 @@ namespace Myriad.ECS.Worlds
             // Take the handle
             var jobHandle = handle.Value;
             handle.Dispose();
+
+            // Attach job to all archetypes
+            foreach (var archetype in query.GetArchetypes())
+                safety.AttachJob(archetype.Archetype.ArchetypeId, jobHandle);
 
             return new QueryJobHandle(jobHandle, pins);
         }
@@ -3272,6 +3324,10 @@ namespace Myriad.ECS.Worlds
             // Take the handle
             var jobHandle = handle.Value;
             handle.Dispose();
+
+            // Attach job to all archetypes
+            foreach (var archetype in query.GetArchetypes())
+                safety.AttachJob(archetype.Archetype.ArchetypeId, jobHandle);
 
             return new QueryJobHandle(jobHandle, pins);
         }
@@ -3576,6 +3632,10 @@ namespace Myriad.ECS.Worlds
             // Take the handle
             var jobHandle = handle.Value;
             handle.Dispose();
+
+            // Attach job to all archetypes
+            foreach (var archetype in query.GetArchetypes())
+                safety.AttachJob(archetype.Archetype.ArchetypeId, jobHandle);
 
             return new QueryJobHandle(jobHandle, pins);
         }
@@ -3891,6 +3951,10 @@ namespace Myriad.ECS.Worlds
             // Take the handle
             var jobHandle = handle.Value;
             handle.Dispose();
+
+            // Attach job to all archetypes
+            foreach (var archetype in query.GetArchetypes())
+                safety.AttachJob(archetype.Archetype.ArchetypeId, jobHandle);
 
             return new QueryJobHandle(jobHandle, pins);
         }

@@ -11,7 +11,7 @@ namespace Packages.me.martindevans.myriad_unity_integration.Runtime
     public class UnityMyriadSafetySystemAdapter
         : IWorldArchetypeSafetyManager
     {
-        private readonly Dictionary<long, JobHandle> _handles = new();
+        private readonly Dictionary<long, JobHandle> _archetypeHandles = new();
 
         /// <summary>
         /// Block on the job handle for this archetype
@@ -19,7 +19,7 @@ namespace Packages.me.martindevans.myriad_unity_integration.Runtime
         /// <param name="archetype"></param>
         public void Block(Archetype archetype)
         {
-            if (_handles.Remove(archetype.ArchetypeId, out var handle))
+            if (_archetypeHandles.Remove(archetype.ArchetypeId, out var handle))
                 handle.Complete();
         }
 
@@ -31,10 +31,10 @@ namespace Packages.me.martindevans.myriad_unity_integration.Runtime
         public void AttachJob(long archetypeId, JobHandle handle)
         {
             // Combine with existing handle (if any)
-            if (_handles.TryGetValue(archetypeId, out var archHandle))
+            if (_archetypeHandles.TryGetValue(archetypeId, out var archHandle))
                 handle = JobHandle.CombineDependencies(handle, archHandle);
 
-            _handles[archetypeId] = handle;
+            _archetypeHandles[archetypeId] = handle;
         }
 
         /// <summary>
@@ -44,7 +44,7 @@ namespace Packages.me.martindevans.myriad_unity_integration.Runtime
         /// <returns></returns>
         public JobHandle GetAttachedJob(long archetypeId)
         {
-            return _handles.GetValueOrDefault(archetypeId);
+            return _archetypeHandles.GetValueOrDefault(archetypeId);
         }
     }
 }
