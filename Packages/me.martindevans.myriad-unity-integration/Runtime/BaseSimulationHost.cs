@@ -56,6 +56,9 @@ namespace Packages.me.martindevans.myriad_unity_integration.Runtime
         protected virtual void LateUpdate()
         {
             _root.AfterUpdate(_data);
+
+            // Wait for all multithreaded work to finish
+            World.Block();
         }
 
         protected override void OnDestroy()
