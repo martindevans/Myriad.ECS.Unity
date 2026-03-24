@@ -437,6 +437,25 @@
             <param name="output"></param>
             <returns>this buffered entity</returns>
         </member>
+        <member name="M:Myriad.ECS.Command.CommandBuffer.BufferedEntity.DelayedResolve(Myriad.ECS.Command.CommandBuffer.IDelayedResolveTarget)">
+            <summary>
+            When the <see cref="T:Myriad.ECS.Command.CommandBuffer.BufferedEntity"/> is converted into a real <see cref="T:Myriad.ECS.Entity"/> by playing back the <see cref="P:Myriad.ECS.Command.CommandBuffer.BufferedEntity.CommandBuffer"/> the
+            <see cref="T:Myriad.ECS.Entity"/> will be added to the "output" collection.
+            </summary>
+            <param name="output"></param>
+            <returns>this buffered entity</returns>
+        </member>
+        <member name="T:Myriad.ECS.Command.CommandBuffer.IDelayedResolveTarget">
+            <summary>
+            Target collection to add delayed-resolve entities to
+            </summary>
+        </member>
+        <member name="M:Myriad.ECS.Command.CommandBuffer.IDelayedResolveTarget.Add(Myriad.ECS.Entity)">
+            <summary>
+            Add an entity to this collection
+            </summary>
+            <param name="entity"></param>
+        </member>
         <member name="P:Myriad.ECS.Command.CommandBuffer.World">
             <summary>
             The <see cref="P:Myriad.ECS.Command.CommandBuffer.World"/> this <see cref="T:Myriad.ECS.Command.CommandBuffer"/> is modifying
@@ -504,7 +523,7 @@
             <typeparam name="T"></typeparam>
             <param name="entity"></param>
         </member>
-        <member name="M:Myriad.ECS.Command.CommandBuffer.Delete(Myriad.ECS.Entity)">
+        <member name="M:Myriad.ECS.Command.CommandBuffer.Delete(Myriad.ECS.EntityId)">
             <summary>
             Delete an entity
             </summary>
@@ -542,7 +561,22 @@
         <member name="P:Myriad.ECS.Command.CommandBuffer.BufferedEntityData.ArchetypeKey">
             <summary>The "Node ID" of this entity, all buffered entities with the same node ID are in the same archetype (except -1)</summary>
         </member>
+        <member name="F:Myriad.ECS.Command.CommandBuffer.BufferedEntityData.SingleDelayedResolve">
+            <summary>
+            A collection to add this entity to when it's created. If this is non-null then the <see cref="F:Myriad.ECS.Command.CommandBuffer.BufferedEntityData.DelayedResolves"/> list must be allocated and used instead.
+            </summary>
+        </member>
         <member name="F:Myriad.ECS.Command.CommandBuffer.BufferedEntityData.DelayedResolves">
+            <summary>
+            Collections to add this entity to when it's created
+            </summary>
+        </member>
+        <member name="F:Myriad.ECS.Command.CommandBuffer.BufferedEntityData.SingleDelayedResolveTgt">
+            <summary>
+            A collection to add this entity to when it's created. If this is non-null then the <see cref="F:Myriad.ECS.Command.CommandBuffer.BufferedEntityData.DelayedResolvesTgts"/> list must be allocated and used instead.
+            </summary>
+        </member>
+        <member name="F:Myriad.ECS.Command.CommandBuffer.BufferedEntityData.DelayedResolvesTgts">
             <summary>
             Collections to add this entity to when it's created
             </summary>
@@ -2620,12 +2654,22 @@
             </summary>
             <param name="archetype"></param>
         </member>
+        <member name="M:Myriad.ECS.Locks.IWorldArchetypeSafetyManager.Block(Myriad.ECS.Worlds.Archetypes.Archetype,Myriad.ECS.IDs.ComponentID)">
+            <summary>
+            Wait for multithreaded work which is accessing a specific component in a specific archetype to finish
+            </summary>
+            <param name="archetype"></param>
+            <param name="id"></param>
+        </member>
         <member name="T:Myriad.ECS.Locks.DefaultWorldArchetypeSafetyManager">
             <summary>
             Implements <see cref="T:Myriad.ECS.Locks.IWorldArchetypeSafetyManager"/> but does not actually do anything!
             </summary>
         </member>
         <member name="M:Myriad.ECS.Locks.DefaultWorldArchetypeSafetyManager.Block(Myriad.ECS.Worlds.Archetypes.Archetype)">
+            <inheritdoc />
+        </member>
+        <member name="M:Myriad.ECS.Locks.DefaultWorldArchetypeSafetyManager.Block(Myriad.ECS.Worlds.Archetypes.Archetype,Myriad.ECS.IDs.ComponentID)">
             <inheritdoc />
         </member>
         <member name="T:Myriad.ECS.Paths.IPath">
@@ -15728,6 +15772,11 @@
             Block on multithreaded access to this archetype to finish
             </summary>
         </member>
+        <member name="M:Myriad.ECS.Worlds.Archetypes.Archetype.Block(Myriad.ECS.IDs.ComponentID)">
+            <summary>
+            Block on multithreaded access to the given component in this archetype to finish
+            </summary>
+        </member>
         <member name="M:Myriad.ECS.Worlds.Archetypes.ArchetypeComponentDisposal.DisposeRemoved(Myriad.ECS.Command.LazyCommandBuffer@,Myriad.ECS.Worlds.EntityInfo,Myriad.ECS.Collections.FrozenOrderedListSet{Myriad.ECS.IDs.ComponentID})">
             <summary>
             Dispose components which are not in the destination archetype
@@ -15805,6 +15854,11 @@
             </summary>
         </member>
         <member name="P:Myriad.ECS.Worlds.Chunks.Chunk.Entities">
+            <summary>
+            Get all of the entities in this chunk
+            </summary>
+        </member>
+        <member name="P:Myriad.ECS.Worlds.Chunks.Chunk.EntityIds">
             <summary>
             Get all of the entities in this chunk
             </summary>
@@ -16230,6 +16284,12 @@
         <member name="M:Myriad.ECS.Queries.ChunkHandle.Unsafe.GetEntityArray">
             <summary>
             Get the raw array storing entity data. Accessing beyond the entity count will be junk data.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Myriad.ECS.Queries.ChunkHandle.Unsafe.GetEntityIdArray">
+            <summary>
+            Get the raw array storing entity ID data. Accessing beyond the entity count will be junk data.
             </summary>
             <returns></returns>
         </member>
@@ -19311,26 +19371,69 @@
         <member name="M:Myriad.ECS.Queries.Reduce.Boolean.Or.Reduce(System.Boolean,System.Boolean)">
             <inheritdoc />
         </member>
+        <member name="T:Myriad.ECS.Systems.ICommandBufferSystemSubscriber">
+            <summary>
+            Callback when a commandbuffer system has been executed
+            </summary>
+        </member>
+        <member name="M:Myriad.ECS.Systems.ICommandBufferSystemSubscriber.OnCommandbufferPlayback(Myriad.ECS.Command.CommandBuffer.Resolver)">
+            <summary>
+            Called immediately after a commandbuffer has been executed
+            </summary>
+            <param name="resolver"></param>
+        </member>
+        <member name="T:Myriad.ECS.Systems.BaseCommandBufferSystem`1">
+            <summary>
+            Base system for all command buffer systems. Contains a <see cref="T:Myriad.ECS.Command.CommandBuffer"/> which will be executed at some point.
+            </summary>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="P:Myriad.ECS.Systems.BaseCommandBufferSystem`1.Resolver">
+            <summary>
+            Get the resolver from the previous playback.
+            </summary>
+        </member>
+        <member name="P:Myriad.ECS.Systems.BaseCommandBufferSystem`1.Buffer">
+            <summary>
+            The CommandBuffer which will be executed.
+            </summary>
+        </member>
+        <member name="P:Myriad.ECS.Systems.BaseCommandBufferSystem`1.World">
+            <summary>
+            The world this system is bound to
+            </summary>
+        </member>
+        <member name="M:Myriad.ECS.Systems.BaseCommandBufferSystem`1.#ctor(Myriad.ECS.Worlds.World)">
+            <summary>
+            Create a new <see cref="T:Myriad.ECS.Systems.CommandBufferSystem`1"/>
+            </summary>
+            <param name="world"></param>
+        </member>
+        <member name="M:Myriad.ECS.Systems.BaseCommandBufferSystem`1.Playback">
+            <summary>
+            Play this buffer back (invalidating the previous resolver)
+            </summary>
+        </member>
+        <member name="M:Myriad.ECS.Systems.BaseCommandBufferSystem`1.Subscribe(Myriad.ECS.Systems.ICommandBufferSystemSubscriber)">
+            <summary>
+            Add a new subscriber to receive a callback when the buffer is executed
+            </summary>
+            <param name="subscriber"></param>
+        </member>
+        <member name="M:Myriad.ECS.Systems.BaseCommandBufferSystem`1.Unsubscribe(Myriad.ECS.Systems.ICommandBufferSystemSubscriber)">
+            <summary>
+            Remove a subscriber
+            </summary>
+            <param name="subscriber"></param>
+        </member>
+        <member name="M:Myriad.ECS.Systems.BaseCommandBufferSystem`1.Update(`0)">
+            <inheritdoc />
+        </member>
         <member name="T:Myriad.ECS.Systems.CommandBufferSystem`1">
             <summary>
             Executes a command buffer in Update.
             </summary>
             <typeparam name="T"></typeparam>
-        </member>
-        <member name="P:Myriad.ECS.Systems.CommandBufferSystem`1.Resolver">
-            <summary>
-            Get the resolver from the previous playback.
-            </summary>
-        </member>
-        <member name="P:Myriad.ECS.Systems.CommandBufferSystem`1.Buffer">
-            <summary>
-            The CommandBuffer which will be executed in the next Update tick.
-            </summary>
-        </member>
-        <member name="P:Myriad.ECS.Systems.CommandBufferSystem`1.World">
-            <summary>
-            The world this system is bound to
-            </summary>
         </member>
         <member name="M:Myriad.ECS.Systems.CommandBufferSystem`1.#ctor(Myriad.ECS.Worlds.World)">
             <summary>
@@ -19347,21 +19450,6 @@
             </summary>
             <typeparam name="T"></typeparam>
         </member>
-        <member name="P:Myriad.ECS.Systems.EarlyCommandBufferSystem`1.Resolver">
-            <summary>
-            Get the resolver from the previous playback.
-            </summary>
-        </member>
-        <member name="P:Myriad.ECS.Systems.EarlyCommandBufferSystem`1.Buffer">
-            <summary>
-            The CommandBuffer which will be executed in the next Update tick.
-            </summary>
-        </member>
-        <member name="P:Myriad.ECS.Systems.EarlyCommandBufferSystem`1.World">
-            <summary>
-            The world this system is bound to
-            </summary>
-        </member>
         <member name="M:Myriad.ECS.Systems.EarlyCommandBufferSystem`1.#ctor(Myriad.ECS.Worlds.World)">
             <summary>
             Create a new <see cref="T:Myriad.ECS.Systems.EarlyCommandBufferSystem`1"/>
@@ -19371,38 +19459,17 @@
         <member name="M:Myriad.ECS.Systems.EarlyCommandBufferSystem`1.BeforeUpdate(`0)">
             <inheritdoc />
         </member>
-        <member name="M:Myriad.ECS.Systems.EarlyCommandBufferSystem`1.Update(`0)">
-            <inheritdoc />
-        </member>
         <member name="T:Myriad.ECS.Systems.LateCommandBufferSystem`1">
             <summary>
             Executes a command buffer in AfterUpdate.
             </summary>
             <typeparam name="T"></typeparam>
         </member>
-        <member name="P:Myriad.ECS.Systems.LateCommandBufferSystem`1.Resolver">
-            <summary>
-            Get the <see cref="T:Myriad.ECS.Command.CommandBuffer.Resolver"/> from the previous playback.
-            </summary>
-        </member>
-        <member name="P:Myriad.ECS.Systems.LateCommandBufferSystem`1.Buffer">
-            <summary>
-            The <see cref="T:Myriad.ECS.Command.CommandBuffer"/> which will be executed in the next Update tick.
-            </summary>
-        </member>
-        <member name="P:Myriad.ECS.Systems.LateCommandBufferSystem`1.World">
-            <summary>
-            The <see cref="P:Myriad.ECS.Systems.LateCommandBufferSystem`1.World"/> this system is bound to
-            </summary>
-        </member>
         <member name="M:Myriad.ECS.Systems.LateCommandBufferSystem`1.#ctor(Myriad.ECS.Worlds.World)">
             <summary>
             Create a new <see cref="T:Myriad.ECS.Systems.LateCommandBufferSystem`1"/>
             </summary>
             <param name="world"></param>
-        </member>
-        <member name="M:Myriad.ECS.Systems.LateCommandBufferSystem`1.Update(`0)">
-            <inheritdoc />
         </member>
         <member name="M:Myriad.ECS.Systems.LateCommandBufferSystem`1.AfterUpdate(`0)">
             <inheritdoc />
@@ -19914,6 +19981,7 @@
             Apply changes
             </summary>
             <param name="cmd"></param>
+            <returns>The number of updated entities</returns>
         </member>
         <member name="M:Myriad.ECS.Systems.SystemState`2.Create(Myriad.ECS.Entity)">
             <summary>

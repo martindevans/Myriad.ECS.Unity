@@ -19,7 +19,7 @@ MonoBehaviour:
     width: 2560
     height: 1349.3334
   m_ShowMode: 4
-  m_Title: Inspector
+  m_Title: Project
   m_RootView: {fileID: 6}
   m_MinSize: {x: 875, y: 300}
   m_MaxSize: {x: 10000, y: 10000}
@@ -619,7 +619,7 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Packages/me.martindevans.myriad-unity-integration/Runtime/Queries
+    - Packages/me.martindevans.myriad-unity-integration/Runtime
     m_Globs: []
     m_ProductIds: 
     m_AnyWithAssetOrigin: 0
@@ -629,7 +629,7 @@ MonoBehaviour:
   m_ViewMode: 1
   m_StartGridSize: 16
   m_LastFolders:
-  - Packages/me.martindevans.myriad-unity-integration/Runtime/Queries
+  - Packages/me.martindevans.myriad-unity-integration/Runtime
   m_LastFoldersGridSize: 16
   m_LastProjectPath: C:\Users\Martin\Documents\Unity\MyriadUnityIntegrationPackage
   m_LockTracker:
@@ -638,9 +638,9 @@ MonoBehaviour:
   m_FolderTreeState:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs:
-    - m_Data: 25604
+    - m_Data: 25488
     m_LastClickedID:
-      m_Data: 25604
+      m_Data: 25488
     m_ExpandedIDs:
     - m_Data: 0
     - m_Data: 25480
@@ -714,8 +714,8 @@ MonoBehaviour:
       m_ResourceFile: 
   m_ListAreaState:
     m_SelectedInstanceIDs:
-    - m_Data: 25424
-    m_LastClickedInstanceID: 25424
+    - m_Data: 23488
+    m_LastClickedInstanceID: 23488
     m_HadKeyboardFocusLastEvent: 1
     m_ExpandedInstanceIDs: []
     m_RenameOverlay:

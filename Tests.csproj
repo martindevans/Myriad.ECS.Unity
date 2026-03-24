@@ -632,7 +632,7 @@
       <Private>False</Private>
     </Reference>
     <Reference Include="Myriad.ECS">
-      <HintPath>Assets\Packages\Myriad.ECS.45.0.0\lib\netstandard2.1\Myriad.ECS.dll</HintPath>
+      <HintPath>Assets\Packages\Myriad.ECS.47.0.0\lib\netstandard2.1\Myriad.ECS.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="Unity.Android.Types">
@@ -1151,12 +1151,12 @@
       <HintPath>Library\ScriptAssemblies\UnityEditor.TestRunner.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="UnityEditor.UI">
-      <HintPath>Library\ScriptAssemblies\UnityEditor.UI.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
     <Reference Include="UnityEngine.UI">
       <HintPath>Library\ScriptAssemblies\UnityEngine.UI.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UnityEditor.UI">
+      <HintPath>Library\ScriptAssemblies\UnityEditor.UI.dll</HintPath>
       <Private>False</Private>
     </Reference>
   </ItemGroup>

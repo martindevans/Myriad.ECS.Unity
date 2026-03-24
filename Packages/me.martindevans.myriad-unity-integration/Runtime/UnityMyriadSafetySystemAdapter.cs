@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Myriad.ECS.IDs;
 using Myriad.ECS.Locks;
 using Myriad.ECS.Worlds.Archetypes;
 using Unity.Jobs;
@@ -21,6 +22,17 @@ namespace Packages.me.martindevans.myriad_unity_integration.Runtime
         {
             if (_archetypeHandles.Remove(archetype.ArchetypeId, out var handle))
                 handle.Complete();
+        }
+
+        /// <summary>
+        /// Wait for multithreaded work which is accessing a specific component in a specific archetype to finish
+        /// </summary>
+        /// <param name="archetype"></param>
+        /// <param name="id"></param>
+        public void Block(Archetype archetype, ComponentID id)
+        {
+            // Defer to blocking on the entire archetype
+            Block(archetype);
         }
 
         /// <summary>

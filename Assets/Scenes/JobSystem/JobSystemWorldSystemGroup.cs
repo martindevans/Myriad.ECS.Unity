@@ -1,4 +1,5 @@
 using System;
+using Myriad.ECS;
 using Myriad.ECS.Queries;
 using Myriad.ECS.Systems;
 using Myriad.ECS.Worlds;
@@ -110,9 +111,13 @@ namespace Assets.Scenes.JobSystem
         {
             public JobHandle Schedule(WorldJobExtensions.JobChunkHandle chunk, NativeArray<DemoComponent> t0, JobHandle dependsOn)
             {
+                var ent = chunk.GetEntityArray();
                 var arr = chunk.GetComponentArray<GenericDemoComponent<ulong>>();
 
-                dependsOn = new JobWork(t0).Schedule(t0.Length, 32, dependsOn);
+                dependsOn = new JobWork(t0, arr, ent).Schedule(t0.Length, 32, dependsOn);
+
+                dependsOn = ent.Dispose(dependsOn);
+                dependsOn = arr.Dispose(dependsOn);
 
                 return dependsOn;
             }
@@ -123,15 +128,20 @@ namespace Assets.Scenes.JobSystem
             : IJobParallelFor
         {
             private readonly NativeArray<DemoComponent> _demos;
+            private readonly NativeArray<GenericDemoComponent<ulong>> _arr;
+            private readonly NativeArray<EntityId> _ent;
 
-            public JobWork(NativeArray<DemoComponent> demos)
+            public JobWork(NativeArray<DemoComponent> demos, NativeArray<GenericDemoComponent<ulong>> arr, NativeArray<EntityId> ent)
             {
                 _demos = demos;
+                _arr = arr;
+                _ent = ent;
             }
 
             public void Execute(int index)
             {
                 _demos.AsSpan()[index].Value++;
+                _demos.AsSpan()[index].Value += _ent[index].ID;
             }
         }
     }
