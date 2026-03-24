@@ -67,6 +67,11 @@ namespace Myriad.ECS.Worlds
                 }
             }
 
+            public void Chain(JobHandle handle)
+            {
+                _jobHandle = JobHandle.CombineDependencies(_jobHandle, handle);
+            }
+
             public void Dispose()
             {
                 Complete();
