@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Myriad.ECS.IDs;
 using Myriad.ECS.Locks;
 using Myriad.ECS.Worlds.Archetypes;
@@ -12,7 +13,11 @@ namespace Packages.me.martindevans.myriad_unity_integration.Runtime
     public class UnityMyriadSafetySystemAdapter
         : IWorldArchetypeSafetyManager
     {
-        private readonly Dictionary<long, JobHandle> _archetypeHandles = new();
+        /// <summary>
+        /// Map from (Archetype ID, Component ID) -> JobHandle which is accessing this component in this archetype
+        /// </summary>
+        /// <remarks>All handles here are automatically joined into the overall archetype handle too</remarks>
+        private readonly Dictionary<(long, ComponentID), JobHandle> _archetypeComponentHandles = new();
 
         /// <summary>
         /// Block on the job handle for this archetype
@@ -20,8 +25,8 @@ namespace Packages.me.martindevans.myriad_unity_integration.Runtime
         /// <param name="archetype"></param>
         public void Block(Archetype archetype)
         {
-            if (_archetypeHandles.Remove(archetype.ArchetypeId, out var handle))
-                handle.Complete();
+            foreach (var component in archetype.Components)
+                Block(archetype, component);
         }
 
         /// <summary>
@@ -31,32 +36,45 @@ namespace Packages.me.martindevans.myriad_unity_integration.Runtime
         /// <param name="id"></param>
         public void Block(Archetype archetype, ComponentID id)
         {
-            // Defer to blocking on the entire archetype
-            Block(archetype);
+            if (_archetypeComponentHandles.Remove((archetype.ArchetypeId, id), out var handle))
+                handle.Complete();
         }
 
         /// <summary>
-        /// Attach a job handle to the given archetype
+        /// Attach a job handle to the given archetype/component pair
         /// </summary>
         /// <param name="archetypeId"></param>
+        /// <param name="components"></param>
         /// <param name="handle"></param>
-        public void AttachJob(long archetypeId, JobHandle handle)
+        public void AttachJob(long archetypeId, Span<ComponentID> components, JobHandle handle)
         {
-            // Combine with existing handle (if any)
-            if (_archetypeHandles.TryGetValue(archetypeId, out var archHandle))
-                handle = JobHandle.CombineDependencies(handle, archHandle);
+            // Store handle for all components
+            foreach (var component in components)
+            {
+                // Combine with existing handle
+                if (_archetypeComponentHandles.TryGetValue((archetypeId, component), out var acHandle))
+                    handle = JobHandle.CombineDependencies(handle, acHandle);
 
-            _archetypeHandles[archetypeId] = handle;
+                // Store it
+                _archetypeComponentHandles[(archetypeId, component)] = handle;
+            }
         }
 
         /// <summary>
-        /// Get a combined handle for all jobs attached to the archetype
+        /// Get a handle for accessing specific components in a specific archetype
         /// </summary>
         /// <param name="archetypeId"></param>
+        /// <param name="components"></param>
         /// <returns></returns>
-        public JobHandle GetAttachedJob(long archetypeId)
+        public JobHandle GetAttachedJob(long archetypeId, Span<ComponentID> components)
         {
-            return _archetypeHandles.GetValueOrDefault(archetypeId);
+            var handle = default(JobHandle);
+
+            foreach (var component in components)
+                if (_archetypeComponentHandles.TryGetValue((archetypeId, component), out var value))
+                    handle = JobHandle.CombineDependencies(handle, value);
+
+            return handle;
         }
     }
 }
