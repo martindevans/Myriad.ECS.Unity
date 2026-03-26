@@ -27,7 +27,8 @@ namespace Packages.me.martindevans.myriad_unity_integration.Runtime
             var handle = default(JobHandle);
 
             foreach (var component in archetype.Components)
-                handle = JobHandle.CombineDependencies(handle, GetAttachedJob(archetype.ArchetypeId, component));
+                if (_archetypeComponentHandles.Remove((archetype.ArchetypeId, component), out var value))
+                    handle = JobHandle.CombineDependencies(handle, value);
 
             handle.Complete();
         }
@@ -51,7 +52,6 @@ namespace Packages.me.martindevans.myriad_unity_integration.Runtime
         /// <param name="handle"></param>
         public void AttachJob(long archetypeId, ReadOnlySpan<ComponentID> components, JobHandle handle)
         {
-            // Store handle for all components
             foreach (var component in components)
             {
                 if (_archetypeComponentHandles.TryGetValue((archetypeId, component), out var acHandle))
@@ -81,17 +81,6 @@ namespace Packages.me.martindevans.myriad_unity_integration.Runtime
                     handle = JobHandle.CombineDependencies(handle, value);
 
             return handle;
-        }
-
-        /// <summary>
-        /// Get a handle for accessing specific component in a specific archetype
-        /// </summary>
-        /// <param name="archetypeId"></param>
-        /// <param name="component"></param>
-        /// <returns></returns>
-        public JobHandle GetAttachedJob(long archetypeId, ComponentID component)
-        {
-            return _archetypeComponentHandles.GetValueOrDefault((archetypeId, component));
         }
     }
 }
