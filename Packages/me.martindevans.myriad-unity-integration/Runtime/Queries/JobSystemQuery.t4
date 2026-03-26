@@ -247,7 +247,7 @@ namespace Myriad.ECS.Worlds
             private readonly UnityMyriadSafetySystemAdapter _safety;
             private readonly JobHandle _dependsOn;
 
-            public JobHandle JobHandle;
+            public JobHandle Handle;
 
 #pragma warning disable IDE0044
             private NativeList<GCHandle> _pins;
@@ -261,7 +261,7 @@ namespace Myriad.ECS.Worlds
 
                 _pins = pins;
 
-                JobHandle = dependsOn;
+                Handle = dependsOn;
             }
 
             public void Execute(
@@ -309,7 +309,7 @@ namespace Myriad.ECS.Worlds
 <# } #>
 
                 // Chain this handle with all the others generated for other chunks
-                JobHandle = JobHandle.CombineDependencies(JobHandle, jHandle);
+                Handle = JobHandle.CombineDependencies(Handle, jHandle);
             }
         }
 
@@ -385,7 +385,7 @@ namespace Myriad.ECS.Worlds
             JobHandle.ScheduleBatchedJobs();
 
             // Take the handle
-            var jobHandle = q.JobHandle;
+            var jobHandle = q.Handle;
 
             // Attach job to all archetypes
             Span<ComponentID> components = stackalloc ComponentID[<#= i #>]
