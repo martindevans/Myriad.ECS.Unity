@@ -11,6 +11,7 @@ using System;
 using Myriad.ECS.Queries;
 using System.Runtime.InteropServices;
 using JetBrains.Annotations;
+using Myriad.ECS.IDs;
 using Packages.me.martindevans.myriad_unity_integration.Runtime;
 using Unity.Collections;
 using Unity.Collections.LowLevel.Unsafe;
@@ -246,20 +247,21 @@ namespace Myriad.ECS.Worlds
             private readonly UnityMyriadSafetySystemAdapter _safety;
             private readonly JobHandle _dependsOn;
 
-            private NativeReference<JobHandle> _handle;
+            public JobHandle Handle;
 
 #pragma warning disable IDE0044
             private NativeList<GCHandle> _pins;
 #pragma warning restore IDE0044
 
-            public JobQuery(TScheduler scheduler, UnityMyriadSafetySystemAdapter safety, JobHandle dependsOn, NativeReference<JobHandle> handle, NativeList<GCHandle> pins)
+            public JobQuery(TScheduler scheduler, UnityMyriadSafetySystemAdapter safety, JobHandle dependsOn, NativeList<GCHandle> pins)
             {
                 _scheduler = scheduler;
                 _safety = safety;
                 _dependsOn = dependsOn;
 
-                _handle = handle;
                 _pins = pins;
+
+                Handle = dependsOn;
             }
 
             public void Execute(
@@ -282,6 +284,13 @@ namespace Myriad.ECS.Worlds
                 var nArray<#= j #> = jobChunkHandle.GetComponentArray<T<#= j #>>();
 <# } #>
 
+                Span<ComponentID> components = stackalloc ComponentID[<#= i #>]
+                {
+<# for (var j = 0; j < i; j++) { #>
+                    ComponentID<T<#= j #>>.ID,
+<# } #>
+                };
+
                 // Call user code to schedule a job
                 var jHandle = _scheduler.Schedule(
                     jobChunkHandle,
@@ -290,7 +299,7 @@ namespace Myriad.ECS.Worlds
 <# } #>
                     JobHandle.CombineDependencies(
                         _dependsOn,
-                        _safety.GetAttachedJob(chunk.Archetype.ArchetypeId)
+                        _safety.GetAttachedJob(chunk.Archetype.ArchetypeId, components)
                     )
                 );
 
@@ -300,7 +309,7 @@ namespace Myriad.ECS.Worlds
 <# } #>
 
                 // Chain this handle with all the others generated for other chunks
-                _handle.Value = JobHandle.CombineDependencies(_handle.Value, jHandle);
+                Handle = JobHandle.CombineDependencies(Handle, jHandle);
             }
         }
 
@@ -364,24 +373,29 @@ namespace Myriad.ECS.Worlds
 
             // Create collections to accumulate things we'll need to clean up afterwards
             var pins = new NativeList<GCHandle>(chunkCount * <#= i #>, Allocator.TempJob);
-            var handle = new NativeReference<JobHandle>(default, Allocator.TempJob);
 
             // Execute standard Myriad.ECS query which will schedule a job per chunk
+            var q = new JobQuery<TScheduler, <#= queryConstraints #>>(sched, safety, dependsOn, pins);
             world.ExecuteChunk<
                 JobQuery<TScheduler, <#= queryConstraints #>>,
                 <#= queryConstraints #>
-            >(new JobQuery<TScheduler, <#= queryConstraints #>>(sched, safety, dependsOn, handle, pins));
+            >(ref q);
 
             // Ensure all jobs are started before we wait on them
             JobHandle.ScheduleBatchedJobs();
 
             // Take the handle
-            var jobHandle = handle.Value;
-            handle.Dispose();
+            var jobHandle = q.Handle;
 
             // Attach job to all archetypes
+            Span<ComponentID> components = stackalloc ComponentID[<#= i #>]
+            {
+<# for (var j = 0; j < i; j++) { #>
+                ComponentID<T<#= j #>>.ID,
+<# } #>
+            };
             foreach (var archetype in query.GetArchetypes())
-                safety.AttachJob(archetype.Archetype.ArchetypeId, jobHandle);
+                safety.AttachJob(archetype.Archetype.ArchetypeId, components, jobHandle);
 
             return new QueryJobHandle(jobHandle, pins);
         }
