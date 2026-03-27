@@ -27,7 +27,7 @@ namespace Myriad.ECS.Worlds
 {
     public static class WorldJobExtensions
     {
-                /// <summary>
+        /// <summary>
         /// A handle for a Unity job based Myriad query. <b>MUST</b> be waited on at least once for correctness!
         /// </summary>
         [MustDisposeResource]
@@ -80,6 +80,15 @@ namespace Myriad.ECS.Worlds
             public void Dispose()
             {
                 Complete();
+            }
+
+            /// <summary>
+            /// Combine another job handle into this handle
+            /// </summary>
+            /// <param name="handle"></param>
+            public void Chain(JobHandle handle)
+            {
+                _jobHandle = JobHandle.CombineDependencies(_jobHandle, handle);
             }
 
 #if ENABLE_UNITY_COLLECTIONS_CHECKS
