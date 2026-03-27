@@ -22,7 +22,7 @@ namespace Packages.me.martindevans.myriad_unity_integration.Runtime
         /// Block on the job handle for this archetype
         /// </summary>
         /// <param name="archetype"></param>
-        public void Block(Archetype archetype)
+        void IWorldArchetypeSafetyManager.Block(Archetype archetype)
         {
             var handle = default(JobHandle);
 
@@ -34,14 +34,13 @@ namespace Packages.me.martindevans.myriad_unity_integration.Runtime
         }
 
         /// <summary>
-        /// Wait for multithreaded work which is accessing a specific component in a specific archetype to finish
+        /// Wait for multithreaded work which is accessing a set of components in a specific archetype to finish
         /// </summary>
         /// <param name="archetype"></param>
-        /// <param name="id"></param>
-        public void Block(Archetype archetype, ComponentID id)
+        /// <param name="ids"></param>
+        void IWorldArchetypeSafetyManager.Block(Archetype archetype, ReadOnlySpan<ComponentID> ids)
         {
-            if (_archetypeComponentHandles.Remove((archetype.ArchetypeId, id), out var handle))
-                handle.Complete();
+            GetAttachedJob(archetype.ArchetypeId, ids);
         }
 
         /// <summary>

@@ -2654,12 +2654,12 @@
             </summary>
             <param name="archetype"></param>
         </member>
-        <member name="M:Myriad.ECS.Locks.IWorldArchetypeSafetyManager.Block(Myriad.ECS.Worlds.Archetypes.Archetype,Myriad.ECS.IDs.ComponentID)">
+        <member name="M:Myriad.ECS.Locks.IWorldArchetypeSafetyManager.Block(Myriad.ECS.Worlds.Archetypes.Archetype,System.ReadOnlySpan{Myriad.ECS.IDs.ComponentID})">
             <summary>
-            Wait for multithreaded work which is accessing a specific component in a specific archetype to finish
+            Wait for multithreaded work which is accessing a specific set of components in a specific archetype to finish
             </summary>
             <param name="archetype"></param>
-            <param name="id"></param>
+            <param name="ids"></param>
         </member>
         <member name="T:Myriad.ECS.Locks.DefaultWorldArchetypeSafetyManager">
             <summary>
@@ -2669,7 +2669,7 @@
         <member name="M:Myriad.ECS.Locks.DefaultWorldArchetypeSafetyManager.Block(Myriad.ECS.Worlds.Archetypes.Archetype)">
             <inheritdoc />
         </member>
-        <member name="M:Myriad.ECS.Locks.DefaultWorldArchetypeSafetyManager.Block(Myriad.ECS.Worlds.Archetypes.Archetype,Myriad.ECS.IDs.ComponentID)">
+        <member name="M:Myriad.ECS.Locks.DefaultWorldArchetypeSafetyManager.Block(Myriad.ECS.Worlds.Archetypes.Archetype,System.ReadOnlySpan{Myriad.ECS.IDs.ComponentID})">
             <inheritdoc />
         </member>
         <member name="T:Myriad.ECS.Paths.IPath">
@@ -15772,10 +15772,23 @@
             Block on multithreaded access to this archetype to finish
             </summary>
         </member>
-        <member name="M:Myriad.ECS.Worlds.Archetypes.Archetype.Block(Myriad.ECS.IDs.ComponentID)">
+        <member name="M:Myriad.ECS.Worlds.Archetypes.Archetype.Block(System.ReadOnlySpan{Myriad.ECS.IDs.ComponentID})">
             <summary>
-            Block on multithreaded access to the given component in this archetype to finish
+            Block on multithreaded access to the given components in this archetype to finish
             </summary>
+        </member>
+        <member name="M:Myriad.ECS.Worlds.Archetypes.Archetype.HasComponent``1">
+            <summary>
+            Check if this archetype contains the given component
+            </summary>
+            <typeparam name="T"></typeparam>
+            <returns></returns>
+        </member>
+        <member name="M:Myriad.ECS.Worlds.Archetypes.Archetype.HasComponent(Myriad.ECS.IDs.ComponentID)">
+            <summary>
+            Check if this archetype contains the given component
+            </summary>
+            <returns></returns>
         </member>
         <member name="M:Myriad.ECS.Worlds.Archetypes.ArchetypeComponentDisposal.DisposeRemoved(Myriad.ECS.Command.LazyCommandBuffer@,Myriad.ECS.Worlds.EntityInfo,Myriad.ECS.Collections.FrozenOrderedListSet{Myriad.ECS.IDs.ComponentID})">
             <summary>
@@ -16226,6 +16239,11 @@
             </summary>
         </member>
         <member name="P:Myriad.ECS.Queries.ChunkHandle.Entities">
+            <summary>
+            Get the entities in this chunk
+            </summary>
+        </member>
+        <member name="P:Myriad.ECS.Queries.ChunkHandle.EntityIds">
             <summary>
             Get the entities in this chunk
             </summary>

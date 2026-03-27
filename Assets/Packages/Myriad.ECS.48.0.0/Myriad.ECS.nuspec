@@ -2,13 +2,13 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2013/05/nuspec.xsd">
   <metadata>
     <id>Myriad.ECS</id>
-    <version>47.0.0</version>
+    <version>48.0.0</version>
     <title>Myriad.ECS</title>
     <authors>Martin Evans</authors>
     <projectUrl>https://github.com/martindevans/Myriad.ECS</projectUrl>
     <description>Myriad.ECS is a high performance Entity Component System (ECS).</description>
     <tags>games, simulation, ECS</tags>
-    <repository type="git" url="https://github.com/martindevans/Myriad.ECS" commit="4cd792796783005d27571b1ec0391ff8ce371fe7" />
+    <repository type="git" url="https://github.com/martindevans/Myriad.ECS" commit="67102283210390964b80500d21e81b56a98a5cdc" />
     <dependencies>
       <group targetFramework="net8.0">
         <dependency id="System.Runtime.CompilerServices.Unsafe" version="6.1.2" exclude="Build,Analyzers" />
