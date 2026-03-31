@@ -2,7 +2,6 @@
 
 using System;
 using System.Collections.Generic;
-using JetBrains.Annotations;
 using Myriad.ECS;
 using Myriad.ECS.Command;
 using Myriad.ECS.Components;

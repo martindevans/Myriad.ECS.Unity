@@ -64,6 +64,7 @@
     <Compile Include="Packages\me.martindevans.myriad-unity-integration\Runtime\GameTimeSimulationHost.cs" />
     <Compile Include="Packages\me.martindevans.myriad-unity-integration\Runtime\ISystemQueryEntityCount.cs" />
     <Compile Include="Packages\me.martindevans.myriad-unity-integration\Runtime\Systems\TransformSystem.cs" />
+    <Compile Include="Packages\me.martindevans.myriad-unity-integration\Runtime\Systems\Utility\CountdownAutoDelete.cs" />
     <Compile Include="Packages\me.martindevans.myriad-unity-integration\Runtime\Systems\WorldSystemGroup.cs" />
     <Compile Include="Packages\me.martindevans.myriad-unity-integration\Runtime\BaseWorldHost.cs" />
     <Compile Include="Packages\me.martindevans.myriad-unity-integration\Runtime\BaseSimulationHost.cs" />
