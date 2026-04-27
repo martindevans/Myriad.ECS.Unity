@@ -4776,18 +4776,6 @@
             query object will automatically be created and written into this field.</param>
             <returns>The total number of entities processed</returns>
         </member>
-        <member name="M:Myriad.ECS.Worlds.World.ExecuteChunkParallel``2(``0,Myriad.ECS.Queries.QueryDescription)">
-            <summary>
-            Execute a query which executes on entire chunks. Executes work in parallel at the chunk
-            level.
-            </summary>
-            <typeparam name="TQ">The type of the query</typeparam>
-            <typeparam name="T0">Type of component 0 to retrieve</typeparam>
-            <param name="q">The TQ instance which will be executed for each chunk</param>
-            <param name="query">A query expressing which entities to execute this query over. If null a suitable
-            query object will automatically be created and written into this field.</param>
-            <returns>The total number of entities processed</returns>
-        </member>
         <member name="M:Myriad.ECS.Worlds.World.ExecuteChunk``3(Myriad.ECS.Queries.QueryDescription)">
             <summary>
             Execute a query which executes on entire chunks.
@@ -4849,19 +4837,6 @@
         <member name="M:Myriad.ECS.Worlds.World.ExecuteChunk``3(``0@,Myriad.ECS.Queries.QueryDescription@)">
             <summary>
             Execute a query which executes on entire chunks.
-            </summary>
-            <typeparam name="TQ">The type of the query</typeparam>
-            <typeparam name="T0">Type of component 0 to retrieve</typeparam>
-            <typeparam name="T1">Type of component 1 to retrieve</typeparam>
-            <param name="q">The TQ instance which will be executed for each chunk</param>
-            <param name="query">A query expressing which entities to execute this query over. If null a suitable
-            query object will automatically be created and written into this field.</param>
-            <returns>The total number of entities processed</returns>
-        </member>
-        <member name="M:Myriad.ECS.Worlds.World.ExecuteChunkParallel``3(``0,Myriad.ECS.Queries.QueryDescription)">
-            <summary>
-            Execute a query which executes on entire chunks. Executes work in parallel at the chunk
-            level.
             </summary>
             <typeparam name="TQ">The type of the query</typeparam>
             <typeparam name="T0">Type of component 0 to retrieve</typeparam>
@@ -4937,20 +4912,6 @@
         <member name="M:Myriad.ECS.Worlds.World.ExecuteChunk``4(``0@,Myriad.ECS.Queries.QueryDescription@)">
             <summary>
             Execute a query which executes on entire chunks.
-            </summary>
-            <typeparam name="TQ">The type of the query</typeparam>
-            <typeparam name="T0">Type of component 0 to retrieve</typeparam>
-            <typeparam name="T1">Type of component 1 to retrieve</typeparam>
-            <typeparam name="T2">Type of component 2 to retrieve</typeparam>
-            <param name="q">The TQ instance which will be executed for each chunk</param>
-            <param name="query">A query expressing which entities to execute this query over. If null a suitable
-            query object will automatically be created and written into this field.</param>
-            <returns>The total number of entities processed</returns>
-        </member>
-        <member name="M:Myriad.ECS.Worlds.World.ExecuteChunkParallel``4(``0,Myriad.ECS.Queries.QueryDescription)">
-            <summary>
-            Execute a query which executes on entire chunks. Executes work in parallel at the chunk
-            level.
             </summary>
             <typeparam name="TQ">The type of the query</typeparam>
             <typeparam name="T0">Type of component 0 to retrieve</typeparam>
@@ -5043,21 +5004,6 @@
             query object will automatically be created and written into this field.</param>
             <returns>The total number of entities processed</returns>
         </member>
-        <member name="M:Myriad.ECS.Worlds.World.ExecuteChunkParallel``5(``0,Myriad.ECS.Queries.QueryDescription)">
-            <summary>
-            Execute a query which executes on entire chunks. Executes work in parallel at the chunk
-            level.
-            </summary>
-            <typeparam name="TQ">The type of the query</typeparam>
-            <typeparam name="T0">Type of component 0 to retrieve</typeparam>
-            <typeparam name="T1">Type of component 1 to retrieve</typeparam>
-            <typeparam name="T2">Type of component 2 to retrieve</typeparam>
-            <typeparam name="T3">Type of component 3 to retrieve</typeparam>
-            <param name="q">The TQ instance which will be executed for each chunk</param>
-            <param name="query">A query expressing which entities to execute this query over. If null a suitable
-            query object will automatically be created and written into this field.</param>
-            <returns>The total number of entities processed</returns>
-        </member>
         <member name="M:Myriad.ECS.Worlds.World.ExecuteChunk``6(Myriad.ECS.Queries.QueryDescription)">
             <summary>
             Execute a query which executes on entire chunks.
@@ -5134,22 +5080,6 @@
         <member name="M:Myriad.ECS.Worlds.World.ExecuteChunk``6(``0@,Myriad.ECS.Queries.QueryDescription@)">
             <summary>
             Execute a query which executes on entire chunks.
-            </summary>
-            <typeparam name="TQ">The type of the query</typeparam>
-            <typeparam name="T0">Type of component 0 to retrieve</typeparam>
-            <typeparam name="T1">Type of component 1 to retrieve</typeparam>
-            <typeparam name="T2">Type of component 2 to retrieve</typeparam>
-            <typeparam name="T3">Type of component 3 to retrieve</typeparam>
-            <typeparam name="T4">Type of component 4 to retrieve</typeparam>
-            <param name="q">The TQ instance which will be executed for each chunk</param>
-            <param name="query">A query expressing which entities to execute this query over. If null a suitable
-            query object will automatically be created and written into this field.</param>
-            <returns>The total number of entities processed</returns>
-        </member>
-        <member name="M:Myriad.ECS.Worlds.World.ExecuteChunkParallel``6(``0,Myriad.ECS.Queries.QueryDescription)">
-            <summary>
-            Execute a query which executes on entire chunks. Executes work in parallel at the chunk
-            level.
             </summary>
             <typeparam name="TQ">The type of the query</typeparam>
             <typeparam name="T0">Type of component 0 to retrieve</typeparam>
@@ -5256,23 +5186,6 @@
             query object will automatically be created and written into this field.</param>
             <returns>The total number of entities processed</returns>
         </member>
-        <member name="M:Myriad.ECS.Worlds.World.ExecuteChunkParallel``7(``0,Myriad.ECS.Queries.QueryDescription)">
-            <summary>
-            Execute a query which executes on entire chunks. Executes work in parallel at the chunk
-            level.
-            </summary>
-            <typeparam name="TQ">The type of the query</typeparam>
-            <typeparam name="T0">Type of component 0 to retrieve</typeparam>
-            <typeparam name="T1">Type of component 1 to retrieve</typeparam>
-            <typeparam name="T2">Type of component 2 to retrieve</typeparam>
-            <typeparam name="T3">Type of component 3 to retrieve</typeparam>
-            <typeparam name="T4">Type of component 4 to retrieve</typeparam>
-            <typeparam name="T5">Type of component 5 to retrieve</typeparam>
-            <param name="q">The TQ instance which will be executed for each chunk</param>
-            <param name="query">A query expressing which entities to execute this query over. If null a suitable
-            query object will automatically be created and written into this field.</param>
-            <returns>The total number of entities processed</returns>
-        </member>
         <member name="M:Myriad.ECS.Worlds.World.ExecuteChunk``8(Myriad.ECS.Queries.QueryDescription)">
             <summary>
             Execute a query which executes on entire chunks.
@@ -5359,24 +5272,6 @@
         <member name="M:Myriad.ECS.Worlds.World.ExecuteChunk``8(``0@,Myriad.ECS.Queries.QueryDescription@)">
             <summary>
             Execute a query which executes on entire chunks.
-            </summary>
-            <typeparam name="TQ">The type of the query</typeparam>
-            <typeparam name="T0">Type of component 0 to retrieve</typeparam>
-            <typeparam name="T1">Type of component 1 to retrieve</typeparam>
-            <typeparam name="T2">Type of component 2 to retrieve</typeparam>
-            <typeparam name="T3">Type of component 3 to retrieve</typeparam>
-            <typeparam name="T4">Type of component 4 to retrieve</typeparam>
-            <typeparam name="T5">Type of component 5 to retrieve</typeparam>
-            <typeparam name="T6">Type of component 6 to retrieve</typeparam>
-            <param name="q">The TQ instance which will be executed for each chunk</param>
-            <param name="query">A query expressing which entities to execute this query over. If null a suitable
-            query object will automatically be created and written into this field.</param>
-            <returns>The total number of entities processed</returns>
-        </member>
-        <member name="M:Myriad.ECS.Worlds.World.ExecuteChunkParallel``8(``0,Myriad.ECS.Queries.QueryDescription)">
-            <summary>
-            Execute a query which executes on entire chunks. Executes work in parallel at the chunk
-            level.
             </summary>
             <typeparam name="TQ">The type of the query</typeparam>
             <typeparam name="T0">Type of component 0 to retrieve</typeparam>
@@ -5497,25 +5392,6 @@
             query object will automatically be created and written into this field.</param>
             <returns>The total number of entities processed</returns>
         </member>
-        <member name="M:Myriad.ECS.Worlds.World.ExecuteChunkParallel``9(``0,Myriad.ECS.Queries.QueryDescription)">
-            <summary>
-            Execute a query which executes on entire chunks. Executes work in parallel at the chunk
-            level.
-            </summary>
-            <typeparam name="TQ">The type of the query</typeparam>
-            <typeparam name="T0">Type of component 0 to retrieve</typeparam>
-            <typeparam name="T1">Type of component 1 to retrieve</typeparam>
-            <typeparam name="T2">Type of component 2 to retrieve</typeparam>
-            <typeparam name="T3">Type of component 3 to retrieve</typeparam>
-            <typeparam name="T4">Type of component 4 to retrieve</typeparam>
-            <typeparam name="T5">Type of component 5 to retrieve</typeparam>
-            <typeparam name="T6">Type of component 6 to retrieve</typeparam>
-            <typeparam name="T7">Type of component 7 to retrieve</typeparam>
-            <param name="q">The TQ instance which will be executed for each chunk</param>
-            <param name="query">A query expressing which entities to execute this query over. If null a suitable
-            query object will automatically be created and written into this field.</param>
-            <returns>The total number of entities processed</returns>
-        </member>
         <member name="M:Myriad.ECS.Worlds.World.ExecuteChunk``10(Myriad.ECS.Queries.QueryDescription)">
             <summary>
             Execute a query which executes on entire chunks.
@@ -5612,26 +5488,6 @@
         <member name="M:Myriad.ECS.Worlds.World.ExecuteChunk``10(``0@,Myriad.ECS.Queries.QueryDescription@)">
             <summary>
             Execute a query which executes on entire chunks.
-            </summary>
-            <typeparam name="TQ">The type of the query</typeparam>
-            <typeparam name="T0">Type of component 0 to retrieve</typeparam>
-            <typeparam name="T1">Type of component 1 to retrieve</typeparam>
-            <typeparam name="T2">Type of component 2 to retrieve</typeparam>
-            <typeparam name="T3">Type of component 3 to retrieve</typeparam>
-            <typeparam name="T4">Type of component 4 to retrieve</typeparam>
-            <typeparam name="T5">Type of component 5 to retrieve</typeparam>
-            <typeparam name="T6">Type of component 6 to retrieve</typeparam>
-            <typeparam name="T7">Type of component 7 to retrieve</typeparam>
-            <typeparam name="T8">Type of component 8 to retrieve</typeparam>
-            <param name="q">The TQ instance which will be executed for each chunk</param>
-            <param name="query">A query expressing which entities to execute this query over. If null a suitable
-            query object will automatically be created and written into this field.</param>
-            <returns>The total number of entities processed</returns>
-        </member>
-        <member name="M:Myriad.ECS.Worlds.World.ExecuteChunkParallel``10(``0,Myriad.ECS.Queries.QueryDescription)">
-            <summary>
-            Execute a query which executes on entire chunks. Executes work in parallel at the chunk
-            level.
             </summary>
             <typeparam name="TQ">The type of the query</typeparam>
             <typeparam name="T0">Type of component 0 to retrieve</typeparam>
@@ -5766,27 +5622,6 @@
             query object will automatically be created and written into this field.</param>
             <returns>The total number of entities processed</returns>
         </member>
-        <member name="M:Myriad.ECS.Worlds.World.ExecuteChunkParallel``11(``0,Myriad.ECS.Queries.QueryDescription)">
-            <summary>
-            Execute a query which executes on entire chunks. Executes work in parallel at the chunk
-            level.
-            </summary>
-            <typeparam name="TQ">The type of the query</typeparam>
-            <typeparam name="T0">Type of component 0 to retrieve</typeparam>
-            <typeparam name="T1">Type of component 1 to retrieve</typeparam>
-            <typeparam name="T2">Type of component 2 to retrieve</typeparam>
-            <typeparam name="T3">Type of component 3 to retrieve</typeparam>
-            <typeparam name="T4">Type of component 4 to retrieve</typeparam>
-            <typeparam name="T5">Type of component 5 to retrieve</typeparam>
-            <typeparam name="T6">Type of component 6 to retrieve</typeparam>
-            <typeparam name="T7">Type of component 7 to retrieve</typeparam>
-            <typeparam name="T8">Type of component 8 to retrieve</typeparam>
-            <typeparam name="T9">Type of component 9 to retrieve</typeparam>
-            <param name="q">The TQ instance which will be executed for each chunk</param>
-            <param name="query">A query expressing which entities to execute this query over. If null a suitable
-            query object will automatically be created and written into this field.</param>
-            <returns>The total number of entities processed</returns>
-        </member>
         <member name="M:Myriad.ECS.Worlds.World.ExecuteChunk``12(Myriad.ECS.Queries.QueryDescription)">
             <summary>
             Execute a query which executes on entire chunks.
@@ -5893,28 +5728,6 @@
         <member name="M:Myriad.ECS.Worlds.World.ExecuteChunk``12(``0@,Myriad.ECS.Queries.QueryDescription@)">
             <summary>
             Execute a query which executes on entire chunks.
-            </summary>
-            <typeparam name="TQ">The type of the query</typeparam>
-            <typeparam name="T0">Type of component 0 to retrieve</typeparam>
-            <typeparam name="T1">Type of component 1 to retrieve</typeparam>
-            <typeparam name="T2">Type of component 2 to retrieve</typeparam>
-            <typeparam name="T3">Type of component 3 to retrieve</typeparam>
-            <typeparam name="T4">Type of component 4 to retrieve</typeparam>
-            <typeparam name="T5">Type of component 5 to retrieve</typeparam>
-            <typeparam name="T6">Type of component 6 to retrieve</typeparam>
-            <typeparam name="T7">Type of component 7 to retrieve</typeparam>
-            <typeparam name="T8">Type of component 8 to retrieve</typeparam>
-            <typeparam name="T9">Type of component 9 to retrieve</typeparam>
-            <typeparam name="T10">Type of component 10 to retrieve</typeparam>
-            <param name="q">The TQ instance which will be executed for each chunk</param>
-            <param name="query">A query expressing which entities to execute this query over. If null a suitable
-            query object will automatically be created and written into this field.</param>
-            <returns>The total number of entities processed</returns>
-        </member>
-        <member name="M:Myriad.ECS.Worlds.World.ExecuteChunkParallel``12(``0,Myriad.ECS.Queries.QueryDescription)">
-            <summary>
-            Execute a query which executes on entire chunks. Executes work in parallel at the chunk
-            level.
             </summary>
             <typeparam name="TQ">The type of the query</typeparam>
             <typeparam name="T0">Type of component 0 to retrieve</typeparam>
@@ -6063,29 +5876,6 @@
             query object will automatically be created and written into this field.</param>
             <returns>The total number of entities processed</returns>
         </member>
-        <member name="M:Myriad.ECS.Worlds.World.ExecuteChunkParallel``13(``0,Myriad.ECS.Queries.QueryDescription)">
-            <summary>
-            Execute a query which executes on entire chunks. Executes work in parallel at the chunk
-            level.
-            </summary>
-            <typeparam name="TQ">The type of the query</typeparam>
-            <typeparam name="T0">Type of component 0 to retrieve</typeparam>
-            <typeparam name="T1">Type of component 1 to retrieve</typeparam>
-            <typeparam name="T2">Type of component 2 to retrieve</typeparam>
-            <typeparam name="T3">Type of component 3 to retrieve</typeparam>
-            <typeparam name="T4">Type of component 4 to retrieve</typeparam>
-            <typeparam name="T5">Type of component 5 to retrieve</typeparam>
-            <typeparam name="T6">Type of component 6 to retrieve</typeparam>
-            <typeparam name="T7">Type of component 7 to retrieve</typeparam>
-            <typeparam name="T8">Type of component 8 to retrieve</typeparam>
-            <typeparam name="T9">Type of component 9 to retrieve</typeparam>
-            <typeparam name="T10">Type of component 10 to retrieve</typeparam>
-            <typeparam name="T11">Type of component 11 to retrieve</typeparam>
-            <param name="q">The TQ instance which will be executed for each chunk</param>
-            <param name="query">A query expressing which entities to execute this query over. If null a suitable
-            query object will automatically be created and written into this field.</param>
-            <returns>The total number of entities processed</returns>
-        </member>
         <member name="M:Myriad.ECS.Worlds.World.ExecuteChunk``14(Myriad.ECS.Queries.QueryDescription)">
             <summary>
             Execute a query which executes on entire chunks.
@@ -6202,30 +5992,6 @@
         <member name="M:Myriad.ECS.Worlds.World.ExecuteChunk``14(``0@,Myriad.ECS.Queries.QueryDescription@)">
             <summary>
             Execute a query which executes on entire chunks.
-            </summary>
-            <typeparam name="TQ">The type of the query</typeparam>
-            <typeparam name="T0">Type of component 0 to retrieve</typeparam>
-            <typeparam name="T1">Type of component 1 to retrieve</typeparam>
-            <typeparam name="T2">Type of component 2 to retrieve</typeparam>
-            <typeparam name="T3">Type of component 3 to retrieve</typeparam>
-            <typeparam name="T4">Type of component 4 to retrieve</typeparam>
-            <typeparam name="T5">Type of component 5 to retrieve</typeparam>
-            <typeparam name="T6">Type of component 6 to retrieve</typeparam>
-            <typeparam name="T7">Type of component 7 to retrieve</typeparam>
-            <typeparam name="T8">Type of component 8 to retrieve</typeparam>
-            <typeparam name="T9">Type of component 9 to retrieve</typeparam>
-            <typeparam name="T10">Type of component 10 to retrieve</typeparam>
-            <typeparam name="T11">Type of component 11 to retrieve</typeparam>
-            <typeparam name="T12">Type of component 12 to retrieve</typeparam>
-            <param name="q">The TQ instance which will be executed for each chunk</param>
-            <param name="query">A query expressing which entities to execute this query over. If null a suitable
-            query object will automatically be created and written into this field.</param>
-            <returns>The total number of entities processed</returns>
-        </member>
-        <member name="M:Myriad.ECS.Worlds.World.ExecuteChunkParallel``14(``0,Myriad.ECS.Queries.QueryDescription)">
-            <summary>
-            Execute a query which executes on entire chunks. Executes work in parallel at the chunk
-            level.
             </summary>
             <typeparam name="TQ">The type of the query</typeparam>
             <typeparam name="T0">Type of component 0 to retrieve</typeparam>
@@ -6388,31 +6154,6 @@
             query object will automatically be created and written into this field.</param>
             <returns>The total number of entities processed</returns>
         </member>
-        <member name="M:Myriad.ECS.Worlds.World.ExecuteChunkParallel``15(``0,Myriad.ECS.Queries.QueryDescription)">
-            <summary>
-            Execute a query which executes on entire chunks. Executes work in parallel at the chunk
-            level.
-            </summary>
-            <typeparam name="TQ">The type of the query</typeparam>
-            <typeparam name="T0">Type of component 0 to retrieve</typeparam>
-            <typeparam name="T1">Type of component 1 to retrieve</typeparam>
-            <typeparam name="T2">Type of component 2 to retrieve</typeparam>
-            <typeparam name="T3">Type of component 3 to retrieve</typeparam>
-            <typeparam name="T4">Type of component 4 to retrieve</typeparam>
-            <typeparam name="T5">Type of component 5 to retrieve</typeparam>
-            <typeparam name="T6">Type of component 6 to retrieve</typeparam>
-            <typeparam name="T7">Type of component 7 to retrieve</typeparam>
-            <typeparam name="T8">Type of component 8 to retrieve</typeparam>
-            <typeparam name="T9">Type of component 9 to retrieve</typeparam>
-            <typeparam name="T10">Type of component 10 to retrieve</typeparam>
-            <typeparam name="T11">Type of component 11 to retrieve</typeparam>
-            <typeparam name="T12">Type of component 12 to retrieve</typeparam>
-            <typeparam name="T13">Type of component 13 to retrieve</typeparam>
-            <param name="q">The TQ instance which will be executed for each chunk</param>
-            <param name="query">A query expressing which entities to execute this query over. If null a suitable
-            query object will automatically be created and written into this field.</param>
-            <returns>The total number of entities processed</returns>
-        </member>
         <member name="M:Myriad.ECS.Worlds.World.ExecuteChunk``16(Myriad.ECS.Queries.QueryDescription)">
             <summary>
             Execute a query which executes on entire chunks.
@@ -6539,32 +6280,6 @@
         <member name="M:Myriad.ECS.Worlds.World.ExecuteChunk``16(``0@,Myriad.ECS.Queries.QueryDescription@)">
             <summary>
             Execute a query which executes on entire chunks.
-            </summary>
-            <typeparam name="TQ">The type of the query</typeparam>
-            <typeparam name="T0">Type of component 0 to retrieve</typeparam>
-            <typeparam name="T1">Type of component 1 to retrieve</typeparam>
-            <typeparam name="T2">Type of component 2 to retrieve</typeparam>
-            <typeparam name="T3">Type of component 3 to retrieve</typeparam>
-            <typeparam name="T4">Type of component 4 to retrieve</typeparam>
-            <typeparam name="T5">Type of component 5 to retrieve</typeparam>
-            <typeparam name="T6">Type of component 6 to retrieve</typeparam>
-            <typeparam name="T7">Type of component 7 to retrieve</typeparam>
-            <typeparam name="T8">Type of component 8 to retrieve</typeparam>
-            <typeparam name="T9">Type of component 9 to retrieve</typeparam>
-            <typeparam name="T10">Type of component 10 to retrieve</typeparam>
-            <typeparam name="T11">Type of component 11 to retrieve</typeparam>
-            <typeparam name="T12">Type of component 12 to retrieve</typeparam>
-            <typeparam name="T13">Type of component 13 to retrieve</typeparam>
-            <typeparam name="T14">Type of component 14 to retrieve</typeparam>
-            <param name="q">The TQ instance which will be executed for each chunk</param>
-            <param name="query">A query expressing which entities to execute this query over. If null a suitable
-            query object will automatically be created and written into this field.</param>
-            <returns>The total number of entities processed</returns>
-        </member>
-        <member name="M:Myriad.ECS.Worlds.World.ExecuteChunkParallel``16(``0,Myriad.ECS.Queries.QueryDescription)">
-            <summary>
-            Execute a query which executes on entire chunks. Executes work in parallel at the chunk
-            level.
             </summary>
             <typeparam name="TQ">The type of the query</typeparam>
             <typeparam name="T0">Type of component 0 to retrieve</typeparam>
@@ -6741,33 +6456,6 @@
             query object will automatically be created and written into this field.</param>
             <returns>The total number of entities processed</returns>
         </member>
-        <member name="M:Myriad.ECS.Worlds.World.ExecuteChunkParallel``17(``0,Myriad.ECS.Queries.QueryDescription)">
-            <summary>
-            Execute a query which executes on entire chunks. Executes work in parallel at the chunk
-            level.
-            </summary>
-            <typeparam name="TQ">The type of the query</typeparam>
-            <typeparam name="T0">Type of component 0 to retrieve</typeparam>
-            <typeparam name="T1">Type of component 1 to retrieve</typeparam>
-            <typeparam name="T2">Type of component 2 to retrieve</typeparam>
-            <typeparam name="T3">Type of component 3 to retrieve</typeparam>
-            <typeparam name="T4">Type of component 4 to retrieve</typeparam>
-            <typeparam name="T5">Type of component 5 to retrieve</typeparam>
-            <typeparam name="T6">Type of component 6 to retrieve</typeparam>
-            <typeparam name="T7">Type of component 7 to retrieve</typeparam>
-            <typeparam name="T8">Type of component 8 to retrieve</typeparam>
-            <typeparam name="T9">Type of component 9 to retrieve</typeparam>
-            <typeparam name="T10">Type of component 10 to retrieve</typeparam>
-            <typeparam name="T11">Type of component 11 to retrieve</typeparam>
-            <typeparam name="T12">Type of component 12 to retrieve</typeparam>
-            <typeparam name="T13">Type of component 13 to retrieve</typeparam>
-            <typeparam name="T14">Type of component 14 to retrieve</typeparam>
-            <typeparam name="T15">Type of component 15 to retrieve</typeparam>
-            <param name="q">The TQ instance which will be executed for each chunk</param>
-            <param name="query">A query expressing which entities to execute this query over. If null a suitable
-            query object will automatically be created and written into this field.</param>
-            <returns>The total number of entities processed</returns>
-        </member>
         <member name="M:Myriad.ECS.Worlds.World.Execute``2(Myriad.ECS.Queries.QueryDescription)">
             <summary>
             Execute a query, optionally filtering by a <see cref="T:Myriad.ECS.Queries.QueryDescription"/>.
@@ -6891,16 +6579,6 @@
             can be used next frame to slightly speed up query execution.
             </param>
             <returns>The number of entities discovered by this query</returns>
-        </member>
-        <member name="M:Myriad.ECS.Worlds.World.ExecuteParallel``2(``0,Myriad.ECS.Queries.QueryDescription,System.Int32)">
-            <summary>
-            Execute a query in parallel over entities, blocks until complete.
-            </summary>
-            <param name="q"></param>
-            <param name="query"></param>
-            <param name="batchSize"></param>
-            <returns></returns>
-            <exception cref="T:System.AggregateException"></exception>
         </member>
         <member name="M:Myriad.ECS.Worlds.World.Execute``3(Myriad.ECS.Queries.QueryDescription)">
             <summary>
@@ -7032,16 +6710,6 @@
             can be used next frame to slightly speed up query execution.
             </param>
             <returns>The number of entities discovered by this query</returns>
-        </member>
-        <member name="M:Myriad.ECS.Worlds.World.ExecuteParallel``3(``0,Myriad.ECS.Queries.QueryDescription,System.Int32)">
-            <summary>
-            Execute a query in parallel over entities, blocks until complete.
-            </summary>
-            <param name="q"></param>
-            <param name="query"></param>
-            <param name="batchSize"></param>
-            <returns></returns>
-            <exception cref="T:System.AggregateException"></exception>
         </member>
         <member name="M:Myriad.ECS.Worlds.World.Execute``4(Myriad.ECS.Queries.QueryDescription)">
             <summary>
@@ -7180,16 +6848,6 @@
             can be used next frame to slightly speed up query execution.
             </param>
             <returns>The number of entities discovered by this query</returns>
-        </member>
-        <member name="M:Myriad.ECS.Worlds.World.ExecuteParallel``4(``0,Myriad.ECS.Queries.QueryDescription,System.Int32)">
-            <summary>
-            Execute a query in parallel over entities, blocks until complete.
-            </summary>
-            <param name="q"></param>
-            <param name="query"></param>
-            <param name="batchSize"></param>
-            <returns></returns>
-            <exception cref="T:System.AggregateException"></exception>
         </member>
         <member name="M:Myriad.ECS.Worlds.World.Execute``5(Myriad.ECS.Queries.QueryDescription)">
             <summary>
@@ -7335,16 +6993,6 @@
             can be used next frame to slightly speed up query execution.
             </param>
             <returns>The number of entities discovered by this query</returns>
-        </member>
-        <member name="M:Myriad.ECS.Worlds.World.ExecuteParallel``5(``0,Myriad.ECS.Queries.QueryDescription,System.Int32)">
-            <summary>
-            Execute a query in parallel over entities, blocks until complete.
-            </summary>
-            <param name="q"></param>
-            <param name="query"></param>
-            <param name="batchSize"></param>
-            <returns></returns>
-            <exception cref="T:System.AggregateException"></exception>
         </member>
         <member name="M:Myriad.ECS.Worlds.World.Execute``6(Myriad.ECS.Queries.QueryDescription)">
             <summary>
@@ -7497,16 +7145,6 @@
             can be used next frame to slightly speed up query execution.
             </param>
             <returns>The number of entities discovered by this query</returns>
-        </member>
-        <member name="M:Myriad.ECS.Worlds.World.ExecuteParallel``6(``0,Myriad.ECS.Queries.QueryDescription,System.Int32)">
-            <summary>
-            Execute a query in parallel over entities, blocks until complete.
-            </summary>
-            <param name="q"></param>
-            <param name="query"></param>
-            <param name="batchSize"></param>
-            <returns></returns>
-            <exception cref="T:System.AggregateException"></exception>
         </member>
         <member name="M:Myriad.ECS.Worlds.World.Execute``7(Myriad.ECS.Queries.QueryDescription)">
             <summary>
@@ -7666,16 +7304,6 @@
             can be used next frame to slightly speed up query execution.
             </param>
             <returns>The number of entities discovered by this query</returns>
-        </member>
-        <member name="M:Myriad.ECS.Worlds.World.ExecuteParallel``7(``0,Myriad.ECS.Queries.QueryDescription,System.Int32)">
-            <summary>
-            Execute a query in parallel over entities, blocks until complete.
-            </summary>
-            <param name="q"></param>
-            <param name="query"></param>
-            <param name="batchSize"></param>
-            <returns></returns>
-            <exception cref="T:System.AggregateException"></exception>
         </member>
         <member name="M:Myriad.ECS.Worlds.World.Execute``8(Myriad.ECS.Queries.QueryDescription)">
             <summary>
@@ -7842,16 +7470,6 @@
             can be used next frame to slightly speed up query execution.
             </param>
             <returns>The number of entities discovered by this query</returns>
-        </member>
-        <member name="M:Myriad.ECS.Worlds.World.ExecuteParallel``8(``0,Myriad.ECS.Queries.QueryDescription,System.Int32)">
-            <summary>
-            Execute a query in parallel over entities, blocks until complete.
-            </summary>
-            <param name="q"></param>
-            <param name="query"></param>
-            <param name="batchSize"></param>
-            <returns></returns>
-            <exception cref="T:System.AggregateException"></exception>
         </member>
         <member name="M:Myriad.ECS.Worlds.World.Execute``9(Myriad.ECS.Queries.QueryDescription)">
             <summary>
@@ -8025,16 +7643,6 @@
             can be used next frame to slightly speed up query execution.
             </param>
             <returns>The number of entities discovered by this query</returns>
-        </member>
-        <member name="M:Myriad.ECS.Worlds.World.ExecuteParallel``9(``0,Myriad.ECS.Queries.QueryDescription,System.Int32)">
-            <summary>
-            Execute a query in parallel over entities, blocks until complete.
-            </summary>
-            <param name="q"></param>
-            <param name="query"></param>
-            <param name="batchSize"></param>
-            <returns></returns>
-            <exception cref="T:System.AggregateException"></exception>
         </member>
         <member name="M:Myriad.ECS.Worlds.World.Execute``10(Myriad.ECS.Queries.QueryDescription)">
             <summary>
@@ -8215,16 +7823,6 @@
             can be used next frame to slightly speed up query execution.
             </param>
             <returns>The number of entities discovered by this query</returns>
-        </member>
-        <member name="M:Myriad.ECS.Worlds.World.ExecuteParallel``10(``0,Myriad.ECS.Queries.QueryDescription,System.Int32)">
-            <summary>
-            Execute a query in parallel over entities, blocks until complete.
-            </summary>
-            <param name="q"></param>
-            <param name="query"></param>
-            <param name="batchSize"></param>
-            <returns></returns>
-            <exception cref="T:System.AggregateException"></exception>
         </member>
         <member name="M:Myriad.ECS.Worlds.World.Execute``11(Myriad.ECS.Queries.QueryDescription)">
             <summary>
@@ -8412,16 +8010,6 @@
             can be used next frame to slightly speed up query execution.
             </param>
             <returns>The number of entities discovered by this query</returns>
-        </member>
-        <member name="M:Myriad.ECS.Worlds.World.ExecuteParallel``11(``0,Myriad.ECS.Queries.QueryDescription,System.Int32)">
-            <summary>
-            Execute a query in parallel over entities, blocks until complete.
-            </summary>
-            <param name="q"></param>
-            <param name="query"></param>
-            <param name="batchSize"></param>
-            <returns></returns>
-            <exception cref="T:System.AggregateException"></exception>
         </member>
         <member name="M:Myriad.ECS.Worlds.World.Execute``12(Myriad.ECS.Queries.QueryDescription)">
             <summary>
@@ -8616,16 +8204,6 @@
             can be used next frame to slightly speed up query execution.
             </param>
             <returns>The number of entities discovered by this query</returns>
-        </member>
-        <member name="M:Myriad.ECS.Worlds.World.ExecuteParallel``12(``0,Myriad.ECS.Queries.QueryDescription,System.Int32)">
-            <summary>
-            Execute a query in parallel over entities, blocks until complete.
-            </summary>
-            <param name="q"></param>
-            <param name="query"></param>
-            <param name="batchSize"></param>
-            <returns></returns>
-            <exception cref="T:System.AggregateException"></exception>
         </member>
         <member name="M:Myriad.ECS.Worlds.World.Execute``13(Myriad.ECS.Queries.QueryDescription)">
             <summary>
@@ -8827,16 +8405,6 @@
             can be used next frame to slightly speed up query execution.
             </param>
             <returns>The number of entities discovered by this query</returns>
-        </member>
-        <member name="M:Myriad.ECS.Worlds.World.ExecuteParallel``13(``0,Myriad.ECS.Queries.QueryDescription,System.Int32)">
-            <summary>
-            Execute a query in parallel over entities, blocks until complete.
-            </summary>
-            <param name="q"></param>
-            <param name="query"></param>
-            <param name="batchSize"></param>
-            <returns></returns>
-            <exception cref="T:System.AggregateException"></exception>
         </member>
         <member name="M:Myriad.ECS.Worlds.World.Execute``14(Myriad.ECS.Queries.QueryDescription)">
             <summary>
@@ -9045,16 +8613,6 @@
             can be used next frame to slightly speed up query execution.
             </param>
             <returns>The number of entities discovered by this query</returns>
-        </member>
-        <member name="M:Myriad.ECS.Worlds.World.ExecuteParallel``14(``0,Myriad.ECS.Queries.QueryDescription,System.Int32)">
-            <summary>
-            Execute a query in parallel over entities, blocks until complete.
-            </summary>
-            <param name="q"></param>
-            <param name="query"></param>
-            <param name="batchSize"></param>
-            <returns></returns>
-            <exception cref="T:System.AggregateException"></exception>
         </member>
         <member name="M:Myriad.ECS.Worlds.World.Execute``15(Myriad.ECS.Queries.QueryDescription)">
             <summary>
@@ -9270,16 +8828,6 @@
             can be used next frame to slightly speed up query execution.
             </param>
             <returns>The number of entities discovered by this query</returns>
-        </member>
-        <member name="M:Myriad.ECS.Worlds.World.ExecuteParallel``15(``0,Myriad.ECS.Queries.QueryDescription,System.Int32)">
-            <summary>
-            Execute a query in parallel over entities, blocks until complete.
-            </summary>
-            <param name="q"></param>
-            <param name="query"></param>
-            <param name="batchSize"></param>
-            <returns></returns>
-            <exception cref="T:System.AggregateException"></exception>
         </member>
         <member name="M:Myriad.ECS.Worlds.World.Execute``16(Myriad.ECS.Queries.QueryDescription)">
             <summary>
@@ -9502,16 +9050,6 @@
             can be used next frame to slightly speed up query execution.
             </param>
             <returns>The number of entities discovered by this query</returns>
-        </member>
-        <member name="M:Myriad.ECS.Worlds.World.ExecuteParallel``16(``0,Myriad.ECS.Queries.QueryDescription,System.Int32)">
-            <summary>
-            Execute a query in parallel over entities, blocks until complete.
-            </summary>
-            <param name="q"></param>
-            <param name="query"></param>
-            <param name="batchSize"></param>
-            <returns></returns>
-            <exception cref="T:System.AggregateException"></exception>
         </member>
         <member name="M:Myriad.ECS.Worlds.World.Execute``17(Myriad.ECS.Queries.QueryDescription)">
             <summary>
@@ -9741,16 +9279,6 @@
             can be used next frame to slightly speed up query execution.
             </param>
             <returns>The number of entities discovered by this query</returns>
-        </member>
-        <member name="M:Myriad.ECS.Worlds.World.ExecuteParallel``17(``0,Myriad.ECS.Queries.QueryDescription,System.Int32)">
-            <summary>
-            Execute a query in parallel over entities, blocks until complete.
-            </summary>
-            <param name="q"></param>
-            <param name="query"></param>
-            <param name="batchSize"></param>
-            <returns></returns>
-            <exception cref="T:System.AggregateException"></exception>
         </member>
         <member name="M:Myriad.ECS.Worlds.World.Execute``1(``0,Myriad.ECS.Queries.QueryDescription)">
             <summary>
@@ -11653,13 +11181,6 @@
             <param name="delegate"></param>
             <param name="query"></param>
         </member>
-        <member name="M:Myriad.ECS.Worlds.World.QueryParallel``1(Myriad.ECS.Queries.QueryDelegateEntity{``0},Myriad.ECS.Queries.QueryDescription)">
-            <summary>
-            Execute a delegate for every entity in a query, in parallel.
-            </summary>
-            <param name="delegate"></param>
-            <param name="query"></param>
-        </member>
         <member name="M:Myriad.ECS.Worlds.World.Query``1(Myriad.ECS.Queries.QueryDelegate{``0},Myriad.ECS.Queries.QueryDescription@)">
             <summary>
             Execute a delegate for every entity in a query.
@@ -11670,13 +11191,6 @@
         <member name="M:Myriad.ECS.Worlds.World.Query``1(Myriad.ECS.Queries.QueryDelegate{``0},Myriad.ECS.Queries.QueryDescription)">
             <summary>
             Execute a delegate for every entity in a query.
-            </summary>
-            <param name="delegate"></param>
-            <param name="query"></param>
-        </member>
-        <member name="M:Myriad.ECS.Worlds.World.QueryParallel``1(Myriad.ECS.Queries.QueryDelegate{``0},Myriad.ECS.Queries.QueryDescription)">
-            <summary>
-            Execute a delegate for every entity in a query, in parallel.
             </summary>
             <param name="delegate"></param>
             <param name="query"></param>
@@ -11692,14 +11206,6 @@
         <member name="M:Myriad.ECS.Worlds.World.Query``2(``0,Myriad.ECS.Queries.QueryDelegateEntityData{``0,``1},Myriad.ECS.Queries.QueryDescription)">
             <summary>
             Execute a delegate for every entity in a query. Passing an object through into every call.
-            </summary>
-            <param name="delegate"></param>
-            <param name="query"></param>
-            <param name="data">The object passed into every call</param>
-        </member>
-        <member name="M:Myriad.ECS.Worlds.World.QueryParallel``2(``0,Myriad.ECS.Queries.QueryDelegateEntityData{``0,``1},Myriad.ECS.Queries.QueryDescription)">
-            <summary>
-            Execute a delegate for every entity in a query, in parallel. Passing an object through into every call.
             </summary>
             <param name="delegate"></param>
             <param name="query"></param>
@@ -11721,14 +11227,6 @@
             <param name="query"></param>
             <param name="data">The object passed into every call</param>
         </member>
-        <member name="M:Myriad.ECS.Worlds.World.QueryParallel``2(``0,Myriad.ECS.Queries.QueryDelegateData{``0,``1},Myriad.ECS.Queries.QueryDescription)">
-            <summary>
-            Execute a delegate for every entity in a query, in parallel. Passing an object through into every call.
-            </summary>
-            <param name="delegate"></param>
-            <param name="query"></param>
-            <param name="data">The object passed into every call</param>
-        </member>
         <member name="M:Myriad.ECS.Worlds.World.Query``2(Myriad.ECS.Queries.QueryDelegateEntity{``0,``1},Myriad.ECS.Queries.QueryDescription@)">
             <summary>
             Execute a delegate for every entity in a query.
@@ -11739,13 +11237,6 @@
         <member name="M:Myriad.ECS.Worlds.World.Query``2(Myriad.ECS.Queries.QueryDelegateEntity{``0,``1},Myriad.ECS.Queries.QueryDescription)">
             <summary>
             Execute a delegate for every entity in a query.
-            </summary>
-            <param name="delegate"></param>
-            <param name="query"></param>
-        </member>
-        <member name="M:Myriad.ECS.Worlds.World.QueryParallel``2(Myriad.ECS.Queries.QueryDelegateEntity{``0,``1},Myriad.ECS.Queries.QueryDescription)">
-            <summary>
-            Execute a delegate for every entity in a query, in parallel.
             </summary>
             <param name="delegate"></param>
             <param name="query"></param>
@@ -11764,13 +11255,6 @@
             <param name="delegate"></param>
             <param name="query"></param>
         </member>
-        <member name="M:Myriad.ECS.Worlds.World.QueryParallel``2(Myriad.ECS.Queries.QueryDelegate{``0,``1},Myriad.ECS.Queries.QueryDescription)">
-            <summary>
-            Execute a delegate for every entity in a query, in parallel.
-            </summary>
-            <param name="delegate"></param>
-            <param name="query"></param>
-        </member>
         <member name="M:Myriad.ECS.Worlds.World.Query``3(``0,Myriad.ECS.Queries.QueryDelegateEntityData{``0,``1,``2},Myriad.ECS.Queries.QueryDescription@)">
             <summary>
             Execute a delegate for every entity in a query. Passing an object through into every call.
@@ -11782,14 +11266,6 @@
         <member name="M:Myriad.ECS.Worlds.World.Query``3(``0,Myriad.ECS.Queries.QueryDelegateEntityData{``0,``1,``2},Myriad.ECS.Queries.QueryDescription)">
             <summary>
             Execute a delegate for every entity in a query. Passing an object through into every call.
-            </summary>
-            <param name="delegate"></param>
-            <param name="query"></param>
-            <param name="data">The object passed into every call</param>
-        </member>
-        <member name="M:Myriad.ECS.Worlds.World.QueryParallel``3(``0,Myriad.ECS.Queries.QueryDelegateEntityData{``0,``1,``2},Myriad.ECS.Queries.QueryDescription)">
-            <summary>
-            Execute a delegate for every entity in a query, in parallel. Passing an object through into every call.
             </summary>
             <param name="delegate"></param>
             <param name="query"></param>
@@ -11811,14 +11287,6 @@
             <param name="query"></param>
             <param name="data">The object passed into every call</param>
         </member>
-        <member name="M:Myriad.ECS.Worlds.World.QueryParallel``3(``0,Myriad.ECS.Queries.QueryDelegateData{``0,``1,``2},Myriad.ECS.Queries.QueryDescription)">
-            <summary>
-            Execute a delegate for every entity in a query, in parallel. Passing an object through into every call.
-            </summary>
-            <param name="delegate"></param>
-            <param name="query"></param>
-            <param name="data">The object passed into every call</param>
-        </member>
         <member name="M:Myriad.ECS.Worlds.World.Query``3(Myriad.ECS.Queries.QueryDelegateEntity{``0,``1,``2},Myriad.ECS.Queries.QueryDescription@)">
             <summary>
             Execute a delegate for every entity in a query.
@@ -11829,13 +11297,6 @@
         <member name="M:Myriad.ECS.Worlds.World.Query``3(Myriad.ECS.Queries.QueryDelegateEntity{``0,``1,``2},Myriad.ECS.Queries.QueryDescription)">
             <summary>
             Execute a delegate for every entity in a query.
-            </summary>
-            <param name="delegate"></param>
-            <param name="query"></param>
-        </member>
-        <member name="M:Myriad.ECS.Worlds.World.QueryParallel``3(Myriad.ECS.Queries.QueryDelegateEntity{``0,``1,``2},Myriad.ECS.Queries.QueryDescription)">
-            <summary>
-            Execute a delegate for every entity in a query, in parallel.
             </summary>
             <param name="delegate"></param>
             <param name="query"></param>
@@ -11854,13 +11315,6 @@
             <param name="delegate"></param>
             <param name="query"></param>
         </member>
-        <member name="M:Myriad.ECS.Worlds.World.QueryParallel``3(Myriad.ECS.Queries.QueryDelegate{``0,``1,``2},Myriad.ECS.Queries.QueryDescription)">
-            <summary>
-            Execute a delegate for every entity in a query, in parallel.
-            </summary>
-            <param name="delegate"></param>
-            <param name="query"></param>
-        </member>
         <member name="M:Myriad.ECS.Worlds.World.Query``4(``0,Myriad.ECS.Queries.QueryDelegateEntityData{``0,``1,``2,``3},Myriad.ECS.Queries.QueryDescription@)">
             <summary>
             Execute a delegate for every entity in a query. Passing an object through into every call.
@@ -11872,14 +11326,6 @@
         <member name="M:Myriad.ECS.Worlds.World.Query``4(``0,Myriad.ECS.Queries.QueryDelegateEntityData{``0,``1,``2,``3},Myriad.ECS.Queries.QueryDescription)">
             <summary>
             Execute a delegate for every entity in a query. Passing an object through into every call.
-            </summary>
-            <param name="delegate"></param>
-            <param name="query"></param>
-            <param name="data">The object passed into every call</param>
-        </member>
-        <member name="M:Myriad.ECS.Worlds.World.QueryParallel``4(``0,Myriad.ECS.Queries.QueryDelegateEntityData{``0,``1,``2,``3},Myriad.ECS.Queries.QueryDescription)">
-            <summary>
-            Execute a delegate for every entity in a query, in parallel. Passing an object through into every call.
             </summary>
             <param name="delegate"></param>
             <param name="query"></param>
@@ -11901,14 +11347,6 @@
             <param name="query"></param>
             <param name="data">The object passed into every call</param>
         </member>
-        <member name="M:Myriad.ECS.Worlds.World.QueryParallel``4(``0,Myriad.ECS.Queries.QueryDelegateData{``0,``1,``2,``3},Myriad.ECS.Queries.QueryDescription)">
-            <summary>
-            Execute a delegate for every entity in a query, in parallel. Passing an object through into every call.
-            </summary>
-            <param name="delegate"></param>
-            <param name="query"></param>
-            <param name="data">The object passed into every call</param>
-        </member>
         <member name="M:Myriad.ECS.Worlds.World.Query``4(Myriad.ECS.Queries.QueryDelegateEntity{``0,``1,``2,``3},Myriad.ECS.Queries.QueryDescription@)">
             <summary>
             Execute a delegate for every entity in a query.
@@ -11919,13 +11357,6 @@
         <member name="M:Myriad.ECS.Worlds.World.Query``4(Myriad.ECS.Queries.QueryDelegateEntity{``0,``1,``2,``3},Myriad.ECS.Queries.QueryDescription)">
             <summary>
             Execute a delegate for every entity in a query.
-            </summary>
-            <param name="delegate"></param>
-            <param name="query"></param>
-        </member>
-        <member name="M:Myriad.ECS.Worlds.World.QueryParallel``4(Myriad.ECS.Queries.QueryDelegateEntity{``0,``1,``2,``3},Myriad.ECS.Queries.QueryDescription)">
-            <summary>
-            Execute a delegate for every entity in a query, in parallel.
             </summary>
             <param name="delegate"></param>
             <param name="query"></param>
@@ -11944,13 +11375,6 @@
             <param name="delegate"></param>
             <param name="query"></param>
         </member>
-        <member name="M:Myriad.ECS.Worlds.World.QueryParallel``4(Myriad.ECS.Queries.QueryDelegate{``0,``1,``2,``3},Myriad.ECS.Queries.QueryDescription)">
-            <summary>
-            Execute a delegate for every entity in a query, in parallel.
-            </summary>
-            <param name="delegate"></param>
-            <param name="query"></param>
-        </member>
         <member name="M:Myriad.ECS.Worlds.World.Query``5(``0,Myriad.ECS.Queries.QueryDelegateEntityData{``0,``1,``2,``3,``4},Myriad.ECS.Queries.QueryDescription@)">
             <summary>
             Execute a delegate for every entity in a query. Passing an object through into every call.
@@ -11962,14 +11386,6 @@
         <member name="M:Myriad.ECS.Worlds.World.Query``5(``0,Myriad.ECS.Queries.QueryDelegateEntityData{``0,``1,``2,``3,``4},Myriad.ECS.Queries.QueryDescription)">
             <summary>
             Execute a delegate for every entity in a query. Passing an object through into every call.
-            </summary>
-            <param name="delegate"></param>
-            <param name="query"></param>
-            <param name="data">The object passed into every call</param>
-        </member>
-        <member name="M:Myriad.ECS.Worlds.World.QueryParallel``5(``0,Myriad.ECS.Queries.QueryDelegateEntityData{``0,``1,``2,``3,``4},Myriad.ECS.Queries.QueryDescription)">
-            <summary>
-            Execute a delegate for every entity in a query, in parallel. Passing an object through into every call.
             </summary>
             <param name="delegate"></param>
             <param name="query"></param>
@@ -11991,14 +11407,6 @@
             <param name="query"></param>
             <param name="data">The object passed into every call</param>
         </member>
-        <member name="M:Myriad.ECS.Worlds.World.QueryParallel``5(``0,Myriad.ECS.Queries.QueryDelegateData{``0,``1,``2,``3,``4},Myriad.ECS.Queries.QueryDescription)">
-            <summary>
-            Execute a delegate for every entity in a query, in parallel. Passing an object through into every call.
-            </summary>
-            <param name="delegate"></param>
-            <param name="query"></param>
-            <param name="data">The object passed into every call</param>
-        </member>
         <member name="M:Myriad.ECS.Worlds.World.Query``5(Myriad.ECS.Queries.QueryDelegateEntity{``0,``1,``2,``3,``4},Myriad.ECS.Queries.QueryDescription@)">
             <summary>
             Execute a delegate for every entity in a query.
@@ -12009,13 +11417,6 @@
         <member name="M:Myriad.ECS.Worlds.World.Query``5(Myriad.ECS.Queries.QueryDelegateEntity{``0,``1,``2,``3,``4},Myriad.ECS.Queries.QueryDescription)">
             <summary>
             Execute a delegate for every entity in a query.
-            </summary>
-            <param name="delegate"></param>
-            <param name="query"></param>
-        </member>
-        <member name="M:Myriad.ECS.Worlds.World.QueryParallel``5(Myriad.ECS.Queries.QueryDelegateEntity{``0,``1,``2,``3,``4},Myriad.ECS.Queries.QueryDescription)">
-            <summary>
-            Execute a delegate for every entity in a query, in parallel.
             </summary>
             <param name="delegate"></param>
             <param name="query"></param>
@@ -12034,13 +11435,6 @@
             <param name="delegate"></param>
             <param name="query"></param>
         </member>
-        <member name="M:Myriad.ECS.Worlds.World.QueryParallel``5(Myriad.ECS.Queries.QueryDelegate{``0,``1,``2,``3,``4},Myriad.ECS.Queries.QueryDescription)">
-            <summary>
-            Execute a delegate for every entity in a query, in parallel.
-            </summary>
-            <param name="delegate"></param>
-            <param name="query"></param>
-        </member>
         <member name="M:Myriad.ECS.Worlds.World.Query``6(``0,Myriad.ECS.Queries.QueryDelegateEntityData{``0,``1,``2,``3,``4,``5},Myriad.ECS.Queries.QueryDescription@)">
             <summary>
             Execute a delegate for every entity in a query. Passing an object through into every call.
@@ -12052,14 +11446,6 @@
         <member name="M:Myriad.ECS.Worlds.World.Query``6(``0,Myriad.ECS.Queries.QueryDelegateEntityData{``0,``1,``2,``3,``4,``5},Myriad.ECS.Queries.QueryDescription)">
             <summary>
             Execute a delegate for every entity in a query. Passing an object through into every call.
-            </summary>
-            <param name="delegate"></param>
-            <param name="query"></param>
-            <param name="data">The object passed into every call</param>
-        </member>
-        <member name="M:Myriad.ECS.Worlds.World.QueryParallel``6(``0,Myriad.ECS.Queries.QueryDelegateEntityData{``0,``1,``2,``3,``4,``5},Myriad.ECS.Queries.QueryDescription)">
-            <summary>
-            Execute a delegate for every entity in a query, in parallel. Passing an object through into every call.
             </summary>
             <param name="delegate"></param>
             <param name="query"></param>
@@ -12081,14 +11467,6 @@
             <param name="query"></param>
             <param name="data">The object passed into every call</param>
         </member>
-        <member name="M:Myriad.ECS.Worlds.World.QueryParallel``6(``0,Myriad.ECS.Queries.QueryDelegateData{``0,``1,``2,``3,``4,``5},Myriad.ECS.Queries.QueryDescription)">
-            <summary>
-            Execute a delegate for every entity in a query, in parallel. Passing an object through into every call.
-            </summary>
-            <param name="delegate"></param>
-            <param name="query"></param>
-            <param name="data">The object passed into every call</param>
-        </member>
         <member name="M:Myriad.ECS.Worlds.World.Query``6(Myriad.ECS.Queries.QueryDelegateEntity{``0,``1,``2,``3,``4,``5},Myriad.ECS.Queries.QueryDescription@)">
             <summary>
             Execute a delegate for every entity in a query.
@@ -12099,13 +11477,6 @@
         <member name="M:Myriad.ECS.Worlds.World.Query``6(Myriad.ECS.Queries.QueryDelegateEntity{``0,``1,``2,``3,``4,``5},Myriad.ECS.Queries.QueryDescription)">
             <summary>
             Execute a delegate for every entity in a query.
-            </summary>
-            <param name="delegate"></param>
-            <param name="query"></param>
-        </member>
-        <member name="M:Myriad.ECS.Worlds.World.QueryParallel``6(Myriad.ECS.Queries.QueryDelegateEntity{``0,``1,``2,``3,``4,``5},Myriad.ECS.Queries.QueryDescription)">
-            <summary>
-            Execute a delegate for every entity in a query, in parallel.
             </summary>
             <param name="delegate"></param>
             <param name="query"></param>
@@ -12124,13 +11495,6 @@
             <param name="delegate"></param>
             <param name="query"></param>
         </member>
-        <member name="M:Myriad.ECS.Worlds.World.QueryParallel``6(Myriad.ECS.Queries.QueryDelegate{``0,``1,``2,``3,``4,``5},Myriad.ECS.Queries.QueryDescription)">
-            <summary>
-            Execute a delegate for every entity in a query, in parallel.
-            </summary>
-            <param name="delegate"></param>
-            <param name="query"></param>
-        </member>
         <member name="M:Myriad.ECS.Worlds.World.Query``7(``0,Myriad.ECS.Queries.QueryDelegateEntityData{``0,``1,``2,``3,``4,``5,``6},Myriad.ECS.Queries.QueryDescription@)">
             <summary>
             Execute a delegate for every entity in a query. Passing an object through into every call.
@@ -12142,14 +11506,6 @@
         <member name="M:Myriad.ECS.Worlds.World.Query``7(``0,Myriad.ECS.Queries.QueryDelegateEntityData{``0,``1,``2,``3,``4,``5,``6},Myriad.ECS.Queries.QueryDescription)">
             <summary>
             Execute a delegate for every entity in a query. Passing an object through into every call.
-            </summary>
-            <param name="delegate"></param>
-            <param name="query"></param>
-            <param name="data">The object passed into every call</param>
-        </member>
-        <member name="M:Myriad.ECS.Worlds.World.QueryParallel``7(``0,Myriad.ECS.Queries.QueryDelegateEntityData{``0,``1,``2,``3,``4,``5,``6},Myriad.ECS.Queries.QueryDescription)">
-            <summary>
-            Execute a delegate for every entity in a query, in parallel. Passing an object through into every call.
             </summary>
             <param name="delegate"></param>
             <param name="query"></param>
@@ -12171,14 +11527,6 @@
             <param name="query"></param>
             <param name="data">The object passed into every call</param>
         </member>
-        <member name="M:Myriad.ECS.Worlds.World.QueryParallel``7(``0,Myriad.ECS.Queries.QueryDelegateData{``0,``1,``2,``3,``4,``5,``6},Myriad.ECS.Queries.QueryDescription)">
-            <summary>
-            Execute a delegate for every entity in a query, in parallel. Passing an object through into every call.
-            </summary>
-            <param name="delegate"></param>
-            <param name="query"></param>
-            <param name="data">The object passed into every call</param>
-        </member>
         <member name="M:Myriad.ECS.Worlds.World.Query``7(Myriad.ECS.Queries.QueryDelegateEntity{``0,``1,``2,``3,``4,``5,``6},Myriad.ECS.Queries.QueryDescription@)">
             <summary>
             Execute a delegate for every entity in a query.
@@ -12189,13 +11537,6 @@
         <member name="M:Myriad.ECS.Worlds.World.Query``7(Myriad.ECS.Queries.QueryDelegateEntity{``0,``1,``2,``3,``4,``5,``6},Myriad.ECS.Queries.QueryDescription)">
             <summary>
             Execute a delegate for every entity in a query.
-            </summary>
-            <param name="delegate"></param>
-            <param name="query"></param>
-        </member>
-        <member name="M:Myriad.ECS.Worlds.World.QueryParallel``7(Myriad.ECS.Queries.QueryDelegateEntity{``0,``1,``2,``3,``4,``5,``6},Myriad.ECS.Queries.QueryDescription)">
-            <summary>
-            Execute a delegate for every entity in a query, in parallel.
             </summary>
             <param name="delegate"></param>
             <param name="query"></param>
@@ -12214,13 +11555,6 @@
             <param name="delegate"></param>
             <param name="query"></param>
         </member>
-        <member name="M:Myriad.ECS.Worlds.World.QueryParallel``7(Myriad.ECS.Queries.QueryDelegate{``0,``1,``2,``3,``4,``5,``6},Myriad.ECS.Queries.QueryDescription)">
-            <summary>
-            Execute a delegate for every entity in a query, in parallel.
-            </summary>
-            <param name="delegate"></param>
-            <param name="query"></param>
-        </member>
         <member name="M:Myriad.ECS.Worlds.World.Query``8(``0,Myriad.ECS.Queries.QueryDelegateEntityData{``0,``1,``2,``3,``4,``5,``6,``7},Myriad.ECS.Queries.QueryDescription@)">
             <summary>
             Execute a delegate for every entity in a query. Passing an object through into every call.
@@ -12232,14 +11566,6 @@
         <member name="M:Myriad.ECS.Worlds.World.Query``8(``0,Myriad.ECS.Queries.QueryDelegateEntityData{``0,``1,``2,``3,``4,``5,``6,``7},Myriad.ECS.Queries.QueryDescription)">
             <summary>
             Execute a delegate for every entity in a query. Passing an object through into every call.
-            </summary>
-            <param name="delegate"></param>
-            <param name="query"></param>
-            <param name="data">The object passed into every call</param>
-        </member>
-        <member name="M:Myriad.ECS.Worlds.World.QueryParallel``8(``0,Myriad.ECS.Queries.QueryDelegateEntityData{``0,``1,``2,``3,``4,``5,``6,``7},Myriad.ECS.Queries.QueryDescription)">
-            <summary>
-            Execute a delegate for every entity in a query, in parallel. Passing an object through into every call.
             </summary>
             <param name="delegate"></param>
             <param name="query"></param>
@@ -12261,14 +11587,6 @@
             <param name="query"></param>
             <param name="data">The object passed into every call</param>
         </member>
-        <member name="M:Myriad.ECS.Worlds.World.QueryParallel``8(``0,Myriad.ECS.Queries.QueryDelegateData{``0,``1,``2,``3,``4,``5,``6,``7},Myriad.ECS.Queries.QueryDescription)">
-            <summary>
-            Execute a delegate for every entity in a query, in parallel. Passing an object through into every call.
-            </summary>
-            <param name="delegate"></param>
-            <param name="query"></param>
-            <param name="data">The object passed into every call</param>
-        </member>
         <member name="M:Myriad.ECS.Worlds.World.Query``8(Myriad.ECS.Queries.QueryDelegateEntity{``0,``1,``2,``3,``4,``5,``6,``7},Myriad.ECS.Queries.QueryDescription@)">
             <summary>
             Execute a delegate for every entity in a query.
@@ -12279,13 +11597,6 @@
         <member name="M:Myriad.ECS.Worlds.World.Query``8(Myriad.ECS.Queries.QueryDelegateEntity{``0,``1,``2,``3,``4,``5,``6,``7},Myriad.ECS.Queries.QueryDescription)">
             <summary>
             Execute a delegate for every entity in a query.
-            </summary>
-            <param name="delegate"></param>
-            <param name="query"></param>
-        </member>
-        <member name="M:Myriad.ECS.Worlds.World.QueryParallel``8(Myriad.ECS.Queries.QueryDelegateEntity{``0,``1,``2,``3,``4,``5,``6,``7},Myriad.ECS.Queries.QueryDescription)">
-            <summary>
-            Execute a delegate for every entity in a query, in parallel.
             </summary>
             <param name="delegate"></param>
             <param name="query"></param>
@@ -12304,13 +11615,6 @@
             <param name="delegate"></param>
             <param name="query"></param>
         </member>
-        <member name="M:Myriad.ECS.Worlds.World.QueryParallel``8(Myriad.ECS.Queries.QueryDelegate{``0,``1,``2,``3,``4,``5,``6,``7},Myriad.ECS.Queries.QueryDescription)">
-            <summary>
-            Execute a delegate for every entity in a query, in parallel.
-            </summary>
-            <param name="delegate"></param>
-            <param name="query"></param>
-        </member>
         <member name="M:Myriad.ECS.Worlds.World.Query``9(``0,Myriad.ECS.Queries.QueryDelegateEntityData{``0,``1,``2,``3,``4,``5,``6,``7,``8},Myriad.ECS.Queries.QueryDescription@)">
             <summary>
             Execute a delegate for every entity in a query. Passing an object through into every call.
@@ -12322,14 +11626,6 @@
         <member name="M:Myriad.ECS.Worlds.World.Query``9(``0,Myriad.ECS.Queries.QueryDelegateEntityData{``0,``1,``2,``3,``4,``5,``6,``7,``8},Myriad.ECS.Queries.QueryDescription)">
             <summary>
             Execute a delegate for every entity in a query. Passing an object through into every call.
-            </summary>
-            <param name="delegate"></param>
-            <param name="query"></param>
-            <param name="data">The object passed into every call</param>
-        </member>
-        <member name="M:Myriad.ECS.Worlds.World.QueryParallel``9(``0,Myriad.ECS.Queries.QueryDelegateEntityData{``0,``1,``2,``3,``4,``5,``6,``7,``8},Myriad.ECS.Queries.QueryDescription)">
-            <summary>
-            Execute a delegate for every entity in a query, in parallel. Passing an object through into every call.
             </summary>
             <param name="delegate"></param>
             <param name="query"></param>
@@ -12351,14 +11647,6 @@
             <param name="query"></param>
             <param name="data">The object passed into every call</param>
         </member>
-        <member name="M:Myriad.ECS.Worlds.World.QueryParallel``9(``0,Myriad.ECS.Queries.QueryDelegateData{``0,``1,``2,``3,``4,``5,``6,``7,``8},Myriad.ECS.Queries.QueryDescription)">
-            <summary>
-            Execute a delegate for every entity in a query, in parallel. Passing an object through into every call.
-            </summary>
-            <param name="delegate"></param>
-            <param name="query"></param>
-            <param name="data">The object passed into every call</param>
-        </member>
         <member name="M:Myriad.ECS.Worlds.World.Query``9(Myriad.ECS.Queries.QueryDelegateEntity{``0,``1,``2,``3,``4,``5,``6,``7,``8},Myriad.ECS.Queries.QueryDescription@)">
             <summary>
             Execute a delegate for every entity in a query.
@@ -12369,13 +11657,6 @@
         <member name="M:Myriad.ECS.Worlds.World.Query``9(Myriad.ECS.Queries.QueryDelegateEntity{``0,``1,``2,``3,``4,``5,``6,``7,``8},Myriad.ECS.Queries.QueryDescription)">
             <summary>
             Execute a delegate for every entity in a query.
-            </summary>
-            <param name="delegate"></param>
-            <param name="query"></param>
-        </member>
-        <member name="M:Myriad.ECS.Worlds.World.QueryParallel``9(Myriad.ECS.Queries.QueryDelegateEntity{``0,``1,``2,``3,``4,``5,``6,``7,``8},Myriad.ECS.Queries.QueryDescription)">
-            <summary>
-            Execute a delegate for every entity in a query, in parallel.
             </summary>
             <param name="delegate"></param>
             <param name="query"></param>
@@ -12394,13 +11675,6 @@
             <param name="delegate"></param>
             <param name="query"></param>
         </member>
-        <member name="M:Myriad.ECS.Worlds.World.QueryParallel``9(Myriad.ECS.Queries.QueryDelegate{``0,``1,``2,``3,``4,``5,``6,``7,``8},Myriad.ECS.Queries.QueryDescription)">
-            <summary>
-            Execute a delegate for every entity in a query, in parallel.
-            </summary>
-            <param name="delegate"></param>
-            <param name="query"></param>
-        </member>
         <member name="M:Myriad.ECS.Worlds.World.Query``10(``0,Myriad.ECS.Queries.QueryDelegateEntityData{``0,``1,``2,``3,``4,``5,``6,``7,``8,``9},Myriad.ECS.Queries.QueryDescription@)">
             <summary>
             Execute a delegate for every entity in a query. Passing an object through into every call.
@@ -12412,14 +11686,6 @@
         <member name="M:Myriad.ECS.Worlds.World.Query``10(``0,Myriad.ECS.Queries.QueryDelegateEntityData{``0,``1,``2,``3,``4,``5,``6,``7,``8,``9},Myriad.ECS.Queries.QueryDescription)">
             <summary>
             Execute a delegate for every entity in a query. Passing an object through into every call.
-            </summary>
-            <param name="delegate"></param>
-            <param name="query"></param>
-            <param name="data">The object passed into every call</param>
-        </member>
-        <member name="M:Myriad.ECS.Worlds.World.QueryParallel``10(``0,Myriad.ECS.Queries.QueryDelegateEntityData{``0,``1,``2,``3,``4,``5,``6,``7,``8,``9},Myriad.ECS.Queries.QueryDescription)">
-            <summary>
-            Execute a delegate for every entity in a query, in parallel. Passing an object through into every call.
             </summary>
             <param name="delegate"></param>
             <param name="query"></param>
@@ -12441,14 +11707,6 @@
             <param name="query"></param>
             <param name="data">The object passed into every call</param>
         </member>
-        <member name="M:Myriad.ECS.Worlds.World.QueryParallel``10(``0,Myriad.ECS.Queries.QueryDelegateData{``0,``1,``2,``3,``4,``5,``6,``7,``8,``9},Myriad.ECS.Queries.QueryDescription)">
-            <summary>
-            Execute a delegate for every entity in a query, in parallel. Passing an object through into every call.
-            </summary>
-            <param name="delegate"></param>
-            <param name="query"></param>
-            <param name="data">The object passed into every call</param>
-        </member>
         <member name="M:Myriad.ECS.Worlds.World.Query``10(Myriad.ECS.Queries.QueryDelegateEntity{``0,``1,``2,``3,``4,``5,``6,``7,``8,``9},Myriad.ECS.Queries.QueryDescription@)">
             <summary>
             Execute a delegate for every entity in a query.
@@ -12459,13 +11717,6 @@
         <member name="M:Myriad.ECS.Worlds.World.Query``10(Myriad.ECS.Queries.QueryDelegateEntity{``0,``1,``2,``3,``4,``5,``6,``7,``8,``9},Myriad.ECS.Queries.QueryDescription)">
             <summary>
             Execute a delegate for every entity in a query.
-            </summary>
-            <param name="delegate"></param>
-            <param name="query"></param>
-        </member>
-        <member name="M:Myriad.ECS.Worlds.World.QueryParallel``10(Myriad.ECS.Queries.QueryDelegateEntity{``0,``1,``2,``3,``4,``5,``6,``7,``8,``9},Myriad.ECS.Queries.QueryDescription)">
-            <summary>
-            Execute a delegate for every entity in a query, in parallel.
             </summary>
             <param name="delegate"></param>
             <param name="query"></param>
@@ -12484,13 +11735,6 @@
             <param name="delegate"></param>
             <param name="query"></param>
         </member>
-        <member name="M:Myriad.ECS.Worlds.World.QueryParallel``10(Myriad.ECS.Queries.QueryDelegate{``0,``1,``2,``3,``4,``5,``6,``7,``8,``9},Myriad.ECS.Queries.QueryDescription)">
-            <summary>
-            Execute a delegate for every entity in a query, in parallel.
-            </summary>
-            <param name="delegate"></param>
-            <param name="query"></param>
-        </member>
         <member name="M:Myriad.ECS.Worlds.World.Query``11(``0,Myriad.ECS.Queries.QueryDelegateEntityData{``0,``1,``2,``3,``4,``5,``6,``7,``8,``9,``10},Myriad.ECS.Queries.QueryDescription@)">
             <summary>
             Execute a delegate for every entity in a query. Passing an object through into every call.
@@ -12502,14 +11746,6 @@
         <member name="M:Myriad.ECS.Worlds.World.Query``11(``0,Myriad.ECS.Queries.QueryDelegateEntityData{``0,``1,``2,``3,``4,``5,``6,``7,``8,``9,``10},Myriad.ECS.Queries.QueryDescription)">
             <summary>
             Execute a delegate for every entity in a query. Passing an object through into every call.
-            </summary>
-            <param name="delegate"></param>
-            <param name="query"></param>
-            <param name="data">The object passed into every call</param>
-        </member>
-        <member name="M:Myriad.ECS.Worlds.World.QueryParallel``11(``0,Myriad.ECS.Queries.QueryDelegateEntityData{``0,``1,``2,``3,``4,``5,``6,``7,``8,``9,``10},Myriad.ECS.Queries.QueryDescription)">
-            <summary>
-            Execute a delegate for every entity in a query, in parallel. Passing an object through into every call.
             </summary>
             <param name="delegate"></param>
             <param name="query"></param>
@@ -12531,14 +11767,6 @@
             <param name="query"></param>
             <param name="data">The object passed into every call</param>
         </member>
-        <member name="M:Myriad.ECS.Worlds.World.QueryParallel``11(``0,Myriad.ECS.Queries.QueryDelegateData{``0,``1,``2,``3,``4,``5,``6,``7,``8,``9,``10},Myriad.ECS.Queries.QueryDescription)">
-            <summary>
-            Execute a delegate for every entity in a query, in parallel. Passing an object through into every call.
-            </summary>
-            <param name="delegate"></param>
-            <param name="query"></param>
-            <param name="data">The object passed into every call</param>
-        </member>
         <member name="M:Myriad.ECS.Worlds.World.Query``11(Myriad.ECS.Queries.QueryDelegateEntity{``0,``1,``2,``3,``4,``5,``6,``7,``8,``9,``10},Myriad.ECS.Queries.QueryDescription@)">
             <summary>
             Execute a delegate for every entity in a query.
@@ -12549,13 +11777,6 @@
         <member name="M:Myriad.ECS.Worlds.World.Query``11(Myriad.ECS.Queries.QueryDelegateEntity{``0,``1,``2,``3,``4,``5,``6,``7,``8,``9,``10},Myriad.ECS.Queries.QueryDescription)">
             <summary>
             Execute a delegate for every entity in a query.
-            </summary>
-            <param name="delegate"></param>
-            <param name="query"></param>
-        </member>
-        <member name="M:Myriad.ECS.Worlds.World.QueryParallel``11(Myriad.ECS.Queries.QueryDelegateEntity{``0,``1,``2,``3,``4,``5,``6,``7,``8,``9,``10},Myriad.ECS.Queries.QueryDescription)">
-            <summary>
-            Execute a delegate for every entity in a query, in parallel.
             </summary>
             <param name="delegate"></param>
             <param name="query"></param>
@@ -12574,13 +11795,6 @@
             <param name="delegate"></param>
             <param name="query"></param>
         </member>
-        <member name="M:Myriad.ECS.Worlds.World.QueryParallel``11(Myriad.ECS.Queries.QueryDelegate{``0,``1,``2,``3,``4,``5,``6,``7,``8,``9,``10},Myriad.ECS.Queries.QueryDescription)">
-            <summary>
-            Execute a delegate for every entity in a query, in parallel.
-            </summary>
-            <param name="delegate"></param>
-            <param name="query"></param>
-        </member>
         <member name="M:Myriad.ECS.Worlds.World.Query``12(``0,Myriad.ECS.Queries.QueryDelegateEntityData{``0,``1,``2,``3,``4,``5,``6,``7,``8,``9,``10,``11},Myriad.ECS.Queries.QueryDescription@)">
             <summary>
             Execute a delegate for every entity in a query. Passing an object through into every call.
@@ -12592,14 +11806,6 @@
         <member name="M:Myriad.ECS.Worlds.World.Query``12(``0,Myriad.ECS.Queries.QueryDelegateEntityData{``0,``1,``2,``3,``4,``5,``6,``7,``8,``9,``10,``11},Myriad.ECS.Queries.QueryDescription)">
             <summary>
             Execute a delegate for every entity in a query. Passing an object through into every call.
-            </summary>
-            <param name="delegate"></param>
-            <param name="query"></param>
-            <param name="data">The object passed into every call</param>
-        </member>
-        <member name="M:Myriad.ECS.Worlds.World.QueryParallel``12(``0,Myriad.ECS.Queries.QueryDelegateEntityData{``0,``1,``2,``3,``4,``5,``6,``7,``8,``9,``10,``11},Myriad.ECS.Queries.QueryDescription)">
-            <summary>
-            Execute a delegate for every entity in a query, in parallel. Passing an object through into every call.
             </summary>
             <param name="delegate"></param>
             <param name="query"></param>
@@ -12621,14 +11827,6 @@
             <param name="query"></param>
             <param name="data">The object passed into every call</param>
         </member>
-        <member name="M:Myriad.ECS.Worlds.World.QueryParallel``12(``0,Myriad.ECS.Queries.QueryDelegateData{``0,``1,``2,``3,``4,``5,``6,``7,``8,``9,``10,``11},Myriad.ECS.Queries.QueryDescription)">
-            <summary>
-            Execute a delegate for every entity in a query, in parallel. Passing an object through into every call.
-            </summary>
-            <param name="delegate"></param>
-            <param name="query"></param>
-            <param name="data">The object passed into every call</param>
-        </member>
         <member name="M:Myriad.ECS.Worlds.World.Query``12(Myriad.ECS.Queries.QueryDelegateEntity{``0,``1,``2,``3,``4,``5,``6,``7,``8,``9,``10,``11},Myriad.ECS.Queries.QueryDescription@)">
             <summary>
             Execute a delegate for every entity in a query.
@@ -12639,13 +11837,6 @@
         <member name="M:Myriad.ECS.Worlds.World.Query``12(Myriad.ECS.Queries.QueryDelegateEntity{``0,``1,``2,``3,``4,``5,``6,``7,``8,``9,``10,``11},Myriad.ECS.Queries.QueryDescription)">
             <summary>
             Execute a delegate for every entity in a query.
-            </summary>
-            <param name="delegate"></param>
-            <param name="query"></param>
-        </member>
-        <member name="M:Myriad.ECS.Worlds.World.QueryParallel``12(Myriad.ECS.Queries.QueryDelegateEntity{``0,``1,``2,``3,``4,``5,``6,``7,``8,``9,``10,``11},Myriad.ECS.Queries.QueryDescription)">
-            <summary>
-            Execute a delegate for every entity in a query, in parallel.
             </summary>
             <param name="delegate"></param>
             <param name="query"></param>
@@ -12664,13 +11855,6 @@
             <param name="delegate"></param>
             <param name="query"></param>
         </member>
-        <member name="M:Myriad.ECS.Worlds.World.QueryParallel``12(Myriad.ECS.Queries.QueryDelegate{``0,``1,``2,``3,``4,``5,``6,``7,``8,``9,``10,``11},Myriad.ECS.Queries.QueryDescription)">
-            <summary>
-            Execute a delegate for every entity in a query, in parallel.
-            </summary>
-            <param name="delegate"></param>
-            <param name="query"></param>
-        </member>
         <member name="M:Myriad.ECS.Worlds.World.Query``13(``0,Myriad.ECS.Queries.QueryDelegateEntityData{``0,``1,``2,``3,``4,``5,``6,``7,``8,``9,``10,``11,``12},Myriad.ECS.Queries.QueryDescription@)">
             <summary>
             Execute a delegate for every entity in a query. Passing an object through into every call.
@@ -12682,14 +11866,6 @@
         <member name="M:Myriad.ECS.Worlds.World.Query``13(``0,Myriad.ECS.Queries.QueryDelegateEntityData{``0,``1,``2,``3,``4,``5,``6,``7,``8,``9,``10,``11,``12},Myriad.ECS.Queries.QueryDescription)">
             <summary>
             Execute a delegate for every entity in a query. Passing an object through into every call.
-            </summary>
-            <param name="delegate"></param>
-            <param name="query"></param>
-            <param name="data">The object passed into every call</param>
-        </member>
-        <member name="M:Myriad.ECS.Worlds.World.QueryParallel``13(``0,Myriad.ECS.Queries.QueryDelegateEntityData{``0,``1,``2,``3,``4,``5,``6,``7,``8,``9,``10,``11,``12},Myriad.ECS.Queries.QueryDescription)">
-            <summary>
-            Execute a delegate for every entity in a query, in parallel. Passing an object through into every call.
             </summary>
             <param name="delegate"></param>
             <param name="query"></param>
@@ -12711,14 +11887,6 @@
             <param name="query"></param>
             <param name="data">The object passed into every call</param>
         </member>
-        <member name="M:Myriad.ECS.Worlds.World.QueryParallel``13(``0,Myriad.ECS.Queries.QueryDelegateData{``0,``1,``2,``3,``4,``5,``6,``7,``8,``9,``10,``11,``12},Myriad.ECS.Queries.QueryDescription)">
-            <summary>
-            Execute a delegate for every entity in a query, in parallel. Passing an object through into every call.
-            </summary>
-            <param name="delegate"></param>
-            <param name="query"></param>
-            <param name="data">The object passed into every call</param>
-        </member>
         <member name="M:Myriad.ECS.Worlds.World.Query``13(Myriad.ECS.Queries.QueryDelegateEntity{``0,``1,``2,``3,``4,``5,``6,``7,``8,``9,``10,``11,``12},Myriad.ECS.Queries.QueryDescription@)">
             <summary>
             Execute a delegate for every entity in a query.
@@ -12729,13 +11897,6 @@
         <member name="M:Myriad.ECS.Worlds.World.Query``13(Myriad.ECS.Queries.QueryDelegateEntity{``0,``1,``2,``3,``4,``5,``6,``7,``8,``9,``10,``11,``12},Myriad.ECS.Queries.QueryDescription)">
             <summary>
             Execute a delegate for every entity in a query.
-            </summary>
-            <param name="delegate"></param>
-            <param name="query"></param>
-        </member>
-        <member name="M:Myriad.ECS.Worlds.World.QueryParallel``13(Myriad.ECS.Queries.QueryDelegateEntity{``0,``1,``2,``3,``4,``5,``6,``7,``8,``9,``10,``11,``12},Myriad.ECS.Queries.QueryDescription)">
-            <summary>
-            Execute a delegate for every entity in a query, in parallel.
             </summary>
             <param name="delegate"></param>
             <param name="query"></param>
@@ -12754,13 +11915,6 @@
             <param name="delegate"></param>
             <param name="query"></param>
         </member>
-        <member name="M:Myriad.ECS.Worlds.World.QueryParallel``13(Myriad.ECS.Queries.QueryDelegate{``0,``1,``2,``3,``4,``5,``6,``7,``8,``9,``10,``11,``12},Myriad.ECS.Queries.QueryDescription)">
-            <summary>
-            Execute a delegate for every entity in a query, in parallel.
-            </summary>
-            <param name="delegate"></param>
-            <param name="query"></param>
-        </member>
         <member name="M:Myriad.ECS.Worlds.World.Query``14(``0,Myriad.ECS.Queries.QueryDelegateEntityData{``0,``1,``2,``3,``4,``5,``6,``7,``8,``9,``10,``11,``12,``13},Myriad.ECS.Queries.QueryDescription@)">
             <summary>
             Execute a delegate for every entity in a query. Passing an object through into every call.
@@ -12772,14 +11926,6 @@
         <member name="M:Myriad.ECS.Worlds.World.Query``14(``0,Myriad.ECS.Queries.QueryDelegateEntityData{``0,``1,``2,``3,``4,``5,``6,``7,``8,``9,``10,``11,``12,``13},Myriad.ECS.Queries.QueryDescription)">
             <summary>
             Execute a delegate for every entity in a query. Passing an object through into every call.
-            </summary>
-            <param name="delegate"></param>
-            <param name="query"></param>
-            <param name="data">The object passed into every call</param>
-        </member>
-        <member name="M:Myriad.ECS.Worlds.World.QueryParallel``14(``0,Myriad.ECS.Queries.QueryDelegateEntityData{``0,``1,``2,``3,``4,``5,``6,``7,``8,``9,``10,``11,``12,``13},Myriad.ECS.Queries.QueryDescription)">
-            <summary>
-            Execute a delegate for every entity in a query, in parallel. Passing an object through into every call.
             </summary>
             <param name="delegate"></param>
             <param name="query"></param>
@@ -12801,14 +11947,6 @@
             <param name="query"></param>
             <param name="data">The object passed into every call</param>
         </member>
-        <member name="M:Myriad.ECS.Worlds.World.QueryParallel``14(``0,Myriad.ECS.Queries.QueryDelegateData{``0,``1,``2,``3,``4,``5,``6,``7,``8,``9,``10,``11,``12,``13},Myriad.ECS.Queries.QueryDescription)">
-            <summary>
-            Execute a delegate for every entity in a query, in parallel. Passing an object through into every call.
-            </summary>
-            <param name="delegate"></param>
-            <param name="query"></param>
-            <param name="data">The object passed into every call</param>
-        </member>
         <member name="M:Myriad.ECS.Worlds.World.Query``14(Myriad.ECS.Queries.QueryDelegateEntity{``0,``1,``2,``3,``4,``5,``6,``7,``8,``9,``10,``11,``12,``13},Myriad.ECS.Queries.QueryDescription@)">
             <summary>
             Execute a delegate for every entity in a query.
@@ -12819,13 +11957,6 @@
         <member name="M:Myriad.ECS.Worlds.World.Query``14(Myriad.ECS.Queries.QueryDelegateEntity{``0,``1,``2,``3,``4,``5,``6,``7,``8,``9,``10,``11,``12,``13},Myriad.ECS.Queries.QueryDescription)">
             <summary>
             Execute a delegate for every entity in a query.
-            </summary>
-            <param name="delegate"></param>
-            <param name="query"></param>
-        </member>
-        <member name="M:Myriad.ECS.Worlds.World.QueryParallel``14(Myriad.ECS.Queries.QueryDelegateEntity{``0,``1,``2,``3,``4,``5,``6,``7,``8,``9,``10,``11,``12,``13},Myriad.ECS.Queries.QueryDescription)">
-            <summary>
-            Execute a delegate for every entity in a query, in parallel.
             </summary>
             <param name="delegate"></param>
             <param name="query"></param>
@@ -12844,13 +11975,6 @@
             <param name="delegate"></param>
             <param name="query"></param>
         </member>
-        <member name="M:Myriad.ECS.Worlds.World.QueryParallel``14(Myriad.ECS.Queries.QueryDelegate{``0,``1,``2,``3,``4,``5,``6,``7,``8,``9,``10,``11,``12,``13},Myriad.ECS.Queries.QueryDescription)">
-            <summary>
-            Execute a delegate for every entity in a query, in parallel.
-            </summary>
-            <param name="delegate"></param>
-            <param name="query"></param>
-        </member>
         <member name="M:Myriad.ECS.Worlds.World.Query``15(``0,Myriad.ECS.Queries.QueryDelegateEntityData{``0,``1,``2,``3,``4,``5,``6,``7,``8,``9,``10,``11,``12,``13,``14},Myriad.ECS.Queries.QueryDescription@)">
             <summary>
             Execute a delegate for every entity in a query. Passing an object through into every call.
@@ -12862,14 +11986,6 @@
         <member name="M:Myriad.ECS.Worlds.World.Query``15(``0,Myriad.ECS.Queries.QueryDelegateEntityData{``0,``1,``2,``3,``4,``5,``6,``7,``8,``9,``10,``11,``12,``13,``14},Myriad.ECS.Queries.QueryDescription)">
             <summary>
             Execute a delegate for every entity in a query. Passing an object through into every call.
-            </summary>
-            <param name="delegate"></param>
-            <param name="query"></param>
-            <param name="data">The object passed into every call</param>
-        </member>
-        <member name="M:Myriad.ECS.Worlds.World.QueryParallel``15(``0,Myriad.ECS.Queries.QueryDelegateEntityData{``0,``1,``2,``3,``4,``5,``6,``7,``8,``9,``10,``11,``12,``13,``14},Myriad.ECS.Queries.QueryDescription)">
-            <summary>
-            Execute a delegate for every entity in a query, in parallel. Passing an object through into every call.
             </summary>
             <param name="delegate"></param>
             <param name="query"></param>
@@ -12891,14 +12007,6 @@
             <param name="query"></param>
             <param name="data">The object passed into every call</param>
         </member>
-        <member name="M:Myriad.ECS.Worlds.World.QueryParallel``15(``0,Myriad.ECS.Queries.QueryDelegateData{``0,``1,``2,``3,``4,``5,``6,``7,``8,``9,``10,``11,``12,``13,``14},Myriad.ECS.Queries.QueryDescription)">
-            <summary>
-            Execute a delegate for every entity in a query, in parallel. Passing an object through into every call.
-            </summary>
-            <param name="delegate"></param>
-            <param name="query"></param>
-            <param name="data">The object passed into every call</param>
-        </member>
         <member name="M:Myriad.ECS.Worlds.World.Query``15(Myriad.ECS.Queries.QueryDelegateEntity{``0,``1,``2,``3,``4,``5,``6,``7,``8,``9,``10,``11,``12,``13,``14},Myriad.ECS.Queries.QueryDescription@)">
             <summary>
             Execute a delegate for every entity in a query.
@@ -12913,13 +12021,6 @@
             <param name="delegate"></param>
             <param name="query"></param>
         </member>
-        <member name="M:Myriad.ECS.Worlds.World.QueryParallel``15(Myriad.ECS.Queries.QueryDelegateEntity{``0,``1,``2,``3,``4,``5,``6,``7,``8,``9,``10,``11,``12,``13,``14},Myriad.ECS.Queries.QueryDescription)">
-            <summary>
-            Execute a delegate for every entity in a query, in parallel.
-            </summary>
-            <param name="delegate"></param>
-            <param name="query"></param>
-        </member>
         <member name="M:Myriad.ECS.Worlds.World.Query``15(Myriad.ECS.Queries.QueryDelegate{``0,``1,``2,``3,``4,``5,``6,``7,``8,``9,``10,``11,``12,``13,``14},Myriad.ECS.Queries.QueryDescription@)">
             <summary>
             Execute a delegate for every entity in a query.
@@ -12930,13 +12031,6 @@
         <member name="M:Myriad.ECS.Worlds.World.Query``15(Myriad.ECS.Queries.QueryDelegate{``0,``1,``2,``3,``4,``5,``6,``7,``8,``9,``10,``11,``12,``13,``14},Myriad.ECS.Queries.QueryDescription)">
             <summary>
             Execute a delegate for every entity in a query.
-            </summary>
-            <param name="delegate"></param>
-            <param name="query"></param>
-        </member>
-        <member name="M:Myriad.ECS.Worlds.World.QueryParallel``15(Myriad.ECS.Queries.QueryDelegate{``0,``1,``2,``3,``4,``5,``6,``7,``8,``9,``10,``11,``12,``13,``14},Myriad.ECS.Queries.QueryDescription)">
-            <summary>
-            Execute a delegate for every entity in a query, in parallel.
             </summary>
             <param name="delegate"></param>
             <param name="query"></param>
@@ -12957,14 +12051,6 @@
             <param name="query"></param>
             <param name="data">The object passed into every call</param>
         </member>
-        <member name="M:Myriad.ECS.Worlds.World.QueryParallel``16(``0,Myriad.ECS.Queries.QueryDelegateEntityData{``0,``1,``2,``3,``4,``5,``6,``7,``8,``9,``10,``11,``12,``13,``14,``15},Myriad.ECS.Queries.QueryDescription)">
-            <summary>
-            Execute a delegate for every entity in a query, in parallel. Passing an object through into every call.
-            </summary>
-            <param name="delegate"></param>
-            <param name="query"></param>
-            <param name="data">The object passed into every call</param>
-        </member>
         <member name="M:Myriad.ECS.Worlds.World.Query``16(``0,Myriad.ECS.Queries.QueryDelegateData{``0,``1,``2,``3,``4,``5,``6,``7,``8,``9,``10,``11,``12,``13,``14,``15},Myriad.ECS.Queries.QueryDescription@)">
             <summary>
             Execute a delegate for every entity in a query. Passing an object through into every call.
@@ -12976,14 +12062,6 @@
         <member name="M:Myriad.ECS.Worlds.World.Query``16(``0,Myriad.ECS.Queries.QueryDelegateData{``0,``1,``2,``3,``4,``5,``6,``7,``8,``9,``10,``11,``12,``13,``14,``15},Myriad.ECS.Queries.QueryDescription)">
             <summary>
             Execute a delegate for every entity in a query. Passing an object through into every call.
-            </summary>
-            <param name="delegate"></param>
-            <param name="query"></param>
-            <param name="data">The object passed into every call</param>
-        </member>
-        <member name="M:Myriad.ECS.Worlds.World.QueryParallel``16(``0,Myriad.ECS.Queries.QueryDelegateData{``0,``1,``2,``3,``4,``5,``6,``7,``8,``9,``10,``11,``12,``13,``14,``15},Myriad.ECS.Queries.QueryDescription)">
-            <summary>
-            Execute a delegate for every entity in a query, in parallel. Passing an object through into every call.
             </summary>
             <param name="delegate"></param>
             <param name="query"></param>
@@ -13018,13 +12096,6 @@
             <param name="delegate"></param>
             <param name="query"></param>
         </member>
-        <member name="M:Myriad.ECS.Worlds.World.QueryParallel``1(Myriad.ECS.Queries.QueryDelegateChunkHandle{``0},Myriad.ECS.Queries.QueryDescription)">
-            <summary>
-            Execute a delegate for every entity in a query, in parallel.
-            </summary>
-            <param name="delegate"></param>
-            <param name="query"></param>
-        </member>
         <member name="M:Myriad.ECS.Worlds.World.Query``1(Myriad.ECS.Queries.QueryDelegateChunk{``0},Myriad.ECS.Queries.QueryDescription@)">
             <summary>
             Execute a delegate for every entity in a query.
@@ -13035,13 +12106,6 @@
         <member name="M:Myriad.ECS.Worlds.World.Query``1(Myriad.ECS.Queries.QueryDelegateChunk{``0},Myriad.ECS.Queries.QueryDescription)">
             <summary>
             Execute a delegate for every entity in a query.
-            </summary>
-            <param name="delegate"></param>
-            <param name="query"></param>
-        </member>
-        <member name="M:Myriad.ECS.Worlds.World.QueryParallel``1(Myriad.ECS.Queries.QueryDelegateChunk{``0},Myriad.ECS.Queries.QueryDescription)">
-            <summary>
-            Execute a delegate for every entity in a query, in parallel.
             </summary>
             <param name="delegate"></param>
             <param name="query"></param>
@@ -13057,14 +12121,6 @@
         <member name="M:Myriad.ECS.Worlds.World.Query``2(``0,Myriad.ECS.Queries.QueryDelegateChunkHandleData{``0,``1},Myriad.ECS.Queries.QueryDescription)">
             <summary>
             Execute a delegate for every entity in a query. Passing an object through into every call.
-            </summary>
-            <param name="delegate"></param>
-            <param name="query"></param>
-            <param name="data">The object passed into every call</param>
-        </member>
-        <member name="M:Myriad.ECS.Worlds.World.QueryParallel``2(``0,Myriad.ECS.Queries.QueryDelegateChunkHandleData{``0,``1},Myriad.ECS.Queries.QueryDescription)">
-            <summary>
-            Execute a delegate for every entity in a query, in parallel. Passing an object through into every call.
             </summary>
             <param name="delegate"></param>
             <param name="query"></param>
@@ -13086,14 +12142,6 @@
             <param name="query"></param>
             <param name="data">The object passed into every call</param>
         </member>
-        <member name="M:Myriad.ECS.Worlds.World.QueryParallel``2(``0,Myriad.ECS.Queries.QueryDelegateChunkData{``0,``1},Myriad.ECS.Queries.QueryDescription)">
-            <summary>
-            Execute a delegate for every entity in a query, in parallel. Passing an object through into every call.
-            </summary>
-            <param name="delegate"></param>
-            <param name="query"></param>
-            <param name="data">The object passed into every call</param>
-        </member>
         <member name="M:Myriad.ECS.Worlds.World.Query``2(Myriad.ECS.Queries.QueryDelegateChunkHandle{``0,``1},Myriad.ECS.Queries.QueryDescription@)">
             <summary>
             Execute a delegate for every entity in a query.
@@ -13104,13 +12152,6 @@
         <member name="M:Myriad.ECS.Worlds.World.Query``2(Myriad.ECS.Queries.QueryDelegateChunkHandle{``0,``1},Myriad.ECS.Queries.QueryDescription)">
             <summary>
             Execute a delegate for every entity in a query.
-            </summary>
-            <param name="delegate"></param>
-            <param name="query"></param>
-        </member>
-        <member name="M:Myriad.ECS.Worlds.World.QueryParallel``2(Myriad.ECS.Queries.QueryDelegateChunkHandle{``0,``1},Myriad.ECS.Queries.QueryDescription)">
-            <summary>
-            Execute a delegate for every entity in a query, in parallel.
             </summary>
             <param name="delegate"></param>
             <param name="query"></param>
@@ -13129,13 +12170,6 @@
             <param name="delegate"></param>
             <param name="query"></param>
         </member>
-        <member name="M:Myriad.ECS.Worlds.World.QueryParallel``2(Myriad.ECS.Queries.QueryDelegateChunk{``0,``1},Myriad.ECS.Queries.QueryDescription)">
-            <summary>
-            Execute a delegate for every entity in a query, in parallel.
-            </summary>
-            <param name="delegate"></param>
-            <param name="query"></param>
-        </member>
         <member name="M:Myriad.ECS.Worlds.World.Query``3(``0,Myriad.ECS.Queries.QueryDelegateChunkHandleData{``0,``1,``2},Myriad.ECS.Queries.QueryDescription@)">
             <summary>
             Execute a delegate for every entity in a query. Passing an object through into every call.
@@ -13147,14 +12181,6 @@
         <member name="M:Myriad.ECS.Worlds.World.Query``3(``0,Myriad.ECS.Queries.QueryDelegateChunkHandleData{``0,``1,``2},Myriad.ECS.Queries.QueryDescription)">
             <summary>
             Execute a delegate for every entity in a query. Passing an object through into every call.
-            </summary>
-            <param name="delegate"></param>
-            <param name="query"></param>
-            <param name="data">The object passed into every call</param>
-        </member>
-        <member name="M:Myriad.ECS.Worlds.World.QueryParallel``3(``0,Myriad.ECS.Queries.QueryDelegateChunkHandleData{``0,``1,``2},Myriad.ECS.Queries.QueryDescription)">
-            <summary>
-            Execute a delegate for every entity in a query, in parallel. Passing an object through into every call.
             </summary>
             <param name="delegate"></param>
             <param name="query"></param>
@@ -13176,14 +12202,6 @@
             <param name="query"></param>
             <param name="data">The object passed into every call</param>
         </member>
-        <member name="M:Myriad.ECS.Worlds.World.QueryParallel``3(``0,Myriad.ECS.Queries.QueryDelegateChunkData{``0,``1,``2},Myriad.ECS.Queries.QueryDescription)">
-            <summary>
-            Execute a delegate for every entity in a query, in parallel. Passing an object through into every call.
-            </summary>
-            <param name="delegate"></param>
-            <param name="query"></param>
-            <param name="data">The object passed into every call</param>
-        </member>
         <member name="M:Myriad.ECS.Worlds.World.Query``3(Myriad.ECS.Queries.QueryDelegateChunkHandle{``0,``1,``2},Myriad.ECS.Queries.QueryDescription@)">
             <summary>
             Execute a delegate for every entity in a query.
@@ -13194,13 +12212,6 @@
         <member name="M:Myriad.ECS.Worlds.World.Query``3(Myriad.ECS.Queries.QueryDelegateChunkHandle{``0,``1,``2},Myriad.ECS.Queries.QueryDescription)">
             <summary>
             Execute a delegate for every entity in a query.
-            </summary>
-            <param name="delegate"></param>
-            <param name="query"></param>
-        </member>
-        <member name="M:Myriad.ECS.Worlds.World.QueryParallel``3(Myriad.ECS.Queries.QueryDelegateChunkHandle{``0,``1,``2},Myriad.ECS.Queries.QueryDescription)">
-            <summary>
-            Execute a delegate for every entity in a query, in parallel.
             </summary>
             <param name="delegate"></param>
             <param name="query"></param>
@@ -13219,13 +12230,6 @@
             <param name="delegate"></param>
             <param name="query"></param>
         </member>
-        <member name="M:Myriad.ECS.Worlds.World.QueryParallel``3(Myriad.ECS.Queries.QueryDelegateChunk{``0,``1,``2},Myriad.ECS.Queries.QueryDescription)">
-            <summary>
-            Execute a delegate for every entity in a query, in parallel.
-            </summary>
-            <param name="delegate"></param>
-            <param name="query"></param>
-        </member>
         <member name="M:Myriad.ECS.Worlds.World.Query``4(``0,Myriad.ECS.Queries.QueryDelegateChunkHandleData{``0,``1,``2,``3},Myriad.ECS.Queries.QueryDescription@)">
             <summary>
             Execute a delegate for every entity in a query. Passing an object through into every call.
@@ -13237,14 +12241,6 @@
         <member name="M:Myriad.ECS.Worlds.World.Query``4(``0,Myriad.ECS.Queries.QueryDelegateChunkHandleData{``0,``1,``2,``3},Myriad.ECS.Queries.QueryDescription)">
             <summary>
             Execute a delegate for every entity in a query. Passing an object through into every call.
-            </summary>
-            <param name="delegate"></param>
-            <param name="query"></param>
-            <param name="data">The object passed into every call</param>
-        </member>
-        <member name="M:Myriad.ECS.Worlds.World.QueryParallel``4(``0,Myriad.ECS.Queries.QueryDelegateChunkHandleData{``0,``1,``2,``3},Myriad.ECS.Queries.QueryDescription)">
-            <summary>
-            Execute a delegate for every entity in a query, in parallel. Passing an object through into every call.
             </summary>
             <param name="delegate"></param>
             <param name="query"></param>
@@ -13266,14 +12262,6 @@
             <param name="query"></param>
             <param name="data">The object passed into every call</param>
         </member>
-        <member name="M:Myriad.ECS.Worlds.World.QueryParallel``4(``0,Myriad.ECS.Queries.QueryDelegateChunkData{``0,``1,``2,``3},Myriad.ECS.Queries.QueryDescription)">
-            <summary>
-            Execute a delegate for every entity in a query, in parallel. Passing an object through into every call.
-            </summary>
-            <param name="delegate"></param>
-            <param name="query"></param>
-            <param name="data">The object passed into every call</param>
-        </member>
         <member name="M:Myriad.ECS.Worlds.World.Query``4(Myriad.ECS.Queries.QueryDelegateChunkHandle{``0,``1,``2,``3},Myriad.ECS.Queries.QueryDescription@)">
             <summary>
             Execute a delegate for every entity in a query.
@@ -13284,13 +12272,6 @@
         <member name="M:Myriad.ECS.Worlds.World.Query``4(Myriad.ECS.Queries.QueryDelegateChunkHandle{``0,``1,``2,``3},Myriad.ECS.Queries.QueryDescription)">
             <summary>
             Execute a delegate for every entity in a query.
-            </summary>
-            <param name="delegate"></param>
-            <param name="query"></param>
-        </member>
-        <member name="M:Myriad.ECS.Worlds.World.QueryParallel``4(Myriad.ECS.Queries.QueryDelegateChunkHandle{``0,``1,``2,``3},Myriad.ECS.Queries.QueryDescription)">
-            <summary>
-            Execute a delegate for every entity in a query, in parallel.
             </summary>
             <param name="delegate"></param>
             <param name="query"></param>
@@ -13309,13 +12290,6 @@
             <param name="delegate"></param>
             <param name="query"></param>
         </member>
-        <member name="M:Myriad.ECS.Worlds.World.QueryParallel``4(Myriad.ECS.Queries.QueryDelegateChunk{``0,``1,``2,``3},Myriad.ECS.Queries.QueryDescription)">
-            <summary>
-            Execute a delegate for every entity in a query, in parallel.
-            </summary>
-            <param name="delegate"></param>
-            <param name="query"></param>
-        </member>
         <member name="M:Myriad.ECS.Worlds.World.Query``5(``0,Myriad.ECS.Queries.QueryDelegateChunkHandleData{``0,``1,``2,``3,``4},Myriad.ECS.Queries.QueryDescription@)">
             <summary>
             Execute a delegate for every entity in a query. Passing an object through into every call.
@@ -13327,14 +12301,6 @@
         <member name="M:Myriad.ECS.Worlds.World.Query``5(``0,Myriad.ECS.Queries.QueryDelegateChunkHandleData{``0,``1,``2,``3,``4},Myriad.ECS.Queries.QueryDescription)">
             <summary>
             Execute a delegate for every entity in a query. Passing an object through into every call.
-            </summary>
-            <param name="delegate"></param>
-            <param name="query"></param>
-            <param name="data">The object passed into every call</param>
-        </member>
-        <member name="M:Myriad.ECS.Worlds.World.QueryParallel``5(``0,Myriad.ECS.Queries.QueryDelegateChunkHandleData{``0,``1,``2,``3,``4},Myriad.ECS.Queries.QueryDescription)">
-            <summary>
-            Execute a delegate for every entity in a query, in parallel. Passing an object through into every call.
             </summary>
             <param name="delegate"></param>
             <param name="query"></param>
@@ -13356,14 +12322,6 @@
             <param name="query"></param>
             <param name="data">The object passed into every call</param>
         </member>
-        <member name="M:Myriad.ECS.Worlds.World.QueryParallel``5(``0,Myriad.ECS.Queries.QueryDelegateChunkData{``0,``1,``2,``3,``4},Myriad.ECS.Queries.QueryDescription)">
-            <summary>
-            Execute a delegate for every entity in a query, in parallel. Passing an object through into every call.
-            </summary>
-            <param name="delegate"></param>
-            <param name="query"></param>
-            <param name="data">The object passed into every call</param>
-        </member>
         <member name="M:Myriad.ECS.Worlds.World.Query``5(Myriad.ECS.Queries.QueryDelegateChunkHandle{``0,``1,``2,``3,``4},Myriad.ECS.Queries.QueryDescription@)">
             <summary>
             Execute a delegate for every entity in a query.
@@ -13374,13 +12332,6 @@
         <member name="M:Myriad.ECS.Worlds.World.Query``5(Myriad.ECS.Queries.QueryDelegateChunkHandle{``0,``1,``2,``3,``4},Myriad.ECS.Queries.QueryDescription)">
             <summary>
             Execute a delegate for every entity in a query.
-            </summary>
-            <param name="delegate"></param>
-            <param name="query"></param>
-        </member>
-        <member name="M:Myriad.ECS.Worlds.World.QueryParallel``5(Myriad.ECS.Queries.QueryDelegateChunkHandle{``0,``1,``2,``3,``4},Myriad.ECS.Queries.QueryDescription)">
-            <summary>
-            Execute a delegate for every entity in a query, in parallel.
             </summary>
             <param name="delegate"></param>
             <param name="query"></param>
@@ -13399,13 +12350,6 @@
             <param name="delegate"></param>
             <param name="query"></param>
         </member>
-        <member name="M:Myriad.ECS.Worlds.World.QueryParallel``5(Myriad.ECS.Queries.QueryDelegateChunk{``0,``1,``2,``3,``4},Myriad.ECS.Queries.QueryDescription)">
-            <summary>
-            Execute a delegate for every entity in a query, in parallel.
-            </summary>
-            <param name="delegate"></param>
-            <param name="query"></param>
-        </member>
         <member name="M:Myriad.ECS.Worlds.World.Query``6(``0,Myriad.ECS.Queries.QueryDelegateChunkHandleData{``0,``1,``2,``3,``4,``5},Myriad.ECS.Queries.QueryDescription@)">
             <summary>
             Execute a delegate for every entity in a query. Passing an object through into every call.
@@ -13417,14 +12361,6 @@
         <member name="M:Myriad.ECS.Worlds.World.Query``6(``0,Myriad.ECS.Queries.QueryDelegateChunkHandleData{``0,``1,``2,``3,``4,``5},Myriad.ECS.Queries.QueryDescription)">
             <summary>
             Execute a delegate for every entity in a query. Passing an object through into every call.
-            </summary>
-            <param name="delegate"></param>
-            <param name="query"></param>
-            <param name="data">The object passed into every call</param>
-        </member>
-        <member name="M:Myriad.ECS.Worlds.World.QueryParallel``6(``0,Myriad.ECS.Queries.QueryDelegateChunkHandleData{``0,``1,``2,``3,``4,``5},Myriad.ECS.Queries.QueryDescription)">
-            <summary>
-            Execute a delegate for every entity in a query, in parallel. Passing an object through into every call.
             </summary>
             <param name="delegate"></param>
             <param name="query"></param>
@@ -13446,14 +12382,6 @@
             <param name="query"></param>
             <param name="data">The object passed into every call</param>
         </member>
-        <member name="M:Myriad.ECS.Worlds.World.QueryParallel``6(``0,Myriad.ECS.Queries.QueryDelegateChunkData{``0,``1,``2,``3,``4,``5},Myriad.ECS.Queries.QueryDescription)">
-            <summary>
-            Execute a delegate for every entity in a query, in parallel. Passing an object through into every call.
-            </summary>
-            <param name="delegate"></param>
-            <param name="query"></param>
-            <param name="data">The object passed into every call</param>
-        </member>
         <member name="M:Myriad.ECS.Worlds.World.Query``6(Myriad.ECS.Queries.QueryDelegateChunkHandle{``0,``1,``2,``3,``4,``5},Myriad.ECS.Queries.QueryDescription@)">
             <summary>
             Execute a delegate for every entity in a query.
@@ -13464,13 +12392,6 @@
         <member name="M:Myriad.ECS.Worlds.World.Query``6(Myriad.ECS.Queries.QueryDelegateChunkHandle{``0,``1,``2,``3,``4,``5},Myriad.ECS.Queries.QueryDescription)">
             <summary>
             Execute a delegate for every entity in a query.
-            </summary>
-            <param name="delegate"></param>
-            <param name="query"></param>
-        </member>
-        <member name="M:Myriad.ECS.Worlds.World.QueryParallel``6(Myriad.ECS.Queries.QueryDelegateChunkHandle{``0,``1,``2,``3,``4,``5},Myriad.ECS.Queries.QueryDescription)">
-            <summary>
-            Execute a delegate for every entity in a query, in parallel.
             </summary>
             <param name="delegate"></param>
             <param name="query"></param>
@@ -13489,13 +12410,6 @@
             <param name="delegate"></param>
             <param name="query"></param>
         </member>
-        <member name="M:Myriad.ECS.Worlds.World.QueryParallel``6(Myriad.ECS.Queries.QueryDelegateChunk{``0,``1,``2,``3,``4,``5},Myriad.ECS.Queries.QueryDescription)">
-            <summary>
-            Execute a delegate for every entity in a query, in parallel.
-            </summary>
-            <param name="delegate"></param>
-            <param name="query"></param>
-        </member>
         <member name="M:Myriad.ECS.Worlds.World.Query``7(``0,Myriad.ECS.Queries.QueryDelegateChunkHandleData{``0,``1,``2,``3,``4,``5,``6},Myriad.ECS.Queries.QueryDescription@)">
             <summary>
             Execute a delegate for every entity in a query. Passing an object through into every call.
@@ -13507,14 +12421,6 @@
         <member name="M:Myriad.ECS.Worlds.World.Query``7(``0,Myriad.ECS.Queries.QueryDelegateChunkHandleData{``0,``1,``2,``3,``4,``5,``6},Myriad.ECS.Queries.QueryDescription)">
             <summary>
             Execute a delegate for every entity in a query. Passing an object through into every call.
-            </summary>
-            <param name="delegate"></param>
-            <param name="query"></param>
-            <param name="data">The object passed into every call</param>
-        </member>
-        <member name="M:Myriad.ECS.Worlds.World.QueryParallel``7(``0,Myriad.ECS.Queries.QueryDelegateChunkHandleData{``0,``1,``2,``3,``4,``5,``6},Myriad.ECS.Queries.QueryDescription)">
-            <summary>
-            Execute a delegate for every entity in a query, in parallel. Passing an object through into every call.
             </summary>
             <param name="delegate"></param>
             <param name="query"></param>
@@ -13536,14 +12442,6 @@
             <param name="query"></param>
             <param name="data">The object passed into every call</param>
         </member>
-        <member name="M:Myriad.ECS.Worlds.World.QueryParallel``7(``0,Myriad.ECS.Queries.QueryDelegateChunkData{``0,``1,``2,``3,``4,``5,``6},Myriad.ECS.Queries.QueryDescription)">
-            <summary>
-            Execute a delegate for every entity in a query, in parallel. Passing an object through into every call.
-            </summary>
-            <param name="delegate"></param>
-            <param name="query"></param>
-            <param name="data">The object passed into every call</param>
-        </member>
         <member name="M:Myriad.ECS.Worlds.World.Query``7(Myriad.ECS.Queries.QueryDelegateChunkHandle{``0,``1,``2,``3,``4,``5,``6},Myriad.ECS.Queries.QueryDescription@)">
             <summary>
             Execute a delegate for every entity in a query.
@@ -13554,13 +12452,6 @@
         <member name="M:Myriad.ECS.Worlds.World.Query``7(Myriad.ECS.Queries.QueryDelegateChunkHandle{``0,``1,``2,``3,``4,``5,``6},Myriad.ECS.Queries.QueryDescription)">
             <summary>
             Execute a delegate for every entity in a query.
-            </summary>
-            <param name="delegate"></param>
-            <param name="query"></param>
-        </member>
-        <member name="M:Myriad.ECS.Worlds.World.QueryParallel``7(Myriad.ECS.Queries.QueryDelegateChunkHandle{``0,``1,``2,``3,``4,``5,``6},Myriad.ECS.Queries.QueryDescription)">
-            <summary>
-            Execute a delegate for every entity in a query, in parallel.
             </summary>
             <param name="delegate"></param>
             <param name="query"></param>
@@ -13579,13 +12470,6 @@
             <param name="delegate"></param>
             <param name="query"></param>
         </member>
-        <member name="M:Myriad.ECS.Worlds.World.QueryParallel``7(Myriad.ECS.Queries.QueryDelegateChunk{``0,``1,``2,``3,``4,``5,``6},Myriad.ECS.Queries.QueryDescription)">
-            <summary>
-            Execute a delegate for every entity in a query, in parallel.
-            </summary>
-            <param name="delegate"></param>
-            <param name="query"></param>
-        </member>
         <member name="M:Myriad.ECS.Worlds.World.Query``8(``0,Myriad.ECS.Queries.QueryDelegateChunkHandleData{``0,``1,``2,``3,``4,``5,``6,``7},Myriad.ECS.Queries.QueryDescription@)">
             <summary>
             Execute a delegate for every entity in a query. Passing an object through into every call.
@@ -13597,14 +12481,6 @@
         <member name="M:Myriad.ECS.Worlds.World.Query``8(``0,Myriad.ECS.Queries.QueryDelegateChunkHandleData{``0,``1,``2,``3,``4,``5,``6,``7},Myriad.ECS.Queries.QueryDescription)">
             <summary>
             Execute a delegate for every entity in a query. Passing an object through into every call.
-            </summary>
-            <param name="delegate"></param>
-            <param name="query"></param>
-            <param name="data">The object passed into every call</param>
-        </member>
-        <member name="M:Myriad.ECS.Worlds.World.QueryParallel``8(``0,Myriad.ECS.Queries.QueryDelegateChunkHandleData{``0,``1,``2,``3,``4,``5,``6,``7},Myriad.ECS.Queries.QueryDescription)">
-            <summary>
-            Execute a delegate for every entity in a query, in parallel. Passing an object through into every call.
             </summary>
             <param name="delegate"></param>
             <param name="query"></param>
@@ -13626,14 +12502,6 @@
             <param name="query"></param>
             <param name="data">The object passed into every call</param>
         </member>
-        <member name="M:Myriad.ECS.Worlds.World.QueryParallel``8(``0,Myriad.ECS.Queries.QueryDelegateChunkData{``0,``1,``2,``3,``4,``5,``6,``7},Myriad.ECS.Queries.QueryDescription)">
-            <summary>
-            Execute a delegate for every entity in a query, in parallel. Passing an object through into every call.
-            </summary>
-            <param name="delegate"></param>
-            <param name="query"></param>
-            <param name="data">The object passed into every call</param>
-        </member>
         <member name="M:Myriad.ECS.Worlds.World.Query``8(Myriad.ECS.Queries.QueryDelegateChunkHandle{``0,``1,``2,``3,``4,``5,``6,``7},Myriad.ECS.Queries.QueryDescription@)">
             <summary>
             Execute a delegate for every entity in a query.
@@ -13644,13 +12512,6 @@
         <member name="M:Myriad.ECS.Worlds.World.Query``8(Myriad.ECS.Queries.QueryDelegateChunkHandle{``0,``1,``2,``3,``4,``5,``6,``7},Myriad.ECS.Queries.QueryDescription)">
             <summary>
             Execute a delegate for every entity in a query.
-            </summary>
-            <param name="delegate"></param>
-            <param name="query"></param>
-        </member>
-        <member name="M:Myriad.ECS.Worlds.World.QueryParallel``8(Myriad.ECS.Queries.QueryDelegateChunkHandle{``0,``1,``2,``3,``4,``5,``6,``7},Myriad.ECS.Queries.QueryDescription)">
-            <summary>
-            Execute a delegate for every entity in a query, in parallel.
             </summary>
             <param name="delegate"></param>
             <param name="query"></param>
@@ -13669,13 +12530,6 @@
             <param name="delegate"></param>
             <param name="query"></param>
         </member>
-        <member name="M:Myriad.ECS.Worlds.World.QueryParallel``8(Myriad.ECS.Queries.QueryDelegateChunk{``0,``1,``2,``3,``4,``5,``6,``7},Myriad.ECS.Queries.QueryDescription)">
-            <summary>
-            Execute a delegate for every entity in a query, in parallel.
-            </summary>
-            <param name="delegate"></param>
-            <param name="query"></param>
-        </member>
         <member name="M:Myriad.ECS.Worlds.World.Query``9(``0,Myriad.ECS.Queries.QueryDelegateChunkHandleData{``0,``1,``2,``3,``4,``5,``6,``7,``8},Myriad.ECS.Queries.QueryDescription@)">
             <summary>
             Execute a delegate for every entity in a query. Passing an object through into every call.
@@ -13687,14 +12541,6 @@
         <member name="M:Myriad.ECS.Worlds.World.Query``9(``0,Myriad.ECS.Queries.QueryDelegateChunkHandleData{``0,``1,``2,``3,``4,``5,``6,``7,``8},Myriad.ECS.Queries.QueryDescription)">
             <summary>
             Execute a delegate for every entity in a query. Passing an object through into every call.
-            </summary>
-            <param name="delegate"></param>
-            <param name="query"></param>
-            <param name="data">The object passed into every call</param>
-        </member>
-        <member name="M:Myriad.ECS.Worlds.World.QueryParallel``9(``0,Myriad.ECS.Queries.QueryDelegateChunkHandleData{``0,``1,``2,``3,``4,``5,``6,``7,``8},Myriad.ECS.Queries.QueryDescription)">
-            <summary>
-            Execute a delegate for every entity in a query, in parallel. Passing an object through into every call.
             </summary>
             <param name="delegate"></param>
             <param name="query"></param>
@@ -13716,14 +12562,6 @@
             <param name="query"></param>
             <param name="data">The object passed into every call</param>
         </member>
-        <member name="M:Myriad.ECS.Worlds.World.QueryParallel``9(``0,Myriad.ECS.Queries.QueryDelegateChunkData{``0,``1,``2,``3,``4,``5,``6,``7,``8},Myriad.ECS.Queries.QueryDescription)">
-            <summary>
-            Execute a delegate for every entity in a query, in parallel. Passing an object through into every call.
-            </summary>
-            <param name="delegate"></param>
-            <param name="query"></param>
-            <param name="data">The object passed into every call</param>
-        </member>
         <member name="M:Myriad.ECS.Worlds.World.Query``9(Myriad.ECS.Queries.QueryDelegateChunkHandle{``0,``1,``2,``3,``4,``5,``6,``7,``8},Myriad.ECS.Queries.QueryDescription@)">
             <summary>
             Execute a delegate for every entity in a query.
@@ -13734,13 +12572,6 @@
         <member name="M:Myriad.ECS.Worlds.World.Query``9(Myriad.ECS.Queries.QueryDelegateChunkHandle{``0,``1,``2,``3,``4,``5,``6,``7,``8},Myriad.ECS.Queries.QueryDescription)">
             <summary>
             Execute a delegate for every entity in a query.
-            </summary>
-            <param name="delegate"></param>
-            <param name="query"></param>
-        </member>
-        <member name="M:Myriad.ECS.Worlds.World.QueryParallel``9(Myriad.ECS.Queries.QueryDelegateChunkHandle{``0,``1,``2,``3,``4,``5,``6,``7,``8},Myriad.ECS.Queries.QueryDescription)">
-            <summary>
-            Execute a delegate for every entity in a query, in parallel.
             </summary>
             <param name="delegate"></param>
             <param name="query"></param>
@@ -13759,13 +12590,6 @@
             <param name="delegate"></param>
             <param name="query"></param>
         </member>
-        <member name="M:Myriad.ECS.Worlds.World.QueryParallel``9(Myriad.ECS.Queries.QueryDelegateChunk{``0,``1,``2,``3,``4,``5,``6,``7,``8},Myriad.ECS.Queries.QueryDescription)">
-            <summary>
-            Execute a delegate for every entity in a query, in parallel.
-            </summary>
-            <param name="delegate"></param>
-            <param name="query"></param>
-        </member>
         <member name="M:Myriad.ECS.Worlds.World.Query``10(``0,Myriad.ECS.Queries.QueryDelegateChunkHandleData{``0,``1,``2,``3,``4,``5,``6,``7,``8,``9},Myriad.ECS.Queries.QueryDescription@)">
             <summary>
             Execute a delegate for every entity in a query. Passing an object through into every call.
@@ -13777,14 +12601,6 @@
         <member name="M:Myriad.ECS.Worlds.World.Query``10(``0,Myriad.ECS.Queries.QueryDelegateChunkHandleData{``0,``1,``2,``3,``4,``5,``6,``7,``8,``9},Myriad.ECS.Queries.QueryDescription)">
             <summary>
             Execute a delegate for every entity in a query. Passing an object through into every call.
-            </summary>
-            <param name="delegate"></param>
-            <param name="query"></param>
-            <param name="data">The object passed into every call</param>
-        </member>
-        <member name="M:Myriad.ECS.Worlds.World.QueryParallel``10(``0,Myriad.ECS.Queries.QueryDelegateChunkHandleData{``0,``1,``2,``3,``4,``5,``6,``7,``8,``9},Myriad.ECS.Queries.QueryDescription)">
-            <summary>
-            Execute a delegate for every entity in a query, in parallel. Passing an object through into every call.
             </summary>
             <param name="delegate"></param>
             <param name="query"></param>
@@ -13806,14 +12622,6 @@
             <param name="query"></param>
             <param name="data">The object passed into every call</param>
         </member>
-        <member name="M:Myriad.ECS.Worlds.World.QueryParallel``10(``0,Myriad.ECS.Queries.QueryDelegateChunkData{``0,``1,``2,``3,``4,``5,``6,``7,``8,``9},Myriad.ECS.Queries.QueryDescription)">
-            <summary>
-            Execute a delegate for every entity in a query, in parallel. Passing an object through into every call.
-            </summary>
-            <param name="delegate"></param>
-            <param name="query"></param>
-            <param name="data">The object passed into every call</param>
-        </member>
         <member name="M:Myriad.ECS.Worlds.World.Query``10(Myriad.ECS.Queries.QueryDelegateChunkHandle{``0,``1,``2,``3,``4,``5,``6,``7,``8,``9},Myriad.ECS.Queries.QueryDescription@)">
             <summary>
             Execute a delegate for every entity in a query.
@@ -13824,13 +12632,6 @@
         <member name="M:Myriad.ECS.Worlds.World.Query``10(Myriad.ECS.Queries.QueryDelegateChunkHandle{``0,``1,``2,``3,``4,``5,``6,``7,``8,``9},Myriad.ECS.Queries.QueryDescription)">
             <summary>
             Execute a delegate for every entity in a query.
-            </summary>
-            <param name="delegate"></param>
-            <param name="query"></param>
-        </member>
-        <member name="M:Myriad.ECS.Worlds.World.QueryParallel``10(Myriad.ECS.Queries.QueryDelegateChunkHandle{``0,``1,``2,``3,``4,``5,``6,``7,``8,``9},Myriad.ECS.Queries.QueryDescription)">
-            <summary>
-            Execute a delegate for every entity in a query, in parallel.
             </summary>
             <param name="delegate"></param>
             <param name="query"></param>
@@ -13849,13 +12650,6 @@
             <param name="delegate"></param>
             <param name="query"></param>
         </member>
-        <member name="M:Myriad.ECS.Worlds.World.QueryParallel``10(Myriad.ECS.Queries.QueryDelegateChunk{``0,``1,``2,``3,``4,``5,``6,``7,``8,``9},Myriad.ECS.Queries.QueryDescription)">
-            <summary>
-            Execute a delegate for every entity in a query, in parallel.
-            </summary>
-            <param name="delegate"></param>
-            <param name="query"></param>
-        </member>
         <member name="M:Myriad.ECS.Worlds.World.Query``11(``0,Myriad.ECS.Queries.QueryDelegateChunkHandleData{``0,``1,``2,``3,``4,``5,``6,``7,``8,``9,``10},Myriad.ECS.Queries.QueryDescription@)">
             <summary>
             Execute a delegate for every entity in a query. Passing an object through into every call.
@@ -13867,14 +12661,6 @@
         <member name="M:Myriad.ECS.Worlds.World.Query``11(``0,Myriad.ECS.Queries.QueryDelegateChunkHandleData{``0,``1,``2,``3,``4,``5,``6,``7,``8,``9,``10},Myriad.ECS.Queries.QueryDescription)">
             <summary>
             Execute a delegate for every entity in a query. Passing an object through into every call.
-            </summary>
-            <param name="delegate"></param>
-            <param name="query"></param>
-            <param name="data">The object passed into every call</param>
-        </member>
-        <member name="M:Myriad.ECS.Worlds.World.QueryParallel``11(``0,Myriad.ECS.Queries.QueryDelegateChunkHandleData{``0,``1,``2,``3,``4,``5,``6,``7,``8,``9,``10},Myriad.ECS.Queries.QueryDescription)">
-            <summary>
-            Execute a delegate for every entity in a query, in parallel. Passing an object through into every call.
             </summary>
             <param name="delegate"></param>
             <param name="query"></param>
@@ -13896,14 +12682,6 @@
             <param name="query"></param>
             <param name="data">The object passed into every call</param>
         </member>
-        <member name="M:Myriad.ECS.Worlds.World.QueryParallel``11(``0,Myriad.ECS.Queries.QueryDelegateChunkData{``0,``1,``2,``3,``4,``5,``6,``7,``8,``9,``10},Myriad.ECS.Queries.QueryDescription)">
-            <summary>
-            Execute a delegate for every entity in a query, in parallel. Passing an object through into every call.
-            </summary>
-            <param name="delegate"></param>
-            <param name="query"></param>
-            <param name="data">The object passed into every call</param>
-        </member>
         <member name="M:Myriad.ECS.Worlds.World.Query``11(Myriad.ECS.Queries.QueryDelegateChunkHandle{``0,``1,``2,``3,``4,``5,``6,``7,``8,``9,``10},Myriad.ECS.Queries.QueryDescription@)">
             <summary>
             Execute a delegate for every entity in a query.
@@ -13914,13 +12692,6 @@
         <member name="M:Myriad.ECS.Worlds.World.Query``11(Myriad.ECS.Queries.QueryDelegateChunkHandle{``0,``1,``2,``3,``4,``5,``6,``7,``8,``9,``10},Myriad.ECS.Queries.QueryDescription)">
             <summary>
             Execute a delegate for every entity in a query.
-            </summary>
-            <param name="delegate"></param>
-            <param name="query"></param>
-        </member>
-        <member name="M:Myriad.ECS.Worlds.World.QueryParallel``11(Myriad.ECS.Queries.QueryDelegateChunkHandle{``0,``1,``2,``3,``4,``5,``6,``7,``8,``9,``10},Myriad.ECS.Queries.QueryDescription)">
-            <summary>
-            Execute a delegate for every entity in a query, in parallel.
             </summary>
             <param name="delegate"></param>
             <param name="query"></param>
@@ -13939,13 +12710,6 @@
             <param name="delegate"></param>
             <param name="query"></param>
         </member>
-        <member name="M:Myriad.ECS.Worlds.World.QueryParallel``11(Myriad.ECS.Queries.QueryDelegateChunk{``0,``1,``2,``3,``4,``5,``6,``7,``8,``9,``10},Myriad.ECS.Queries.QueryDescription)">
-            <summary>
-            Execute a delegate for every entity in a query, in parallel.
-            </summary>
-            <param name="delegate"></param>
-            <param name="query"></param>
-        </member>
         <member name="M:Myriad.ECS.Worlds.World.Query``12(``0,Myriad.ECS.Queries.QueryDelegateChunkHandleData{``0,``1,``2,``3,``4,``5,``6,``7,``8,``9,``10,``11},Myriad.ECS.Queries.QueryDescription@)">
             <summary>
             Execute a delegate for every entity in a query. Passing an object through into every call.
@@ -13957,14 +12721,6 @@
         <member name="M:Myriad.ECS.Worlds.World.Query``12(``0,Myriad.ECS.Queries.QueryDelegateChunkHandleData{``0,``1,``2,``3,``4,``5,``6,``7,``8,``9,``10,``11},Myriad.ECS.Queries.QueryDescription)">
             <summary>
             Execute a delegate for every entity in a query. Passing an object through into every call.
-            </summary>
-            <param name="delegate"></param>
-            <param name="query"></param>
-            <param name="data">The object passed into every call</param>
-        </member>
-        <member name="M:Myriad.ECS.Worlds.World.QueryParallel``12(``0,Myriad.ECS.Queries.QueryDelegateChunkHandleData{``0,``1,``2,``3,``4,``5,``6,``7,``8,``9,``10,``11},Myriad.ECS.Queries.QueryDescription)">
-            <summary>
-            Execute a delegate for every entity in a query, in parallel. Passing an object through into every call.
             </summary>
             <param name="delegate"></param>
             <param name="query"></param>
@@ -13986,14 +12742,6 @@
             <param name="query"></param>
             <param name="data">The object passed into every call</param>
         </member>
-        <member name="M:Myriad.ECS.Worlds.World.QueryParallel``12(``0,Myriad.ECS.Queries.QueryDelegateChunkData{``0,``1,``2,``3,``4,``5,``6,``7,``8,``9,``10,``11},Myriad.ECS.Queries.QueryDescription)">
-            <summary>
-            Execute a delegate for every entity in a query, in parallel. Passing an object through into every call.
-            </summary>
-            <param name="delegate"></param>
-            <param name="query"></param>
-            <param name="data">The object passed into every call</param>
-        </member>
         <member name="M:Myriad.ECS.Worlds.World.Query``12(Myriad.ECS.Queries.QueryDelegateChunkHandle{``0,``1,``2,``3,``4,``5,``6,``7,``8,``9,``10,``11},Myriad.ECS.Queries.QueryDescription@)">
             <summary>
             Execute a delegate for every entity in a query.
@@ -14004,13 +12752,6 @@
         <member name="M:Myriad.ECS.Worlds.World.Query``12(Myriad.ECS.Queries.QueryDelegateChunkHandle{``0,``1,``2,``3,``4,``5,``6,``7,``8,``9,``10,``11},Myriad.ECS.Queries.QueryDescription)">
             <summary>
             Execute a delegate for every entity in a query.
-            </summary>
-            <param name="delegate"></param>
-            <param name="query"></param>
-        </member>
-        <member name="M:Myriad.ECS.Worlds.World.QueryParallel``12(Myriad.ECS.Queries.QueryDelegateChunkHandle{``0,``1,``2,``3,``4,``5,``6,``7,``8,``9,``10,``11},Myriad.ECS.Queries.QueryDescription)">
-            <summary>
-            Execute a delegate for every entity in a query, in parallel.
             </summary>
             <param name="delegate"></param>
             <param name="query"></param>
@@ -14029,13 +12770,6 @@
             <param name="delegate"></param>
             <param name="query"></param>
         </member>
-        <member name="M:Myriad.ECS.Worlds.World.QueryParallel``12(Myriad.ECS.Queries.QueryDelegateChunk{``0,``1,``2,``3,``4,``5,``6,``7,``8,``9,``10,``11},Myriad.ECS.Queries.QueryDescription)">
-            <summary>
-            Execute a delegate for every entity in a query, in parallel.
-            </summary>
-            <param name="delegate"></param>
-            <param name="query"></param>
-        </member>
         <member name="M:Myriad.ECS.Worlds.World.Query``13(``0,Myriad.ECS.Queries.QueryDelegateChunkHandleData{``0,``1,``2,``3,``4,``5,``6,``7,``8,``9,``10,``11,``12},Myriad.ECS.Queries.QueryDescription@)">
             <summary>
             Execute a delegate for every entity in a query. Passing an object through into every call.
@@ -14047,14 +12781,6 @@
         <member name="M:Myriad.ECS.Worlds.World.Query``13(``0,Myriad.ECS.Queries.QueryDelegateChunkHandleData{``0,``1,``2,``3,``4,``5,``6,``7,``8,``9,``10,``11,``12},Myriad.ECS.Queries.QueryDescription)">
             <summary>
             Execute a delegate for every entity in a query. Passing an object through into every call.
-            </summary>
-            <param name="delegate"></param>
-            <param name="query"></param>
-            <param name="data">The object passed into every call</param>
-        </member>
-        <member name="M:Myriad.ECS.Worlds.World.QueryParallel``13(``0,Myriad.ECS.Queries.QueryDelegateChunkHandleData{``0,``1,``2,``3,``4,``5,``6,``7,``8,``9,``10,``11,``12},Myriad.ECS.Queries.QueryDescription)">
-            <summary>
-            Execute a delegate for every entity in a query, in parallel. Passing an object through into every call.
             </summary>
             <param name="delegate"></param>
             <param name="query"></param>
@@ -14076,14 +12802,6 @@
             <param name="query"></param>
             <param name="data">The object passed into every call</param>
         </member>
-        <member name="M:Myriad.ECS.Worlds.World.QueryParallel``13(``0,Myriad.ECS.Queries.QueryDelegateChunkData{``0,``1,``2,``3,``4,``5,``6,``7,``8,``9,``10,``11,``12},Myriad.ECS.Queries.QueryDescription)">
-            <summary>
-            Execute a delegate for every entity in a query, in parallel. Passing an object through into every call.
-            </summary>
-            <param name="delegate"></param>
-            <param name="query"></param>
-            <param name="data">The object passed into every call</param>
-        </member>
         <member name="M:Myriad.ECS.Worlds.World.Query``13(Myriad.ECS.Queries.QueryDelegateChunkHandle{``0,``1,``2,``3,``4,``5,``6,``7,``8,``9,``10,``11,``12},Myriad.ECS.Queries.QueryDescription@)">
             <summary>
             Execute a delegate for every entity in a query.
@@ -14094,13 +12812,6 @@
         <member name="M:Myriad.ECS.Worlds.World.Query``13(Myriad.ECS.Queries.QueryDelegateChunkHandle{``0,``1,``2,``3,``4,``5,``6,``7,``8,``9,``10,``11,``12},Myriad.ECS.Queries.QueryDescription)">
             <summary>
             Execute a delegate for every entity in a query.
-            </summary>
-            <param name="delegate"></param>
-            <param name="query"></param>
-        </member>
-        <member name="M:Myriad.ECS.Worlds.World.QueryParallel``13(Myriad.ECS.Queries.QueryDelegateChunkHandle{``0,``1,``2,``3,``4,``5,``6,``7,``8,``9,``10,``11,``12},Myriad.ECS.Queries.QueryDescription)">
-            <summary>
-            Execute a delegate for every entity in a query, in parallel.
             </summary>
             <param name="delegate"></param>
             <param name="query"></param>
@@ -14119,13 +12830,6 @@
             <param name="delegate"></param>
             <param name="query"></param>
         </member>
-        <member name="M:Myriad.ECS.Worlds.World.QueryParallel``13(Myriad.ECS.Queries.QueryDelegateChunk{``0,``1,``2,``3,``4,``5,``6,``7,``8,``9,``10,``11,``12},Myriad.ECS.Queries.QueryDescription)">
-            <summary>
-            Execute a delegate for every entity in a query, in parallel.
-            </summary>
-            <param name="delegate"></param>
-            <param name="query"></param>
-        </member>
         <member name="M:Myriad.ECS.Worlds.World.Query``14(``0,Myriad.ECS.Queries.QueryDelegateChunkHandleData{``0,``1,``2,``3,``4,``5,``6,``7,``8,``9,``10,``11,``12,``13},Myriad.ECS.Queries.QueryDescription@)">
             <summary>
             Execute a delegate for every entity in a query. Passing an object through into every call.
@@ -14137,14 +12841,6 @@
         <member name="M:Myriad.ECS.Worlds.World.Query``14(``0,Myriad.ECS.Queries.QueryDelegateChunkHandleData{``0,``1,``2,``3,``4,``5,``6,``7,``8,``9,``10,``11,``12,``13},Myriad.ECS.Queries.QueryDescription)">
             <summary>
             Execute a delegate for every entity in a query. Passing an object through into every call.
-            </summary>
-            <param name="delegate"></param>
-            <param name="query"></param>
-            <param name="data">The object passed into every call</param>
-        </member>
-        <member name="M:Myriad.ECS.Worlds.World.QueryParallel``14(``0,Myriad.ECS.Queries.QueryDelegateChunkHandleData{``0,``1,``2,``3,``4,``5,``6,``7,``8,``9,``10,``11,``12,``13},Myriad.ECS.Queries.QueryDescription)">
-            <summary>
-            Execute a delegate for every entity in a query, in parallel. Passing an object through into every call.
             </summary>
             <param name="delegate"></param>
             <param name="query"></param>
@@ -14166,14 +12862,6 @@
             <param name="query"></param>
             <param name="data">The object passed into every call</param>
         </member>
-        <member name="M:Myriad.ECS.Worlds.World.QueryParallel``14(``0,Myriad.ECS.Queries.QueryDelegateChunkData{``0,``1,``2,``3,``4,``5,``6,``7,``8,``9,``10,``11,``12,``13},Myriad.ECS.Queries.QueryDescription)">
-            <summary>
-            Execute a delegate for every entity in a query, in parallel. Passing an object through into every call.
-            </summary>
-            <param name="delegate"></param>
-            <param name="query"></param>
-            <param name="data">The object passed into every call</param>
-        </member>
         <member name="M:Myriad.ECS.Worlds.World.Query``14(Myriad.ECS.Queries.QueryDelegateChunkHandle{``0,``1,``2,``3,``4,``5,``6,``7,``8,``9,``10,``11,``12,``13},Myriad.ECS.Queries.QueryDescription@)">
             <summary>
             Execute a delegate for every entity in a query.
@@ -14184,13 +12872,6 @@
         <member name="M:Myriad.ECS.Worlds.World.Query``14(Myriad.ECS.Queries.QueryDelegateChunkHandle{``0,``1,``2,``3,``4,``5,``6,``7,``8,``9,``10,``11,``12,``13},Myriad.ECS.Queries.QueryDescription)">
             <summary>
             Execute a delegate for every entity in a query.
-            </summary>
-            <param name="delegate"></param>
-            <param name="query"></param>
-        </member>
-        <member name="M:Myriad.ECS.Worlds.World.QueryParallel``14(Myriad.ECS.Queries.QueryDelegateChunkHandle{``0,``1,``2,``3,``4,``5,``6,``7,``8,``9,``10,``11,``12,``13},Myriad.ECS.Queries.QueryDescription)">
-            <summary>
-            Execute a delegate for every entity in a query, in parallel.
             </summary>
             <param name="delegate"></param>
             <param name="query"></param>
@@ -14209,13 +12890,6 @@
             <param name="delegate"></param>
             <param name="query"></param>
         </member>
-        <member name="M:Myriad.ECS.Worlds.World.QueryParallel``14(Myriad.ECS.Queries.QueryDelegateChunk{``0,``1,``2,``3,``4,``5,``6,``7,``8,``9,``10,``11,``12,``13},Myriad.ECS.Queries.QueryDescription)">
-            <summary>
-            Execute a delegate for every entity in a query, in parallel.
-            </summary>
-            <param name="delegate"></param>
-            <param name="query"></param>
-        </member>
         <member name="M:Myriad.ECS.Worlds.World.Query``15(``0,Myriad.ECS.Queries.QueryDelegateChunkHandleData{``0,``1,``2,``3,``4,``5,``6,``7,``8,``9,``10,``11,``12,``13,``14},Myriad.ECS.Queries.QueryDescription@)">
             <summary>
             Execute a delegate for every entity in a query. Passing an object through into every call.
@@ -14227,14 +12901,6 @@
         <member name="M:Myriad.ECS.Worlds.World.Query``15(``0,Myriad.ECS.Queries.QueryDelegateChunkHandleData{``0,``1,``2,``3,``4,``5,``6,``7,``8,``9,``10,``11,``12,``13,``14},Myriad.ECS.Queries.QueryDescription)">
             <summary>
             Execute a delegate for every entity in a query. Passing an object through into every call.
-            </summary>
-            <param name="delegate"></param>
-            <param name="query"></param>
-            <param name="data">The object passed into every call</param>
-        </member>
-        <member name="M:Myriad.ECS.Worlds.World.QueryParallel``15(``0,Myriad.ECS.Queries.QueryDelegateChunkHandleData{``0,``1,``2,``3,``4,``5,``6,``7,``8,``9,``10,``11,``12,``13,``14},Myriad.ECS.Queries.QueryDescription)">
-            <summary>
-            Execute a delegate for every entity in a query, in parallel. Passing an object through into every call.
             </summary>
             <param name="delegate"></param>
             <param name="query"></param>
@@ -14256,14 +12922,6 @@
             <param name="query"></param>
             <param name="data">The object passed into every call</param>
         </member>
-        <member name="M:Myriad.ECS.Worlds.World.QueryParallel``15(``0,Myriad.ECS.Queries.QueryDelegateChunkData{``0,``1,``2,``3,``4,``5,``6,``7,``8,``9,``10,``11,``12,``13,``14},Myriad.ECS.Queries.QueryDescription)">
-            <summary>
-            Execute a delegate for every entity in a query, in parallel. Passing an object through into every call.
-            </summary>
-            <param name="delegate"></param>
-            <param name="query"></param>
-            <param name="data">The object passed into every call</param>
-        </member>
         <member name="M:Myriad.ECS.Worlds.World.Query``15(Myriad.ECS.Queries.QueryDelegateChunkHandle{``0,``1,``2,``3,``4,``5,``6,``7,``8,``9,``10,``11,``12,``13,``14},Myriad.ECS.Queries.QueryDescription@)">
             <summary>
             Execute a delegate for every entity in a query.
@@ -14278,13 +12936,6 @@
             <param name="delegate"></param>
             <param name="query"></param>
         </member>
-        <member name="M:Myriad.ECS.Worlds.World.QueryParallel``15(Myriad.ECS.Queries.QueryDelegateChunkHandle{``0,``1,``2,``3,``4,``5,``6,``7,``8,``9,``10,``11,``12,``13,``14},Myriad.ECS.Queries.QueryDescription)">
-            <summary>
-            Execute a delegate for every entity in a query, in parallel.
-            </summary>
-            <param name="delegate"></param>
-            <param name="query"></param>
-        </member>
         <member name="M:Myriad.ECS.Worlds.World.Query``15(Myriad.ECS.Queries.QueryDelegateChunk{``0,``1,``2,``3,``4,``5,``6,``7,``8,``9,``10,``11,``12,``13,``14},Myriad.ECS.Queries.QueryDescription@)">
             <summary>
             Execute a delegate for every entity in a query.
@@ -14295,13 +12946,6 @@
         <member name="M:Myriad.ECS.Worlds.World.Query``15(Myriad.ECS.Queries.QueryDelegateChunk{``0,``1,``2,``3,``4,``5,``6,``7,``8,``9,``10,``11,``12,``13,``14},Myriad.ECS.Queries.QueryDescription)">
             <summary>
             Execute a delegate for every entity in a query.
-            </summary>
-            <param name="delegate"></param>
-            <param name="query"></param>
-        </member>
-        <member name="M:Myriad.ECS.Worlds.World.QueryParallel``15(Myriad.ECS.Queries.QueryDelegateChunk{``0,``1,``2,``3,``4,``5,``6,``7,``8,``9,``10,``11,``12,``13,``14},Myriad.ECS.Queries.QueryDescription)">
-            <summary>
-            Execute a delegate for every entity in a query, in parallel.
             </summary>
             <param name="delegate"></param>
             <param name="query"></param>
@@ -14322,14 +12966,6 @@
             <param name="query"></param>
             <param name="data">The object passed into every call</param>
         </member>
-        <member name="M:Myriad.ECS.Worlds.World.QueryParallel``16(``0,Myriad.ECS.Queries.QueryDelegateChunkHandleData{``0,``1,``2,``3,``4,``5,``6,``7,``8,``9,``10,``11,``12,``13,``14,``15},Myriad.ECS.Queries.QueryDescription)">
-            <summary>
-            Execute a delegate for every entity in a query, in parallel. Passing an object through into every call.
-            </summary>
-            <param name="delegate"></param>
-            <param name="query"></param>
-            <param name="data">The object passed into every call</param>
-        </member>
         <member name="M:Myriad.ECS.Worlds.World.Query``16(``0,Myriad.ECS.Queries.QueryDelegateChunkData{``0,``1,``2,``3,``4,``5,``6,``7,``8,``9,``10,``11,``12,``13,``14,``15},Myriad.ECS.Queries.QueryDescription@)">
             <summary>
             Execute a delegate for every entity in a query. Passing an object through into every call.
@@ -14341,14 +12977,6 @@
         <member name="M:Myriad.ECS.Worlds.World.Query``16(``0,Myriad.ECS.Queries.QueryDelegateChunkData{``0,``1,``2,``3,``4,``5,``6,``7,``8,``9,``10,``11,``12,``13,``14,``15},Myriad.ECS.Queries.QueryDescription)">
             <summary>
             Execute a delegate for every entity in a query. Passing an object through into every call.
-            </summary>
-            <param name="delegate"></param>
-            <param name="query"></param>
-            <param name="data">The object passed into every call</param>
-        </member>
-        <member name="M:Myriad.ECS.Worlds.World.QueryParallel``16(``0,Myriad.ECS.Queries.QueryDelegateChunkData{``0,``1,``2,``3,``4,``5,``6,``7,``8,``9,``10,``11,``12,``13,``14,``15},Myriad.ECS.Queries.QueryDescription)">
-            <summary>
-            Execute a delegate for every entity in a query, in parallel. Passing an object through into every call.
             </summary>
             <param name="delegate"></param>
             <param name="query"></param>
@@ -15790,7 +14418,7 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:Myriad.ECS.Worlds.Archetypes.ArchetypeComponentDisposal.DisposeRemoved(Myriad.ECS.Command.LazyCommandBuffer@,Myriad.ECS.Worlds.EntityInfo,Myriad.ECS.Collections.FrozenOrderedListSet{Myriad.ECS.IDs.ComponentID})">
+        <member name="M:Myriad.ECS.Worlds.Archetypes.ArchetypeComponentDisposal.DisposeRemoved(Myriad.ECS.Command.LazyCommandBuffer@,Myriad.ECS.Worlds.EntityInfo,Myriad.ECS.Worlds.Archetypes.Archetype)">
             <summary>
             Dispose components which are not in the destination archetype
             </summary>
@@ -19387,6 +18015,32 @@
             <summary>OR the 2 values</summary>
         </member>
         <member name="M:Myriad.ECS.Queries.Reduce.Boolean.Or.Reduce(System.Boolean,System.Boolean)">
+            <inheritdoc />
+        </member>
+        <member name="T:Myriad.ECS.Systems.CleanupSystem`1">
+            <summary>
+            A system that does nothing every frame, owns some <see cref="T:System.IDisposable"/> objects and will dispose them when the system is disposed
+            </summary>
+        </member>
+        <member name="M:Myriad.ECS.Systems.CleanupSystem`1.#ctor(System.IDisposable[])">
+            <summary>
+            Create a new <see cref="T:Myriad.ECS.Systems.CleanupSystem`1"/> that will dispose all given disposables when the system is disposed
+            </summary>
+            <param name="disposables"></param>
+        </member>
+        <member name="M:Myriad.ECS.Systems.CleanupSystem`1.#ctor(System.ReadOnlySpan{System.IDisposable})">
+            <summary>
+            Create a new <see cref="T:Myriad.ECS.Systems.CleanupSystem`1"/> that will dispose all given disposables when the system is disposed
+            </summary>
+            <param name="disposables"></param>
+        </member>
+        <member name="M:Myriad.ECS.Systems.CleanupSystem`1.Update(`0)">
+            <summary>
+            Does nothing.
+            </summary>
+            <param name="data"></param>
+        </member>
+        <member name="M:Myriad.ECS.Systems.CleanupSystem`1.Dispose">
             <inheritdoc />
         </member>
         <member name="T:Myriad.ECS.Systems.ICommandBufferSystemSubscriber">

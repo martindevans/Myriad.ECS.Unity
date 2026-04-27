@@ -98,7 +98,7 @@ public class IncrementTheNumberSystem
 
     public void Update(GameTime data)
     {
-        _world.ExecuteParallel<Inc, DemoComponent>(new Inc());
+        _world.Execute<Inc, DemoComponent>(new Inc());
     }
 
     private readonly struct Inc
