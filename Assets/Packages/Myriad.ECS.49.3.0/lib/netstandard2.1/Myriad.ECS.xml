@@ -237,6 +237,25 @@
             </summary>
             <typeparam name="TItem"></typeparam>
         </member>
+        <member name="M:Myriad.ECS.Collections.OrderedListSet`1.Add(`0)">
+            <summary>
+            Returns true if the item was inserted
+            </summary>
+            <param name="item"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Myriad.ECS.Collections.OrderedListSet`1.IntersectWith(Myriad.ECS.Collections.FrozenOrderedListSet{`0})">
+            <summary>
+            Remove all items in this set which are not in the other set
+            </summary>
+            <param name="other"></param>
+        </member>
+        <member name="M:Myriad.ECS.Collections.OrderedListSet`1.ExceptWith(Myriad.ECS.Collections.FrozenOrderedListSet{`0})">
+            <summary>
+            Remove all items in this set which are also in the other set
+            </summary>
+            <param name="other"></param>
+        </member>
         <member name="M:Myriad.ECS.Collections.OrderedListSet`1.Freeze">
             <summary>
             Copy this set to a new frozen set
@@ -2481,6 +2500,41 @@
             <param name="count"></param>
             <returns></returns>
         </member>
+        <member name="M:Myriad.ECS.Extensions.ReorderBuffer.ApplyReorderInPlace``2(``0,System.Span{``1})">
+            <summary>
+            Apply a re-order in place using a data mover. The mover encapsulates how to move data, the indices
+            specify where each index is moving to.
+            </summary>
+            <typeparam name="TMove"></typeparam>
+            <typeparam name="TDataIndex"></typeparam>
+            <param name="mover"></param>
+            <param name="indices"></param>
+        </member>
+        <member name="M:Myriad.ECS.Extensions.ReorderBuffer.IDataMove.Move(System.Int32,System.Int32)">
+            <summary>
+            Move data from one index to another
+            </summary>
+            <param name="indexFrom"></param>
+            <param name="indexTo"></param>
+        </member>
+        <member name="M:Myriad.ECS.Extensions.ReorderBuffer.IDataMove.SaveToTemporary(System.Int32)">
+            <summary>
+            Save data at the given index to the temporary slot. Only one thing will
+            ever be placed into temporary storage at a time.
+            </summary>
+            <param name="indexFrom"></param>
+        </member>
+        <member name="M:Myriad.ECS.Extensions.ReorderBuffer.IDataMove.RestoreFromTemporary(System.Int32)">
+            <summary>
+            Restore from temporary storage to the given index.
+            </summary>
+            <param name="indexTo"></param>
+        </member>
+        <member name="P:Myriad.ECS.Extensions.ReorderBuffer.IDataIndex.OriginalIndex">
+            <summary>
+            Get the original index of this data
+            </summary>
+        </member>
         <member name="T:Myriad.ECS.IComponent">
             <summary>
             Marker interface for components
@@ -4711,6 +4765,32 @@
             will be shared with other requests for the same set of types.
             </summary>
             <returns>A query that finds entities which include all of the given types</returns>
+        </member>
+        <member name="M:Myriad.ECS.Worlds.World.ExecuteChunkJoin``1(Myriad.ECS.Queries.QueryDescription,Myriad.ECS.Queries.QueryDescription)">
+            <summary>
+            Execute a query which does a cross join on entire chunks.
+            </summary>
+            <param name="left">Specification for "left" chunks</param>
+            <param name="right">Specification for "right" chunks</param>
+            <returns>The total number of entity pairs processed (left entity count × right entity count)</returns>
+        </member>
+        <member name="M:Myriad.ECS.Worlds.World.ExecuteChunkJoin``1(``0,Myriad.ECS.Queries.QueryDescription,Myriad.ECS.Queries.QueryDescription)">
+            <summary>
+            Execute a query which does a cross join on entire chunks.
+            </summary>
+            <param name="q"></param>
+            <param name="left">Specification for "left" chunks</param>
+            <param name="right">Specification for "right" chunks</param>
+            <returns>The total number of entities processed (product of the count of both chunks)</returns>
+        </member>
+        <member name="M:Myriad.ECS.Worlds.World.ExecuteChunkJoin``1(``0@,Myriad.ECS.Queries.QueryDescription,Myriad.ECS.Queries.QueryDescription)">
+            <summary>
+            Execute a query which does a cross join on entire chunks.
+            </summary>
+            <param name="q"></param>
+            <param name="left">Specification for "left" chunks</param>
+            <param name="right">Specification for "right" chunks</param>
+            <returns>The total number of entities processed (product of the count of both chunks)</returns>
         </member>
         <member name="M:Myriad.ECS.Worlds.World.ExecuteChunk``2(Myriad.ECS.Queries.QueryDescription)">
             <summary>
@@ -14254,6 +14334,16 @@
             <param name="query"></param>
             <returns></returns>
         </member>
+        <member name="M:Myriad.ECS.Worlds.World.DeleteImmediate(Myriad.ECS.Worlds.Archetypes.Archetype,Myriad.ECS.Command.LazyCommandBuffer@,System.Boolean,System.Boolean,Myriad.ECS.Command.Blocker@)">
+            <summary>
+            Delete all entities in an archetype
+            </summary>
+            <param name="archetype"></param>
+            <param name="lazy"></param>
+            <param name="blockSrc">Whether to block on the given archetype</param>
+            <param name="blockDst">If the entity migrates (because it's becoming a phantom) whether to block on the destination</param>
+            <param name="blocker"></param>
+        </member>
         <member name="M:Myriad.ECS.Worlds.World.GetOrCreateArchetype(Myriad.ECS.Collections.OrderedListSet{Myriad.ECS.IDs.ComponentID},Myriad.ECS.Worlds.Archetypes.ArchetypeHash)">
             <summary>
             Find an archetype with the given set of components, using a precomputed archetype hash.
@@ -14329,7 +14419,7 @@
         </member>
         <member name="F:Myriad.ECS.Worlds.Archetypes.Archetype._phantomDestination">
             <summary>
-            The archetype that entities should be moved to when deleted.
+            The archetype that entities should be moved to when deleted. Initialised on first use, null until then.
             </summary>
         </member>
         <member name="P:Myriad.ECS.Worlds.Archetypes.Archetype.EntityCount">
@@ -14354,17 +14444,17 @@
         </member>
         <member name="P:Myriad.ECS.Worlds.Archetypes.Archetype.HasRelationComponents">
             <summary>
-            Indicates if any of the components in this Archetype im[lement <see cref="T:Myriad.ECS.Components.IEntityRelationComponent"/>
+            Indicates if any of the components in this Archetype implement <see cref="T:Myriad.ECS.Components.IEntityRelationComponent"/>
             </summary>
         </member>
         <member name="P:Myriad.ECS.Worlds.Archetypes.Archetype.HasDisposableComponents">
             <summary>
-            Indicates if any of the components in this Archetype im[lement <see cref="T:Myriad.ECS.Components.IDisposableComponent"/>
+            Indicates if any of the components in this Archetype implement <see cref="T:Myriad.ECS.Components.IDisposableComponent"/>
             </summary>
         </member>
         <member name="P:Myriad.ECS.Worlds.Archetypes.Archetype.HasPhantomNotifierComponents">
             <summary>
-            Indicates if any of the components in this Archetype im[lement <see cref="T:Myriad.ECS.Components.IPhantomNotifierComponent"/>
+            Indicates if any of the components in this Archetype implement <see cref="T:Myriad.ECS.Components.IPhantomNotifierComponent"/>
             </summary>
         </member>
         <member name="P:Myriad.ECS.Worlds.Archetypes.Archetype.ArchetypeId">
@@ -14372,19 +14462,22 @@
             Globally Unique ID for this archetype
             </summary>
         </member>
-        <member name="M:Myriad.ECS.Worlds.Archetypes.Archetype.Clear(Myriad.ECS.Command.LazyCommandBuffer@)">
+        <member name="M:Myriad.ECS.Worlds.Archetypes.Archetype.Clear(Myriad.ECS.Command.LazyCommandBuffer@,System.Boolean,System.Boolean,Myriad.ECS.Command.Blocker@)">
             <summary>
             Delete every Entity in this archetype
             </summary>
-            <param name="lazy"></param>
-            <exception cref="T:System.NotImplementedException"></exception>
+            <param name="lazy">Lazy command buffer to use</param>
+            <param name="blockSrc">Whether to block on the source archetype</param>
+            <param name="blockDst">Whether to block on the destination archetype</param>
+            <param name="blocker"></param>
         </member>
-        <member name="M:Myriad.ECS.Worlds.Archetypes.Archetype.AddEntity(Myriad.ECS.EntityId,Myriad.ECS.Worlds.EntityInfo@)">
+        <member name="M:Myriad.ECS.Worlds.Archetypes.Archetype.AddEntity(Myriad.ECS.EntityId,Myriad.ECS.Worlds.EntityInfo@,System.Boolean)">
             <summary>
             Find a chunk with space and add the given entity to it.
             </summary>
             <param name="entity">Entity to add to a chunk</param>
             <param name="info">Info will be mutated to point to the new location</param>
+            <param name="block"></param>
             <returns></returns>
         </member>
         <member name="M:Myriad.ECS.Worlds.Archetypes.Archetype.GetHashCode">
@@ -14417,6 +14510,25 @@
             Check if this archetype contains the given component
             </summary>
             <returns></returns>
+        </member>
+        <member name="M:Myriad.ECS.Worlds.Archetypes.Archetype.Sort``2(``1,System.Boolean)">
+            <summary>
+            Sort this archetype. This is a structural change!
+            </summary>
+            <typeparam name="TKey"></typeparam>
+            <typeparam name="TKeyMapper"></typeparam>
+        </member>
+        <member name="T:Myriad.ECS.Worlds.Archetypes.Archetype.SortableSpans`1">
+            <summary>
+            A collection of sortable spans, one per chunk
+            </summary>
+            <typeparam name="TKey"></typeparam>
+        </member>
+        <member name="T:Myriad.ECS.Worlds.Archetypes.Archetype.SortableSpan`1">
+            <summary>
+            A sortable span for a chunk
+            </summary>
+            <typeparam name="TKey"></typeparam>
         </member>
         <member name="M:Myriad.ECS.Worlds.Archetypes.ArchetypeComponentDisposal.DisposeRemoved(Myriad.ECS.Command.LazyCommandBuffer@,Myriad.ECS.Worlds.EntityInfo,Myriad.ECS.Worlds.Archetypes.Archetype)">
             <summary>
@@ -14531,6 +14643,55 @@
             <typeparam name="TFlag"></typeparam>
             <param name="value"></param>
         </member>
+        <member name="M:Myriad.ECS.Worlds.Chunks.Chunk.SetEntityAtIndex(System.Int32,Myriad.ECS.Entity)">
+            <summary>
+            Set the entity at the given index in this chunk, updating the world EntityInfo
+            </summary>
+            <param name="index"></param>
+            <param name="entity"></param>
+        </member>
+        <member name="M:Myriad.ECS.Worlds.Chunks.Chunk.ClearComponents(System.Int32)">
+            <summary>
+            Clear all of the components at the given index in this chunk
+            </summary>
+            <param name="index"></param>
+        </member>
+        <member name="M:Myriad.ECS.Worlds.Chunks.Chunk.Sort``2(``1,System.Boolean)">
+            <summary>
+            Sort this chunk by a key (derived from components)
+            </summary>
+            <typeparam name="TKey"></typeparam>
+            <typeparam name="TKeyMapper"></typeparam>
+        </member>
+        <member name="M:Myriad.ECS.Worlds.Chunks.Chunk.Sort``2(``1,System.Span{Myriad.ECS.Worlds.Chunks.Chunk.Sortable{``0}},System.Boolean)">
+            <summary>
+            Sort this chunk by a key (derived from components). Using caller provided temporary memory.
+            </summary>
+            <typeparam name="TKey"></typeparam>
+            <typeparam name="TKeyMapper"></typeparam>
+            <param name="mapper"></param>
+            <param name="reorder">Reorder buffer, must be exactly chunk size</param>
+            <param name="block"></param>
+            <exception cref="T:System.ArgumentException"></exception>
+        </member>
+        <member name="M:Myriad.ECS.Worlds.Chunks.Chunk.SortKeyBuffer``2(``1,System.Span{Myriad.ECS.Worlds.Chunks.Chunk.Sortable{``0}},System.Boolean)">
+            <summary>
+            Given an empty buffer fill it with keys generated from components and sort it
+            </summary>
+            <typeparam name="TKey"></typeparam>
+            <typeparam name="TKeyMapper"></typeparam>
+            <param name="mapper"></param>
+            <param name="reorder"></param>
+            <param name="block"></param>
+        </member>
+        <member name="M:Myriad.ECS.Worlds.Chunks.Chunk.ApplyKeyBuffer``1(System.Span{Myriad.ECS.Worlds.Chunks.Chunk.Sortable{``0}},System.Boolean)">
+            <summary>
+            Given a buffer which contains a new order for entities in this chunk, apply it.
+            </summary>
+            <typeparam name="TKey"></typeparam>
+            <param name="reorder"></param>
+            <param name="block"></param>
+        </member>
         <member name="M:Myriad.ECS.Worlds.Chunks.Chunk.GetRefTuple``1(System.Int32,Myriad.ECS.IDs.ComponentID)">
             <summary>
             Get a tuple of several components
@@ -14626,6 +14787,20 @@
             The row in the chunk which contains this entity
             </summary>
         </member>
+        <member name="M:Myriad.ECS.Worlds.EntityInfo.GetMutable``1">
+            <summary>
+            Get a mutable reference to a component on this entity
+            </summary>
+            <typeparam name="T"></typeparam>
+            <returns></returns>
+        </member>
+        <member name="M:Myriad.ECS.Worlds.EntityInfo.GetMutable``1(Myriad.ECS.IDs.ComponentID)">
+            <summary>
+            Get a mutable reference to a component on this entity
+            </summary>
+            <typeparam name="T"></typeparam>
+            <returns></returns>
+        </member>
         <member name="T:Myriad.ECS.Worlds.WorldBuilder">
             <summary>
             A builder to create a new <see cref="T:Myriad.ECS.Worlds.World"/>
@@ -14636,14 +14811,6 @@
             Declare a specific archetype that should be created ahead of time in this world. This
             can prevent expensive structural changes in the world later.
             </summary>
-        </member>
-        <member name="M:Myriad.ECS.Worlds.WorldBuilder.WithThreadPool(Myriad.ECS.Threading.IThreadPool)">
-            <summary>
-            Define the threadpool system used by this world
-            </summary>
-            <param name="pool"></param>
-            <returns></returns>
-            <exception cref="T:System.InvalidOperationException"></exception>
         </member>
         <member name="M:Myriad.ECS.Worlds.WorldBuilder.WithSafetySystem(Myriad.ECS.Locks.IWorldArchetypeSafetyManager)">
             <summary>
@@ -14856,6 +15023,11 @@
             Temporary handle to a specific chunk
             </summary>
         </member>
+        <member name="P:Myriad.ECS.Queries.ChunkHandle.ChunkId">
+            <summary>
+            Globally unique ID for this chunk
+            </summary>
+        </member>
         <member name="P:Myriad.ECS.Queries.ChunkHandle.Archetype">
             <summary>
             The archetype this chunk belongs to
@@ -15012,6 +15184,16 @@
         <member name="M:Myriad.ECS.Queries.ChunkHandle.HasComponent``16">
             <summary>
             Check if this chunk contains a tuple of several components
+            </summary>
+        </member>
+        <member name="T:Myriad.ECS.Queries.IChunkJoinQuery">
+            <summary>
+            A cross join on two chunks
+            </summary>
+        </member>
+        <member name="M:Myriad.ECS.Queries.IChunkJoinQuery.Execute(Myriad.ECS.Queries.ChunkHandle,Myriad.ECS.Queries.ChunkHandle)">
+            <summary>
+            Apply a cross join to two chunks of entities
             </summary>
         </member>
         <member name="T:Myriad.ECS.Queries.Cursor">
@@ -18017,6 +18199,23 @@
         <member name="M:Myriad.ECS.Queries.Reduce.Boolean.Or.Reduce(System.Boolean,System.Boolean)">
             <inheritdoc />
         </member>
+        <member name="T:Myriad.ECS.Sorting.EntityChunkComparer">
+            <summary>
+            Compare entities based on their Chunk ID. This will have the effect of grouping together entities by their
+            chunk ID, which may improve locality.
+            </summary>
+        </member>
+        <member name="M:Myriad.ECS.Sorting.EntityChunkComparer.#ctor(Myriad.ECS.Worlds.World)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Myriad.ECS.Sorting.EntityChunkComparer"/> struct.
+            </summary>
+            <param name="world">
+            The <see cref="T:Myriad.ECS.Worlds.World"/> instance used to provide context for entity chunk comparisons.
+            </param>
+        </member>
+        <member name="M:Myriad.ECS.Sorting.EntityChunkComparer.Compare(Myriad.ECS.EntityId,Myriad.ECS.EntityId)">
+            <inheritdoc />
+        </member>
         <member name="T:Myriad.ECS.Systems.CleanupSystem`1">
             <summary>
             A system that does nothing every frame, owns some <see cref="T:System.IDisposable"/> objects and will dispose them when the system is disposed
@@ -18701,43 +18900,6 @@
         </member>
         <member name="M:Myriad.ECS.Systems.FactorySystemState`2.Create(Myriad.ECS.Entity)">
             <inheritdoc />
-        </member>
-        <member name="T:Myriad.ECS.Threading.DefaultThreadPool">
-            <summary>
-            Use the dotnet <see cref="T:System.Threading.ThreadPool"/>
-            </summary>
-        </member>
-        <member name="P:Myriad.ECS.Threading.DefaultThreadPool.Threads">
-            <inheritdoc />
-        </member>
-        <member name="M:Myriad.ECS.Threading.DefaultThreadPool.QueueUserWorkItem(Myriad.ECS.Threading.IThreadPoolWork)">
-            <inheritdoc />
-        </member>
-        <member name="T:Myriad.ECS.Threading.IThreadPool">
-            <summary>
-            A threadpool provides a way to queue work on other threads
-            </summary>
-        </member>
-        <member name="P:Myriad.ECS.Threading.IThreadPool.Threads">
-            <summary>
-            Get how many workers threads should be scheduled
-            </summary>
-        </member>
-        <member name="M:Myriad.ECS.Threading.IThreadPool.QueueUserWorkItem(Myriad.ECS.Threading.IThreadPoolWork)">
-            <summary>
-            Queue a delegate to be called on another thread
-            </summary>
-            <param name="callback"></param>
-        </member>
-        <member name="T:Myriad.ECS.Threading.IThreadPoolWork">
-            <summary>
-            A item of work that can be added to an <see cref="T:Myriad.ECS.Threading.IThreadPool"/>
-            </summary>
-        </member>
-        <member name="M:Myriad.ECS.Threading.IThreadPoolWork.Execute">
-            <summary>
-            Run this work.
-            </summary>
         </member>
         <member name="M:Myriad.ECS.xxHash.xxHash64.ComputeHash(System.ReadOnlySpan{System.Byte},System.UInt64)">
             <summary>

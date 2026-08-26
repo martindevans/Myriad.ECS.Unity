@@ -2,7 +2,6 @@ using System;
 using Myriad.ECS.Systems;
 using Myriad.ECS.Worlds;
 using System.Collections.Generic;
-using static Myriad.ECS.Worlds.WorldJobExtensions;
 
 namespace Packages.me.martindevans.myriad_unity_integration.Runtime.Queries
 {

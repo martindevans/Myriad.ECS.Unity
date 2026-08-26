@@ -1,0 +1,55 @@
+<#@ template debug="false" hostspecific="false" language="C#" #>
+<#@ assembly name="System.Core" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Text" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ output extension=".cs" #>
+<#
+    const int PARAM_COUNT = 16;
+#>
+using Myriad.ECS.Queries;
+
+// ReSharper disable UnusedType.Global
+// ReSharper disable UnusedParameter.Global
+// ReSharper disable LoopCanBeConvertedToQuery
+// ReSharper disable CheckNamespace
+// ReSharper disable ArrangeAccessorOwnerBody
+
+namespace Myriad.ECS.Worlds
+{
+    public static class QueryBuilderExtensions
+    {
+<# for (var i = 2; i <= PARAM_COUNT; i++)
+{
+	var type_params = string.Join(", ", Enumerable.Range(0, i).Select(x => "T" + x));
+#>
+	/// <summary>
+	/// Include only entities which have all of these components
+	/// </summary>
+	/// <returns>The query builder</returns>
+	// ReSharper disable once UnusedTypeParameter (Justification: Used for checking the query against the type signature)
+	public static QueryBuilder IncludeScheduledQuery<TQ, <#= type_params #>>(this QueryBuilder builder)
+		where TQ : WorldJobExtensions.IJobQueryScheduler<<#= type_params #>>
+<# for (var j = 0; j < i; j++)
+{
+#>
+		where <#= "T" + j #> : struct, IComponent
+<#
+}
+#>
+	{
+<# for (var j = 0; j < i; j++)
+{
+#>
+		builder.Include<<#= "T" + j #>>();
+<#
+}
+#>
+
+		return builder;
+	}
+<#
+}
+#>
+	}
+}
