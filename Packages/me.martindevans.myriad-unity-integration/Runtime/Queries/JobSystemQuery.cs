@@ -4,8 +4,8 @@ using System.Runtime.InteropServices;
 using JetBrains.Annotations;
 using Myriad.ECS.IDs;
 using Packages.me.martindevans.myriad_unity_integration.Runtime;
+using Packages.me.martindevans.myriad_unity_integration.Runtime.Queries;
 using Unity.Collections;
-using Unity.Collections.LowLevel.Unsafe;
 using Unity.Jobs;
 
 // ReSharper disable UnusedType.Global
@@ -18,202 +18,6 @@ namespace Myriad.ECS.Worlds
 {
     public static class WorldJobExtensions
     {
-        /// <summary>
-        /// A handle for a Unity job based Myriad query. <b>MUST</b> be waited on at least once for correctness!
-        /// </summary>
-        [MustDisposeResource]
-        public struct QueryJobHandle
-            : IDisposable
-        {
-            private JobHandle _jobHandle;
-            private NativeList<GCHandle> _pins;
-
-#if ENABLE_UNITY_COLLECTIONS_CHECKS
-            private readonly SafetyObject _safety;
-#endif
-
-
-            public bool IsCompleted => _jobHandle.IsCompleted;
-
-            public JobHandle Handle => _jobHandle;
-
-            internal QueryJobHandle(JobHandle handle, NativeList<GCHandle> pins)
-            {
-                if (!pins.IsCreated)
-                    throw new ArgumentException("`pins` NativeList must be created", nameof(pins));
-
-                _jobHandle = handle;
-                _pins = pins;
-
-#if ENABLE_UNITY_COLLECTIONS_CHECKS
-                _safety = new SafetyObject();
-#endif
-            }
-
-            public void Complete()
-            {
-#if ENABLE_UNITY_COLLECTIONS_CHECKS
-                // Completing a default handle is valid - so null safety is allowed!
-                if (_safety != null)
-                    _safety.Dispose();
-#endif
-
-                _jobHandle.Complete();
-
-                if (_pins.IsCreated)
-                {
-                    for (var i = 0; i < _pins.Length; i++)
-                        _pins[i].Free();
-                    _pins.Dispose();
-                }
-            }
-
-            public void Dispose()
-            {
-                Complete();
-            }
-
-            /// <summary>
-            /// Combine another job handle into this handle
-            /// </summary>
-            /// <param name="handle"></param>
-            public void Chain(JobHandle handle)
-            {
-                _jobHandle = JobHandle.CombineDependencies(_jobHandle, handle);
-            }
-
-#if ENABLE_UNITY_COLLECTIONS_CHECKS
-            /// <summary>
-            /// Safety stuff is held in this object, so the handle can be passed around and they all share a reference to the same safety
-            /// </summary>
-            private class SafetyObject
-                : IDisposable
-            {
-                private AtomicSafetyHandle _safety;
-                private DisposeSentinel _sentinel;
-                private bool _disposed;
-
-                public SafetyObject()
-                {
-                    DisposeSentinel.Create(out _safety, out _sentinel, 32, Allocator.Persistent);
-                }
-
-                public void Dispose()
-                {
-                    if (_disposed)
-                        return;
-                    _disposed = true;
-
-                    DisposeSentinel.Dispose(ref _safety, ref _sentinel);
-                    _sentinel = null;
-                    _safety = default;
-                }
-            }
-#endif
-        }
-
-        /// <summary>
-        /// Provides access to chunk data in a job safe wat
-        /// </summary>
-        public ref struct JobChunkHandle
-        {
-            private readonly ChunkHandle _handle;
-            private NativeList<GCHandle> _pins;
-
-            /// <summary>
-            /// Get the number of entities in this chunk
-            /// </summary>
-            public int EntityCount => _handle.EntityCount;
-
-            internal JobChunkHandle(ChunkHandle handle, NativeList<GCHandle> pins)
-            {
-                _handle = handle;
-                _pins = pins;
-            }
-
-            /// <summary>
-            /// Get a native array with a view of entity data that can be passed into a job.
-            /// <b>Arrays retrieved through this method must be disposed!</b>
-            /// </summary>
-            /// <returns></returns>
-            public NativeArray<EntityId> GetEntityArray()
-            {
-                // Pin array for component
-                var array = _handle.Danger().GetEntityIdArray();
-                var pin = GCHandle.Alloc(array, GCHandleType.Pinned);
-                _pins.Add(pin);
-
-                unsafe
-                {
-                    // Wrap as native array
-                    var nArray = NativeArrayUnsafeUtility.ConvertExistingDataToNativeArray<EntityId>(
-                        (void*)pin.AddrOfPinnedObject(), _handle.EntityCount, Allocator.None
-                    );
-
-#if ENABLE_UNITY_COLLECTIONS_CHECKS
-                    NativeArrayUnsafeUtility.SetAtomicSafetyHandle(
-                        ref nArray,
-                        AtomicSafetyHandle.Create()
-                    );
-#endif
-
-                    return nArray;
-                }
-            }
-
-            /// <summary>Test if this chunk contains a specific component</summary>
-            /// <typeparam name="T">Component type</typeparam>
-            /// <returns></returns>
-            public bool HasComponent<T>()
-                where T : IComponent
-            {
-                return _handle.HasComponent<T>();
-            }
-
-            /// <summary>
-            /// Get a native array with a view of component data that can be passed into a job.
-            /// <b>Arrays retrieved through this method must be disposed!</b>
-            /// </summary>
-            /// <typeparam name="T"></typeparam>
-            /// <returns></returns>
-            public NativeArray<T> GetComponentArray<T>()
-                where T : struct, IComponent
-            {
-                // Pin array for component
-                var array = _handle.Danger().GetComponentArray<T>();
-                var pin = GCHandle.Alloc(array, GCHandleType.Pinned);
-                _pins.Add(pin);
-
-                unsafe
-                {
-                    // Wrap as native array
-                    var nArray = NativeArrayUnsafeUtility.ConvertExistingDataToNativeArray<T>(
-                        (void*)pin.AddrOfPinnedObject(), _handle.EntityCount, Allocator.None
-                    );
-
-#if ENABLE_UNITY_COLLECTIONS_CHECKS
-                    NativeArrayUnsafeUtility.SetAtomicSafetyHandle(
-                        ref nArray,
-                        AtomicSafetyHandle.Create()
-                    );
-#endif
-
-                    return nArray;
-                }
-            }
-
-            /// <summary>
-            /// Get direct access to components
-            /// </summary>
-            /// <typeparam name="T"></typeparam>
-            /// <returns></returns>
-            public Span<T> GetComponentSpan<T>()
-                where T : IComponent
-            {
-                return _handle.GetComponentSpan<T>();
-            }
-        }
-
         
         /// <summary>
         /// Given a chunk handle and all of the component arrays requested by the query
@@ -247,7 +51,12 @@ namespace Myriad.ECS.Worlds
             private NativeList<GCHandle> _pins;
 #pragma warning restore IDE0044
 
-            public JobQuery(TScheduler scheduler, UnityMyriadSafetySystemAdapter safety, JobHandle dependsOn, NativeList<GCHandle> pins)
+            public JobQuery(
+                TScheduler scheduler,
+                UnityMyriadSafetySystemAdapter safety,
+                JobHandle dependsOn,
+                NativeList<GCHandle> pins
+            )
             {
                 _scheduler = scheduler;
                 _safety = safety;
@@ -269,7 +78,10 @@ namespace Myriad.ECS.Worlds
                     return;
 
                 // Wrap chunk handle
-                var jobChunkHandle = new JobChunkHandle(chunk, _pins);
+                var jobChunkHandle = new JobChunkHandle(
+                    chunk,
+                    _pins
+                );
 
                 // Get components arrays
                 var nArray0 = jobChunkHandle.GetComponentArray<T0>();
@@ -413,7 +225,12 @@ namespace Myriad.ECS.Worlds
             private NativeList<GCHandle> _pins;
 #pragma warning restore IDE0044
 
-            public JobQuery(TScheduler scheduler, UnityMyriadSafetySystemAdapter safety, JobHandle dependsOn, NativeList<GCHandle> pins)
+            public JobQuery(
+                TScheduler scheduler,
+                UnityMyriadSafetySystemAdapter safety,
+                JobHandle dependsOn,
+                NativeList<GCHandle> pins
+            )
             {
                 _scheduler = scheduler;
                 _safety = safety;
@@ -436,7 +253,10 @@ namespace Myriad.ECS.Worlds
                     return;
 
                 // Wrap chunk handle
-                var jobChunkHandle = new JobChunkHandle(chunk, _pins);
+                var jobChunkHandle = new JobChunkHandle(
+                    chunk,
+                    _pins
+                );
 
                 // Get components arrays
                 var nArray0 = jobChunkHandle.GetComponentArray<T0>();
@@ -592,7 +412,12 @@ namespace Myriad.ECS.Worlds
             private NativeList<GCHandle> _pins;
 #pragma warning restore IDE0044
 
-            public JobQuery(TScheduler scheduler, UnityMyriadSafetySystemAdapter safety, JobHandle dependsOn, NativeList<GCHandle> pins)
+            public JobQuery(
+                TScheduler scheduler,
+                UnityMyriadSafetySystemAdapter safety,
+                JobHandle dependsOn,
+                NativeList<GCHandle> pins
+            )
             {
                 _scheduler = scheduler;
                 _safety = safety;
@@ -616,7 +441,10 @@ namespace Myriad.ECS.Worlds
                     return;
 
                 // Wrap chunk handle
-                var jobChunkHandle = new JobChunkHandle(chunk, _pins);
+                var jobChunkHandle = new JobChunkHandle(
+                    chunk,
+                    _pins
+                );
 
                 // Get components arrays
                 var nArray0 = jobChunkHandle.GetComponentArray<T0>();
@@ -784,7 +612,12 @@ namespace Myriad.ECS.Worlds
             private NativeList<GCHandle> _pins;
 #pragma warning restore IDE0044
 
-            public JobQuery(TScheduler scheduler, UnityMyriadSafetySystemAdapter safety, JobHandle dependsOn, NativeList<GCHandle> pins)
+            public JobQuery(
+                TScheduler scheduler,
+                UnityMyriadSafetySystemAdapter safety,
+                JobHandle dependsOn,
+                NativeList<GCHandle> pins
+            )
             {
                 _scheduler = scheduler;
                 _safety = safety;
@@ -809,7 +642,10 @@ namespace Myriad.ECS.Worlds
                     return;
 
                 // Wrap chunk handle
-                var jobChunkHandle = new JobChunkHandle(chunk, _pins);
+                var jobChunkHandle = new JobChunkHandle(
+                    chunk,
+                    _pins
+                );
 
                 // Get components arrays
                 var nArray0 = jobChunkHandle.GetComponentArray<T0>();
@@ -989,7 +825,12 @@ namespace Myriad.ECS.Worlds
             private NativeList<GCHandle> _pins;
 #pragma warning restore IDE0044
 
-            public JobQuery(TScheduler scheduler, UnityMyriadSafetySystemAdapter safety, JobHandle dependsOn, NativeList<GCHandle> pins)
+            public JobQuery(
+                TScheduler scheduler,
+                UnityMyriadSafetySystemAdapter safety,
+                JobHandle dependsOn,
+                NativeList<GCHandle> pins
+            )
             {
                 _scheduler = scheduler;
                 _safety = safety;
@@ -1015,7 +856,10 @@ namespace Myriad.ECS.Worlds
                     return;
 
                 // Wrap chunk handle
-                var jobChunkHandle = new JobChunkHandle(chunk, _pins);
+                var jobChunkHandle = new JobChunkHandle(
+                    chunk,
+                    _pins
+                );
 
                 // Get components arrays
                 var nArray0 = jobChunkHandle.GetComponentArray<T0>();
@@ -1207,7 +1051,12 @@ namespace Myriad.ECS.Worlds
             private NativeList<GCHandle> _pins;
 #pragma warning restore IDE0044
 
-            public JobQuery(TScheduler scheduler, UnityMyriadSafetySystemAdapter safety, JobHandle dependsOn, NativeList<GCHandle> pins)
+            public JobQuery(
+                TScheduler scheduler,
+                UnityMyriadSafetySystemAdapter safety,
+                JobHandle dependsOn,
+                NativeList<GCHandle> pins
+            )
             {
                 _scheduler = scheduler;
                 _safety = safety;
@@ -1234,7 +1083,10 @@ namespace Myriad.ECS.Worlds
                     return;
 
                 // Wrap chunk handle
-                var jobChunkHandle = new JobChunkHandle(chunk, _pins);
+                var jobChunkHandle = new JobChunkHandle(
+                    chunk,
+                    _pins
+                );
 
                 // Get components arrays
                 var nArray0 = jobChunkHandle.GetComponentArray<T0>();
@@ -1438,7 +1290,12 @@ namespace Myriad.ECS.Worlds
             private NativeList<GCHandle> _pins;
 #pragma warning restore IDE0044
 
-            public JobQuery(TScheduler scheduler, UnityMyriadSafetySystemAdapter safety, JobHandle dependsOn, NativeList<GCHandle> pins)
+            public JobQuery(
+                TScheduler scheduler,
+                UnityMyriadSafetySystemAdapter safety,
+                JobHandle dependsOn,
+                NativeList<GCHandle> pins
+            )
             {
                 _scheduler = scheduler;
                 _safety = safety;
@@ -1466,7 +1323,10 @@ namespace Myriad.ECS.Worlds
                     return;
 
                 // Wrap chunk handle
-                var jobChunkHandle = new JobChunkHandle(chunk, _pins);
+                var jobChunkHandle = new JobChunkHandle(
+                    chunk,
+                    _pins
+                );
 
                 // Get components arrays
                 var nArray0 = jobChunkHandle.GetComponentArray<T0>();
@@ -1682,7 +1542,12 @@ namespace Myriad.ECS.Worlds
             private NativeList<GCHandle> _pins;
 #pragma warning restore IDE0044
 
-            public JobQuery(TScheduler scheduler, UnityMyriadSafetySystemAdapter safety, JobHandle dependsOn, NativeList<GCHandle> pins)
+            public JobQuery(
+                TScheduler scheduler,
+                UnityMyriadSafetySystemAdapter safety,
+                JobHandle dependsOn,
+                NativeList<GCHandle> pins
+            )
             {
                 _scheduler = scheduler;
                 _safety = safety;
@@ -1711,7 +1576,10 @@ namespace Myriad.ECS.Worlds
                     return;
 
                 // Wrap chunk handle
-                var jobChunkHandle = new JobChunkHandle(chunk, _pins);
+                var jobChunkHandle = new JobChunkHandle(
+                    chunk,
+                    _pins
+                );
 
                 // Get components arrays
                 var nArray0 = jobChunkHandle.GetComponentArray<T0>();
@@ -1939,7 +1807,12 @@ namespace Myriad.ECS.Worlds
             private NativeList<GCHandle> _pins;
 #pragma warning restore IDE0044
 
-            public JobQuery(TScheduler scheduler, UnityMyriadSafetySystemAdapter safety, JobHandle dependsOn, NativeList<GCHandle> pins)
+            public JobQuery(
+                TScheduler scheduler,
+                UnityMyriadSafetySystemAdapter safety,
+                JobHandle dependsOn,
+                NativeList<GCHandle> pins
+            )
             {
                 _scheduler = scheduler;
                 _safety = safety;
@@ -1969,7 +1842,10 @@ namespace Myriad.ECS.Worlds
                     return;
 
                 // Wrap chunk handle
-                var jobChunkHandle = new JobChunkHandle(chunk, _pins);
+                var jobChunkHandle = new JobChunkHandle(
+                    chunk,
+                    _pins
+                );
 
                 // Get components arrays
                 var nArray0 = jobChunkHandle.GetComponentArray<T0>();
@@ -2209,7 +2085,12 @@ namespace Myriad.ECS.Worlds
             private NativeList<GCHandle> _pins;
 #pragma warning restore IDE0044
 
-            public JobQuery(TScheduler scheduler, UnityMyriadSafetySystemAdapter safety, JobHandle dependsOn, NativeList<GCHandle> pins)
+            public JobQuery(
+                TScheduler scheduler,
+                UnityMyriadSafetySystemAdapter safety,
+                JobHandle dependsOn,
+                NativeList<GCHandle> pins
+            )
             {
                 _scheduler = scheduler;
                 _safety = safety;
@@ -2240,7 +2121,10 @@ namespace Myriad.ECS.Worlds
                     return;
 
                 // Wrap chunk handle
-                var jobChunkHandle = new JobChunkHandle(chunk, _pins);
+                var jobChunkHandle = new JobChunkHandle(
+                    chunk,
+                    _pins
+                );
 
                 // Get components arrays
                 var nArray0 = jobChunkHandle.GetComponentArray<T0>();
@@ -2492,7 +2376,12 @@ namespace Myriad.ECS.Worlds
             private NativeList<GCHandle> _pins;
 #pragma warning restore IDE0044
 
-            public JobQuery(TScheduler scheduler, UnityMyriadSafetySystemAdapter safety, JobHandle dependsOn, NativeList<GCHandle> pins)
+            public JobQuery(
+                TScheduler scheduler,
+                UnityMyriadSafetySystemAdapter safety,
+                JobHandle dependsOn,
+                NativeList<GCHandle> pins
+            )
             {
                 _scheduler = scheduler;
                 _safety = safety;
@@ -2524,7 +2413,10 @@ namespace Myriad.ECS.Worlds
                     return;
 
                 // Wrap chunk handle
-                var jobChunkHandle = new JobChunkHandle(chunk, _pins);
+                var jobChunkHandle = new JobChunkHandle(
+                    chunk,
+                    _pins
+                );
 
                 // Get components arrays
                 var nArray0 = jobChunkHandle.GetComponentArray<T0>();
@@ -2788,7 +2680,12 @@ namespace Myriad.ECS.Worlds
             private NativeList<GCHandle> _pins;
 #pragma warning restore IDE0044
 
-            public JobQuery(TScheduler scheduler, UnityMyriadSafetySystemAdapter safety, JobHandle dependsOn, NativeList<GCHandle> pins)
+            public JobQuery(
+                TScheduler scheduler,
+                UnityMyriadSafetySystemAdapter safety,
+                JobHandle dependsOn,
+                NativeList<GCHandle> pins
+            )
             {
                 _scheduler = scheduler;
                 _safety = safety;
@@ -2821,7 +2718,10 @@ namespace Myriad.ECS.Worlds
                     return;
 
                 // Wrap chunk handle
-                var jobChunkHandle = new JobChunkHandle(chunk, _pins);
+                var jobChunkHandle = new JobChunkHandle(
+                    chunk,
+                    _pins
+                );
 
                 // Get components arrays
                 var nArray0 = jobChunkHandle.GetComponentArray<T0>();
@@ -3097,7 +2997,12 @@ namespace Myriad.ECS.Worlds
             private NativeList<GCHandle> _pins;
 #pragma warning restore IDE0044
 
-            public JobQuery(TScheduler scheduler, UnityMyriadSafetySystemAdapter safety, JobHandle dependsOn, NativeList<GCHandle> pins)
+            public JobQuery(
+                TScheduler scheduler,
+                UnityMyriadSafetySystemAdapter safety,
+                JobHandle dependsOn,
+                NativeList<GCHandle> pins
+            )
             {
                 _scheduler = scheduler;
                 _safety = safety;
@@ -3131,7 +3036,10 @@ namespace Myriad.ECS.Worlds
                     return;
 
                 // Wrap chunk handle
-                var jobChunkHandle = new JobChunkHandle(chunk, _pins);
+                var jobChunkHandle = new JobChunkHandle(
+                    chunk,
+                    _pins
+                );
 
                 // Get components arrays
                 var nArray0 = jobChunkHandle.GetComponentArray<T0>();
@@ -3419,7 +3327,12 @@ namespace Myriad.ECS.Worlds
             private NativeList<GCHandle> _pins;
 #pragma warning restore IDE0044
 
-            public JobQuery(TScheduler scheduler, UnityMyriadSafetySystemAdapter safety, JobHandle dependsOn, NativeList<GCHandle> pins)
+            public JobQuery(
+                TScheduler scheduler,
+                UnityMyriadSafetySystemAdapter safety,
+                JobHandle dependsOn,
+                NativeList<GCHandle> pins
+            )
             {
                 _scheduler = scheduler;
                 _safety = safety;
@@ -3454,7 +3367,10 @@ namespace Myriad.ECS.Worlds
                     return;
 
                 // Wrap chunk handle
-                var jobChunkHandle = new JobChunkHandle(chunk, _pins);
+                var jobChunkHandle = new JobChunkHandle(
+                    chunk,
+                    _pins
+                );
 
                 // Get components arrays
                 var nArray0 = jobChunkHandle.GetComponentArray<T0>();
@@ -3754,7 +3670,12 @@ namespace Myriad.ECS.Worlds
             private NativeList<GCHandle> _pins;
 #pragma warning restore IDE0044
 
-            public JobQuery(TScheduler scheduler, UnityMyriadSafetySystemAdapter safety, JobHandle dependsOn, NativeList<GCHandle> pins)
+            public JobQuery(
+                TScheduler scheduler,
+                UnityMyriadSafetySystemAdapter safety,
+                JobHandle dependsOn,
+                NativeList<GCHandle> pins
+            )
             {
                 _scheduler = scheduler;
                 _safety = safety;
@@ -3790,7 +3711,10 @@ namespace Myriad.ECS.Worlds
                     return;
 
                 // Wrap chunk handle
-                var jobChunkHandle = new JobChunkHandle(chunk, _pins);
+                var jobChunkHandle = new JobChunkHandle(
+                    chunk,
+                    _pins
+                );
 
                 // Get components arrays
                 var nArray0 = jobChunkHandle.GetComponentArray<T0>();
@@ -4102,7 +4026,12 @@ namespace Myriad.ECS.Worlds
             private NativeList<GCHandle> _pins;
 #pragma warning restore IDE0044
 
-            public JobQuery(TScheduler scheduler, UnityMyriadSafetySystemAdapter safety, JobHandle dependsOn, NativeList<GCHandle> pins)
+            public JobQuery(
+                TScheduler scheduler,
+                UnityMyriadSafetySystemAdapter safety,
+                JobHandle dependsOn,
+                NativeList<GCHandle> pins
+            )
             {
                 _scheduler = scheduler;
                 _safety = safety;
@@ -4139,7 +4068,10 @@ namespace Myriad.ECS.Worlds
                     return;
 
                 // Wrap chunk handle
-                var jobChunkHandle = new JobChunkHandle(chunk, _pins);
+                var jobChunkHandle = new JobChunkHandle(
+                    chunk,
+                    _pins
+                );
 
                 // Get components arrays
                 var nArray0 = jobChunkHandle.GetComponentArray<T0>();
