@@ -84,10 +84,6 @@ namespace Myriad.ECS.Worlds
             // Get the safety system
             var safety = (UnityMyriadSafetySystemAdapter)world.LockManager;
 
-#if ENABLE_UNITY_COLLECTIONS_CHECKS
-            using var safetyHandles = new NativeHashMap<(long chunk, ComponentID type), AtomicSafetyHandle>(totalChunkCount, Allocator.Temp);
-#endif
-
             // Create collections to accumulate things we'll need to clean up afterwards
             var pins = new NativeList<GCHandle>(totalChunkCount, Allocator.TempJob);
 
