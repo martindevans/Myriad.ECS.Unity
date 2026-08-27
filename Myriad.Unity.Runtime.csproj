@@ -73,6 +73,7 @@
     <Compile Include="Packages\me.martindevans.myriad-unity-integration\Runtime\Systems\UnityMyriadSystemGroup.cs" />
     <Compile Include="Packages\me.martindevans.myriad-unity-integration\Runtime\Components\MyriadEntity.cs" />
     <Compile Include="Packages\me.martindevans.myriad-unity-integration\Runtime\Extensions\CommandBufferExtensions.cs" />
+    <Compile Include="Packages\me.martindevans.myriad-unity-integration\Runtime\ISystemQueryScheduledJobCount.cs" />
     <Compile Include="Packages\me.martindevans.myriad-unity-integration\Runtime\Queries\IncludeQueryScheduler.cs" />
     <Compile Include="Packages\me.martindevans.myriad-unity-integration\Runtime\Queries\JobSystemQuery.cs" />
     <Compile Include="Packages\me.martindevans.myriad-unity-integration\Runtime\Systems\MyriadEntityBindingSystem.cs" />

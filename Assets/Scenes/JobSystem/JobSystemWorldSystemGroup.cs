@@ -123,7 +123,7 @@ namespace Assets.Scenes.JobSystem
     }
 
     public class DoJoinInJob
-        : ISystem<GameTime>, ISystemQueryEntityCount
+        : ISystem<GameTime>, ISystemQueryEntityCount, ISystemQueryScheduledJobCount
     {
         private readonly World _world;
         private readonly IQueryJobHandleCompletionGate _gate;
@@ -132,6 +132,7 @@ namespace Assets.Scenes.JobSystem
         private readonly QueryDescription _right;
 
         public int QueryEntityCount { get; private set; }
+        public int QueryJobCount { get; private set; }
 
         public DoJoinInJob(World world, IQueryJobHandleCompletionGate gate)
         {
@@ -144,8 +145,6 @@ namespace Assets.Scenes.JobSystem
 
         public void Update(GameTime data)
         {
-            //QueryEntityCount = _left.Count() * _right.Count();
-
             var scheduler = new JobScheduler();
             var handle = _world.ScheduleJoin(
                 ref scheduler,
@@ -154,7 +153,8 @@ namespace Assets.Scenes.JobSystem
             );
             _gate.AddHandle(handle);
 
-            QueryEntityCount = scheduler.ScheduledJobCount;
+            QueryEntityCount = _left.Count() * _right.Count();
+            QueryJobCount = scheduler.ScheduledJobCount;
         }
 
         private struct JobScheduler
