@@ -2,7 +2,6 @@
 using System;
 using System.Runtime.InteropServices;
 using Myriad.ECS;
-using Myriad.ECS.IDs;
 using Unity.Collections;
 using Unity.Collections.LowLevel.Unsafe;
 
@@ -16,10 +15,6 @@ namespace Packages.me.martindevans.myriad_unity_integration.Runtime.Queries
         private readonly ChunkHandle _handle;
         private NativeList<GCHandle> _pins;
 
-#if ENABLE_UNITY_COLLECTIONS_CHECKS
-        private NativeHashMap<(long chunk, ComponentID type), AtomicSafetyHandle> _safetyHandles;
-#endif
-
         /// <summary>
         /// Get the number of entities in this chunk
         /// </summary>
@@ -28,16 +23,10 @@ namespace Packages.me.martindevans.myriad_unity_integration.Runtime.Queries
         internal JobChunkHandle(
             ChunkHandle handle,
             NativeList<GCHandle> pins
-#if ENABLE_UNITY_COLLECTIONS_CHECKS
-            , NativeHashMap<(long chunk, ComponentID type), AtomicSafetyHandle> safetyHandles
-#endif
         )
         {
             _handle = handle;
             _pins = pins;
-#if ENABLE_UNITY_COLLECTIONS_CHECKS
-            _safetyHandles = safetyHandles;
-#endif
         }
 
         /// <summary>
@@ -59,6 +48,7 @@ namespace Packages.me.martindevans.myriad_unity_integration.Runtime.Queries
                     (void*)pin.AddrOfPinnedObject(), _handle.EntityCount, Allocator.None
                 );
 
+                // Attach a safety handle.
 #if ENABLE_UNITY_COLLECTIONS_CHECKS
                 NativeArrayUnsafeUtility.SetAtomicSafetyHandle(
                     ref nArray,
@@ -100,19 +90,11 @@ namespace Packages.me.martindevans.myriad_unity_integration.Runtime.Queries
                     (void*)pin.AddrOfPinnedObject(), _handle.EntityCount, Allocator.None
                 );
 
-                // Attach a safety handle. If we get the same array multiple times, attach the same safety handle
+                // Attach a safety handle.
 #if ENABLE_UNITY_COLLECTIONS_CHECKS
-                var cid = _handle.ChunkId;
-                var tid = ComponentID<T>.ID;
-                if (!_safetyHandles.TryGetValue((cid, tid), out var safetyHandle))
-                {
-                    safetyHandle = AtomicSafetyHandle.Create();
-                    _safetyHandles.Add((cid, tid), safetyHandle);
-                }
-
                 NativeArrayUnsafeUtility.SetAtomicSafetyHandle(
                     ref nArray,
-                    safetyHandle
+                    AtomicSafetyHandle.Create()
                 );
 #endif
 

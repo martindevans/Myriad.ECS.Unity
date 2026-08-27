@@ -144,21 +144,28 @@ namespace Assets.Scenes.JobSystem
 
         public void Update(GameTime data)
         {
-            QueryEntityCount = _left.Count() * _right.Count();
+            //QueryEntityCount = _left.Count() * _right.Count();
 
+            var scheduler = new JobScheduler();
             var handle = _world.ScheduleJoin(
-                new JobScheduler(),
+                ref scheduler,
                 _left,
                 _right
             );
             _gate.AddHandle(handle);
+
+            QueryEntityCount = scheduler.ScheduledJobCount;
         }
 
         private struct JobScheduler
             : IJoinJobQueryScheduler
         {
+            public int ScheduledJobCount { get; private set; }
+
             public JobHandle Schedule(JobChunkHandle left, JobChunkHandle right, JobHandle dependsOn)
             {
+                ScheduledJobCount++;
+
                 var leftSrc = left.GetComponentArray<GenericDemoComponent<long>>();
                 var rightDst = right.GetComponentArray<GenericDemoComponent<decimal>>();
 
@@ -175,6 +182,8 @@ namespace Assets.Scenes.JobSystem
 
             public JobHandle Schedule(JobChunkHandle leftRight, JobHandle dependsOn)
             {
+                ScheduledJobCount++;
+
                 var src = leftRight.GetComponentArray<GenericDemoComponent<long>>();
                 var dst = leftRight.GetComponentArray<GenericDemoComponent<decimal>>();
 

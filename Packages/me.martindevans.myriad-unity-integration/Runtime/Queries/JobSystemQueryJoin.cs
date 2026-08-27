@@ -57,6 +57,23 @@ namespace Myriad.ECS.Worlds
         public static QueryJobHandle ScheduleJoin<TScheduler>(this World world, TScheduler sched, QueryDescription left, QueryDescription right, JobHandle dependsOn = default, bool allowSelfJoin = true)
             where TScheduler : IJoinJobQueryScheduler
         {
+            return world.ScheduleJoin(ref sched, left, right, dependsOn, allowSelfJoin);
+        }
+
+        /// <summary>
+        /// Schedule a join query, which will schedule a job for every pair of chunks in 2 queries
+        /// </summary>
+        /// <typeparam name="TScheduler"></typeparam>
+        /// <param name="world"></param>
+        /// <param name="sched"></param>
+        /// <param name="left"></param>
+        /// <param name="right"></param>
+        /// <param name="dependsOn"></param>
+        /// <param name="allowSelfJoin"></param>
+        /// <returns></returns>
+        public static QueryJobHandle ScheduleJoin<TScheduler>(this World world, ref TScheduler sched, QueryDescription left, QueryDescription right, JobHandle dependsOn = default, bool allowSelfJoin = true)
+            where TScheduler : IJoinJobQueryScheduler
+        {
             if (!left.Any() || !right.Any())
                 return default;
 
@@ -84,20 +101,21 @@ namespace Myriad.ECS.Worlds
                 dependsOn = JobHandle.CombineDependencies(dependsOn, safety.GetAttachedJob(archetype.Archetype));
 
             // Do the query which will schedule the work
+            var jjq = new JobJoinQuery<TScheduler>(
+                allowSelfJoin,
+                sched,
+                dependsOn,
+                pins,
+                chunkDeps
+            );
             world.ExecuteChunkJoin(
-                new JobJoinQuery<TScheduler>(
-                    allowSelfJoin,
-                    sched,
-                    dependsOn,
-                    pins,
-                    chunkDeps
-#if ENABLE_UNITY_COLLECTIONS_CHECKS
-                    , safetyHandles
-#endif
-                ),
+                ref jjq,
                 left,
                 right
             );
+
+            // Assign the modified scheduler back to the ref
+            sched = jjq.Scheduler;
 
             // Ensure all jobs are started before we wait on them
             JobHandle.ScheduleBatchedJobs();
@@ -125,17 +143,14 @@ namespace Myriad.ECS.Worlds
             where TScheduler : IJoinJobQueryScheduler
         {
             private readonly bool _allowSelfJoin;
-            private readonly TScheduler _scheduler;
             private readonly JobHandle _dependsOn;
+
+            public TScheduler Scheduler;
 
             private NativeHashMap<long, JobHandle> _chunkDependencies;
 
 #pragma warning disable IDE0044 // Field can be made readonly
             private NativeList<GCHandle> _pins;
-
-#if ENABLE_UNITY_COLLECTIONS_CHECKS
-            private NativeHashMap<(long chunk, ComponentID type), AtomicSafetyHandle> _safetyHandles;
-#endif
 #pragma warning restore IDE0044
 
             public JobJoinQuery(
@@ -144,18 +159,15 @@ namespace Myriad.ECS.Worlds
                 JobHandle dependsOn,
                 NativeList<GCHandle> pins,
                 NativeHashMap<long, JobHandle> chunkDependencies
-#if ENABLE_UNITY_COLLECTIONS_CHECKS
-                , NativeHashMap<(long chunk, ComponentID type), AtomicSafetyHandle> safetyHandles
-#endif
             )
             {
                 _allowSelfJoin = allowSelfJoin;
-                _scheduler = scheduler;
                 _dependsOn = dependsOn;
+
+                Scheduler = scheduler;
 
                 _pins = pins;
                 _chunkDependencies = chunkDependencies;
-                _safetyHandles = safetyHandles;
             }
 
             public void Execute(ChunkHandle left, ChunkHandle right)
@@ -164,11 +176,7 @@ namespace Myriad.ECS.Worlds
                 if (left.EntityCount == 0 || right.EntityCount == 0)
                     return;
 
-                var handleLeft = new JobChunkHandle(left, _pins,
-#if ENABLE_UNITY_COLLECTIONS_CHECKS
-                    _safetyHandles
-#endif
-                );
+                var handleLeft = new JobChunkHandle(left, _pins);
 
                 // Get job dependency for accessing this chunk
                 var dependsOn = _dependsOn;
@@ -180,24 +188,20 @@ namespace Myriad.ECS.Worlds
                 {
                     if (_allowSelfJoin)
                     {
-                        dependsOn = _scheduler.Schedule(handleLeft, dependsOn);
+                        dependsOn = Scheduler.Schedule(handleLeft, dependsOn);
                         _chunkDependencies[left.ChunkId] = dependsOn;
                     }
                 }
                 else
                 {
-                    var handleRight = new JobChunkHandle(right, _pins,
-#if ENABLE_UNITY_COLLECTIONS_CHECKS
-                        _safetyHandles
-#endif
-                    );
+                    var handleRight = new JobChunkHandle(right, _pins);
 
                     // Combine dependency for right chunk
                     if (_chunkDependencies.TryGetValue(right.ChunkId, out var rdep))
                         dependsOn = JobHandle.CombineDependencies(dependsOn, rdep);
 
                     // Schedule the work
-                    dependsOn = _scheduler.Schedule(handleLeft, handleRight, dependsOn);
+                    dependsOn = Scheduler.Schedule(handleLeft, handleRight, dependsOn);
 
                     // Update the dependency for both chunks
                     _chunkDependencies[left.ChunkId] = dependsOn;

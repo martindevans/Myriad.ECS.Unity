@@ -15,7 +15,6 @@ using Myriad.ECS.IDs;
 using Packages.me.martindevans.myriad_unity_integration.Runtime;
 using Packages.me.martindevans.myriad_unity_integration.Runtime.Queries;
 using Unity.Collections;
-using Unity.Collections.LowLevel.Unsafe;
 using Unity.Jobs;
 
 // ReSharper disable UnusedType.Global
@@ -63,10 +62,6 @@ namespace Myriad.ECS.Worlds
 
             public JobHandle Handle;
 
-#if ENABLE_UNITY_COLLECTIONS_CHECKS
-            private NativeHashMap<(long chunk, ComponentID type), AtomicSafetyHandle> _safetyHandles;
-#endif
-
 #pragma warning disable IDE0044
             private NativeList<GCHandle> _pins;
 #pragma warning restore IDE0044
@@ -76,9 +71,6 @@ namespace Myriad.ECS.Worlds
                 UnityMyriadSafetySystemAdapter safety,
                 JobHandle dependsOn,
                 NativeList<GCHandle> pins
-#if ENABLE_UNITY_COLLECTIONS_CHECKS
-                , NativeHashMap<(long chunk, ComponentID type), AtomicSafetyHandle> safetyHandles
-#endif
             )
             {
                 _scheduler = scheduler;
@@ -88,10 +80,6 @@ namespace Myriad.ECS.Worlds
                 _pins = pins;
 
                 Handle = dependsOn;
-
-#if ENABLE_UNITY_COLLECTIONS_CHECKS
-                _safetyHandles = safetyHandles;
-#endif
             }
 
             public void Execute(
@@ -110,9 +98,6 @@ namespace Myriad.ECS.Worlds
                 var jobChunkHandle = new JobChunkHandle(
                     chunk,
                     _pins
-#if ENABLE_UNITY_COLLECTIONS_CHECKS
-                    , _safetyHandles
-#endif
                 );
 
                 // Get components arrays
@@ -210,16 +195,8 @@ namespace Myriad.ECS.Worlds
             // Create collections to accumulate things we'll need to clean up afterwards
             var pins = new NativeList<GCHandle>(chunkCount * <#= i #>, Allocator.TempJob);
 
-#if ENABLE_UNITY_COLLECTIONS_CHECKS
-            using var safetyHandles = new NativeHashMap<(long chunk, ComponentID type), AtomicSafetyHandle>(chunkCount * <#= i #>, Allocator.Temp);
-#endif
-
             // Execute standard Myriad.ECS query which will schedule a job per chunk
-            var q = new JobQuery<TScheduler, <#= queryConstraints #>>(sched, safety, dependsOn, pins
-#if ENABLE_UNITY_COLLECTIONS_CHECKS
-                , safetyHandles
-#endif
-            );
+            var q = new JobQuery<TScheduler, <#= queryConstraints #>>(sched, safety, dependsOn, pins);
             world.ExecuteChunk<
                 JobQuery<TScheduler, <#= queryConstraints #>>,
                 <#= queryConstraints #>

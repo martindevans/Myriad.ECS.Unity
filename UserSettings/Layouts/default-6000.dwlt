@@ -671,13 +671,12 @@ MonoBehaviour:
       m_Data: 27084
     m_ExpandedIDs:
     - m_Data: 0
-    - m_Data: 26684
-    - m_Data: 26686
     - m_Data: 26690
     - m_Data: 26692
     - m_Data: 26694
-    - m_Data: 26870
-    - m_Data: 2147483647
+    - m_Data: 26696
+    - m_Data: 26698
+    - m_Data: 26700
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -711,12 +710,12 @@ MonoBehaviour:
       m_Data: 0
     m_ExpandedIDs:
     - m_Data: 0
-    - m_Data: 26684
-    - m_Data: 26686
-    - m_Data: 26688
     - m_Data: 26690
     - m_Data: 26692
     - m_Data: 26694
+    - m_Data: 26696
+    - m_Data: 26698
+    - m_Data: 26700
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -752,8 +751,8 @@ MonoBehaviour:
     m_ExpandedInstanceIDs: []
     m_RenameOverlay:
       m_UserAcceptedRename: 0
-      m_Name: SpawnEntities
-      m_OriginalName: SpawnEntities
+      m_Name: 
+      m_OriginalName: 
       m_EditFieldRect:
         serializedVersion: 2
         x: 0
@@ -761,10 +760,10 @@ MonoBehaviour:
         width: 0
         height: 0
       m_UserData:
-        m_Data: 27094
+        m_Data: 0
       m_IsWaitingForDelay: 0
       m_IsRenaming: 0
-      m_OriginalEventType: 0
+      m_OriginalEventType: 11
       m_IsRenamingFilename: 1
       m_TrimLeadingAndTrailingWhitespace: 0
       m_ClientGUIView: {fileID: 5}
@@ -874,9 +873,9 @@ MonoBehaviour:
     m_TreeViewState:
       scrollPos: {x: 0, y: 0}
       m_SelectedIDs:
-      - m_Data: 26624
+      - m_Data: 26628
       m_LastClickedID:
-        m_Data: 26624
+        m_Data: 26628
       m_ExpandedIDs:
       - m_Data: -1354
       m_RenameOverlay:
