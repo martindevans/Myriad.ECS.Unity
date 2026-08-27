@@ -20,6 +20,11 @@ namespace Packages.me.martindevans.myriad_unity_integration.Runtime.Queries
         /// </summary>
         public int EntityCount => _handle.EntityCount;
 
+        /// <summary>
+        /// Unique ID of this chunk
+        /// </summary>
+        public long ChunkId => _handle.ChunkId;
+
         internal JobChunkHandle(
             ChunkHandle handle,
             NativeList<GCHandle> pins

@@ -15,34 +15,34 @@ using Unity.Jobs;
 
 namespace Myriad.ECS.Worlds
 {
-    public static class WorldJobJoinExtensions
+    /// <summary>
+    /// Given two chunk handles, schedule join work - all entities in one chunk against all entities in other.
+    /// </summary>
+    public interface IJoinJobQueryScheduler
     {
         /// <summary>
-        /// Given two chunk handles, schedule join work - all entities in one chunk against all entities in other.
+        /// Schedule a job to process a join between the given chunks.
         /// </summary>
-        public interface IJoinJobQueryScheduler
-        {
-            /// <summary>
-            /// Schedule a job to process a join between the given chunks.
-            /// </summary>
-            JobHandle Schedule(
-                JobChunkHandle left,
-                JobChunkHandle right,
-                JobHandle dependsOn
-            );
+        JobHandle Schedule(
+            JobChunkHandle left,
+            JobChunkHandle right,
+            JobHandle dependsOn
+        );
 
-            /// <summary>
-            /// Schedule a job to process a join of a chunk with itself.
-            /// </summary>
-            /// <param name="leftRight"></param>
-            /// <param name="dependsOn"></param>
-            /// <returns></returns>
-            JobHandle Schedule(
-                JobChunkHandle leftRight,
-                JobHandle dependsOn
-            );
-        }
+        /// <summary>
+        /// Schedule a job to process a join of a chunk with itself.
+        /// </summary>
+        /// <param name="leftRight"></param>
+        /// <param name="dependsOn"></param>
+        /// <returns></returns>
+        JobHandle Schedule(
+            JobChunkHandle leftRight,
+            JobHandle dependsOn
+        );
+    }
 
+    public static class WorldJobJoinExtensions
+    {
         /// <summary>
         /// Schedule a join query, which will schedule a job for every pair of chunks in 2 queries
         /// </summary>

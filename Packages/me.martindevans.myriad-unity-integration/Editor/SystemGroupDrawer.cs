@@ -111,6 +111,8 @@ namespace Packages.me.martindevans.myriad_unity_integration.Editor
 
                             if (item.System is ISystemQueryEntityCount sqec)
                                 EditorGUILayout.LabelField($"Queried Entities:  {sqec.QueryEntityCount}");
+                            if (item.System is ISystemQueryScheduledJobCount sqsjc)
+                                EditorGUILayout.LabelField($"Scheduled Jobs:  {sqsjc.QueryJobCount}");
                         }
 
                         var editor = GetEditorInstance(name, item.Type);
