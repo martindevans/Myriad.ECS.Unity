@@ -197,7 +197,7 @@ namespace Myriad.ECS.Worlds
 
             // Execute standard Myriad.ECS query which will schedule a job per chunk
             var q = new JobQuery<TScheduler, <#= queryConstraints #>>(sched, safety, dependsOn, pins);
-            world.ExecuteChunk<
+            var entityCount = world.ExecuteChunk<
                 JobQuery<TScheduler, <#= queryConstraints #>>,
                 <#= queryConstraints #>
             >(ref q);
@@ -218,7 +218,7 @@ namespace Myriad.ECS.Worlds
             foreach (var archetype in query.GetArchetypes())
                 safety.AttachJob(archetype.Archetype.ArchetypeId, components, jobHandle);
 
-            return new QueryJobHandle(jobHandle, pins);
+            return new QueryJobHandle(jobHandle, pins, entityCount);
         }
 <# } #>
     }

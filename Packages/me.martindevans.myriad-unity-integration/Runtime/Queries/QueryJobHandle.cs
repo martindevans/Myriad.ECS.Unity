@@ -14,6 +14,11 @@ namespace Packages.me.martindevans.myriad_unity_integration.Runtime.Queries
     public struct QueryJobHandle
         : IDisposable
     {
+        /// <summary>
+        /// The number of entities being processed by this query job
+        /// </summary>
+        public int EntityCount { get; }
+
         private JobHandle _jobHandle;
         private NativeList<GCHandle> _pins;
 
@@ -26,10 +31,11 @@ namespace Packages.me.martindevans.myriad_unity_integration.Runtime.Queries
 
         public JobHandle Handle => _jobHandle;
 
-        internal QueryJobHandle(JobHandle handle, NativeList<GCHandle> pins)
+        internal QueryJobHandle(JobHandle handle, NativeList<GCHandle> pins, int entityCount)
         {
             if (!pins.IsCreated)
                 throw new ArgumentException("`pins` NativeList must be created", nameof(pins));
+            EntityCount = entityCount;
 
             _jobHandle = handle;
             _pins = pins;

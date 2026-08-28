@@ -903,6 +903,16 @@
             </para>
             </summary>
         </member>
+        <member name="T:Myriad.ECS.Components.IEntityRelationSetter">
+            <summary>
+            Sets the target of an entity relationship
+            </summary>
+        </member>
+        <member name="P:Myriad.ECS.Components.IEntityRelationSetter.Target">
+            <summary>
+            Set the target
+            </summary>
+        </member>
         <member name="T:Myriad.ECS.Components.IEntityRelationComponent">
             <summary>
             A relation component can be added to a command buffer, along with an associated buffered entity. When the
@@ -910,6 +920,17 @@
             </summary>
         </member>
         <member name="P:Myriad.ECS.Components.IEntityRelationComponent.Target">
+            <summary>
+            The target entity of this relationship
+            </summary>
+        </member>
+        <member name="T:Myriad.ECS.Components.IEntityIdRelationComponent">
+            <summary>
+            A relation component can be added to a command buffer, along with an associated buffered entity. When the
+            buffered entity is created it will be automatically resolved and added to this component.
+            </summary>
+        </member>
+        <member name="P:Myriad.ECS.Components.IEntityIdRelationComponent.TargetId">
             <summary>
             The target entity of this relationship
             </summary>
