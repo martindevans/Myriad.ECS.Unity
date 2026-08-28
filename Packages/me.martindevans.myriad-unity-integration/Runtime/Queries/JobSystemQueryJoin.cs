@@ -1,10 +1,8 @@
-using Myriad.ECS.IDs;
 using Myriad.ECS.Queries;
 using Packages.me.martindevans.myriad_unity_integration.Runtime;
 using Packages.me.martindevans.myriad_unity_integration.Runtime.Queries;
 using System.Runtime.InteropServices;
 using Unity.Collections;
-using Unity.Collections.LowLevel.Unsafe;
 using Unity.Jobs;
 
 // ReSharper disable UnusedType.Global
@@ -104,7 +102,7 @@ namespace Myriad.ECS.Worlds
                 pins,
                 chunkDeps
             );
-            world.ExecuteChunkJoin(
+            var count = world.ExecuteChunkJoin(
                 ref jjq,
                 left,
                 right
@@ -130,7 +128,8 @@ namespace Myriad.ECS.Worlds
             // Return the final handle
             return new QueryJobHandle(
                 handle,
-                pins
+                pins,
+                count > int.MaxValue ? int.MaxValue : (int)count
             );
         }
 

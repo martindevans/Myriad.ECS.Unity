@@ -168,7 +168,7 @@ namespace Myriad.ECS.Worlds
 
             // Execute standard Myriad.ECS query which will schedule a job per chunk
             var q = new JobQuery<TScheduler, T0>(sched, safety, dependsOn, pins);
-            world.ExecuteChunk<
+            var entityCount = world.ExecuteChunk<
                 JobQuery<TScheduler, T0>,
                 T0
             >(ref q);
@@ -187,7 +187,7 @@ namespace Myriad.ECS.Worlds
             foreach (var archetype in query.GetArchetypes())
                 safety.AttachJob(archetype.Archetype.ArchetypeId, components, jobHandle);
 
-            return new QueryJobHandle(jobHandle, pins);
+            return new QueryJobHandle(jobHandle, pins, entityCount);
         }
         
         /// <summary>
@@ -351,7 +351,7 @@ namespace Myriad.ECS.Worlds
 
             // Execute standard Myriad.ECS query which will schedule a job per chunk
             var q = new JobQuery<TScheduler, T0, T1>(sched, safety, dependsOn, pins);
-            world.ExecuteChunk<
+            var entityCount = world.ExecuteChunk<
                 JobQuery<TScheduler, T0, T1>,
                 T0, T1
             >(ref q);
@@ -371,7 +371,7 @@ namespace Myriad.ECS.Worlds
             foreach (var archetype in query.GetArchetypes())
                 safety.AttachJob(archetype.Archetype.ArchetypeId, components, jobHandle);
 
-            return new QueryJobHandle(jobHandle, pins);
+            return new QueryJobHandle(jobHandle, pins, entityCount);
         }
         
         /// <summary>
@@ -547,7 +547,7 @@ namespace Myriad.ECS.Worlds
 
             // Execute standard Myriad.ECS query which will schedule a job per chunk
             var q = new JobQuery<TScheduler, T0, T1, T2>(sched, safety, dependsOn, pins);
-            world.ExecuteChunk<
+            var entityCount = world.ExecuteChunk<
                 JobQuery<TScheduler, T0, T1, T2>,
                 T0, T1, T2
             >(ref q);
@@ -568,7 +568,7 @@ namespace Myriad.ECS.Worlds
             foreach (var archetype in query.GetArchetypes())
                 safety.AttachJob(archetype.Archetype.ArchetypeId, components, jobHandle);
 
-            return new QueryJobHandle(jobHandle, pins);
+            return new QueryJobHandle(jobHandle, pins, entityCount);
         }
         
         /// <summary>
@@ -756,7 +756,7 @@ namespace Myriad.ECS.Worlds
 
             // Execute standard Myriad.ECS query which will schedule a job per chunk
             var q = new JobQuery<TScheduler, T0, T1, T2, T3>(sched, safety, dependsOn, pins);
-            world.ExecuteChunk<
+            var entityCount = world.ExecuteChunk<
                 JobQuery<TScheduler, T0, T1, T2, T3>,
                 T0, T1, T2, T3
             >(ref q);
@@ -778,7 +778,7 @@ namespace Myriad.ECS.Worlds
             foreach (var archetype in query.GetArchetypes())
                 safety.AttachJob(archetype.Archetype.ArchetypeId, components, jobHandle);
 
-            return new QueryJobHandle(jobHandle, pins);
+            return new QueryJobHandle(jobHandle, pins, entityCount);
         }
         
         /// <summary>
@@ -978,7 +978,7 @@ namespace Myriad.ECS.Worlds
 
             // Execute standard Myriad.ECS query which will schedule a job per chunk
             var q = new JobQuery<TScheduler, T0, T1, T2, T3, T4>(sched, safety, dependsOn, pins);
-            world.ExecuteChunk<
+            var entityCount = world.ExecuteChunk<
                 JobQuery<TScheduler, T0, T1, T2, T3, T4>,
                 T0, T1, T2, T3, T4
             >(ref q);
@@ -1001,7 +1001,7 @@ namespace Myriad.ECS.Worlds
             foreach (var archetype in query.GetArchetypes())
                 safety.AttachJob(archetype.Archetype.ArchetypeId, components, jobHandle);
 
-            return new QueryJobHandle(jobHandle, pins);
+            return new QueryJobHandle(jobHandle, pins, entityCount);
         }
         
         /// <summary>
@@ -1213,7 +1213,7 @@ namespace Myriad.ECS.Worlds
 
             // Execute standard Myriad.ECS query which will schedule a job per chunk
             var q = new JobQuery<TScheduler, T0, T1, T2, T3, T4, T5>(sched, safety, dependsOn, pins);
-            world.ExecuteChunk<
+            var entityCount = world.ExecuteChunk<
                 JobQuery<TScheduler, T0, T1, T2, T3, T4, T5>,
                 T0, T1, T2, T3, T4, T5
             >(ref q);
@@ -1237,7 +1237,7 @@ namespace Myriad.ECS.Worlds
             foreach (var archetype in query.GetArchetypes())
                 safety.AttachJob(archetype.Archetype.ArchetypeId, components, jobHandle);
 
-            return new QueryJobHandle(jobHandle, pins);
+            return new QueryJobHandle(jobHandle, pins, entityCount);
         }
         
         /// <summary>
@@ -1461,7 +1461,7 @@ namespace Myriad.ECS.Worlds
 
             // Execute standard Myriad.ECS query which will schedule a job per chunk
             var q = new JobQuery<TScheduler, T0, T1, T2, T3, T4, T5, T6>(sched, safety, dependsOn, pins);
-            world.ExecuteChunk<
+            var entityCount = world.ExecuteChunk<
                 JobQuery<TScheduler, T0, T1, T2, T3, T4, T5, T6>,
                 T0, T1, T2, T3, T4, T5, T6
             >(ref q);
@@ -1486,7 +1486,7 @@ namespace Myriad.ECS.Worlds
             foreach (var archetype in query.GetArchetypes())
                 safety.AttachJob(archetype.Archetype.ArchetypeId, components, jobHandle);
 
-            return new QueryJobHandle(jobHandle, pins);
+            return new QueryJobHandle(jobHandle, pins, entityCount);
         }
         
         /// <summary>
@@ -1722,7 +1722,7 @@ namespace Myriad.ECS.Worlds
 
             // Execute standard Myriad.ECS query which will schedule a job per chunk
             var q = new JobQuery<TScheduler, T0, T1, T2, T3, T4, T5, T6, T7>(sched, safety, dependsOn, pins);
-            world.ExecuteChunk<
+            var entityCount = world.ExecuteChunk<
                 JobQuery<TScheduler, T0, T1, T2, T3, T4, T5, T6, T7>,
                 T0, T1, T2, T3, T4, T5, T6, T7
             >(ref q);
@@ -1748,7 +1748,7 @@ namespace Myriad.ECS.Worlds
             foreach (var archetype in query.GetArchetypes())
                 safety.AttachJob(archetype.Archetype.ArchetypeId, components, jobHandle);
 
-            return new QueryJobHandle(jobHandle, pins);
+            return new QueryJobHandle(jobHandle, pins, entityCount);
         }
         
         /// <summary>
@@ -1996,7 +1996,7 @@ namespace Myriad.ECS.Worlds
 
             // Execute standard Myriad.ECS query which will schedule a job per chunk
             var q = new JobQuery<TScheduler, T0, T1, T2, T3, T4, T5, T6, T7, T8>(sched, safety, dependsOn, pins);
-            world.ExecuteChunk<
+            var entityCount = world.ExecuteChunk<
                 JobQuery<TScheduler, T0, T1, T2, T3, T4, T5, T6, T7, T8>,
                 T0, T1, T2, T3, T4, T5, T6, T7, T8
             >(ref q);
@@ -2023,7 +2023,7 @@ namespace Myriad.ECS.Worlds
             foreach (var archetype in query.GetArchetypes())
                 safety.AttachJob(archetype.Archetype.ArchetypeId, components, jobHandle);
 
-            return new QueryJobHandle(jobHandle, pins);
+            return new QueryJobHandle(jobHandle, pins, entityCount);
         }
         
         /// <summary>
@@ -2283,7 +2283,7 @@ namespace Myriad.ECS.Worlds
 
             // Execute standard Myriad.ECS query which will schedule a job per chunk
             var q = new JobQuery<TScheduler, T0, T1, T2, T3, T4, T5, T6, T7, T8, T9>(sched, safety, dependsOn, pins);
-            world.ExecuteChunk<
+            var entityCount = world.ExecuteChunk<
                 JobQuery<TScheduler, T0, T1, T2, T3, T4, T5, T6, T7, T8, T9>,
                 T0, T1, T2, T3, T4, T5, T6, T7, T8, T9
             >(ref q);
@@ -2311,7 +2311,7 @@ namespace Myriad.ECS.Worlds
             foreach (var archetype in query.GetArchetypes())
                 safety.AttachJob(archetype.Archetype.ArchetypeId, components, jobHandle);
 
-            return new QueryJobHandle(jobHandle, pins);
+            return new QueryJobHandle(jobHandle, pins, entityCount);
         }
         
         /// <summary>
@@ -2583,7 +2583,7 @@ namespace Myriad.ECS.Worlds
 
             // Execute standard Myriad.ECS query which will schedule a job per chunk
             var q = new JobQuery<TScheduler, T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10>(sched, safety, dependsOn, pins);
-            world.ExecuteChunk<
+            var entityCount = world.ExecuteChunk<
                 JobQuery<TScheduler, T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10>,
                 T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10
             >(ref q);
@@ -2612,7 +2612,7 @@ namespace Myriad.ECS.Worlds
             foreach (var archetype in query.GetArchetypes())
                 safety.AttachJob(archetype.Archetype.ArchetypeId, components, jobHandle);
 
-            return new QueryJobHandle(jobHandle, pins);
+            return new QueryJobHandle(jobHandle, pins, entityCount);
         }
         
         /// <summary>
@@ -2896,7 +2896,7 @@ namespace Myriad.ECS.Worlds
 
             // Execute standard Myriad.ECS query which will schedule a job per chunk
             var q = new JobQuery<TScheduler, T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11>(sched, safety, dependsOn, pins);
-            world.ExecuteChunk<
+            var entityCount = world.ExecuteChunk<
                 JobQuery<TScheduler, T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11>,
                 T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11
             >(ref q);
@@ -2926,7 +2926,7 @@ namespace Myriad.ECS.Worlds
             foreach (var archetype in query.GetArchetypes())
                 safety.AttachJob(archetype.Archetype.ArchetypeId, components, jobHandle);
 
-            return new QueryJobHandle(jobHandle, pins);
+            return new QueryJobHandle(jobHandle, pins, entityCount);
         }
         
         /// <summary>
@@ -3222,7 +3222,7 @@ namespace Myriad.ECS.Worlds
 
             // Execute standard Myriad.ECS query which will schedule a job per chunk
             var q = new JobQuery<TScheduler, T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12>(sched, safety, dependsOn, pins);
-            world.ExecuteChunk<
+            var entityCount = world.ExecuteChunk<
                 JobQuery<TScheduler, T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12>,
                 T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12
             >(ref q);
@@ -3253,7 +3253,7 @@ namespace Myriad.ECS.Worlds
             foreach (var archetype in query.GetArchetypes())
                 safety.AttachJob(archetype.Archetype.ArchetypeId, components, jobHandle);
 
-            return new QueryJobHandle(jobHandle, pins);
+            return new QueryJobHandle(jobHandle, pins, entityCount);
         }
         
         /// <summary>
@@ -3561,7 +3561,7 @@ namespace Myriad.ECS.Worlds
 
             // Execute standard Myriad.ECS query which will schedule a job per chunk
             var q = new JobQuery<TScheduler, T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13>(sched, safety, dependsOn, pins);
-            world.ExecuteChunk<
+            var entityCount = world.ExecuteChunk<
                 JobQuery<TScheduler, T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13>,
                 T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13
             >(ref q);
@@ -3593,7 +3593,7 @@ namespace Myriad.ECS.Worlds
             foreach (var archetype in query.GetArchetypes())
                 safety.AttachJob(archetype.Archetype.ArchetypeId, components, jobHandle);
 
-            return new QueryJobHandle(jobHandle, pins);
+            return new QueryJobHandle(jobHandle, pins, entityCount);
         }
         
         /// <summary>
@@ -3913,7 +3913,7 @@ namespace Myriad.ECS.Worlds
 
             // Execute standard Myriad.ECS query which will schedule a job per chunk
             var q = new JobQuery<TScheduler, T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14>(sched, safety, dependsOn, pins);
-            world.ExecuteChunk<
+            var entityCount = world.ExecuteChunk<
                 JobQuery<TScheduler, T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14>,
                 T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14
             >(ref q);
@@ -3946,7 +3946,7 @@ namespace Myriad.ECS.Worlds
             foreach (var archetype in query.GetArchetypes())
                 safety.AttachJob(archetype.Archetype.ArchetypeId, components, jobHandle);
 
-            return new QueryJobHandle(jobHandle, pins);
+            return new QueryJobHandle(jobHandle, pins, entityCount);
         }
         
         /// <summary>
@@ -4278,7 +4278,7 @@ namespace Myriad.ECS.Worlds
 
             // Execute standard Myriad.ECS query which will schedule a job per chunk
             var q = new JobQuery<TScheduler, T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15>(sched, safety, dependsOn, pins);
-            world.ExecuteChunk<
+            var entityCount = world.ExecuteChunk<
                 JobQuery<TScheduler, T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15>,
                 T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15
             >(ref q);
@@ -4312,7 +4312,7 @@ namespace Myriad.ECS.Worlds
             foreach (var archetype in query.GetArchetypes())
                 safety.AttachJob(archetype.Archetype.ArchetypeId, components, jobHandle);
 
-            return new QueryJobHandle(jobHandle, pins);
+            return new QueryJobHandle(jobHandle, pins, entityCount);
         }
     }
 }

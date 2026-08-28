@@ -42,9 +42,9 @@ namespace Packages.me.martindevans.myriad_unity_integration.Runtime.Components
         internal bool IsDestroyed { get; private set; }
 
         /// <summary>
-        /// Set entity relation, when entity is constructed
+        /// The entity this GameObject is bound to
         /// </summary>
-        Entity IEntityRelationComponent.Target
+        public Entity Target
         {
             get => _binding!.Value;
             set
