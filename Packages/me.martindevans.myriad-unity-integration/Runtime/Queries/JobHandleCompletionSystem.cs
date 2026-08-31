@@ -10,7 +10,7 @@ namespace Packages.me.martindevans.myriad_unity_integration.Runtime.Queries
     /// </summary>
     public interface IQueryJobHandleCompletionGate
     {
-        void AddHandle(QueryJobHandle handle);
+        QueryJobHandle AddHandle(QueryJobHandle handle);
     }
 
     public abstract class BaseQueryJobHandleCompletionGate
@@ -20,9 +20,10 @@ namespace Packages.me.martindevans.myriad_unity_integration.Runtime.Queries
 
         public int PreviousCompleteHandleCount { get; private set; }
 
-        public void AddHandle(QueryJobHandle handle)
+        public QueryJobHandle AddHandle(QueryJobHandle handle)
         {
             _handles.Add(handle);
+            return handle;
         }
 
         protected void Complete()
