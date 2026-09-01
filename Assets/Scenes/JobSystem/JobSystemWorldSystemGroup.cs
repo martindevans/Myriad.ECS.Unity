@@ -37,11 +37,14 @@ namespace Assets.Scenes.JobSystem
     }
 
     public class DoStuffBasic
-        : ISystem<GameTime>, ISystemQueryEntityCount
+        : ISystem<GameTime>, ISystemQueryEntityCount, ISystemQueryChunkCount, ISystemQueryArchetypeCount
     {
         private readonly World _world;
+        private QueryDescription _queryCache;
 
         public int QueryEntityCount { get; private set; }
+        public int QueryChunkCount { get; private set; }
+        public int QueryArchetypeCount { get; private set; }
 
         public DoStuffBasic(World world)
         {
@@ -53,7 +56,10 @@ namespace Assets.Scenes.JobSystem
             QueryEntityCount = _world.Query((ref DemoComponent c) =>
             {
                 c.Value++;
-            });
+            }, ref _queryCache);
+
+            QueryChunkCount = _queryCache?.CountChunks() ?? 0;
+            QueryArchetypeCount = _queryCache?.CountArchetypes() ?? 0;
         }
     }
 
