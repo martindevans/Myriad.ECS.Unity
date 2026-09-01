@@ -122,7 +122,7 @@ namespace Packages.me.martindevans.myriad_unity_integration.Editor
 
                             if (sqcc is not null && sqec is not null)
                             {
-                                var avg = sqec.QueryEntityCount / (float)sqcc.QueryChunkCount;
+                                var avg = sqec.QueryEntityCount / Math.Max(1, (float)sqcc.QueryChunkCount);
                                 EditorGUILayout.LabelField($"Average Chunk Entity Count: {avg:F1}");
                             }
 
