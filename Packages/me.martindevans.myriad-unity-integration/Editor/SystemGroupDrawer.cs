@@ -4,12 +4,12 @@ using System.Linq;
 using UnityEditor;
 using UnityEngine;
 using Packages.me.martindevans.myriad_unity_integration.Editor.Extensions;
-using Packages.me.martindevans.myriad_unity_integration.Runtime;
 using Placeholder.Editor.UI.Editor.Helpers;
 using Placeholder.Editor.UI.Editor.Style;
 using JetBrains.Annotations;
 using Packages.me.martindevans.myriad_unity_integration.Editor.World;
 using System.Collections.Generic;
+using Packages.me.martindevans.myriad_unity_integration.Runtime.Systems;
 
 namespace Packages.me.martindevans.myriad_unity_integration.Editor
 {
@@ -109,10 +109,28 @@ namespace Packages.me.martindevans.myriad_unity_integration.Editor
                             if (item.HasAfterUpdate)
                                 EditorGUILayout.LabelField($"After Update:  {microsPost:F0}us");
 
-                            if (item.System is ISystemQueryEntityCount sqec)
+                            var sqec = item.System as ISystemQueryEntityCount;
+                            var sqac = item.System as ISystemQueryArchetypeCount;
+                            var sqcc = item.System as ISystemQueryChunkCount;
+                            var sqjc = item.System as ISystemQueryScheduledJobCount;
+
+                            if (sqec is not null)
                                 EditorGUILayout.LabelField($"Queried Entities:  {sqec.QueryEntityCount}");
-                            if (item.System is ISystemQueryScheduledJobCount sqsjc)
-                                EditorGUILayout.LabelField($"Scheduled Jobs:  {sqsjc.QueryJobCount}");
+
+                            if (sqcc is not null)
+                                EditorGUILayout.LabelField($"Queried Chunks:  {sqcc.QueryChunkCount}");
+
+                            if (sqcc is not null && sqec is not null)
+                            {
+                                var avg = sqec.QueryEntityCount / (float)sqcc.QueryChunkCount;
+                                EditorGUILayout.LabelField($"Average Chunk Entity Count: {avg:F1}");
+                            }
+
+                            if (sqac is not null)
+                                EditorGUILayout.LabelField($"Queried Archetypes:  {sqac.QueryArchetypeCount}");
+
+                            if (sqjc is not null)
+                                EditorGUILayout.LabelField($"Scheduled Jobs:  {sqjc.QueryJobCount}");
                         }
 
                         var editor = GetEditorInstance(name, item.Type);
