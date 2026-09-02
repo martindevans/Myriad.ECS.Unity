@@ -26,6 +26,7 @@ namespace Assets.Scenes.JobSystem
                 new DoStuffBasic(world.World),
                 new DoStuffBasic(world.World),
                 new DoStuffInJob(world.World, gate),
+                new DoStuffInJob(world.World, gate),
                 new DoStuffBasic(world.World),
                 new DoStuffBasic(world.World),
                 new DoJoinInJob(world.World, gate),

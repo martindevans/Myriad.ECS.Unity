@@ -83,8 +83,14 @@ namespace Packages.me.martindevans.myriad_unity_integration.Runtime.Queries
         public NativeArray<T> GetComponentArray<T>()
             where T : struct, IComponent
         {
+            return GetComponentArray<T>(blocking: true);
+        }
+
+        internal NativeArray<T> GetComponentArray<T>(bool blocking)
+            where T : struct, IComponent
+        {
             // Pin array for component
-            var array = _handle.Danger().GetComponentArray<T>();
+            var array = _handle.Danger().GetComponentArray<T>(blocking: blocking);
             var pin = GCHandle.Alloc(array, GCHandleType.Pinned);
             _pins.Add(pin);
 

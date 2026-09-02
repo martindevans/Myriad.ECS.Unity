@@ -123,11 +123,17 @@ namespace Packages.me.martindevans.myriad_unity_integration.Editor
                             if (sqcc is not null && sqec is not null)
                             {
                                 var avg = sqec.QueryEntityCount / Math.Max(1, (float)sqcc.QueryChunkCount);
-                                EditorGUILayout.LabelField($"Average Chunk Entity Count: {avg:F1}");
+                                EditorGUILayout.LabelField($"Average Chunk Size: {avg:F1}");
                             }
 
                             if (sqac is not null)
                                 EditorGUILayout.LabelField($"Queried Archetypes:  {sqac.QueryArchetypeCount}");
+
+                            if (sqac is not null && sqec is not null)
+                            {
+                                var avg = sqec.QueryEntityCount / Math.Max(1, (float)sqac.QueryArchetypeCount);
+                                EditorGUILayout.LabelField($"Average Archetype Size: {avg:F1}");
+                            }
 
                             if (sqjc is not null)
                                 EditorGUILayout.LabelField($"Scheduled Jobs:  {sqjc.QueryJobCount}");
