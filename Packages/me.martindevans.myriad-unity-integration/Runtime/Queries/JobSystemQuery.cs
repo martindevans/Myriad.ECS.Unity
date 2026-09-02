@@ -84,7 +84,8 @@ namespace Myriad.ECS.Worlds
                 );
 
                 // Get components arrays
-                var nArray0 = jobChunkHandle.GetComponentArray<T0>();
+                // Non blocking is safe - we're going to get the job handle for these components in this archetype below and depend on it!
+                var nArray0 = jobChunkHandle.GetComponentArray<T0>(blocking:false);
 
                 Span<ComponentID> components = stackalloc ComponentID[1]
                 {
@@ -95,6 +96,9 @@ namespace Myriad.ECS.Worlds
                 var jHandle = _scheduler.Schedule(
                     jobChunkHandle,
                     nArray0,
+
+                    // Block on the explicit dependency, and the implicit dependency in the safety system. This makes non-blocking
+                    // scheduling safe.
                     JobHandle.CombineDependencies(
                         _dependsOn,
                         _safety.GetAttachedJob(chunk.Archetype.ArchetypeId, components)
@@ -171,7 +175,10 @@ namespace Myriad.ECS.Worlds
             var entityCount = world.ExecuteChunk<
                 JobQuery<TScheduler, T0>,
                 T0
-            >(ref q);
+            >(
+                ref q,
+                blocking:false // Job scheduling handles job dependencies, so non-blocking is safe!
+            );
 
             // Ensure all jobs are started before we wait on them
             JobHandle.ScheduleBatchedJobs();
@@ -259,8 +266,9 @@ namespace Myriad.ECS.Worlds
                 );
 
                 // Get components arrays
-                var nArray0 = jobChunkHandle.GetComponentArray<T0>();
-                var nArray1 = jobChunkHandle.GetComponentArray<T1>();
+                // Non blocking is safe - we're going to get the job handle for these components in this archetype below and depend on it!
+                var nArray0 = jobChunkHandle.GetComponentArray<T0>(blocking:false);
+                var nArray1 = jobChunkHandle.GetComponentArray<T1>(blocking:false);
 
                 Span<ComponentID> components = stackalloc ComponentID[2]
                 {
@@ -273,6 +281,9 @@ namespace Myriad.ECS.Worlds
                     jobChunkHandle,
                     nArray0,
                     nArray1,
+
+                    // Block on the explicit dependency, and the implicit dependency in the safety system. This makes non-blocking
+                    // scheduling safe.
                     JobHandle.CombineDependencies(
                         _dependsOn,
                         _safety.GetAttachedJob(chunk.Archetype.ArchetypeId, components)
@@ -354,7 +365,10 @@ namespace Myriad.ECS.Worlds
             var entityCount = world.ExecuteChunk<
                 JobQuery<TScheduler, T0, T1>,
                 T0, T1
-            >(ref q);
+            >(
+                ref q,
+                blocking:false // Job scheduling handles job dependencies, so non-blocking is safe!
+            );
 
             // Ensure all jobs are started before we wait on them
             JobHandle.ScheduleBatchedJobs();
@@ -447,9 +461,10 @@ namespace Myriad.ECS.Worlds
                 );
 
                 // Get components arrays
-                var nArray0 = jobChunkHandle.GetComponentArray<T0>();
-                var nArray1 = jobChunkHandle.GetComponentArray<T1>();
-                var nArray2 = jobChunkHandle.GetComponentArray<T2>();
+                // Non blocking is safe - we're going to get the job handle for these components in this archetype below and depend on it!
+                var nArray0 = jobChunkHandle.GetComponentArray<T0>(blocking:false);
+                var nArray1 = jobChunkHandle.GetComponentArray<T1>(blocking:false);
+                var nArray2 = jobChunkHandle.GetComponentArray<T2>(blocking:false);
 
                 Span<ComponentID> components = stackalloc ComponentID[3]
                 {
@@ -464,6 +479,9 @@ namespace Myriad.ECS.Worlds
                     nArray0,
                     nArray1,
                     nArray2,
+
+                    // Block on the explicit dependency, and the implicit dependency in the safety system. This makes non-blocking
+                    // scheduling safe.
                     JobHandle.CombineDependencies(
                         _dependsOn,
                         _safety.GetAttachedJob(chunk.Archetype.ArchetypeId, components)
@@ -550,7 +568,10 @@ namespace Myriad.ECS.Worlds
             var entityCount = world.ExecuteChunk<
                 JobQuery<TScheduler, T0, T1, T2>,
                 T0, T1, T2
-            >(ref q);
+            >(
+                ref q,
+                blocking:false // Job scheduling handles job dependencies, so non-blocking is safe!
+            );
 
             // Ensure all jobs are started before we wait on them
             JobHandle.ScheduleBatchedJobs();
@@ -648,10 +669,11 @@ namespace Myriad.ECS.Worlds
                 );
 
                 // Get components arrays
-                var nArray0 = jobChunkHandle.GetComponentArray<T0>();
-                var nArray1 = jobChunkHandle.GetComponentArray<T1>();
-                var nArray2 = jobChunkHandle.GetComponentArray<T2>();
-                var nArray3 = jobChunkHandle.GetComponentArray<T3>();
+                // Non blocking is safe - we're going to get the job handle for these components in this archetype below and depend on it!
+                var nArray0 = jobChunkHandle.GetComponentArray<T0>(blocking:false);
+                var nArray1 = jobChunkHandle.GetComponentArray<T1>(blocking:false);
+                var nArray2 = jobChunkHandle.GetComponentArray<T2>(blocking:false);
+                var nArray3 = jobChunkHandle.GetComponentArray<T3>(blocking:false);
 
                 Span<ComponentID> components = stackalloc ComponentID[4]
                 {
@@ -668,6 +690,9 @@ namespace Myriad.ECS.Worlds
                     nArray1,
                     nArray2,
                     nArray3,
+
+                    // Block on the explicit dependency, and the implicit dependency in the safety system. This makes non-blocking
+                    // scheduling safe.
                     JobHandle.CombineDependencies(
                         _dependsOn,
                         _safety.GetAttachedJob(chunk.Archetype.ArchetypeId, components)
@@ -759,7 +784,10 @@ namespace Myriad.ECS.Worlds
             var entityCount = world.ExecuteChunk<
                 JobQuery<TScheduler, T0, T1, T2, T3>,
                 T0, T1, T2, T3
-            >(ref q);
+            >(
+                ref q,
+                blocking:false // Job scheduling handles job dependencies, so non-blocking is safe!
+            );
 
             // Ensure all jobs are started before we wait on them
             JobHandle.ScheduleBatchedJobs();
@@ -862,11 +890,12 @@ namespace Myriad.ECS.Worlds
                 );
 
                 // Get components arrays
-                var nArray0 = jobChunkHandle.GetComponentArray<T0>();
-                var nArray1 = jobChunkHandle.GetComponentArray<T1>();
-                var nArray2 = jobChunkHandle.GetComponentArray<T2>();
-                var nArray3 = jobChunkHandle.GetComponentArray<T3>();
-                var nArray4 = jobChunkHandle.GetComponentArray<T4>();
+                // Non blocking is safe - we're going to get the job handle for these components in this archetype below and depend on it!
+                var nArray0 = jobChunkHandle.GetComponentArray<T0>(blocking:false);
+                var nArray1 = jobChunkHandle.GetComponentArray<T1>(blocking:false);
+                var nArray2 = jobChunkHandle.GetComponentArray<T2>(blocking:false);
+                var nArray3 = jobChunkHandle.GetComponentArray<T3>(blocking:false);
+                var nArray4 = jobChunkHandle.GetComponentArray<T4>(blocking:false);
 
                 Span<ComponentID> components = stackalloc ComponentID[5]
                 {
@@ -885,6 +914,9 @@ namespace Myriad.ECS.Worlds
                     nArray2,
                     nArray3,
                     nArray4,
+
+                    // Block on the explicit dependency, and the implicit dependency in the safety system. This makes non-blocking
+                    // scheduling safe.
                     JobHandle.CombineDependencies(
                         _dependsOn,
                         _safety.GetAttachedJob(chunk.Archetype.ArchetypeId, components)
@@ -981,7 +1013,10 @@ namespace Myriad.ECS.Worlds
             var entityCount = world.ExecuteChunk<
                 JobQuery<TScheduler, T0, T1, T2, T3, T4>,
                 T0, T1, T2, T3, T4
-            >(ref q);
+            >(
+                ref q,
+                blocking:false // Job scheduling handles job dependencies, so non-blocking is safe!
+            );
 
             // Ensure all jobs are started before we wait on them
             JobHandle.ScheduleBatchedJobs();
@@ -1089,12 +1124,13 @@ namespace Myriad.ECS.Worlds
                 );
 
                 // Get components arrays
-                var nArray0 = jobChunkHandle.GetComponentArray<T0>();
-                var nArray1 = jobChunkHandle.GetComponentArray<T1>();
-                var nArray2 = jobChunkHandle.GetComponentArray<T2>();
-                var nArray3 = jobChunkHandle.GetComponentArray<T3>();
-                var nArray4 = jobChunkHandle.GetComponentArray<T4>();
-                var nArray5 = jobChunkHandle.GetComponentArray<T5>();
+                // Non blocking is safe - we're going to get the job handle for these components in this archetype below and depend on it!
+                var nArray0 = jobChunkHandle.GetComponentArray<T0>(blocking:false);
+                var nArray1 = jobChunkHandle.GetComponentArray<T1>(blocking:false);
+                var nArray2 = jobChunkHandle.GetComponentArray<T2>(blocking:false);
+                var nArray3 = jobChunkHandle.GetComponentArray<T3>(blocking:false);
+                var nArray4 = jobChunkHandle.GetComponentArray<T4>(blocking:false);
+                var nArray5 = jobChunkHandle.GetComponentArray<T5>(blocking:false);
 
                 Span<ComponentID> components = stackalloc ComponentID[6]
                 {
@@ -1115,6 +1151,9 @@ namespace Myriad.ECS.Worlds
                     nArray3,
                     nArray4,
                     nArray5,
+
+                    // Block on the explicit dependency, and the implicit dependency in the safety system. This makes non-blocking
+                    // scheduling safe.
                     JobHandle.CombineDependencies(
                         _dependsOn,
                         _safety.GetAttachedJob(chunk.Archetype.ArchetypeId, components)
@@ -1216,7 +1255,10 @@ namespace Myriad.ECS.Worlds
             var entityCount = world.ExecuteChunk<
                 JobQuery<TScheduler, T0, T1, T2, T3, T4, T5>,
                 T0, T1, T2, T3, T4, T5
-            >(ref q);
+            >(
+                ref q,
+                blocking:false // Job scheduling handles job dependencies, so non-blocking is safe!
+            );
 
             // Ensure all jobs are started before we wait on them
             JobHandle.ScheduleBatchedJobs();
@@ -1329,13 +1371,14 @@ namespace Myriad.ECS.Worlds
                 );
 
                 // Get components arrays
-                var nArray0 = jobChunkHandle.GetComponentArray<T0>();
-                var nArray1 = jobChunkHandle.GetComponentArray<T1>();
-                var nArray2 = jobChunkHandle.GetComponentArray<T2>();
-                var nArray3 = jobChunkHandle.GetComponentArray<T3>();
-                var nArray4 = jobChunkHandle.GetComponentArray<T4>();
-                var nArray5 = jobChunkHandle.GetComponentArray<T5>();
-                var nArray6 = jobChunkHandle.GetComponentArray<T6>();
+                // Non blocking is safe - we're going to get the job handle for these components in this archetype below and depend on it!
+                var nArray0 = jobChunkHandle.GetComponentArray<T0>(blocking:false);
+                var nArray1 = jobChunkHandle.GetComponentArray<T1>(blocking:false);
+                var nArray2 = jobChunkHandle.GetComponentArray<T2>(blocking:false);
+                var nArray3 = jobChunkHandle.GetComponentArray<T3>(blocking:false);
+                var nArray4 = jobChunkHandle.GetComponentArray<T4>(blocking:false);
+                var nArray5 = jobChunkHandle.GetComponentArray<T5>(blocking:false);
+                var nArray6 = jobChunkHandle.GetComponentArray<T6>(blocking:false);
 
                 Span<ComponentID> components = stackalloc ComponentID[7]
                 {
@@ -1358,6 +1401,9 @@ namespace Myriad.ECS.Worlds
                     nArray4,
                     nArray5,
                     nArray6,
+
+                    // Block on the explicit dependency, and the implicit dependency in the safety system. This makes non-blocking
+                    // scheduling safe.
                     JobHandle.CombineDependencies(
                         _dependsOn,
                         _safety.GetAttachedJob(chunk.Archetype.ArchetypeId, components)
@@ -1464,7 +1510,10 @@ namespace Myriad.ECS.Worlds
             var entityCount = world.ExecuteChunk<
                 JobQuery<TScheduler, T0, T1, T2, T3, T4, T5, T6>,
                 T0, T1, T2, T3, T4, T5, T6
-            >(ref q);
+            >(
+                ref q,
+                blocking:false // Job scheduling handles job dependencies, so non-blocking is safe!
+            );
 
             // Ensure all jobs are started before we wait on them
             JobHandle.ScheduleBatchedJobs();
@@ -1582,14 +1631,15 @@ namespace Myriad.ECS.Worlds
                 );
 
                 // Get components arrays
-                var nArray0 = jobChunkHandle.GetComponentArray<T0>();
-                var nArray1 = jobChunkHandle.GetComponentArray<T1>();
-                var nArray2 = jobChunkHandle.GetComponentArray<T2>();
-                var nArray3 = jobChunkHandle.GetComponentArray<T3>();
-                var nArray4 = jobChunkHandle.GetComponentArray<T4>();
-                var nArray5 = jobChunkHandle.GetComponentArray<T5>();
-                var nArray6 = jobChunkHandle.GetComponentArray<T6>();
-                var nArray7 = jobChunkHandle.GetComponentArray<T7>();
+                // Non blocking is safe - we're going to get the job handle for these components in this archetype below and depend on it!
+                var nArray0 = jobChunkHandle.GetComponentArray<T0>(blocking:false);
+                var nArray1 = jobChunkHandle.GetComponentArray<T1>(blocking:false);
+                var nArray2 = jobChunkHandle.GetComponentArray<T2>(blocking:false);
+                var nArray3 = jobChunkHandle.GetComponentArray<T3>(blocking:false);
+                var nArray4 = jobChunkHandle.GetComponentArray<T4>(blocking:false);
+                var nArray5 = jobChunkHandle.GetComponentArray<T5>(blocking:false);
+                var nArray6 = jobChunkHandle.GetComponentArray<T6>(blocking:false);
+                var nArray7 = jobChunkHandle.GetComponentArray<T7>(blocking:false);
 
                 Span<ComponentID> components = stackalloc ComponentID[8]
                 {
@@ -1614,6 +1664,9 @@ namespace Myriad.ECS.Worlds
                     nArray5,
                     nArray6,
                     nArray7,
+
+                    // Block on the explicit dependency, and the implicit dependency in the safety system. This makes non-blocking
+                    // scheduling safe.
                     JobHandle.CombineDependencies(
                         _dependsOn,
                         _safety.GetAttachedJob(chunk.Archetype.ArchetypeId, components)
@@ -1725,7 +1778,10 @@ namespace Myriad.ECS.Worlds
             var entityCount = world.ExecuteChunk<
                 JobQuery<TScheduler, T0, T1, T2, T3, T4, T5, T6, T7>,
                 T0, T1, T2, T3, T4, T5, T6, T7
-            >(ref q);
+            >(
+                ref q,
+                blocking:false // Job scheduling handles job dependencies, so non-blocking is safe!
+            );
 
             // Ensure all jobs are started before we wait on them
             JobHandle.ScheduleBatchedJobs();
@@ -1848,15 +1904,16 @@ namespace Myriad.ECS.Worlds
                 );
 
                 // Get components arrays
-                var nArray0 = jobChunkHandle.GetComponentArray<T0>();
-                var nArray1 = jobChunkHandle.GetComponentArray<T1>();
-                var nArray2 = jobChunkHandle.GetComponentArray<T2>();
-                var nArray3 = jobChunkHandle.GetComponentArray<T3>();
-                var nArray4 = jobChunkHandle.GetComponentArray<T4>();
-                var nArray5 = jobChunkHandle.GetComponentArray<T5>();
-                var nArray6 = jobChunkHandle.GetComponentArray<T6>();
-                var nArray7 = jobChunkHandle.GetComponentArray<T7>();
-                var nArray8 = jobChunkHandle.GetComponentArray<T8>();
+                // Non blocking is safe - we're going to get the job handle for these components in this archetype below and depend on it!
+                var nArray0 = jobChunkHandle.GetComponentArray<T0>(blocking:false);
+                var nArray1 = jobChunkHandle.GetComponentArray<T1>(blocking:false);
+                var nArray2 = jobChunkHandle.GetComponentArray<T2>(blocking:false);
+                var nArray3 = jobChunkHandle.GetComponentArray<T3>(blocking:false);
+                var nArray4 = jobChunkHandle.GetComponentArray<T4>(blocking:false);
+                var nArray5 = jobChunkHandle.GetComponentArray<T5>(blocking:false);
+                var nArray6 = jobChunkHandle.GetComponentArray<T6>(blocking:false);
+                var nArray7 = jobChunkHandle.GetComponentArray<T7>(blocking:false);
+                var nArray8 = jobChunkHandle.GetComponentArray<T8>(blocking:false);
 
                 Span<ComponentID> components = stackalloc ComponentID[9]
                 {
@@ -1883,6 +1940,9 @@ namespace Myriad.ECS.Worlds
                     nArray6,
                     nArray7,
                     nArray8,
+
+                    // Block on the explicit dependency, and the implicit dependency in the safety system. This makes non-blocking
+                    // scheduling safe.
                     JobHandle.CombineDependencies(
                         _dependsOn,
                         _safety.GetAttachedJob(chunk.Archetype.ArchetypeId, components)
@@ -1999,7 +2059,10 @@ namespace Myriad.ECS.Worlds
             var entityCount = world.ExecuteChunk<
                 JobQuery<TScheduler, T0, T1, T2, T3, T4, T5, T6, T7, T8>,
                 T0, T1, T2, T3, T4, T5, T6, T7, T8
-            >(ref q);
+            >(
+                ref q,
+                blocking:false // Job scheduling handles job dependencies, so non-blocking is safe!
+            );
 
             // Ensure all jobs are started before we wait on them
             JobHandle.ScheduleBatchedJobs();
@@ -2127,16 +2190,17 @@ namespace Myriad.ECS.Worlds
                 );
 
                 // Get components arrays
-                var nArray0 = jobChunkHandle.GetComponentArray<T0>();
-                var nArray1 = jobChunkHandle.GetComponentArray<T1>();
-                var nArray2 = jobChunkHandle.GetComponentArray<T2>();
-                var nArray3 = jobChunkHandle.GetComponentArray<T3>();
-                var nArray4 = jobChunkHandle.GetComponentArray<T4>();
-                var nArray5 = jobChunkHandle.GetComponentArray<T5>();
-                var nArray6 = jobChunkHandle.GetComponentArray<T6>();
-                var nArray7 = jobChunkHandle.GetComponentArray<T7>();
-                var nArray8 = jobChunkHandle.GetComponentArray<T8>();
-                var nArray9 = jobChunkHandle.GetComponentArray<T9>();
+                // Non blocking is safe - we're going to get the job handle for these components in this archetype below and depend on it!
+                var nArray0 = jobChunkHandle.GetComponentArray<T0>(blocking:false);
+                var nArray1 = jobChunkHandle.GetComponentArray<T1>(blocking:false);
+                var nArray2 = jobChunkHandle.GetComponentArray<T2>(blocking:false);
+                var nArray3 = jobChunkHandle.GetComponentArray<T3>(blocking:false);
+                var nArray4 = jobChunkHandle.GetComponentArray<T4>(blocking:false);
+                var nArray5 = jobChunkHandle.GetComponentArray<T5>(blocking:false);
+                var nArray6 = jobChunkHandle.GetComponentArray<T6>(blocking:false);
+                var nArray7 = jobChunkHandle.GetComponentArray<T7>(blocking:false);
+                var nArray8 = jobChunkHandle.GetComponentArray<T8>(blocking:false);
+                var nArray9 = jobChunkHandle.GetComponentArray<T9>(blocking:false);
 
                 Span<ComponentID> components = stackalloc ComponentID[10]
                 {
@@ -2165,6 +2229,9 @@ namespace Myriad.ECS.Worlds
                     nArray7,
                     nArray8,
                     nArray9,
+
+                    // Block on the explicit dependency, and the implicit dependency in the safety system. This makes non-blocking
+                    // scheduling safe.
                     JobHandle.CombineDependencies(
                         _dependsOn,
                         _safety.GetAttachedJob(chunk.Archetype.ArchetypeId, components)
@@ -2286,7 +2353,10 @@ namespace Myriad.ECS.Worlds
             var entityCount = world.ExecuteChunk<
                 JobQuery<TScheduler, T0, T1, T2, T3, T4, T5, T6, T7, T8, T9>,
                 T0, T1, T2, T3, T4, T5, T6, T7, T8, T9
-            >(ref q);
+            >(
+                ref q,
+                blocking:false // Job scheduling handles job dependencies, so non-blocking is safe!
+            );
 
             // Ensure all jobs are started before we wait on them
             JobHandle.ScheduleBatchedJobs();
@@ -2419,17 +2489,18 @@ namespace Myriad.ECS.Worlds
                 );
 
                 // Get components arrays
-                var nArray0 = jobChunkHandle.GetComponentArray<T0>();
-                var nArray1 = jobChunkHandle.GetComponentArray<T1>();
-                var nArray2 = jobChunkHandle.GetComponentArray<T2>();
-                var nArray3 = jobChunkHandle.GetComponentArray<T3>();
-                var nArray4 = jobChunkHandle.GetComponentArray<T4>();
-                var nArray5 = jobChunkHandle.GetComponentArray<T5>();
-                var nArray6 = jobChunkHandle.GetComponentArray<T6>();
-                var nArray7 = jobChunkHandle.GetComponentArray<T7>();
-                var nArray8 = jobChunkHandle.GetComponentArray<T8>();
-                var nArray9 = jobChunkHandle.GetComponentArray<T9>();
-                var nArray10 = jobChunkHandle.GetComponentArray<T10>();
+                // Non blocking is safe - we're going to get the job handle for these components in this archetype below and depend on it!
+                var nArray0 = jobChunkHandle.GetComponentArray<T0>(blocking:false);
+                var nArray1 = jobChunkHandle.GetComponentArray<T1>(blocking:false);
+                var nArray2 = jobChunkHandle.GetComponentArray<T2>(blocking:false);
+                var nArray3 = jobChunkHandle.GetComponentArray<T3>(blocking:false);
+                var nArray4 = jobChunkHandle.GetComponentArray<T4>(blocking:false);
+                var nArray5 = jobChunkHandle.GetComponentArray<T5>(blocking:false);
+                var nArray6 = jobChunkHandle.GetComponentArray<T6>(blocking:false);
+                var nArray7 = jobChunkHandle.GetComponentArray<T7>(blocking:false);
+                var nArray8 = jobChunkHandle.GetComponentArray<T8>(blocking:false);
+                var nArray9 = jobChunkHandle.GetComponentArray<T9>(blocking:false);
+                var nArray10 = jobChunkHandle.GetComponentArray<T10>(blocking:false);
 
                 Span<ComponentID> components = stackalloc ComponentID[11]
                 {
@@ -2460,6 +2531,9 @@ namespace Myriad.ECS.Worlds
                     nArray8,
                     nArray9,
                     nArray10,
+
+                    // Block on the explicit dependency, and the implicit dependency in the safety system. This makes non-blocking
+                    // scheduling safe.
                     JobHandle.CombineDependencies(
                         _dependsOn,
                         _safety.GetAttachedJob(chunk.Archetype.ArchetypeId, components)
@@ -2586,7 +2660,10 @@ namespace Myriad.ECS.Worlds
             var entityCount = world.ExecuteChunk<
                 JobQuery<TScheduler, T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10>,
                 T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10
-            >(ref q);
+            >(
+                ref q,
+                blocking:false // Job scheduling handles job dependencies, so non-blocking is safe!
+            );
 
             // Ensure all jobs are started before we wait on them
             JobHandle.ScheduleBatchedJobs();
@@ -2724,18 +2801,19 @@ namespace Myriad.ECS.Worlds
                 );
 
                 // Get components arrays
-                var nArray0 = jobChunkHandle.GetComponentArray<T0>();
-                var nArray1 = jobChunkHandle.GetComponentArray<T1>();
-                var nArray2 = jobChunkHandle.GetComponentArray<T2>();
-                var nArray3 = jobChunkHandle.GetComponentArray<T3>();
-                var nArray4 = jobChunkHandle.GetComponentArray<T4>();
-                var nArray5 = jobChunkHandle.GetComponentArray<T5>();
-                var nArray6 = jobChunkHandle.GetComponentArray<T6>();
-                var nArray7 = jobChunkHandle.GetComponentArray<T7>();
-                var nArray8 = jobChunkHandle.GetComponentArray<T8>();
-                var nArray9 = jobChunkHandle.GetComponentArray<T9>();
-                var nArray10 = jobChunkHandle.GetComponentArray<T10>();
-                var nArray11 = jobChunkHandle.GetComponentArray<T11>();
+                // Non blocking is safe - we're going to get the job handle for these components in this archetype below and depend on it!
+                var nArray0 = jobChunkHandle.GetComponentArray<T0>(blocking:false);
+                var nArray1 = jobChunkHandle.GetComponentArray<T1>(blocking:false);
+                var nArray2 = jobChunkHandle.GetComponentArray<T2>(blocking:false);
+                var nArray3 = jobChunkHandle.GetComponentArray<T3>(blocking:false);
+                var nArray4 = jobChunkHandle.GetComponentArray<T4>(blocking:false);
+                var nArray5 = jobChunkHandle.GetComponentArray<T5>(blocking:false);
+                var nArray6 = jobChunkHandle.GetComponentArray<T6>(blocking:false);
+                var nArray7 = jobChunkHandle.GetComponentArray<T7>(blocking:false);
+                var nArray8 = jobChunkHandle.GetComponentArray<T8>(blocking:false);
+                var nArray9 = jobChunkHandle.GetComponentArray<T9>(blocking:false);
+                var nArray10 = jobChunkHandle.GetComponentArray<T10>(blocking:false);
+                var nArray11 = jobChunkHandle.GetComponentArray<T11>(blocking:false);
 
                 Span<ComponentID> components = stackalloc ComponentID[12]
                 {
@@ -2768,6 +2846,9 @@ namespace Myriad.ECS.Worlds
                     nArray9,
                     nArray10,
                     nArray11,
+
+                    // Block on the explicit dependency, and the implicit dependency in the safety system. This makes non-blocking
+                    // scheduling safe.
                     JobHandle.CombineDependencies(
                         _dependsOn,
                         _safety.GetAttachedJob(chunk.Archetype.ArchetypeId, components)
@@ -2899,7 +2980,10 @@ namespace Myriad.ECS.Worlds
             var entityCount = world.ExecuteChunk<
                 JobQuery<TScheduler, T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11>,
                 T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11
-            >(ref q);
+            >(
+                ref q,
+                blocking:false // Job scheduling handles job dependencies, so non-blocking is safe!
+            );
 
             // Ensure all jobs are started before we wait on them
             JobHandle.ScheduleBatchedJobs();
@@ -3042,19 +3126,20 @@ namespace Myriad.ECS.Worlds
                 );
 
                 // Get components arrays
-                var nArray0 = jobChunkHandle.GetComponentArray<T0>();
-                var nArray1 = jobChunkHandle.GetComponentArray<T1>();
-                var nArray2 = jobChunkHandle.GetComponentArray<T2>();
-                var nArray3 = jobChunkHandle.GetComponentArray<T3>();
-                var nArray4 = jobChunkHandle.GetComponentArray<T4>();
-                var nArray5 = jobChunkHandle.GetComponentArray<T5>();
-                var nArray6 = jobChunkHandle.GetComponentArray<T6>();
-                var nArray7 = jobChunkHandle.GetComponentArray<T7>();
-                var nArray8 = jobChunkHandle.GetComponentArray<T8>();
-                var nArray9 = jobChunkHandle.GetComponentArray<T9>();
-                var nArray10 = jobChunkHandle.GetComponentArray<T10>();
-                var nArray11 = jobChunkHandle.GetComponentArray<T11>();
-                var nArray12 = jobChunkHandle.GetComponentArray<T12>();
+                // Non blocking is safe - we're going to get the job handle for these components in this archetype below and depend on it!
+                var nArray0 = jobChunkHandle.GetComponentArray<T0>(blocking:false);
+                var nArray1 = jobChunkHandle.GetComponentArray<T1>(blocking:false);
+                var nArray2 = jobChunkHandle.GetComponentArray<T2>(blocking:false);
+                var nArray3 = jobChunkHandle.GetComponentArray<T3>(blocking:false);
+                var nArray4 = jobChunkHandle.GetComponentArray<T4>(blocking:false);
+                var nArray5 = jobChunkHandle.GetComponentArray<T5>(blocking:false);
+                var nArray6 = jobChunkHandle.GetComponentArray<T6>(blocking:false);
+                var nArray7 = jobChunkHandle.GetComponentArray<T7>(blocking:false);
+                var nArray8 = jobChunkHandle.GetComponentArray<T8>(blocking:false);
+                var nArray9 = jobChunkHandle.GetComponentArray<T9>(blocking:false);
+                var nArray10 = jobChunkHandle.GetComponentArray<T10>(blocking:false);
+                var nArray11 = jobChunkHandle.GetComponentArray<T11>(blocking:false);
+                var nArray12 = jobChunkHandle.GetComponentArray<T12>(blocking:false);
 
                 Span<ComponentID> components = stackalloc ComponentID[13]
                 {
@@ -3089,6 +3174,9 @@ namespace Myriad.ECS.Worlds
                     nArray10,
                     nArray11,
                     nArray12,
+
+                    // Block on the explicit dependency, and the implicit dependency in the safety system. This makes non-blocking
+                    // scheduling safe.
                     JobHandle.CombineDependencies(
                         _dependsOn,
                         _safety.GetAttachedJob(chunk.Archetype.ArchetypeId, components)
@@ -3225,7 +3313,10 @@ namespace Myriad.ECS.Worlds
             var entityCount = world.ExecuteChunk<
                 JobQuery<TScheduler, T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12>,
                 T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12
-            >(ref q);
+            >(
+                ref q,
+                blocking:false // Job scheduling handles job dependencies, so non-blocking is safe!
+            );
 
             // Ensure all jobs are started before we wait on them
             JobHandle.ScheduleBatchedJobs();
@@ -3373,20 +3464,21 @@ namespace Myriad.ECS.Worlds
                 );
 
                 // Get components arrays
-                var nArray0 = jobChunkHandle.GetComponentArray<T0>();
-                var nArray1 = jobChunkHandle.GetComponentArray<T1>();
-                var nArray2 = jobChunkHandle.GetComponentArray<T2>();
-                var nArray3 = jobChunkHandle.GetComponentArray<T3>();
-                var nArray4 = jobChunkHandle.GetComponentArray<T4>();
-                var nArray5 = jobChunkHandle.GetComponentArray<T5>();
-                var nArray6 = jobChunkHandle.GetComponentArray<T6>();
-                var nArray7 = jobChunkHandle.GetComponentArray<T7>();
-                var nArray8 = jobChunkHandle.GetComponentArray<T8>();
-                var nArray9 = jobChunkHandle.GetComponentArray<T9>();
-                var nArray10 = jobChunkHandle.GetComponentArray<T10>();
-                var nArray11 = jobChunkHandle.GetComponentArray<T11>();
-                var nArray12 = jobChunkHandle.GetComponentArray<T12>();
-                var nArray13 = jobChunkHandle.GetComponentArray<T13>();
+                // Non blocking is safe - we're going to get the job handle for these components in this archetype below and depend on it!
+                var nArray0 = jobChunkHandle.GetComponentArray<T0>(blocking:false);
+                var nArray1 = jobChunkHandle.GetComponentArray<T1>(blocking:false);
+                var nArray2 = jobChunkHandle.GetComponentArray<T2>(blocking:false);
+                var nArray3 = jobChunkHandle.GetComponentArray<T3>(blocking:false);
+                var nArray4 = jobChunkHandle.GetComponentArray<T4>(blocking:false);
+                var nArray5 = jobChunkHandle.GetComponentArray<T5>(blocking:false);
+                var nArray6 = jobChunkHandle.GetComponentArray<T6>(blocking:false);
+                var nArray7 = jobChunkHandle.GetComponentArray<T7>(blocking:false);
+                var nArray8 = jobChunkHandle.GetComponentArray<T8>(blocking:false);
+                var nArray9 = jobChunkHandle.GetComponentArray<T9>(blocking:false);
+                var nArray10 = jobChunkHandle.GetComponentArray<T10>(blocking:false);
+                var nArray11 = jobChunkHandle.GetComponentArray<T11>(blocking:false);
+                var nArray12 = jobChunkHandle.GetComponentArray<T12>(blocking:false);
+                var nArray13 = jobChunkHandle.GetComponentArray<T13>(blocking:false);
 
                 Span<ComponentID> components = stackalloc ComponentID[14]
                 {
@@ -3423,6 +3515,9 @@ namespace Myriad.ECS.Worlds
                     nArray11,
                     nArray12,
                     nArray13,
+
+                    // Block on the explicit dependency, and the implicit dependency in the safety system. This makes non-blocking
+                    // scheduling safe.
                     JobHandle.CombineDependencies(
                         _dependsOn,
                         _safety.GetAttachedJob(chunk.Archetype.ArchetypeId, components)
@@ -3564,7 +3659,10 @@ namespace Myriad.ECS.Worlds
             var entityCount = world.ExecuteChunk<
                 JobQuery<TScheduler, T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13>,
                 T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13
-            >(ref q);
+            >(
+                ref q,
+                blocking:false // Job scheduling handles job dependencies, so non-blocking is safe!
+            );
 
             // Ensure all jobs are started before we wait on them
             JobHandle.ScheduleBatchedJobs();
@@ -3717,21 +3815,22 @@ namespace Myriad.ECS.Worlds
                 );
 
                 // Get components arrays
-                var nArray0 = jobChunkHandle.GetComponentArray<T0>();
-                var nArray1 = jobChunkHandle.GetComponentArray<T1>();
-                var nArray2 = jobChunkHandle.GetComponentArray<T2>();
-                var nArray3 = jobChunkHandle.GetComponentArray<T3>();
-                var nArray4 = jobChunkHandle.GetComponentArray<T4>();
-                var nArray5 = jobChunkHandle.GetComponentArray<T5>();
-                var nArray6 = jobChunkHandle.GetComponentArray<T6>();
-                var nArray7 = jobChunkHandle.GetComponentArray<T7>();
-                var nArray8 = jobChunkHandle.GetComponentArray<T8>();
-                var nArray9 = jobChunkHandle.GetComponentArray<T9>();
-                var nArray10 = jobChunkHandle.GetComponentArray<T10>();
-                var nArray11 = jobChunkHandle.GetComponentArray<T11>();
-                var nArray12 = jobChunkHandle.GetComponentArray<T12>();
-                var nArray13 = jobChunkHandle.GetComponentArray<T13>();
-                var nArray14 = jobChunkHandle.GetComponentArray<T14>();
+                // Non blocking is safe - we're going to get the job handle for these components in this archetype below and depend on it!
+                var nArray0 = jobChunkHandle.GetComponentArray<T0>(blocking:false);
+                var nArray1 = jobChunkHandle.GetComponentArray<T1>(blocking:false);
+                var nArray2 = jobChunkHandle.GetComponentArray<T2>(blocking:false);
+                var nArray3 = jobChunkHandle.GetComponentArray<T3>(blocking:false);
+                var nArray4 = jobChunkHandle.GetComponentArray<T4>(blocking:false);
+                var nArray5 = jobChunkHandle.GetComponentArray<T5>(blocking:false);
+                var nArray6 = jobChunkHandle.GetComponentArray<T6>(blocking:false);
+                var nArray7 = jobChunkHandle.GetComponentArray<T7>(blocking:false);
+                var nArray8 = jobChunkHandle.GetComponentArray<T8>(blocking:false);
+                var nArray9 = jobChunkHandle.GetComponentArray<T9>(blocking:false);
+                var nArray10 = jobChunkHandle.GetComponentArray<T10>(blocking:false);
+                var nArray11 = jobChunkHandle.GetComponentArray<T11>(blocking:false);
+                var nArray12 = jobChunkHandle.GetComponentArray<T12>(blocking:false);
+                var nArray13 = jobChunkHandle.GetComponentArray<T13>(blocking:false);
+                var nArray14 = jobChunkHandle.GetComponentArray<T14>(blocking:false);
 
                 Span<ComponentID> components = stackalloc ComponentID[15]
                 {
@@ -3770,6 +3869,9 @@ namespace Myriad.ECS.Worlds
                     nArray12,
                     nArray13,
                     nArray14,
+
+                    // Block on the explicit dependency, and the implicit dependency in the safety system. This makes non-blocking
+                    // scheduling safe.
                     JobHandle.CombineDependencies(
                         _dependsOn,
                         _safety.GetAttachedJob(chunk.Archetype.ArchetypeId, components)
@@ -3916,7 +4018,10 @@ namespace Myriad.ECS.Worlds
             var entityCount = world.ExecuteChunk<
                 JobQuery<TScheduler, T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14>,
                 T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14
-            >(ref q);
+            >(
+                ref q,
+                blocking:false // Job scheduling handles job dependencies, so non-blocking is safe!
+            );
 
             // Ensure all jobs are started before we wait on them
             JobHandle.ScheduleBatchedJobs();
@@ -4074,22 +4179,23 @@ namespace Myriad.ECS.Worlds
                 );
 
                 // Get components arrays
-                var nArray0 = jobChunkHandle.GetComponentArray<T0>();
-                var nArray1 = jobChunkHandle.GetComponentArray<T1>();
-                var nArray2 = jobChunkHandle.GetComponentArray<T2>();
-                var nArray3 = jobChunkHandle.GetComponentArray<T3>();
-                var nArray4 = jobChunkHandle.GetComponentArray<T4>();
-                var nArray5 = jobChunkHandle.GetComponentArray<T5>();
-                var nArray6 = jobChunkHandle.GetComponentArray<T6>();
-                var nArray7 = jobChunkHandle.GetComponentArray<T7>();
-                var nArray8 = jobChunkHandle.GetComponentArray<T8>();
-                var nArray9 = jobChunkHandle.GetComponentArray<T9>();
-                var nArray10 = jobChunkHandle.GetComponentArray<T10>();
-                var nArray11 = jobChunkHandle.GetComponentArray<T11>();
-                var nArray12 = jobChunkHandle.GetComponentArray<T12>();
-                var nArray13 = jobChunkHandle.GetComponentArray<T13>();
-                var nArray14 = jobChunkHandle.GetComponentArray<T14>();
-                var nArray15 = jobChunkHandle.GetComponentArray<T15>();
+                // Non blocking is safe - we're going to get the job handle for these components in this archetype below and depend on it!
+                var nArray0 = jobChunkHandle.GetComponentArray<T0>(blocking:false);
+                var nArray1 = jobChunkHandle.GetComponentArray<T1>(blocking:false);
+                var nArray2 = jobChunkHandle.GetComponentArray<T2>(blocking:false);
+                var nArray3 = jobChunkHandle.GetComponentArray<T3>(blocking:false);
+                var nArray4 = jobChunkHandle.GetComponentArray<T4>(blocking:false);
+                var nArray5 = jobChunkHandle.GetComponentArray<T5>(blocking:false);
+                var nArray6 = jobChunkHandle.GetComponentArray<T6>(blocking:false);
+                var nArray7 = jobChunkHandle.GetComponentArray<T7>(blocking:false);
+                var nArray8 = jobChunkHandle.GetComponentArray<T8>(blocking:false);
+                var nArray9 = jobChunkHandle.GetComponentArray<T9>(blocking:false);
+                var nArray10 = jobChunkHandle.GetComponentArray<T10>(blocking:false);
+                var nArray11 = jobChunkHandle.GetComponentArray<T11>(blocking:false);
+                var nArray12 = jobChunkHandle.GetComponentArray<T12>(blocking:false);
+                var nArray13 = jobChunkHandle.GetComponentArray<T13>(blocking:false);
+                var nArray14 = jobChunkHandle.GetComponentArray<T14>(blocking:false);
+                var nArray15 = jobChunkHandle.GetComponentArray<T15>(blocking:false);
 
                 Span<ComponentID> components = stackalloc ComponentID[16]
                 {
@@ -4130,6 +4236,9 @@ namespace Myriad.ECS.Worlds
                     nArray13,
                     nArray14,
                     nArray15,
+
+                    // Block on the explicit dependency, and the implicit dependency in the safety system. This makes non-blocking
+                    // scheduling safe.
                     JobHandle.CombineDependencies(
                         _dependsOn,
                         _safety.GetAttachedJob(chunk.Archetype.ArchetypeId, components)
@@ -4281,7 +4390,10 @@ namespace Myriad.ECS.Worlds
             var entityCount = world.ExecuteChunk<
                 JobQuery<TScheduler, T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15>,
                 T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15
-            >(ref q);
+            >(
+                ref q,
+                blocking:false // Job scheduling handles job dependencies, so non-blocking is safe!
+            );
 
             // Ensure all jobs are started before we wait on them
             JobHandle.ScheduleBatchedJobs();
