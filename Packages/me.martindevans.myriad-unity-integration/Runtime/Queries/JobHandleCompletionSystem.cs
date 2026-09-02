@@ -42,7 +42,7 @@ namespace Packages.me.martindevans.myriad_unity_integration.Runtime.Queries
     }
 
     /// <summary>
-    /// Waits on all <see cref="WorldJobExtensions.QueryJobHandle"/> that have been added to it
+    /// Waits on all <see cref="QueryJobHandle"/> that have been added to it
     /// </summary>
     /// <typeparam name="T"></typeparam>
     public class QueryJobHandleCompletionGateBeforeUpdate<T>
@@ -59,7 +59,7 @@ namespace Packages.me.martindevans.myriad_unity_integration.Runtime.Queries
     }
 
     /// <summary>
-    /// Waits on all <see cref="WorldJobExtensions.QueryJobHandle"/> that have been added to it
+    /// Waits on all <see cref="QueryJobHandle"/> that have been added to it
     /// </summary>
     /// <typeparam name="T"></typeparam>
     public class QueryJobHandleCompletionGateUpdate<T>
@@ -72,7 +72,7 @@ namespace Packages.me.martindevans.myriad_unity_integration.Runtime.Queries
     }
 
     /// <summary>
-    /// Waits on all <see cref="WorldJobExtensions.QueryJobHandle"/> that have been added to it
+    /// Waits on all <see cref="QueryJobHandle"/> that have been added to it
     /// </summary>
     /// <typeparam name="T"></typeparam>
     public class QueryJobHandleCompletionGateAfterUpdate<T>
