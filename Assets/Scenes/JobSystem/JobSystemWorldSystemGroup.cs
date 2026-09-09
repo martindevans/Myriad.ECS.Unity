@@ -7,7 +7,6 @@ using Packages.me.martindevans.myriad_unity_integration.Runtime.Systems;
 using Unity.Burst;
 using Unity.Collections;
 using Unity.Jobs;
-using static Myriad.ECS.Worlds.WorldJobJoinExtensions;
 using EntityId = Myriad.ECS.EntityId;
 
 namespace Assets.Scenes.JobSystem
@@ -65,7 +64,7 @@ namespace Assets.Scenes.JobSystem
     }
 
     public class DoStuffInJob
-        : ISystem<GameTime>, ISystemQueryEntityCount
+        : ISystem<GameTime>, ISystemQueryEntityCount, ISystemQueryScheduledJobCount
     {
         private readonly World _world;
         private readonly IQueryJobHandleCompletionGate _gate;
@@ -73,6 +72,7 @@ namespace Assets.Scenes.JobSystem
         private QueryDescription _query;
 
         public int QueryEntityCount { get; private set; }
+        public int QueryJobCount { get; private set; }
 
         public DoStuffInJob(World world, IQueryJobHandleCompletionGate gate)
         {
@@ -83,10 +83,11 @@ namespace Assets.Scenes.JobSystem
 
         public void Update(GameTime data)
         {
-            QueryEntityCount = _query.Count();
-
             var handle = _world.Schedule<JobScheduler, DemoComponent>(new JobScheduler(), ref _query);
             _gate.AddHandle(handle);
+
+            QueryEntityCount = handle.EntityCount;
+            QueryJobCount = handle.JobCount;
         }
 
         private struct JobScheduler
@@ -160,8 +161,8 @@ namespace Assets.Scenes.JobSystem
             );
             _gate.AddHandle(handle);
 
-            QueryEntityCount = _left.Count() * _right.Count();
-            QueryJobCount = scheduler.ScheduledJobCount;
+            QueryEntityCount = handle.EntityCount;
+            QueryJobCount = handle.JobCount;
         }
 
         private struct JobScheduler

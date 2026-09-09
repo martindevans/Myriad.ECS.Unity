@@ -19,6 +19,8 @@ namespace Packages.me.martindevans.myriad_unity_integration.Runtime.Queries
         /// </summary>
         public int EntityCount { get; }
 
+        public int JobCount { get; }
+
         private JobHandle _jobHandle;
         private NativeList<GCHandle> _pins;
 
@@ -31,11 +33,13 @@ namespace Packages.me.martindevans.myriad_unity_integration.Runtime.Queries
 
         public JobHandle Handle => _jobHandle;
 
-        internal QueryJobHandle(JobHandle handle, NativeList<GCHandle> pins, int entityCount)
+        internal QueryJobHandle(JobHandle handle, NativeList<GCHandle> pins, int entityCount, int jobCount)
         {
             if (!pins.IsCreated)
                 throw new ArgumentException("`pins` NativeList must be created", nameof(pins));
+
             EntityCount = entityCount;
+            JobCount = jobCount;
 
             _jobHandle = handle;
             _pins = pins;
