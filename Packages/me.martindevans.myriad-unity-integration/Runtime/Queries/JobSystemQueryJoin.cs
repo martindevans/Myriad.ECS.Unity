@@ -129,7 +129,8 @@ namespace Myriad.ECS.Worlds
             return new QueryJobHandle(
                 handle,
                 pins,
-                count > int.MaxValue ? int.MaxValue : (int)count
+                entityCount: count > int.MaxValue ? int.MaxValue : (int)count,
+                jobCount: totalChunkCount
             );
         }
 

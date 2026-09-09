@@ -177,6 +177,7 @@ namespace Myriad.ECS.Worlds
                 T0
             >(
                 ref q,
+                ref query,
                 blocking:false // Job scheduling handles job dependencies, so non-blocking is safe!
             );
 
@@ -191,10 +192,10 @@ namespace Myriad.ECS.Worlds
             {
                 ComponentID<T0>.ID,
             };
-            foreach (var archetype in query.GetArchetypes())
+            foreach (var archetype in query!.GetArchetypes())
                 safety.AttachJob(archetype.Archetype.ArchetypeId, components, jobHandle);
 
-            return new QueryJobHandle(jobHandle, pins, entityCount);
+            return new QueryJobHandle(jobHandle, pins, entityCount, chunkCount);
         }
         
         /// <summary>
@@ -367,6 +368,7 @@ namespace Myriad.ECS.Worlds
                 T0, T1
             >(
                 ref q,
+                ref query,
                 blocking:false // Job scheduling handles job dependencies, so non-blocking is safe!
             );
 
@@ -382,10 +384,10 @@ namespace Myriad.ECS.Worlds
                 ComponentID<T0>.ID,
                 ComponentID<T1>.ID,
             };
-            foreach (var archetype in query.GetArchetypes())
+            foreach (var archetype in query!.GetArchetypes())
                 safety.AttachJob(archetype.Archetype.ArchetypeId, components, jobHandle);
 
-            return new QueryJobHandle(jobHandle, pins, entityCount);
+            return new QueryJobHandle(jobHandle, pins, entityCount, chunkCount);
         }
         
         /// <summary>
@@ -570,6 +572,7 @@ namespace Myriad.ECS.Worlds
                 T0, T1, T2
             >(
                 ref q,
+                ref query,
                 blocking:false // Job scheduling handles job dependencies, so non-blocking is safe!
             );
 
@@ -586,10 +589,10 @@ namespace Myriad.ECS.Worlds
                 ComponentID<T1>.ID,
                 ComponentID<T2>.ID,
             };
-            foreach (var archetype in query.GetArchetypes())
+            foreach (var archetype in query!.GetArchetypes())
                 safety.AttachJob(archetype.Archetype.ArchetypeId, components, jobHandle);
 
-            return new QueryJobHandle(jobHandle, pins, entityCount);
+            return new QueryJobHandle(jobHandle, pins, entityCount, chunkCount);
         }
         
         /// <summary>
@@ -786,6 +789,7 @@ namespace Myriad.ECS.Worlds
                 T0, T1, T2, T3
             >(
                 ref q,
+                ref query,
                 blocking:false // Job scheduling handles job dependencies, so non-blocking is safe!
             );
 
@@ -803,10 +807,10 @@ namespace Myriad.ECS.Worlds
                 ComponentID<T2>.ID,
                 ComponentID<T3>.ID,
             };
-            foreach (var archetype in query.GetArchetypes())
+            foreach (var archetype in query!.GetArchetypes())
                 safety.AttachJob(archetype.Archetype.ArchetypeId, components, jobHandle);
 
-            return new QueryJobHandle(jobHandle, pins, entityCount);
+            return new QueryJobHandle(jobHandle, pins, entityCount, chunkCount);
         }
         
         /// <summary>
@@ -1015,6 +1019,7 @@ namespace Myriad.ECS.Worlds
                 T0, T1, T2, T3, T4
             >(
                 ref q,
+                ref query,
                 blocking:false // Job scheduling handles job dependencies, so non-blocking is safe!
             );
 
@@ -1033,10 +1038,10 @@ namespace Myriad.ECS.Worlds
                 ComponentID<T3>.ID,
                 ComponentID<T4>.ID,
             };
-            foreach (var archetype in query.GetArchetypes())
+            foreach (var archetype in query!.GetArchetypes())
                 safety.AttachJob(archetype.Archetype.ArchetypeId, components, jobHandle);
 
-            return new QueryJobHandle(jobHandle, pins, entityCount);
+            return new QueryJobHandle(jobHandle, pins, entityCount, chunkCount);
         }
         
         /// <summary>
@@ -1257,6 +1262,7 @@ namespace Myriad.ECS.Worlds
                 T0, T1, T2, T3, T4, T5
             >(
                 ref q,
+                ref query,
                 blocking:false // Job scheduling handles job dependencies, so non-blocking is safe!
             );
 
@@ -1276,10 +1282,10 @@ namespace Myriad.ECS.Worlds
                 ComponentID<T4>.ID,
                 ComponentID<T5>.ID,
             };
-            foreach (var archetype in query.GetArchetypes())
+            foreach (var archetype in query!.GetArchetypes())
                 safety.AttachJob(archetype.Archetype.ArchetypeId, components, jobHandle);
 
-            return new QueryJobHandle(jobHandle, pins, entityCount);
+            return new QueryJobHandle(jobHandle, pins, entityCount, chunkCount);
         }
         
         /// <summary>
@@ -1512,6 +1518,7 @@ namespace Myriad.ECS.Worlds
                 T0, T1, T2, T3, T4, T5, T6
             >(
                 ref q,
+                ref query,
                 blocking:false // Job scheduling handles job dependencies, so non-blocking is safe!
             );
 
@@ -1532,10 +1539,10 @@ namespace Myriad.ECS.Worlds
                 ComponentID<T5>.ID,
                 ComponentID<T6>.ID,
             };
-            foreach (var archetype in query.GetArchetypes())
+            foreach (var archetype in query!.GetArchetypes())
                 safety.AttachJob(archetype.Archetype.ArchetypeId, components, jobHandle);
 
-            return new QueryJobHandle(jobHandle, pins, entityCount);
+            return new QueryJobHandle(jobHandle, pins, entityCount, chunkCount);
         }
         
         /// <summary>
@@ -1780,6 +1787,7 @@ namespace Myriad.ECS.Worlds
                 T0, T1, T2, T3, T4, T5, T6, T7
             >(
                 ref q,
+                ref query,
                 blocking:false // Job scheduling handles job dependencies, so non-blocking is safe!
             );
 
@@ -1801,10 +1809,10 @@ namespace Myriad.ECS.Worlds
                 ComponentID<T6>.ID,
                 ComponentID<T7>.ID,
             };
-            foreach (var archetype in query.GetArchetypes())
+            foreach (var archetype in query!.GetArchetypes())
                 safety.AttachJob(archetype.Archetype.ArchetypeId, components, jobHandle);
 
-            return new QueryJobHandle(jobHandle, pins, entityCount);
+            return new QueryJobHandle(jobHandle, pins, entityCount, chunkCount);
         }
         
         /// <summary>
@@ -2061,6 +2069,7 @@ namespace Myriad.ECS.Worlds
                 T0, T1, T2, T3, T4, T5, T6, T7, T8
             >(
                 ref q,
+                ref query,
                 blocking:false // Job scheduling handles job dependencies, so non-blocking is safe!
             );
 
@@ -2083,10 +2092,10 @@ namespace Myriad.ECS.Worlds
                 ComponentID<T7>.ID,
                 ComponentID<T8>.ID,
             };
-            foreach (var archetype in query.GetArchetypes())
+            foreach (var archetype in query!.GetArchetypes())
                 safety.AttachJob(archetype.Archetype.ArchetypeId, components, jobHandle);
 
-            return new QueryJobHandle(jobHandle, pins, entityCount);
+            return new QueryJobHandle(jobHandle, pins, entityCount, chunkCount);
         }
         
         /// <summary>
@@ -2355,6 +2364,7 @@ namespace Myriad.ECS.Worlds
                 T0, T1, T2, T3, T4, T5, T6, T7, T8, T9
             >(
                 ref q,
+                ref query,
                 blocking:false // Job scheduling handles job dependencies, so non-blocking is safe!
             );
 
@@ -2378,10 +2388,10 @@ namespace Myriad.ECS.Worlds
                 ComponentID<T8>.ID,
                 ComponentID<T9>.ID,
             };
-            foreach (var archetype in query.GetArchetypes())
+            foreach (var archetype in query!.GetArchetypes())
                 safety.AttachJob(archetype.Archetype.ArchetypeId, components, jobHandle);
 
-            return new QueryJobHandle(jobHandle, pins, entityCount);
+            return new QueryJobHandle(jobHandle, pins, entityCount, chunkCount);
         }
         
         /// <summary>
@@ -2662,6 +2672,7 @@ namespace Myriad.ECS.Worlds
                 T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10
             >(
                 ref q,
+                ref query,
                 blocking:false // Job scheduling handles job dependencies, so non-blocking is safe!
             );
 
@@ -2686,10 +2697,10 @@ namespace Myriad.ECS.Worlds
                 ComponentID<T9>.ID,
                 ComponentID<T10>.ID,
             };
-            foreach (var archetype in query.GetArchetypes())
+            foreach (var archetype in query!.GetArchetypes())
                 safety.AttachJob(archetype.Archetype.ArchetypeId, components, jobHandle);
 
-            return new QueryJobHandle(jobHandle, pins, entityCount);
+            return new QueryJobHandle(jobHandle, pins, entityCount, chunkCount);
         }
         
         /// <summary>
@@ -2982,6 +2993,7 @@ namespace Myriad.ECS.Worlds
                 T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11
             >(
                 ref q,
+                ref query,
                 blocking:false // Job scheduling handles job dependencies, so non-blocking is safe!
             );
 
@@ -3007,10 +3019,10 @@ namespace Myriad.ECS.Worlds
                 ComponentID<T10>.ID,
                 ComponentID<T11>.ID,
             };
-            foreach (var archetype in query.GetArchetypes())
+            foreach (var archetype in query!.GetArchetypes())
                 safety.AttachJob(archetype.Archetype.ArchetypeId, components, jobHandle);
 
-            return new QueryJobHandle(jobHandle, pins, entityCount);
+            return new QueryJobHandle(jobHandle, pins, entityCount, chunkCount);
         }
         
         /// <summary>
@@ -3315,6 +3327,7 @@ namespace Myriad.ECS.Worlds
                 T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12
             >(
                 ref q,
+                ref query,
                 blocking:false // Job scheduling handles job dependencies, so non-blocking is safe!
             );
 
@@ -3341,10 +3354,10 @@ namespace Myriad.ECS.Worlds
                 ComponentID<T11>.ID,
                 ComponentID<T12>.ID,
             };
-            foreach (var archetype in query.GetArchetypes())
+            foreach (var archetype in query!.GetArchetypes())
                 safety.AttachJob(archetype.Archetype.ArchetypeId, components, jobHandle);
 
-            return new QueryJobHandle(jobHandle, pins, entityCount);
+            return new QueryJobHandle(jobHandle, pins, entityCount, chunkCount);
         }
         
         /// <summary>
@@ -3661,6 +3674,7 @@ namespace Myriad.ECS.Worlds
                 T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13
             >(
                 ref q,
+                ref query,
                 blocking:false // Job scheduling handles job dependencies, so non-blocking is safe!
             );
 
@@ -3688,10 +3702,10 @@ namespace Myriad.ECS.Worlds
                 ComponentID<T12>.ID,
                 ComponentID<T13>.ID,
             };
-            foreach (var archetype in query.GetArchetypes())
+            foreach (var archetype in query!.GetArchetypes())
                 safety.AttachJob(archetype.Archetype.ArchetypeId, components, jobHandle);
 
-            return new QueryJobHandle(jobHandle, pins, entityCount);
+            return new QueryJobHandle(jobHandle, pins, entityCount, chunkCount);
         }
         
         /// <summary>
@@ -4020,6 +4034,7 @@ namespace Myriad.ECS.Worlds
                 T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14
             >(
                 ref q,
+                ref query,
                 blocking:false // Job scheduling handles job dependencies, so non-blocking is safe!
             );
 
@@ -4048,10 +4063,10 @@ namespace Myriad.ECS.Worlds
                 ComponentID<T13>.ID,
                 ComponentID<T14>.ID,
             };
-            foreach (var archetype in query.GetArchetypes())
+            foreach (var archetype in query!.GetArchetypes())
                 safety.AttachJob(archetype.Archetype.ArchetypeId, components, jobHandle);
 
-            return new QueryJobHandle(jobHandle, pins, entityCount);
+            return new QueryJobHandle(jobHandle, pins, entityCount, chunkCount);
         }
         
         /// <summary>
@@ -4392,6 +4407,7 @@ namespace Myriad.ECS.Worlds
                 T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15
             >(
                 ref q,
+                ref query,
                 blocking:false // Job scheduling handles job dependencies, so non-blocking is safe!
             );
 
@@ -4421,10 +4437,10 @@ namespace Myriad.ECS.Worlds
                 ComponentID<T14>.ID,
                 ComponentID<T15>.ID,
             };
-            foreach (var archetype in query.GetArchetypes())
+            foreach (var archetype in query!.GetArchetypes())
                 safety.AttachJob(archetype.Archetype.ArchetypeId, components, jobHandle);
 
-            return new QueryJobHandle(jobHandle, pins, entityCount);
+            return new QueryJobHandle(jobHandle, pins, entityCount, chunkCount);
         }
     }
 }

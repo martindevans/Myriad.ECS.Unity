@@ -206,6 +206,7 @@ namespace Myriad.ECS.Worlds
                 <#= queryConstraints #>
             >(
                 ref q,
+                ref query,
                 blocking:false // Job scheduling handles job dependencies, so non-blocking is safe!
             );
 
@@ -222,10 +223,10 @@ namespace Myriad.ECS.Worlds
                 ComponentID<T<#= j #>>.ID,
 <# } #>
             };
-            foreach (var archetype in query.GetArchetypes())
+            foreach (var archetype in query!.GetArchetypes())
                 safety.AttachJob(archetype.Archetype.ArchetypeId, components, jobHandle);
 
-            return new QueryJobHandle(jobHandle, pins, entityCount);
+            return new QueryJobHandle(jobHandle, pins, entityCount, chunkCount);
         }
 <# } #>
     }
