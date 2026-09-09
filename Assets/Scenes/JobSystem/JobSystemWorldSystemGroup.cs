@@ -7,7 +7,6 @@ using Packages.me.martindevans.myriad_unity_integration.Runtime.Systems;
 using Unity.Burst;
 using Unity.Collections;
 using Unity.Jobs;
-using static Myriad.ECS.Worlds.WorldJobJoinExtensions;
 using EntityId = Myriad.ECS.EntityId;
 
 namespace Assets.Scenes.JobSystem
@@ -84,8 +83,6 @@ namespace Assets.Scenes.JobSystem
 
         public void Update(GameTime data)
         {
-            QueryEntityCount = _query.Count();
-
             var handle = _world.Schedule<JobScheduler, DemoComponent>(new JobScheduler(), ref _query);
             _gate.AddHandle(handle);
 

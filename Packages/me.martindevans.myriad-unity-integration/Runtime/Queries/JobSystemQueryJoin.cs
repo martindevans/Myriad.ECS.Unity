@@ -130,7 +130,7 @@ namespace Myriad.ECS.Worlds
                 handle,
                 pins,
                 entityCount: count > int.MaxValue ? int.MaxValue : (int)count,
-                jobCount: totalChunkCount
+                jobCount: jjq.JobCount
             );
         }
 
@@ -142,6 +142,8 @@ namespace Myriad.ECS.Worlds
             private readonly JobHandle _dependsOn;
 
             public TScheduler Scheduler;
+
+            public int JobCount { get; private set; }
 
             private NativeHashMap<long, JobHandle> _chunkDependencies;
 
@@ -164,6 +166,8 @@ namespace Myriad.ECS.Worlds
 
                 _pins = pins;
                 _chunkDependencies = chunkDependencies;
+
+                JobCount = 0;
             }
 
             public void Execute(ChunkHandle left, ChunkHandle right)
@@ -185,6 +189,8 @@ namespace Myriad.ECS.Worlds
                     if (_allowSelfJoin)
                     {
                         dependsOn = Scheduler.Schedule(handleLeft, dependsOn);
+                        JobCount++;
+
                         _chunkDependencies[left.ChunkId] = dependsOn;
                     }
                 }
@@ -198,6 +204,7 @@ namespace Myriad.ECS.Worlds
 
                     // Schedule the work
                     dependsOn = Scheduler.Schedule(handleLeft, handleRight, dependsOn);
+                    JobCount++;
 
                     // Update the dependency for both chunks
                     _chunkDependencies[left.ChunkId] = dependsOn;
