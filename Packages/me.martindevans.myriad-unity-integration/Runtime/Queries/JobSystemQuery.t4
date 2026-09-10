@@ -175,6 +175,38 @@ namespace Myriad.ECS.Worlds
         /// block on any jobs which touch archetypes they access.
         /// </summary>
         /// <typeparam name="TScheduler">Schedules jobs for chunks</typeparam>
+        /// <typeparam name="TFilter">Filters chunk out from the query</typeparam>
+<# for (var j = 0; j < i; j++) { #>
+        /// <typeparam name="T<#= j #>"></typeparam>
+<# } #>
+        /// <param name="world"></param>
+        /// <param name="sched"></param>
+        /// <param name="filter"></param>
+        /// <param name="query"></param>
+        /// <param name="dependsOn"></param>
+        /// <returns>Combined job handle of all chunk jobs</returns>
+        public static QueryJobHandle Schedule<TScheduler, TFilter, <#= queryConstraints #>>(this World world, TScheduler sched, TFilter filter, [CanBeNull] QueryDescription query = null, JobHandle dependsOn = default)
+            where TScheduler : IJobQueryScheduler<<#= queryConstraints #>>
+            where TFilter : IChunkFilter
+            <#= Constraints(i, 12) #>
+        {
+            return world.Schedule<TScheduler, TFilter, <#= queryConstraints #>>(
+                sched,
+                ref filter,
+                ref query,
+                dependsOn
+            );
+        }
+
+        /// <summary>
+        /// Schedule jobs to run over component data. Different jobs can be scheduled per chunk, this is controlled
+        /// through the <see cref="TScheduler"/> struct.
+        /// 
+        /// Access to chunk data is managed through the Unity safety system. If two job queries are scheduled that
+        /// touch the same Archetypes, the second will implicitly depends on the first. Normal Myriad queries will
+        /// block on any jobs which touch archetypes they access.
+        /// </summary>
+        /// <typeparam name="TScheduler">Schedules jobs for chunks</typeparam>
 <# for (var j = 0; j < i; j++) { #>
         /// <typeparam name="T<#= j #>"></typeparam>
 <# } #>
@@ -185,6 +217,40 @@ namespace Myriad.ECS.Worlds
         /// <returns>Combined job handle of all chunk jobs</returns>
         public static QueryJobHandle Schedule<TScheduler, <#= queryConstraints #>>(this World world, TScheduler sched, [CanBeNull] ref QueryDescription query, JobHandle dependsOn = default)
             where TScheduler : IJobQueryScheduler<<#= queryConstraints #>>
+            <#= Constraints(i, 12) #>
+        {
+            var filter = new ExcludeNoneFilter();
+
+            return world.Schedule<TScheduler, ExcludeNoneFilter, <#= queryConstraints #>>(
+                sched,
+                ref filter,
+                ref query,
+                dependsOn
+            );
+        }
+
+        /// <summary>
+        /// Schedule jobs to run over component data. Different jobs can be scheduled per chunk, this is controlled
+        /// through the <see cref="TScheduler"/> struct.
+        /// 
+        /// Access to chunk data is managed through the Unity safety system. If two job queries are scheduled that
+        /// touch the same Archetypes, the second will implicitly depends on the first. Normal Myriad queries will
+        /// block on any jobs which touch archetypes they access.
+        /// </summary>
+        /// <typeparam name="TScheduler">Schedules jobs for chunks</typeparam>
+        /// <typeparam name="TFilter">Filters chunk out from the query</typeparam>
+<# for (var j = 0; j < i; j++) { #>
+        /// <typeparam name="T<#= j #>"></typeparam>
+<# } #>
+        /// <param name="world"></param>
+        /// <param name="sched"></param>
+        /// <param name="filter"></param>
+        /// <param name="query"></param>
+        /// <param name="dependsOn"></param>
+        /// <returns>Combined job handle of all chunk jobs</returns>
+        public static QueryJobHandle Schedule<TScheduler, TFilter, <#= queryConstraints #>>(this World world, TScheduler sched, ref TFilter filter, [CanBeNull] ref QueryDescription query, JobHandle dependsOn = default)
+            where TScheduler : IJobQueryScheduler<<#= queryConstraints #>>
+            where TFilter : IChunkFilter
             <#= Constraints(i, 12) #>
         {
             query ??= world.GetCachedQuery<<#= queryConstraints #>>();
@@ -203,9 +269,11 @@ namespace Myriad.ECS.Worlds
             var q = new JobQuery<TScheduler, <#= queryConstraints #>>(sched, safety, dependsOn, pins);
             var entityCount = world.ExecuteChunk<
                 JobQuery<TScheduler, <#= queryConstraints #>>,
+                TFilter,
                 <#= queryConstraints #>
             >(
                 ref q,
+                ref filter,
                 ref query,
                 blocking:false // Job scheduling handles job dependencies, so non-blocking is safe!
             );
