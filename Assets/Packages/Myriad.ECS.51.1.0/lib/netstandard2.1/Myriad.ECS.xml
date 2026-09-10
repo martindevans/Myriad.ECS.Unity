@@ -385,6 +385,12 @@
             Get a precalculated span of components IDs from generic type. Returned span is deduplicated.
             </summary>
         </member>
+        <member name="T:Myriad.ECS.Command.Blocker">
+            <summary>
+            Utility for blocking on archetypes. Stores which archetypes have already been blocked on
+            and skips blocking a second time.
+            </summary>
+        </member>
         <member name="T:Myriad.ECS.Command.CommandBuffer">
             <summary>
             Buffers up modifications to entities and replays them all at once.
@@ -4883,6 +4889,20 @@
             query object will automatically be created and written into this field.</param>
             <returns>The total number of entities processed</returns>
         </member>
+        <member name="M:Myriad.ECS.Worlds.World.ExecuteChunk``3(``0@,``1@,Myriad.ECS.Queries.QueryDescription@,System.Boolean)">
+            <summary>
+            Execute a query which executes on entire chunks.
+            </summary>
+            <param name="blocking">Should this query wait for multithreaded work to complete before executing. </param>
+            <typeparam name="TQ">The type of the query</typeparam>
+            <typeparam name="TF">The type of the filter</typeparam>
+            <typeparam name="T0">Type of component 0 to retrieve</typeparam>
+            <param name="q">The TQ instance which will be executed for each chunk</param>
+            <param name="f">The TF instance which will be used to filter chunks</param>
+            <param name="query">A query expressing which entities to execute this query over. If null a suitable
+            query object will automatically be created and written into this field.</param>
+            <returns>The total number of entities processed</returns>
+        </member>
         <member name="M:Myriad.ECS.Worlds.World.ExecuteChunk``3(Myriad.ECS.Queries.QueryDescription,System.Boolean)">
             <summary>
             Execute a query which executes on entire chunks.
@@ -4955,6 +4975,21 @@
             <typeparam name="T0">Type of component 0 to retrieve</typeparam>
             <typeparam name="T1">Type of component 1 to retrieve</typeparam>
             <param name="q">The TQ instance which will be executed for each chunk</param>
+            <param name="query">A query expressing which entities to execute this query over. If null a suitable
+            query object will automatically be created and written into this field.</param>
+            <returns>The total number of entities processed</returns>
+        </member>
+        <member name="M:Myriad.ECS.Worlds.World.ExecuteChunk``4(``0@,``1@,Myriad.ECS.Queries.QueryDescription@,System.Boolean)">
+            <summary>
+            Execute a query which executes on entire chunks.
+            </summary>
+            <param name="blocking">Should this query wait for multithreaded work to complete before executing. </param>
+            <typeparam name="TQ">The type of the query</typeparam>
+            <typeparam name="TF">The type of the filter</typeparam>
+            <typeparam name="T0">Type of component 0 to retrieve</typeparam>
+            <typeparam name="T1">Type of component 1 to retrieve</typeparam>
+            <param name="q">The TQ instance which will be executed for each chunk</param>
+            <param name="f">The TF instance which will be used to filter chunks</param>
             <param name="query">A query expressing which entities to execute this query over. If null a suitable
             query object will automatically be created and written into this field.</param>
             <returns>The total number of entities processed</returns>
@@ -5037,6 +5072,22 @@
             <typeparam name="T1">Type of component 1 to retrieve</typeparam>
             <typeparam name="T2">Type of component 2 to retrieve</typeparam>
             <param name="q">The TQ instance which will be executed for each chunk</param>
+            <param name="query">A query expressing which entities to execute this query over. If null a suitable
+            query object will automatically be created and written into this field.</param>
+            <returns>The total number of entities processed</returns>
+        </member>
+        <member name="M:Myriad.ECS.Worlds.World.ExecuteChunk``5(``0@,``1@,Myriad.ECS.Queries.QueryDescription@,System.Boolean)">
+            <summary>
+            Execute a query which executes on entire chunks.
+            </summary>
+            <param name="blocking">Should this query wait for multithreaded work to complete before executing. </param>
+            <typeparam name="TQ">The type of the query</typeparam>
+            <typeparam name="TF">The type of the filter</typeparam>
+            <typeparam name="T0">Type of component 0 to retrieve</typeparam>
+            <typeparam name="T1">Type of component 1 to retrieve</typeparam>
+            <typeparam name="T2">Type of component 2 to retrieve</typeparam>
+            <param name="q">The TQ instance which will be executed for each chunk</param>
+            <param name="f">The TF instance which will be used to filter chunks</param>
             <param name="query">A query expressing which entities to execute this query over. If null a suitable
             query object will automatically be created and written into this field.</param>
             <returns>The total number of entities processed</returns>
@@ -5125,6 +5176,23 @@
             <typeparam name="T2">Type of component 2 to retrieve</typeparam>
             <typeparam name="T3">Type of component 3 to retrieve</typeparam>
             <param name="q">The TQ instance which will be executed for each chunk</param>
+            <param name="query">A query expressing which entities to execute this query over. If null a suitable
+            query object will automatically be created and written into this field.</param>
+            <returns>The total number of entities processed</returns>
+        </member>
+        <member name="M:Myriad.ECS.Worlds.World.ExecuteChunk``6(``0@,``1@,Myriad.ECS.Queries.QueryDescription@,System.Boolean)">
+            <summary>
+            Execute a query which executes on entire chunks.
+            </summary>
+            <param name="blocking">Should this query wait for multithreaded work to complete before executing. </param>
+            <typeparam name="TQ">The type of the query</typeparam>
+            <typeparam name="TF">The type of the filter</typeparam>
+            <typeparam name="T0">Type of component 0 to retrieve</typeparam>
+            <typeparam name="T1">Type of component 1 to retrieve</typeparam>
+            <typeparam name="T2">Type of component 2 to retrieve</typeparam>
+            <typeparam name="T3">Type of component 3 to retrieve</typeparam>
+            <param name="q">The TQ instance which will be executed for each chunk</param>
+            <param name="f">The TF instance which will be used to filter chunks</param>
             <param name="query">A query expressing which entities to execute this query over. If null a suitable
             query object will automatically be created and written into this field.</param>
             <returns>The total number of entities processed</returns>
@@ -5219,6 +5287,24 @@
             <typeparam name="T3">Type of component 3 to retrieve</typeparam>
             <typeparam name="T4">Type of component 4 to retrieve</typeparam>
             <param name="q">The TQ instance which will be executed for each chunk</param>
+            <param name="query">A query expressing which entities to execute this query over. If null a suitable
+            query object will automatically be created and written into this field.</param>
+            <returns>The total number of entities processed</returns>
+        </member>
+        <member name="M:Myriad.ECS.Worlds.World.ExecuteChunk``7(``0@,``1@,Myriad.ECS.Queries.QueryDescription@,System.Boolean)">
+            <summary>
+            Execute a query which executes on entire chunks.
+            </summary>
+            <param name="blocking">Should this query wait for multithreaded work to complete before executing. </param>
+            <typeparam name="TQ">The type of the query</typeparam>
+            <typeparam name="TF">The type of the filter</typeparam>
+            <typeparam name="T0">Type of component 0 to retrieve</typeparam>
+            <typeparam name="T1">Type of component 1 to retrieve</typeparam>
+            <typeparam name="T2">Type of component 2 to retrieve</typeparam>
+            <typeparam name="T3">Type of component 3 to retrieve</typeparam>
+            <typeparam name="T4">Type of component 4 to retrieve</typeparam>
+            <param name="q">The TQ instance which will be executed for each chunk</param>
+            <param name="f">The TF instance which will be used to filter chunks</param>
             <param name="query">A query expressing which entities to execute this query over. If null a suitable
             query object will automatically be created and written into this field.</param>
             <returns>The total number of entities processed</returns>
@@ -5319,6 +5405,25 @@
             <typeparam name="T4">Type of component 4 to retrieve</typeparam>
             <typeparam name="T5">Type of component 5 to retrieve</typeparam>
             <param name="q">The TQ instance which will be executed for each chunk</param>
+            <param name="query">A query expressing which entities to execute this query over. If null a suitable
+            query object will automatically be created and written into this field.</param>
+            <returns>The total number of entities processed</returns>
+        </member>
+        <member name="M:Myriad.ECS.Worlds.World.ExecuteChunk``8(``0@,``1@,Myriad.ECS.Queries.QueryDescription@,System.Boolean)">
+            <summary>
+            Execute a query which executes on entire chunks.
+            </summary>
+            <param name="blocking">Should this query wait for multithreaded work to complete before executing. </param>
+            <typeparam name="TQ">The type of the query</typeparam>
+            <typeparam name="TF">The type of the filter</typeparam>
+            <typeparam name="T0">Type of component 0 to retrieve</typeparam>
+            <typeparam name="T1">Type of component 1 to retrieve</typeparam>
+            <typeparam name="T2">Type of component 2 to retrieve</typeparam>
+            <typeparam name="T3">Type of component 3 to retrieve</typeparam>
+            <typeparam name="T4">Type of component 4 to retrieve</typeparam>
+            <typeparam name="T5">Type of component 5 to retrieve</typeparam>
+            <param name="q">The TQ instance which will be executed for each chunk</param>
+            <param name="f">The TF instance which will be used to filter chunks</param>
             <param name="query">A query expressing which entities to execute this query over. If null a suitable
             query object will automatically be created and written into this field.</param>
             <returns>The total number of entities processed</returns>
@@ -5425,6 +5530,26 @@
             <typeparam name="T5">Type of component 5 to retrieve</typeparam>
             <typeparam name="T6">Type of component 6 to retrieve</typeparam>
             <param name="q">The TQ instance which will be executed for each chunk</param>
+            <param name="query">A query expressing which entities to execute this query over. If null a suitable
+            query object will automatically be created and written into this field.</param>
+            <returns>The total number of entities processed</returns>
+        </member>
+        <member name="M:Myriad.ECS.Worlds.World.ExecuteChunk``9(``0@,``1@,Myriad.ECS.Queries.QueryDescription@,System.Boolean)">
+            <summary>
+            Execute a query which executes on entire chunks.
+            </summary>
+            <param name="blocking">Should this query wait for multithreaded work to complete before executing. </param>
+            <typeparam name="TQ">The type of the query</typeparam>
+            <typeparam name="TF">The type of the filter</typeparam>
+            <typeparam name="T0">Type of component 0 to retrieve</typeparam>
+            <typeparam name="T1">Type of component 1 to retrieve</typeparam>
+            <typeparam name="T2">Type of component 2 to retrieve</typeparam>
+            <typeparam name="T3">Type of component 3 to retrieve</typeparam>
+            <typeparam name="T4">Type of component 4 to retrieve</typeparam>
+            <typeparam name="T5">Type of component 5 to retrieve</typeparam>
+            <typeparam name="T6">Type of component 6 to retrieve</typeparam>
+            <param name="q">The TQ instance which will be executed for each chunk</param>
+            <param name="f">The TF instance which will be used to filter chunks</param>
             <param name="query">A query expressing which entities to execute this query over. If null a suitable
             query object will automatically be created and written into this field.</param>
             <returns>The total number of entities processed</returns>
@@ -5537,6 +5662,27 @@
             <typeparam name="T6">Type of component 6 to retrieve</typeparam>
             <typeparam name="T7">Type of component 7 to retrieve</typeparam>
             <param name="q">The TQ instance which will be executed for each chunk</param>
+            <param name="query">A query expressing which entities to execute this query over. If null a suitable
+            query object will automatically be created and written into this field.</param>
+            <returns>The total number of entities processed</returns>
+        </member>
+        <member name="M:Myriad.ECS.Worlds.World.ExecuteChunk``10(``0@,``1@,Myriad.ECS.Queries.QueryDescription@,System.Boolean)">
+            <summary>
+            Execute a query which executes on entire chunks.
+            </summary>
+            <param name="blocking">Should this query wait for multithreaded work to complete before executing. </param>
+            <typeparam name="TQ">The type of the query</typeparam>
+            <typeparam name="TF">The type of the filter</typeparam>
+            <typeparam name="T0">Type of component 0 to retrieve</typeparam>
+            <typeparam name="T1">Type of component 1 to retrieve</typeparam>
+            <typeparam name="T2">Type of component 2 to retrieve</typeparam>
+            <typeparam name="T3">Type of component 3 to retrieve</typeparam>
+            <typeparam name="T4">Type of component 4 to retrieve</typeparam>
+            <typeparam name="T5">Type of component 5 to retrieve</typeparam>
+            <typeparam name="T6">Type of component 6 to retrieve</typeparam>
+            <typeparam name="T7">Type of component 7 to retrieve</typeparam>
+            <param name="q">The TQ instance which will be executed for each chunk</param>
+            <param name="f">The TF instance which will be used to filter chunks</param>
             <param name="query">A query expressing which entities to execute this query over. If null a suitable
             query object will automatically be created and written into this field.</param>
             <returns>The total number of entities processed</returns>
@@ -5655,6 +5801,28 @@
             <typeparam name="T7">Type of component 7 to retrieve</typeparam>
             <typeparam name="T8">Type of component 8 to retrieve</typeparam>
             <param name="q">The TQ instance which will be executed for each chunk</param>
+            <param name="query">A query expressing which entities to execute this query over. If null a suitable
+            query object will automatically be created and written into this field.</param>
+            <returns>The total number of entities processed</returns>
+        </member>
+        <member name="M:Myriad.ECS.Worlds.World.ExecuteChunk``11(``0@,``1@,Myriad.ECS.Queries.QueryDescription@,System.Boolean)">
+            <summary>
+            Execute a query which executes on entire chunks.
+            </summary>
+            <param name="blocking">Should this query wait for multithreaded work to complete before executing. </param>
+            <typeparam name="TQ">The type of the query</typeparam>
+            <typeparam name="TF">The type of the filter</typeparam>
+            <typeparam name="T0">Type of component 0 to retrieve</typeparam>
+            <typeparam name="T1">Type of component 1 to retrieve</typeparam>
+            <typeparam name="T2">Type of component 2 to retrieve</typeparam>
+            <typeparam name="T3">Type of component 3 to retrieve</typeparam>
+            <typeparam name="T4">Type of component 4 to retrieve</typeparam>
+            <typeparam name="T5">Type of component 5 to retrieve</typeparam>
+            <typeparam name="T6">Type of component 6 to retrieve</typeparam>
+            <typeparam name="T7">Type of component 7 to retrieve</typeparam>
+            <typeparam name="T8">Type of component 8 to retrieve</typeparam>
+            <param name="q">The TQ instance which will be executed for each chunk</param>
+            <param name="f">The TF instance which will be used to filter chunks</param>
             <param name="query">A query expressing which entities to execute this query over. If null a suitable
             query object will automatically be created and written into this field.</param>
             <returns>The total number of entities processed</returns>
@@ -5779,6 +5947,29 @@
             <typeparam name="T8">Type of component 8 to retrieve</typeparam>
             <typeparam name="T9">Type of component 9 to retrieve</typeparam>
             <param name="q">The TQ instance which will be executed for each chunk</param>
+            <param name="query">A query expressing which entities to execute this query over. If null a suitable
+            query object will automatically be created and written into this field.</param>
+            <returns>The total number of entities processed</returns>
+        </member>
+        <member name="M:Myriad.ECS.Worlds.World.ExecuteChunk``12(``0@,``1@,Myriad.ECS.Queries.QueryDescription@,System.Boolean)">
+            <summary>
+            Execute a query which executes on entire chunks.
+            </summary>
+            <param name="blocking">Should this query wait for multithreaded work to complete before executing. </param>
+            <typeparam name="TQ">The type of the query</typeparam>
+            <typeparam name="TF">The type of the filter</typeparam>
+            <typeparam name="T0">Type of component 0 to retrieve</typeparam>
+            <typeparam name="T1">Type of component 1 to retrieve</typeparam>
+            <typeparam name="T2">Type of component 2 to retrieve</typeparam>
+            <typeparam name="T3">Type of component 3 to retrieve</typeparam>
+            <typeparam name="T4">Type of component 4 to retrieve</typeparam>
+            <typeparam name="T5">Type of component 5 to retrieve</typeparam>
+            <typeparam name="T6">Type of component 6 to retrieve</typeparam>
+            <typeparam name="T7">Type of component 7 to retrieve</typeparam>
+            <typeparam name="T8">Type of component 8 to retrieve</typeparam>
+            <typeparam name="T9">Type of component 9 to retrieve</typeparam>
+            <param name="q">The TQ instance which will be executed for each chunk</param>
+            <param name="f">The TF instance which will be used to filter chunks</param>
             <param name="query">A query expressing which entities to execute this query over. If null a suitable
             query object will automatically be created and written into this field.</param>
             <returns>The total number of entities processed</returns>
@@ -5909,6 +6100,30 @@
             <typeparam name="T9">Type of component 9 to retrieve</typeparam>
             <typeparam name="T10">Type of component 10 to retrieve</typeparam>
             <param name="q">The TQ instance which will be executed for each chunk</param>
+            <param name="query">A query expressing which entities to execute this query over. If null a suitable
+            query object will automatically be created and written into this field.</param>
+            <returns>The total number of entities processed</returns>
+        </member>
+        <member name="M:Myriad.ECS.Worlds.World.ExecuteChunk``13(``0@,``1@,Myriad.ECS.Queries.QueryDescription@,System.Boolean)">
+            <summary>
+            Execute a query which executes on entire chunks.
+            </summary>
+            <param name="blocking">Should this query wait for multithreaded work to complete before executing. </param>
+            <typeparam name="TQ">The type of the query</typeparam>
+            <typeparam name="TF">The type of the filter</typeparam>
+            <typeparam name="T0">Type of component 0 to retrieve</typeparam>
+            <typeparam name="T1">Type of component 1 to retrieve</typeparam>
+            <typeparam name="T2">Type of component 2 to retrieve</typeparam>
+            <typeparam name="T3">Type of component 3 to retrieve</typeparam>
+            <typeparam name="T4">Type of component 4 to retrieve</typeparam>
+            <typeparam name="T5">Type of component 5 to retrieve</typeparam>
+            <typeparam name="T6">Type of component 6 to retrieve</typeparam>
+            <typeparam name="T7">Type of component 7 to retrieve</typeparam>
+            <typeparam name="T8">Type of component 8 to retrieve</typeparam>
+            <typeparam name="T9">Type of component 9 to retrieve</typeparam>
+            <typeparam name="T10">Type of component 10 to retrieve</typeparam>
+            <param name="q">The TQ instance which will be executed for each chunk</param>
+            <param name="f">The TF instance which will be used to filter chunks</param>
             <param name="query">A query expressing which entities to execute this query over. If null a suitable
             query object will automatically be created and written into this field.</param>
             <returns>The total number of entities processed</returns>
@@ -6045,6 +6260,31 @@
             <typeparam name="T10">Type of component 10 to retrieve</typeparam>
             <typeparam name="T11">Type of component 11 to retrieve</typeparam>
             <param name="q">The TQ instance which will be executed for each chunk</param>
+            <param name="query">A query expressing which entities to execute this query over. If null a suitable
+            query object will automatically be created and written into this field.</param>
+            <returns>The total number of entities processed</returns>
+        </member>
+        <member name="M:Myriad.ECS.Worlds.World.ExecuteChunk``14(``0@,``1@,Myriad.ECS.Queries.QueryDescription@,System.Boolean)">
+            <summary>
+            Execute a query which executes on entire chunks.
+            </summary>
+            <param name="blocking">Should this query wait for multithreaded work to complete before executing. </param>
+            <typeparam name="TQ">The type of the query</typeparam>
+            <typeparam name="TF">The type of the filter</typeparam>
+            <typeparam name="T0">Type of component 0 to retrieve</typeparam>
+            <typeparam name="T1">Type of component 1 to retrieve</typeparam>
+            <typeparam name="T2">Type of component 2 to retrieve</typeparam>
+            <typeparam name="T3">Type of component 3 to retrieve</typeparam>
+            <typeparam name="T4">Type of component 4 to retrieve</typeparam>
+            <typeparam name="T5">Type of component 5 to retrieve</typeparam>
+            <typeparam name="T6">Type of component 6 to retrieve</typeparam>
+            <typeparam name="T7">Type of component 7 to retrieve</typeparam>
+            <typeparam name="T8">Type of component 8 to retrieve</typeparam>
+            <typeparam name="T9">Type of component 9 to retrieve</typeparam>
+            <typeparam name="T10">Type of component 10 to retrieve</typeparam>
+            <typeparam name="T11">Type of component 11 to retrieve</typeparam>
+            <param name="q">The TQ instance which will be executed for each chunk</param>
+            <param name="f">The TF instance which will be used to filter chunks</param>
             <param name="query">A query expressing which entities to execute this query over. If null a suitable
             query object will automatically be created and written into this field.</param>
             <returns>The total number of entities processed</returns>
@@ -6187,6 +6427,32 @@
             <typeparam name="T11">Type of component 11 to retrieve</typeparam>
             <typeparam name="T12">Type of component 12 to retrieve</typeparam>
             <param name="q">The TQ instance which will be executed for each chunk</param>
+            <param name="query">A query expressing which entities to execute this query over. If null a suitable
+            query object will automatically be created and written into this field.</param>
+            <returns>The total number of entities processed</returns>
+        </member>
+        <member name="M:Myriad.ECS.Worlds.World.ExecuteChunk``15(``0@,``1@,Myriad.ECS.Queries.QueryDescription@,System.Boolean)">
+            <summary>
+            Execute a query which executes on entire chunks.
+            </summary>
+            <param name="blocking">Should this query wait for multithreaded work to complete before executing. </param>
+            <typeparam name="TQ">The type of the query</typeparam>
+            <typeparam name="TF">The type of the filter</typeparam>
+            <typeparam name="T0">Type of component 0 to retrieve</typeparam>
+            <typeparam name="T1">Type of component 1 to retrieve</typeparam>
+            <typeparam name="T2">Type of component 2 to retrieve</typeparam>
+            <typeparam name="T3">Type of component 3 to retrieve</typeparam>
+            <typeparam name="T4">Type of component 4 to retrieve</typeparam>
+            <typeparam name="T5">Type of component 5 to retrieve</typeparam>
+            <typeparam name="T6">Type of component 6 to retrieve</typeparam>
+            <typeparam name="T7">Type of component 7 to retrieve</typeparam>
+            <typeparam name="T8">Type of component 8 to retrieve</typeparam>
+            <typeparam name="T9">Type of component 9 to retrieve</typeparam>
+            <typeparam name="T10">Type of component 10 to retrieve</typeparam>
+            <typeparam name="T11">Type of component 11 to retrieve</typeparam>
+            <typeparam name="T12">Type of component 12 to retrieve</typeparam>
+            <param name="q">The TQ instance which will be executed for each chunk</param>
+            <param name="f">The TF instance which will be used to filter chunks</param>
             <param name="query">A query expressing which entities to execute this query over. If null a suitable
             query object will automatically be created and written into this field.</param>
             <returns>The total number of entities processed</returns>
@@ -6335,6 +6601,33 @@
             <typeparam name="T12">Type of component 12 to retrieve</typeparam>
             <typeparam name="T13">Type of component 13 to retrieve</typeparam>
             <param name="q">The TQ instance which will be executed for each chunk</param>
+            <param name="query">A query expressing which entities to execute this query over. If null a suitable
+            query object will automatically be created and written into this field.</param>
+            <returns>The total number of entities processed</returns>
+        </member>
+        <member name="M:Myriad.ECS.Worlds.World.ExecuteChunk``16(``0@,``1@,Myriad.ECS.Queries.QueryDescription@,System.Boolean)">
+            <summary>
+            Execute a query which executes on entire chunks.
+            </summary>
+            <param name="blocking">Should this query wait for multithreaded work to complete before executing. </param>
+            <typeparam name="TQ">The type of the query</typeparam>
+            <typeparam name="TF">The type of the filter</typeparam>
+            <typeparam name="T0">Type of component 0 to retrieve</typeparam>
+            <typeparam name="T1">Type of component 1 to retrieve</typeparam>
+            <typeparam name="T2">Type of component 2 to retrieve</typeparam>
+            <typeparam name="T3">Type of component 3 to retrieve</typeparam>
+            <typeparam name="T4">Type of component 4 to retrieve</typeparam>
+            <typeparam name="T5">Type of component 5 to retrieve</typeparam>
+            <typeparam name="T6">Type of component 6 to retrieve</typeparam>
+            <typeparam name="T7">Type of component 7 to retrieve</typeparam>
+            <typeparam name="T8">Type of component 8 to retrieve</typeparam>
+            <typeparam name="T9">Type of component 9 to retrieve</typeparam>
+            <typeparam name="T10">Type of component 10 to retrieve</typeparam>
+            <typeparam name="T11">Type of component 11 to retrieve</typeparam>
+            <typeparam name="T12">Type of component 12 to retrieve</typeparam>
+            <typeparam name="T13">Type of component 13 to retrieve</typeparam>
+            <param name="q">The TQ instance which will be executed for each chunk</param>
+            <param name="f">The TF instance which will be used to filter chunks</param>
             <param name="query">A query expressing which entities to execute this query over. If null a suitable
             query object will automatically be created and written into this field.</param>
             <returns>The total number of entities processed</returns>
@@ -6489,6 +6782,34 @@
             <typeparam name="T13">Type of component 13 to retrieve</typeparam>
             <typeparam name="T14">Type of component 14 to retrieve</typeparam>
             <param name="q">The TQ instance which will be executed for each chunk</param>
+            <param name="query">A query expressing which entities to execute this query over. If null a suitable
+            query object will automatically be created and written into this field.</param>
+            <returns>The total number of entities processed</returns>
+        </member>
+        <member name="M:Myriad.ECS.Worlds.World.ExecuteChunk``17(``0@,``1@,Myriad.ECS.Queries.QueryDescription@,System.Boolean)">
+            <summary>
+            Execute a query which executes on entire chunks.
+            </summary>
+            <param name="blocking">Should this query wait for multithreaded work to complete before executing. </param>
+            <typeparam name="TQ">The type of the query</typeparam>
+            <typeparam name="TF">The type of the filter</typeparam>
+            <typeparam name="T0">Type of component 0 to retrieve</typeparam>
+            <typeparam name="T1">Type of component 1 to retrieve</typeparam>
+            <typeparam name="T2">Type of component 2 to retrieve</typeparam>
+            <typeparam name="T3">Type of component 3 to retrieve</typeparam>
+            <typeparam name="T4">Type of component 4 to retrieve</typeparam>
+            <typeparam name="T5">Type of component 5 to retrieve</typeparam>
+            <typeparam name="T6">Type of component 6 to retrieve</typeparam>
+            <typeparam name="T7">Type of component 7 to retrieve</typeparam>
+            <typeparam name="T8">Type of component 8 to retrieve</typeparam>
+            <typeparam name="T9">Type of component 9 to retrieve</typeparam>
+            <typeparam name="T10">Type of component 10 to retrieve</typeparam>
+            <typeparam name="T11">Type of component 11 to retrieve</typeparam>
+            <typeparam name="T12">Type of component 12 to retrieve</typeparam>
+            <typeparam name="T13">Type of component 13 to retrieve</typeparam>
+            <typeparam name="T14">Type of component 14 to retrieve</typeparam>
+            <param name="q">The TQ instance which will be executed for each chunk</param>
+            <param name="f">The TF instance which will be used to filter chunks</param>
             <param name="query">A query expressing which entities to execute this query over. If null a suitable
             query object will automatically be created and written into this field.</param>
             <returns>The total number of entities processed</returns>
@@ -6649,6 +6970,35 @@
             <typeparam name="T14">Type of component 14 to retrieve</typeparam>
             <typeparam name="T15">Type of component 15 to retrieve</typeparam>
             <param name="q">The TQ instance which will be executed for each chunk</param>
+            <param name="query">A query expressing which entities to execute this query over. If null a suitable
+            query object will automatically be created and written into this field.</param>
+            <returns>The total number of entities processed</returns>
+        </member>
+        <member name="M:Myriad.ECS.Worlds.World.ExecuteChunk``18(``0@,``1@,Myriad.ECS.Queries.QueryDescription@,System.Boolean)">
+            <summary>
+            Execute a query which executes on entire chunks.
+            </summary>
+            <param name="blocking">Should this query wait for multithreaded work to complete before executing. </param>
+            <typeparam name="TQ">The type of the query</typeparam>
+            <typeparam name="TF">The type of the filter</typeparam>
+            <typeparam name="T0">Type of component 0 to retrieve</typeparam>
+            <typeparam name="T1">Type of component 1 to retrieve</typeparam>
+            <typeparam name="T2">Type of component 2 to retrieve</typeparam>
+            <typeparam name="T3">Type of component 3 to retrieve</typeparam>
+            <typeparam name="T4">Type of component 4 to retrieve</typeparam>
+            <typeparam name="T5">Type of component 5 to retrieve</typeparam>
+            <typeparam name="T6">Type of component 6 to retrieve</typeparam>
+            <typeparam name="T7">Type of component 7 to retrieve</typeparam>
+            <typeparam name="T8">Type of component 8 to retrieve</typeparam>
+            <typeparam name="T9">Type of component 9 to retrieve</typeparam>
+            <typeparam name="T10">Type of component 10 to retrieve</typeparam>
+            <typeparam name="T11">Type of component 11 to retrieve</typeparam>
+            <typeparam name="T12">Type of component 12 to retrieve</typeparam>
+            <typeparam name="T13">Type of component 13 to retrieve</typeparam>
+            <typeparam name="T14">Type of component 14 to retrieve</typeparam>
+            <typeparam name="T15">Type of component 15 to retrieve</typeparam>
+            <param name="q">The TQ instance which will be executed for each chunk</param>
+            <param name="f">The TF instance which will be used to filter chunks</param>
             <param name="query">A query expressing which entities to execute this query over. If null a suitable
             query object will automatically be created and written into this field.</param>
             <returns>The total number of entities processed</returns>
@@ -15434,6 +15784,26 @@
             <summary>
             Reset this cursor back to an empty state
             </summary>
+        </member>
+        <member name="T:Myriad.ECS.Queries.IChunkFilter">
+            <summary>
+            Allows filtering out of chunks in a query, skipping processing
+            </summary>
+        </member>
+        <member name="M:Myriad.ECS.Queries.IChunkFilter.Exclude(Myriad.ECS.Queries.ChunkHandle@)">
+            <summary>
+            Determine if the given chunk should be excluded from the query
+            </summary>
+            <param name="handle"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Myriad.ECS.Queries.ExcludeNoneFilter">
+            <summary>
+            Default filter, exclude no chunks.
+            </summary>
+        </member>
+        <member name="M:Myriad.ECS.Queries.ExcludeNoneFilter.Exclude(Myriad.ECS.Queries.ChunkHandle@)">
+            <inheritdoc />
         </member>
         <member name="T:Myriad.ECS.Queries.IChunkQuery`1">
             <summary>
