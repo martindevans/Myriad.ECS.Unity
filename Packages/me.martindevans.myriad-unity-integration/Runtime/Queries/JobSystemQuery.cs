@@ -555,6 +555,7 @@ namespace Myriad.ECS.Worlds
             private readonly JobHandle _dependsOn;
 
             public JobHandle Handle;
+            public int ScheduledJobCount;
 
 #pragma warning disable IDE0044
             private NativeList<GCHandle> _pins;
@@ -574,6 +575,7 @@ namespace Myriad.ECS.Worlds
                 _pins = pins;
 
                 Handle = dependsOn;
+                ScheduledJobCount = 0;
             }
 
             public void Execute(
@@ -621,6 +623,8 @@ namespace Myriad.ECS.Worlds
                         _safety.GetAttachedJob(chunk.Archetype.ArchetypeId, components)
                     )
                 );
+
+                ScheduledJobCount++;
 
                 // Dispose the auto arrays
                 jHandle = nArray0.Dispose(jHandle);
@@ -796,7 +800,7 @@ namespace Myriad.ECS.Worlds
             foreach (var archetype in query!.GetArchetypes())
                 safety.AttachJob(archetype.Archetype.ArchetypeId, components, jobHandle);
 
-            return new QueryJobHandle(jobHandle, pins, entityCount, chunkCount);
+            return new QueryJobHandle(jobHandle, pins, entityCount, q.ScheduledJobCount);
         }
         
         /// <summary>
