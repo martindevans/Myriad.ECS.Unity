@@ -1,6 +1,6 @@
 {
   "name": "me.martindevans.myriad-unity-integration",
-  "version": "4.0.0",
+  "version": "5.0.0",
   "displayName": "Myriad ECS Unity Integration",
   "unity": "2022.3",
   "dependencies": {
