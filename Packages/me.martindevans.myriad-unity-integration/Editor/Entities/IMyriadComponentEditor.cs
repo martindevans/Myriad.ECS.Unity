@@ -129,6 +129,9 @@ namespace Packages.me.martindevans.myriad_unity_integration.Editor.Entities
 
             foreach (var propInfo in _properties)
             {
+                if (!propInfo.CanRead)
+                    continue;
+
                 var v = propInfo.GetValue(cBox);
                 EditorGUILayout.LabelField(propInfo.Name, v?.ToString() ?? "null");
             }
