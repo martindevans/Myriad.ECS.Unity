@@ -1007,7 +1007,7 @@
             <summary>
             Automatically updates hierarchy of entities, deriving world transform from local transform and parent.
             </summary>
-            <typeparam name="TData"></typeparam>
+            <typeparam name="TData">Data that is passed into Update</typeparam>
             <typeparam name="TLocalTransform">Component type of local transforms</typeparam>
             <typeparam name="TWorldTransform">Component type of world transforms</typeparam>
             <typeparam name="TTransform">Component type of transforms (e.g. a Matrix)</typeparam>
@@ -1018,6 +1018,16 @@
             Create new <see cref="T:Myriad.ECS.Components.BaseUpdateTransformHierarchySystem`5"/>
             </summary>
             <param name="world"></param>
+        </member>
+        <member name="M:Myriad.ECS.Components.BaseUpdateTransformHierarchySystem`5.#ctor(Myriad.ECS.Worlds.World,Myriad.ECS.Queries.QueryBuilder,Myriad.ECS.Queries.QueryBuilder)">
+            <summary>
+            Create new <see cref="T:Myriad.ECS.Components.BaseUpdateTransformHierarchySystem`5"/>
+            </summary>
+            <param name="world"></param>
+            <param name="queryRoot">The query to use for root entities. If null a default will be constructed. If non-null then the additional hierarhical
+            elements will be added to the query</param>
+            <param name="queryNonRoot">The query to use for non root entities. If null a default will be constructed. If non-null then the additional hierarhical
+            elements will be added to the query</param>
         </member>
         <member name="M:Myriad.ECS.Components.BaseUpdateTransformHierarchySystem`5.Update(`0)">
             <inheritdoc />

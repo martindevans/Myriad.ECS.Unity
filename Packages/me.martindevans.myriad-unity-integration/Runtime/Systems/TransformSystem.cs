@@ -1,5 +1,8 @@
-﻿using System.Diagnostics;
+﻿#nullable enable
+
+using System.Diagnostics;
 using Myriad.ECS.Components;
+using Myriad.ECS.Queries;
 using Myriad.ECS.Worlds;
 using UnityEngine;
 
@@ -17,6 +20,11 @@ namespace Packages.me.martindevans.myriad_unity_integration.Runtime.Systems
             TransformParent
         >
     {
+        public MyriadTransformSystem(World world, QueryBuilder? queryRoot = null, QueryBuilder? queryNonRoot = null)
+            : base(world, queryRoot, queryNonRoot)
+        {
+        }
+
         public MyriadTransformSystem(World world)
             : base(world)
         {
