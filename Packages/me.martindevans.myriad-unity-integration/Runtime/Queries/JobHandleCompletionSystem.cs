@@ -1,7 +1,7 @@
 using System;
 using Myriad.ECS.Systems;
-using Myriad.ECS.Worlds;
 using System.Collections.Generic;
+using Unity.Jobs;
 
 namespace Packages.me.martindevans.myriad_unity_integration.Runtime.Queries
 {
@@ -11,12 +11,15 @@ namespace Packages.me.martindevans.myriad_unity_integration.Runtime.Queries
     public interface IQueryJobHandleCompletionGate
     {
         QueryJobHandle AddHandle(QueryJobHandle handle);
+
+        JobHandle AddHandle(JobHandle handle);
     }
 
     public abstract class BaseQueryJobHandleCompletionGate
         : IQueryJobHandleCompletionGate, IDisposable
     {
         private readonly List<QueryJobHandle> _handles = new();
+        private JobHandle _handle;
 
         public int PreviousCompleteHandleCount { get; private set; }
 
@@ -26,9 +29,18 @@ namespace Packages.me.martindevans.myriad_unity_integration.Runtime.Queries
             return handle;
         }
 
+        public JobHandle AddHandle(JobHandle handle)
+        {
+            _handle = JobHandle.CombineDependencies(_handle, handle);
+            return _handle;
+        }
+
         protected void Complete()
         {
             PreviousCompleteHandleCount = _handles.Count;
+
+            _handle.Complete();
+            _handle = default;
 
             foreach (var handle in _handles)
                 handle.Dispose();
