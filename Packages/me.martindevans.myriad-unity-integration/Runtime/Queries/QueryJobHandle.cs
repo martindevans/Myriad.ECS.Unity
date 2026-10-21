@@ -35,9 +35,6 @@ namespace Packages.me.martindevans.myriad_unity_integration.Runtime.Queries
 
         internal QueryJobHandle(JobHandle handle, NativeList<GCHandle> pins, int entityCount, int jobCount)
         {
-            if (!pins.IsCreated)
-                throw new ArgumentException("`pins` NativeList must be created", nameof(pins));
-
             EntityCount = entityCount;
             JobCount = jobCount;
 

@@ -43,7 +43,6 @@ namespace Myriad.ECS.Worlds
         {
             private readonly TScheduler _scheduler;
             private readonly UnityMyriadSafetySystemAdapter _safety;
-            private readonly JobHandle _dependsOn;
 
             public JobHandle Handle;
             public int ScheduledJobCount;
@@ -61,7 +60,6 @@ namespace Myriad.ECS.Worlds
             {
                 _scheduler = scheduler;
                 _safety = safety;
-                _dependsOn = dependsOn;
 
                 _pins = pins;
 
@@ -102,7 +100,7 @@ namespace Myriad.ECS.Worlds
                     // Block on the explicit dependency, and the implicit dependency in the safety system. This makes non-blocking
                     // scheduling safe.
                     JobHandle.CombineDependencies(
-                        _dependsOn,
+                        Handle,
                         _safety.GetAttachedJob(chunk.Archetype.ArchetypeId, components)
                     )
                 );
@@ -227,7 +225,7 @@ namespace Myriad.ECS.Worlds
 
             var chunkCount = query.CountChunks();
             if (chunkCount == 0)
-                return default;
+                return new QueryJobHandle(dependsOn, default, 0, 0);
 
             // Get the safety system
             var safety = (UnityMyriadSafetySystemAdapter)world.LockManager;
@@ -292,7 +290,6 @@ namespace Myriad.ECS.Worlds
         {
             private readonly TScheduler _scheduler;
             private readonly UnityMyriadSafetySystemAdapter _safety;
-            private readonly JobHandle _dependsOn;
 
             public JobHandle Handle;
             public int ScheduledJobCount;
@@ -310,7 +307,6 @@ namespace Myriad.ECS.Worlds
             {
                 _scheduler = scheduler;
                 _safety = safety;
-                _dependsOn = dependsOn;
 
                 _pins = pins;
 
@@ -355,7 +351,7 @@ namespace Myriad.ECS.Worlds
                     // Block on the explicit dependency, and the implicit dependency in the safety system. This makes non-blocking
                     // scheduling safe.
                     JobHandle.CombineDependencies(
-                        _dependsOn,
+                        Handle,
                         _safety.GetAttachedJob(chunk.Archetype.ArchetypeId, components)
                     )
                 );
@@ -489,7 +485,7 @@ namespace Myriad.ECS.Worlds
 
             var chunkCount = query.CountChunks();
             if (chunkCount == 0)
-                return default;
+                return new QueryJobHandle(dependsOn, default, 0, 0);
 
             // Get the safety system
             var safety = (UnityMyriadSafetySystemAdapter)world.LockManager;
@@ -558,7 +554,6 @@ namespace Myriad.ECS.Worlds
         {
             private readonly TScheduler _scheduler;
             private readonly UnityMyriadSafetySystemAdapter _safety;
-            private readonly JobHandle _dependsOn;
 
             public JobHandle Handle;
             public int ScheduledJobCount;
@@ -576,7 +571,6 @@ namespace Myriad.ECS.Worlds
             {
                 _scheduler = scheduler;
                 _safety = safety;
-                _dependsOn = dependsOn;
 
                 _pins = pins;
 
@@ -625,7 +619,7 @@ namespace Myriad.ECS.Worlds
                     // Block on the explicit dependency, and the implicit dependency in the safety system. This makes non-blocking
                     // scheduling safe.
                     JobHandle.CombineDependencies(
-                        _dependsOn,
+                        Handle,
                         _safety.GetAttachedJob(chunk.Archetype.ArchetypeId, components)
                     )
                 );
@@ -768,7 +762,7 @@ namespace Myriad.ECS.Worlds
 
             var chunkCount = query.CountChunks();
             if (chunkCount == 0)
-                return default;
+                return new QueryJobHandle(dependsOn, default, 0, 0);
 
             // Get the safety system
             var safety = (UnityMyriadSafetySystemAdapter)world.LockManager;
@@ -841,7 +835,6 @@ namespace Myriad.ECS.Worlds
         {
             private readonly TScheduler _scheduler;
             private readonly UnityMyriadSafetySystemAdapter _safety;
-            private readonly JobHandle _dependsOn;
 
             public JobHandle Handle;
             public int ScheduledJobCount;
@@ -859,7 +852,6 @@ namespace Myriad.ECS.Worlds
             {
                 _scheduler = scheduler;
                 _safety = safety;
-                _dependsOn = dependsOn;
 
                 _pins = pins;
 
@@ -912,7 +904,7 @@ namespace Myriad.ECS.Worlds
                     // Block on the explicit dependency, and the implicit dependency in the safety system. This makes non-blocking
                     // scheduling safe.
                     JobHandle.CombineDependencies(
-                        _dependsOn,
+                        Handle,
                         _safety.GetAttachedJob(chunk.Archetype.ArchetypeId, components)
                     )
                 );
@@ -1064,7 +1056,7 @@ namespace Myriad.ECS.Worlds
 
             var chunkCount = query.CountChunks();
             if (chunkCount == 0)
-                return default;
+                return new QueryJobHandle(dependsOn, default, 0, 0);
 
             // Get the safety system
             var safety = (UnityMyriadSafetySystemAdapter)world.LockManager;
@@ -1141,7 +1133,6 @@ namespace Myriad.ECS.Worlds
         {
             private readonly TScheduler _scheduler;
             private readonly UnityMyriadSafetySystemAdapter _safety;
-            private readonly JobHandle _dependsOn;
 
             public JobHandle Handle;
             public int ScheduledJobCount;
@@ -1159,7 +1150,6 @@ namespace Myriad.ECS.Worlds
             {
                 _scheduler = scheduler;
                 _safety = safety;
-                _dependsOn = dependsOn;
 
                 _pins = pins;
 
@@ -1216,7 +1206,7 @@ namespace Myriad.ECS.Worlds
                     // Block on the explicit dependency, and the implicit dependency in the safety system. This makes non-blocking
                     // scheduling safe.
                     JobHandle.CombineDependencies(
-                        _dependsOn,
+                        Handle,
                         _safety.GetAttachedJob(chunk.Archetype.ArchetypeId, components)
                     )
                 );
@@ -1377,7 +1367,7 @@ namespace Myriad.ECS.Worlds
 
             var chunkCount = query.CountChunks();
             if (chunkCount == 0)
-                return default;
+                return new QueryJobHandle(dependsOn, default, 0, 0);
 
             // Get the safety system
             var safety = (UnityMyriadSafetySystemAdapter)world.LockManager;
@@ -1458,7 +1448,6 @@ namespace Myriad.ECS.Worlds
         {
             private readonly TScheduler _scheduler;
             private readonly UnityMyriadSafetySystemAdapter _safety;
-            private readonly JobHandle _dependsOn;
 
             public JobHandle Handle;
             public int ScheduledJobCount;
@@ -1476,7 +1465,6 @@ namespace Myriad.ECS.Worlds
             {
                 _scheduler = scheduler;
                 _safety = safety;
-                _dependsOn = dependsOn;
 
                 _pins = pins;
 
@@ -1537,7 +1525,7 @@ namespace Myriad.ECS.Worlds
                     // Block on the explicit dependency, and the implicit dependency in the safety system. This makes non-blocking
                     // scheduling safe.
                     JobHandle.CombineDependencies(
-                        _dependsOn,
+                        Handle,
                         _safety.GetAttachedJob(chunk.Archetype.ArchetypeId, components)
                     )
                 );
@@ -1707,7 +1695,7 @@ namespace Myriad.ECS.Worlds
 
             var chunkCount = query.CountChunks();
             if (chunkCount == 0)
-                return default;
+                return new QueryJobHandle(dependsOn, default, 0, 0);
 
             // Get the safety system
             var safety = (UnityMyriadSafetySystemAdapter)world.LockManager;
@@ -1792,7 +1780,6 @@ namespace Myriad.ECS.Worlds
         {
             private readonly TScheduler _scheduler;
             private readonly UnityMyriadSafetySystemAdapter _safety;
-            private readonly JobHandle _dependsOn;
 
             public JobHandle Handle;
             public int ScheduledJobCount;
@@ -1810,7 +1797,6 @@ namespace Myriad.ECS.Worlds
             {
                 _scheduler = scheduler;
                 _safety = safety;
-                _dependsOn = dependsOn;
 
                 _pins = pins;
 
@@ -1875,7 +1861,7 @@ namespace Myriad.ECS.Worlds
                     // Block on the explicit dependency, and the implicit dependency in the safety system. This makes non-blocking
                     // scheduling safe.
                     JobHandle.CombineDependencies(
-                        _dependsOn,
+                        Handle,
                         _safety.GetAttachedJob(chunk.Archetype.ArchetypeId, components)
                     )
                 );
@@ -2054,7 +2040,7 @@ namespace Myriad.ECS.Worlds
 
             var chunkCount = query.CountChunks();
             if (chunkCount == 0)
-                return default;
+                return new QueryJobHandle(dependsOn, default, 0, 0);
 
             // Get the safety system
             var safety = (UnityMyriadSafetySystemAdapter)world.LockManager;
@@ -2143,7 +2129,6 @@ namespace Myriad.ECS.Worlds
         {
             private readonly TScheduler _scheduler;
             private readonly UnityMyriadSafetySystemAdapter _safety;
-            private readonly JobHandle _dependsOn;
 
             public JobHandle Handle;
             public int ScheduledJobCount;
@@ -2161,7 +2146,6 @@ namespace Myriad.ECS.Worlds
             {
                 _scheduler = scheduler;
                 _safety = safety;
-                _dependsOn = dependsOn;
 
                 _pins = pins;
 
@@ -2230,7 +2214,7 @@ namespace Myriad.ECS.Worlds
                     // Block on the explicit dependency, and the implicit dependency in the safety system. This makes non-blocking
                     // scheduling safe.
                     JobHandle.CombineDependencies(
-                        _dependsOn,
+                        Handle,
                         _safety.GetAttachedJob(chunk.Archetype.ArchetypeId, components)
                     )
                 );
@@ -2418,7 +2402,7 @@ namespace Myriad.ECS.Worlds
 
             var chunkCount = query.CountChunks();
             if (chunkCount == 0)
-                return default;
+                return new QueryJobHandle(dependsOn, default, 0, 0);
 
             // Get the safety system
             var safety = (UnityMyriadSafetySystemAdapter)world.LockManager;
@@ -2511,7 +2495,6 @@ namespace Myriad.ECS.Worlds
         {
             private readonly TScheduler _scheduler;
             private readonly UnityMyriadSafetySystemAdapter _safety;
-            private readonly JobHandle _dependsOn;
 
             public JobHandle Handle;
             public int ScheduledJobCount;
@@ -2529,7 +2512,6 @@ namespace Myriad.ECS.Worlds
             {
                 _scheduler = scheduler;
                 _safety = safety;
-                _dependsOn = dependsOn;
 
                 _pins = pins;
 
@@ -2602,7 +2584,7 @@ namespace Myriad.ECS.Worlds
                     // Block on the explicit dependency, and the implicit dependency in the safety system. This makes non-blocking
                     // scheduling safe.
                     JobHandle.CombineDependencies(
-                        _dependsOn,
+                        Handle,
                         _safety.GetAttachedJob(chunk.Archetype.ArchetypeId, components)
                     )
                 );
@@ -2799,7 +2781,7 @@ namespace Myriad.ECS.Worlds
 
             var chunkCount = query.CountChunks();
             if (chunkCount == 0)
-                return default;
+                return new QueryJobHandle(dependsOn, default, 0, 0);
 
             // Get the safety system
             var safety = (UnityMyriadSafetySystemAdapter)world.LockManager;
@@ -2896,7 +2878,6 @@ namespace Myriad.ECS.Worlds
         {
             private readonly TScheduler _scheduler;
             private readonly UnityMyriadSafetySystemAdapter _safety;
-            private readonly JobHandle _dependsOn;
 
             public JobHandle Handle;
             public int ScheduledJobCount;
@@ -2914,7 +2895,6 @@ namespace Myriad.ECS.Worlds
             {
                 _scheduler = scheduler;
                 _safety = safety;
-                _dependsOn = dependsOn;
 
                 _pins = pins;
 
@@ -2991,7 +2971,7 @@ namespace Myriad.ECS.Worlds
                     // Block on the explicit dependency, and the implicit dependency in the safety system. This makes non-blocking
                     // scheduling safe.
                     JobHandle.CombineDependencies(
-                        _dependsOn,
+                        Handle,
                         _safety.GetAttachedJob(chunk.Archetype.ArchetypeId, components)
                     )
                 );
@@ -3197,7 +3177,7 @@ namespace Myriad.ECS.Worlds
 
             var chunkCount = query.CountChunks();
             if (chunkCount == 0)
-                return default;
+                return new QueryJobHandle(dependsOn, default, 0, 0);
 
             // Get the safety system
             var safety = (UnityMyriadSafetySystemAdapter)world.LockManager;
@@ -3298,7 +3278,6 @@ namespace Myriad.ECS.Worlds
         {
             private readonly TScheduler _scheduler;
             private readonly UnityMyriadSafetySystemAdapter _safety;
-            private readonly JobHandle _dependsOn;
 
             public JobHandle Handle;
             public int ScheduledJobCount;
@@ -3316,7 +3295,6 @@ namespace Myriad.ECS.Worlds
             {
                 _scheduler = scheduler;
                 _safety = safety;
-                _dependsOn = dependsOn;
 
                 _pins = pins;
 
@@ -3397,7 +3375,7 @@ namespace Myriad.ECS.Worlds
                     // Block on the explicit dependency, and the implicit dependency in the safety system. This makes non-blocking
                     // scheduling safe.
                     JobHandle.CombineDependencies(
-                        _dependsOn,
+                        Handle,
                         _safety.GetAttachedJob(chunk.Archetype.ArchetypeId, components)
                     )
                 );
@@ -3612,7 +3590,7 @@ namespace Myriad.ECS.Worlds
 
             var chunkCount = query.CountChunks();
             if (chunkCount == 0)
-                return default;
+                return new QueryJobHandle(dependsOn, default, 0, 0);
 
             // Get the safety system
             var safety = (UnityMyriadSafetySystemAdapter)world.LockManager;
@@ -3717,7 +3695,6 @@ namespace Myriad.ECS.Worlds
         {
             private readonly TScheduler _scheduler;
             private readonly UnityMyriadSafetySystemAdapter _safety;
-            private readonly JobHandle _dependsOn;
 
             public JobHandle Handle;
             public int ScheduledJobCount;
@@ -3735,7 +3712,6 @@ namespace Myriad.ECS.Worlds
             {
                 _scheduler = scheduler;
                 _safety = safety;
-                _dependsOn = dependsOn;
 
                 _pins = pins;
 
@@ -3820,7 +3796,7 @@ namespace Myriad.ECS.Worlds
                     // Block on the explicit dependency, and the implicit dependency in the safety system. This makes non-blocking
                     // scheduling safe.
                     JobHandle.CombineDependencies(
-                        _dependsOn,
+                        Handle,
                         _safety.GetAttachedJob(chunk.Archetype.ArchetypeId, components)
                     )
                 );
@@ -4044,7 +4020,7 @@ namespace Myriad.ECS.Worlds
 
             var chunkCount = query.CountChunks();
             if (chunkCount == 0)
-                return default;
+                return new QueryJobHandle(dependsOn, default, 0, 0);
 
             // Get the safety system
             var safety = (UnityMyriadSafetySystemAdapter)world.LockManager;
@@ -4153,7 +4129,6 @@ namespace Myriad.ECS.Worlds
         {
             private readonly TScheduler _scheduler;
             private readonly UnityMyriadSafetySystemAdapter _safety;
-            private readonly JobHandle _dependsOn;
 
             public JobHandle Handle;
             public int ScheduledJobCount;
@@ -4171,7 +4146,6 @@ namespace Myriad.ECS.Worlds
             {
                 _scheduler = scheduler;
                 _safety = safety;
-                _dependsOn = dependsOn;
 
                 _pins = pins;
 
@@ -4260,7 +4234,7 @@ namespace Myriad.ECS.Worlds
                     // Block on the explicit dependency, and the implicit dependency in the safety system. This makes non-blocking
                     // scheduling safe.
                     JobHandle.CombineDependencies(
-                        _dependsOn,
+                        Handle,
                         _safety.GetAttachedJob(chunk.Archetype.ArchetypeId, components)
                     )
                 );
@@ -4493,7 +4467,7 @@ namespace Myriad.ECS.Worlds
 
             var chunkCount = query.CountChunks();
             if (chunkCount == 0)
-                return default;
+                return new QueryJobHandle(dependsOn, default, 0, 0);
 
             // Get the safety system
             var safety = (UnityMyriadSafetySystemAdapter)world.LockManager;
@@ -4606,7 +4580,6 @@ namespace Myriad.ECS.Worlds
         {
             private readonly TScheduler _scheduler;
             private readonly UnityMyriadSafetySystemAdapter _safety;
-            private readonly JobHandle _dependsOn;
 
             public JobHandle Handle;
             public int ScheduledJobCount;
@@ -4624,7 +4597,6 @@ namespace Myriad.ECS.Worlds
             {
                 _scheduler = scheduler;
                 _safety = safety;
-                _dependsOn = dependsOn;
 
                 _pins = pins;
 
@@ -4717,7 +4689,7 @@ namespace Myriad.ECS.Worlds
                     // Block on the explicit dependency, and the implicit dependency in the safety system. This makes non-blocking
                     // scheduling safe.
                     JobHandle.CombineDependencies(
-                        _dependsOn,
+                        Handle,
                         _safety.GetAttachedJob(chunk.Archetype.ArchetypeId, components)
                     )
                 );
@@ -4959,7 +4931,7 @@ namespace Myriad.ECS.Worlds
 
             var chunkCount = query.CountChunks();
             if (chunkCount == 0)
-                return default;
+                return new QueryJobHandle(dependsOn, default, 0, 0);
 
             // Get the safety system
             var safety = (UnityMyriadSafetySystemAdapter)world.LockManager;
@@ -5076,7 +5048,6 @@ namespace Myriad.ECS.Worlds
         {
             private readonly TScheduler _scheduler;
             private readonly UnityMyriadSafetySystemAdapter _safety;
-            private readonly JobHandle _dependsOn;
 
             public JobHandle Handle;
             public int ScheduledJobCount;
@@ -5094,7 +5065,6 @@ namespace Myriad.ECS.Worlds
             {
                 _scheduler = scheduler;
                 _safety = safety;
-                _dependsOn = dependsOn;
 
                 _pins = pins;
 
@@ -5191,7 +5161,7 @@ namespace Myriad.ECS.Worlds
                     // Block on the explicit dependency, and the implicit dependency in the safety system. This makes non-blocking
                     // scheduling safe.
                     JobHandle.CombineDependencies(
-                        _dependsOn,
+                        Handle,
                         _safety.GetAttachedJob(chunk.Archetype.ArchetypeId, components)
                     )
                 );
@@ -5442,7 +5412,7 @@ namespace Myriad.ECS.Worlds
 
             var chunkCount = query.CountChunks();
             if (chunkCount == 0)
-                return default;
+                return new QueryJobHandle(dependsOn, default, 0, 0);
 
             // Get the safety system
             var safety = (UnityMyriadSafetySystemAdapter)world.LockManager;
@@ -5563,7 +5533,6 @@ namespace Myriad.ECS.Worlds
         {
             private readonly TScheduler _scheduler;
             private readonly UnityMyriadSafetySystemAdapter _safety;
-            private readonly JobHandle _dependsOn;
 
             public JobHandle Handle;
             public int ScheduledJobCount;
@@ -5581,7 +5550,6 @@ namespace Myriad.ECS.Worlds
             {
                 _scheduler = scheduler;
                 _safety = safety;
-                _dependsOn = dependsOn;
 
                 _pins = pins;
 
@@ -5682,7 +5650,7 @@ namespace Myriad.ECS.Worlds
                     // Block on the explicit dependency, and the implicit dependency in the safety system. This makes non-blocking
                     // scheduling safe.
                     JobHandle.CombineDependencies(
-                        _dependsOn,
+                        Handle,
                         _safety.GetAttachedJob(chunk.Archetype.ArchetypeId, components)
                     )
                 );
@@ -5942,7 +5910,7 @@ namespace Myriad.ECS.Worlds
 
             var chunkCount = query.CountChunks();
             if (chunkCount == 0)
-                return default;
+                return new QueryJobHandle(dependsOn, default, 0, 0);
 
             // Get the safety system
             var safety = (UnityMyriadSafetySystemAdapter)world.LockManager;
