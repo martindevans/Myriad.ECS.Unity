@@ -11183,6 +11183,542 @@
             <param name="q">The instance to execute over every entity.</param>
             <returns>The number of entities discovered by this query</returns>
         </member>
+        <member name="M:Myriad.ECS.Worlds.World.Collect(System.Collections.Generic.List{Myriad.ECS.EntityId},Myriad.ECS.Queries.QueryDescription)">
+            <summary>
+            Collect all entities which match the query into a list
+            </summary>
+            <param name="output">The list to add entities to.</param>
+            <param name="query"></param>
+            <returns>The number of entities discovered by this query</returns>
+        </member>
+        <member name="M:Myriad.ECS.Worlds.World.Collect``1(System.Collections.Generic.List{Myriad.ECS.EntityId},Myriad.ECS.Queries.QueryDescription)">
+            <summary>
+            Collect all entities which match the query into a list
+            </summary>
+            <typeparam name="T0">Component 0 to include in query</typeparam>
+            <param name="output">The list to add entities to.</param>
+            <param name="query"></param>
+            <returns>The number of entities discovered by this query</returns>
+        </member>
+        <member name="M:Myriad.ECS.Worlds.World.Collect``1(System.Collections.Generic.List{System.ValueTuple{Myriad.ECS.EntityId,``0}},Myriad.ECS.Queries.QueryDescription)">
+            <summary>
+            Collect all entities which match the query into a list
+            </summary>
+            <typeparam name="T0">Component 0 to include in query</typeparam>
+            <param name="output">The list to add entities to.</param>
+            <param name="query"></param>
+            <returns>The number of entities discovered by this query</returns>
+        </member>
+        <member name="M:Myriad.ECS.Worlds.World.Collect``2(System.Collections.Generic.List{Myriad.ECS.EntityId},Myriad.ECS.Queries.QueryDescription)">
+            <summary>
+            Collect all entities which match the query into a list
+            </summary>
+            <typeparam name="T0">Component 0 to include in query</typeparam>
+            <typeparam name="T1">Component 1 to include in query</typeparam>
+            <param name="output">The list to add entities to.</param>
+            <param name="query"></param>
+            <returns>The number of entities discovered by this query</returns>
+        </member>
+        <member name="M:Myriad.ECS.Worlds.World.Collect``2(System.Collections.Generic.List{System.ValueTuple{Myriad.ECS.EntityId,``0,``1}},Myriad.ECS.Queries.QueryDescription)">
+            <summary>
+            Collect all entities which match the query into a list
+            </summary>
+            <typeparam name="T0">Component 0 to include in query</typeparam>
+            <typeparam name="T1">Component 1 to include in query</typeparam>
+            <param name="output">The list to add entities to.</param>
+            <param name="query"></param>
+            <returns>The number of entities discovered by this query</returns>
+        </member>
+        <member name="M:Myriad.ECS.Worlds.World.Collect``3(System.Collections.Generic.List{Myriad.ECS.EntityId},Myriad.ECS.Queries.QueryDescription)">
+            <summary>
+            Collect all entities which match the query into a list
+            </summary>
+            <typeparam name="T0">Component 0 to include in query</typeparam>
+            <typeparam name="T1">Component 1 to include in query</typeparam>
+            <typeparam name="T2">Component 2 to include in query</typeparam>
+            <param name="output">The list to add entities to.</param>
+            <param name="query"></param>
+            <returns>The number of entities discovered by this query</returns>
+        </member>
+        <member name="M:Myriad.ECS.Worlds.World.Collect``3(System.Collections.Generic.List{System.ValueTuple{Myriad.ECS.EntityId,``0,``1,``2}},Myriad.ECS.Queries.QueryDescription)">
+            <summary>
+            Collect all entities which match the query into a list
+            </summary>
+            <typeparam name="T0">Component 0 to include in query</typeparam>
+            <typeparam name="T1">Component 1 to include in query</typeparam>
+            <typeparam name="T2">Component 2 to include in query</typeparam>
+            <param name="output">The list to add entities to.</param>
+            <param name="query"></param>
+            <returns>The number of entities discovered by this query</returns>
+        </member>
+        <member name="M:Myriad.ECS.Worlds.World.Collect``4(System.Collections.Generic.List{Myriad.ECS.EntityId},Myriad.ECS.Queries.QueryDescription)">
+            <summary>
+            Collect all entities which match the query into a list
+            </summary>
+            <typeparam name="T0">Component 0 to include in query</typeparam>
+            <typeparam name="T1">Component 1 to include in query</typeparam>
+            <typeparam name="T2">Component 2 to include in query</typeparam>
+            <typeparam name="T3">Component 3 to include in query</typeparam>
+            <param name="output">The list to add entities to.</param>
+            <param name="query"></param>
+            <returns>The number of entities discovered by this query</returns>
+        </member>
+        <member name="M:Myriad.ECS.Worlds.World.Collect``4(System.Collections.Generic.List{System.ValueTuple{Myriad.ECS.EntityId,``0,``1,``2,``3}},Myriad.ECS.Queries.QueryDescription)">
+            <summary>
+            Collect all entities which match the query into a list
+            </summary>
+            <typeparam name="T0">Component 0 to include in query</typeparam>
+            <typeparam name="T1">Component 1 to include in query</typeparam>
+            <typeparam name="T2">Component 2 to include in query</typeparam>
+            <typeparam name="T3">Component 3 to include in query</typeparam>
+            <param name="output">The list to add entities to.</param>
+            <param name="query"></param>
+            <returns>The number of entities discovered by this query</returns>
+        </member>
+        <member name="M:Myriad.ECS.Worlds.World.Collect``5(System.Collections.Generic.List{Myriad.ECS.EntityId},Myriad.ECS.Queries.QueryDescription)">
+            <summary>
+            Collect all entities which match the query into a list
+            </summary>
+            <typeparam name="T0">Component 0 to include in query</typeparam>
+            <typeparam name="T1">Component 1 to include in query</typeparam>
+            <typeparam name="T2">Component 2 to include in query</typeparam>
+            <typeparam name="T3">Component 3 to include in query</typeparam>
+            <typeparam name="T4">Component 4 to include in query</typeparam>
+            <param name="output">The list to add entities to.</param>
+            <param name="query"></param>
+            <returns>The number of entities discovered by this query</returns>
+        </member>
+        <member name="M:Myriad.ECS.Worlds.World.Collect``5(System.Collections.Generic.List{System.ValueTuple{Myriad.ECS.EntityId,``0,``1,``2,``3,``4}},Myriad.ECS.Queries.QueryDescription)">
+            <summary>
+            Collect all entities which match the query into a list
+            </summary>
+            <typeparam name="T0">Component 0 to include in query</typeparam>
+            <typeparam name="T1">Component 1 to include in query</typeparam>
+            <typeparam name="T2">Component 2 to include in query</typeparam>
+            <typeparam name="T3">Component 3 to include in query</typeparam>
+            <typeparam name="T4">Component 4 to include in query</typeparam>
+            <param name="output">The list to add entities to.</param>
+            <param name="query"></param>
+            <returns>The number of entities discovered by this query</returns>
+        </member>
+        <member name="M:Myriad.ECS.Worlds.World.Collect``6(System.Collections.Generic.List{Myriad.ECS.EntityId},Myriad.ECS.Queries.QueryDescription)">
+            <summary>
+            Collect all entities which match the query into a list
+            </summary>
+            <typeparam name="T0">Component 0 to include in query</typeparam>
+            <typeparam name="T1">Component 1 to include in query</typeparam>
+            <typeparam name="T2">Component 2 to include in query</typeparam>
+            <typeparam name="T3">Component 3 to include in query</typeparam>
+            <typeparam name="T4">Component 4 to include in query</typeparam>
+            <typeparam name="T5">Component 5 to include in query</typeparam>
+            <param name="output">The list to add entities to.</param>
+            <param name="query"></param>
+            <returns>The number of entities discovered by this query</returns>
+        </member>
+        <member name="M:Myriad.ECS.Worlds.World.Collect``6(System.Collections.Generic.List{System.ValueTuple{Myriad.ECS.EntityId,``0,``1,``2,``3,``4,``5}},Myriad.ECS.Queries.QueryDescription)">
+            <summary>
+            Collect all entities which match the query into a list
+            </summary>
+            <typeparam name="T0">Component 0 to include in query</typeparam>
+            <typeparam name="T1">Component 1 to include in query</typeparam>
+            <typeparam name="T2">Component 2 to include in query</typeparam>
+            <typeparam name="T3">Component 3 to include in query</typeparam>
+            <typeparam name="T4">Component 4 to include in query</typeparam>
+            <typeparam name="T5">Component 5 to include in query</typeparam>
+            <param name="output">The list to add entities to.</param>
+            <param name="query"></param>
+            <returns>The number of entities discovered by this query</returns>
+        </member>
+        <member name="M:Myriad.ECS.Worlds.World.Collect``7(System.Collections.Generic.List{Myriad.ECS.EntityId},Myriad.ECS.Queries.QueryDescription)">
+            <summary>
+            Collect all entities which match the query into a list
+            </summary>
+            <typeparam name="T0">Component 0 to include in query</typeparam>
+            <typeparam name="T1">Component 1 to include in query</typeparam>
+            <typeparam name="T2">Component 2 to include in query</typeparam>
+            <typeparam name="T3">Component 3 to include in query</typeparam>
+            <typeparam name="T4">Component 4 to include in query</typeparam>
+            <typeparam name="T5">Component 5 to include in query</typeparam>
+            <typeparam name="T6">Component 6 to include in query</typeparam>
+            <param name="output">The list to add entities to.</param>
+            <param name="query"></param>
+            <returns>The number of entities discovered by this query</returns>
+        </member>
+        <member name="M:Myriad.ECS.Worlds.World.Collect``7(System.Collections.Generic.List{System.ValueTuple{Myriad.ECS.EntityId,``0,``1,``2,``3,``4,``5,System.ValueTuple{``6}}},Myriad.ECS.Queries.QueryDescription)">
+            <summary>
+            Collect all entities which match the query into a list
+            </summary>
+            <typeparam name="T0">Component 0 to include in query</typeparam>
+            <typeparam name="T1">Component 1 to include in query</typeparam>
+            <typeparam name="T2">Component 2 to include in query</typeparam>
+            <typeparam name="T3">Component 3 to include in query</typeparam>
+            <typeparam name="T4">Component 4 to include in query</typeparam>
+            <typeparam name="T5">Component 5 to include in query</typeparam>
+            <typeparam name="T6">Component 6 to include in query</typeparam>
+            <param name="output">The list to add entities to.</param>
+            <param name="query"></param>
+            <returns>The number of entities discovered by this query</returns>
+        </member>
+        <member name="M:Myriad.ECS.Worlds.World.Collect``8(System.Collections.Generic.List{Myriad.ECS.EntityId},Myriad.ECS.Queries.QueryDescription)">
+            <summary>
+            Collect all entities which match the query into a list
+            </summary>
+            <typeparam name="T0">Component 0 to include in query</typeparam>
+            <typeparam name="T1">Component 1 to include in query</typeparam>
+            <typeparam name="T2">Component 2 to include in query</typeparam>
+            <typeparam name="T3">Component 3 to include in query</typeparam>
+            <typeparam name="T4">Component 4 to include in query</typeparam>
+            <typeparam name="T5">Component 5 to include in query</typeparam>
+            <typeparam name="T6">Component 6 to include in query</typeparam>
+            <typeparam name="T7">Component 7 to include in query</typeparam>
+            <param name="output">The list to add entities to.</param>
+            <param name="query"></param>
+            <returns>The number of entities discovered by this query</returns>
+        </member>
+        <member name="M:Myriad.ECS.Worlds.World.Collect``8(System.Collections.Generic.List{System.ValueTuple{Myriad.ECS.EntityId,``0,``1,``2,``3,``4,``5,System.ValueTuple{``6,``7}}},Myriad.ECS.Queries.QueryDescription)">
+            <summary>
+            Collect all entities which match the query into a list
+            </summary>
+            <typeparam name="T0">Component 0 to include in query</typeparam>
+            <typeparam name="T1">Component 1 to include in query</typeparam>
+            <typeparam name="T2">Component 2 to include in query</typeparam>
+            <typeparam name="T3">Component 3 to include in query</typeparam>
+            <typeparam name="T4">Component 4 to include in query</typeparam>
+            <typeparam name="T5">Component 5 to include in query</typeparam>
+            <typeparam name="T6">Component 6 to include in query</typeparam>
+            <typeparam name="T7">Component 7 to include in query</typeparam>
+            <param name="output">The list to add entities to.</param>
+            <param name="query"></param>
+            <returns>The number of entities discovered by this query</returns>
+        </member>
+        <member name="M:Myriad.ECS.Worlds.World.Collect``9(System.Collections.Generic.List{Myriad.ECS.EntityId},Myriad.ECS.Queries.QueryDescription)">
+            <summary>
+            Collect all entities which match the query into a list
+            </summary>
+            <typeparam name="T0">Component 0 to include in query</typeparam>
+            <typeparam name="T1">Component 1 to include in query</typeparam>
+            <typeparam name="T2">Component 2 to include in query</typeparam>
+            <typeparam name="T3">Component 3 to include in query</typeparam>
+            <typeparam name="T4">Component 4 to include in query</typeparam>
+            <typeparam name="T5">Component 5 to include in query</typeparam>
+            <typeparam name="T6">Component 6 to include in query</typeparam>
+            <typeparam name="T7">Component 7 to include in query</typeparam>
+            <typeparam name="T8">Component 8 to include in query</typeparam>
+            <param name="output">The list to add entities to.</param>
+            <param name="query"></param>
+            <returns>The number of entities discovered by this query</returns>
+        </member>
+        <member name="M:Myriad.ECS.Worlds.World.Collect``9(System.Collections.Generic.List{System.ValueTuple{Myriad.ECS.EntityId,``0,``1,``2,``3,``4,``5,System.ValueTuple{``6,``7,``8}}},Myriad.ECS.Queries.QueryDescription)">
+            <summary>
+            Collect all entities which match the query into a list
+            </summary>
+            <typeparam name="T0">Component 0 to include in query</typeparam>
+            <typeparam name="T1">Component 1 to include in query</typeparam>
+            <typeparam name="T2">Component 2 to include in query</typeparam>
+            <typeparam name="T3">Component 3 to include in query</typeparam>
+            <typeparam name="T4">Component 4 to include in query</typeparam>
+            <typeparam name="T5">Component 5 to include in query</typeparam>
+            <typeparam name="T6">Component 6 to include in query</typeparam>
+            <typeparam name="T7">Component 7 to include in query</typeparam>
+            <typeparam name="T8">Component 8 to include in query</typeparam>
+            <param name="output">The list to add entities to.</param>
+            <param name="query"></param>
+            <returns>The number of entities discovered by this query</returns>
+        </member>
+        <member name="M:Myriad.ECS.Worlds.World.Collect``10(System.Collections.Generic.List{Myriad.ECS.EntityId},Myriad.ECS.Queries.QueryDescription)">
+            <summary>
+            Collect all entities which match the query into a list
+            </summary>
+            <typeparam name="T0">Component 0 to include in query</typeparam>
+            <typeparam name="T1">Component 1 to include in query</typeparam>
+            <typeparam name="T2">Component 2 to include in query</typeparam>
+            <typeparam name="T3">Component 3 to include in query</typeparam>
+            <typeparam name="T4">Component 4 to include in query</typeparam>
+            <typeparam name="T5">Component 5 to include in query</typeparam>
+            <typeparam name="T6">Component 6 to include in query</typeparam>
+            <typeparam name="T7">Component 7 to include in query</typeparam>
+            <typeparam name="T8">Component 8 to include in query</typeparam>
+            <typeparam name="T9">Component 9 to include in query</typeparam>
+            <param name="output">The list to add entities to.</param>
+            <param name="query"></param>
+            <returns>The number of entities discovered by this query</returns>
+        </member>
+        <member name="M:Myriad.ECS.Worlds.World.Collect``10(System.Collections.Generic.List{System.ValueTuple{Myriad.ECS.EntityId,``0,``1,``2,``3,``4,``5,System.ValueTuple{``6,``7,``8,``9}}},Myriad.ECS.Queries.QueryDescription)">
+            <summary>
+            Collect all entities which match the query into a list
+            </summary>
+            <typeparam name="T0">Component 0 to include in query</typeparam>
+            <typeparam name="T1">Component 1 to include in query</typeparam>
+            <typeparam name="T2">Component 2 to include in query</typeparam>
+            <typeparam name="T3">Component 3 to include in query</typeparam>
+            <typeparam name="T4">Component 4 to include in query</typeparam>
+            <typeparam name="T5">Component 5 to include in query</typeparam>
+            <typeparam name="T6">Component 6 to include in query</typeparam>
+            <typeparam name="T7">Component 7 to include in query</typeparam>
+            <typeparam name="T8">Component 8 to include in query</typeparam>
+            <typeparam name="T9">Component 9 to include in query</typeparam>
+            <param name="output">The list to add entities to.</param>
+            <param name="query"></param>
+            <returns>The number of entities discovered by this query</returns>
+        </member>
+        <member name="M:Myriad.ECS.Worlds.World.Collect``11(System.Collections.Generic.List{Myriad.ECS.EntityId},Myriad.ECS.Queries.QueryDescription)">
+            <summary>
+            Collect all entities which match the query into a list
+            </summary>
+            <typeparam name="T0">Component 0 to include in query</typeparam>
+            <typeparam name="T1">Component 1 to include in query</typeparam>
+            <typeparam name="T2">Component 2 to include in query</typeparam>
+            <typeparam name="T3">Component 3 to include in query</typeparam>
+            <typeparam name="T4">Component 4 to include in query</typeparam>
+            <typeparam name="T5">Component 5 to include in query</typeparam>
+            <typeparam name="T6">Component 6 to include in query</typeparam>
+            <typeparam name="T7">Component 7 to include in query</typeparam>
+            <typeparam name="T8">Component 8 to include in query</typeparam>
+            <typeparam name="T9">Component 9 to include in query</typeparam>
+            <typeparam name="T10">Component 10 to include in query</typeparam>
+            <param name="output">The list to add entities to.</param>
+            <param name="query"></param>
+            <returns>The number of entities discovered by this query</returns>
+        </member>
+        <member name="M:Myriad.ECS.Worlds.World.Collect``11(System.Collections.Generic.List{System.ValueTuple{Myriad.ECS.EntityId,``0,``1,``2,``3,``4,``5,System.ValueTuple{``6,``7,``8,``9,``10}}},Myriad.ECS.Queries.QueryDescription)">
+            <summary>
+            Collect all entities which match the query into a list
+            </summary>
+            <typeparam name="T0">Component 0 to include in query</typeparam>
+            <typeparam name="T1">Component 1 to include in query</typeparam>
+            <typeparam name="T2">Component 2 to include in query</typeparam>
+            <typeparam name="T3">Component 3 to include in query</typeparam>
+            <typeparam name="T4">Component 4 to include in query</typeparam>
+            <typeparam name="T5">Component 5 to include in query</typeparam>
+            <typeparam name="T6">Component 6 to include in query</typeparam>
+            <typeparam name="T7">Component 7 to include in query</typeparam>
+            <typeparam name="T8">Component 8 to include in query</typeparam>
+            <typeparam name="T9">Component 9 to include in query</typeparam>
+            <typeparam name="T10">Component 10 to include in query</typeparam>
+            <param name="output">The list to add entities to.</param>
+            <param name="query"></param>
+            <returns>The number of entities discovered by this query</returns>
+        </member>
+        <member name="M:Myriad.ECS.Worlds.World.Collect``12(System.Collections.Generic.List{Myriad.ECS.EntityId},Myriad.ECS.Queries.QueryDescription)">
+            <summary>
+            Collect all entities which match the query into a list
+            </summary>
+            <typeparam name="T0">Component 0 to include in query</typeparam>
+            <typeparam name="T1">Component 1 to include in query</typeparam>
+            <typeparam name="T2">Component 2 to include in query</typeparam>
+            <typeparam name="T3">Component 3 to include in query</typeparam>
+            <typeparam name="T4">Component 4 to include in query</typeparam>
+            <typeparam name="T5">Component 5 to include in query</typeparam>
+            <typeparam name="T6">Component 6 to include in query</typeparam>
+            <typeparam name="T7">Component 7 to include in query</typeparam>
+            <typeparam name="T8">Component 8 to include in query</typeparam>
+            <typeparam name="T9">Component 9 to include in query</typeparam>
+            <typeparam name="T10">Component 10 to include in query</typeparam>
+            <typeparam name="T11">Component 11 to include in query</typeparam>
+            <param name="output">The list to add entities to.</param>
+            <param name="query"></param>
+            <returns>The number of entities discovered by this query</returns>
+        </member>
+        <member name="M:Myriad.ECS.Worlds.World.Collect``12(System.Collections.Generic.List{System.ValueTuple{Myriad.ECS.EntityId,``0,``1,``2,``3,``4,``5,System.ValueTuple{``6,``7,``8,``9,``10,``11}}},Myriad.ECS.Queries.QueryDescription)">
+            <summary>
+            Collect all entities which match the query into a list
+            </summary>
+            <typeparam name="T0">Component 0 to include in query</typeparam>
+            <typeparam name="T1">Component 1 to include in query</typeparam>
+            <typeparam name="T2">Component 2 to include in query</typeparam>
+            <typeparam name="T3">Component 3 to include in query</typeparam>
+            <typeparam name="T4">Component 4 to include in query</typeparam>
+            <typeparam name="T5">Component 5 to include in query</typeparam>
+            <typeparam name="T6">Component 6 to include in query</typeparam>
+            <typeparam name="T7">Component 7 to include in query</typeparam>
+            <typeparam name="T8">Component 8 to include in query</typeparam>
+            <typeparam name="T9">Component 9 to include in query</typeparam>
+            <typeparam name="T10">Component 10 to include in query</typeparam>
+            <typeparam name="T11">Component 11 to include in query</typeparam>
+            <param name="output">The list to add entities to.</param>
+            <param name="query"></param>
+            <returns>The number of entities discovered by this query</returns>
+        </member>
+        <member name="M:Myriad.ECS.Worlds.World.Collect``13(System.Collections.Generic.List{Myriad.ECS.EntityId},Myriad.ECS.Queries.QueryDescription)">
+            <summary>
+            Collect all entities which match the query into a list
+            </summary>
+            <typeparam name="T0">Component 0 to include in query</typeparam>
+            <typeparam name="T1">Component 1 to include in query</typeparam>
+            <typeparam name="T2">Component 2 to include in query</typeparam>
+            <typeparam name="T3">Component 3 to include in query</typeparam>
+            <typeparam name="T4">Component 4 to include in query</typeparam>
+            <typeparam name="T5">Component 5 to include in query</typeparam>
+            <typeparam name="T6">Component 6 to include in query</typeparam>
+            <typeparam name="T7">Component 7 to include in query</typeparam>
+            <typeparam name="T8">Component 8 to include in query</typeparam>
+            <typeparam name="T9">Component 9 to include in query</typeparam>
+            <typeparam name="T10">Component 10 to include in query</typeparam>
+            <typeparam name="T11">Component 11 to include in query</typeparam>
+            <typeparam name="T12">Component 12 to include in query</typeparam>
+            <param name="output">The list to add entities to.</param>
+            <param name="query"></param>
+            <returns>The number of entities discovered by this query</returns>
+        </member>
+        <member name="M:Myriad.ECS.Worlds.World.Collect``13(System.Collections.Generic.List{System.ValueTuple{Myriad.ECS.EntityId,``0,``1,``2,``3,``4,``5,System.ValueTuple{``6,``7,``8,``9,``10,``11,``12}}},Myriad.ECS.Queries.QueryDescription)">
+            <summary>
+            Collect all entities which match the query into a list
+            </summary>
+            <typeparam name="T0">Component 0 to include in query</typeparam>
+            <typeparam name="T1">Component 1 to include in query</typeparam>
+            <typeparam name="T2">Component 2 to include in query</typeparam>
+            <typeparam name="T3">Component 3 to include in query</typeparam>
+            <typeparam name="T4">Component 4 to include in query</typeparam>
+            <typeparam name="T5">Component 5 to include in query</typeparam>
+            <typeparam name="T6">Component 6 to include in query</typeparam>
+            <typeparam name="T7">Component 7 to include in query</typeparam>
+            <typeparam name="T8">Component 8 to include in query</typeparam>
+            <typeparam name="T9">Component 9 to include in query</typeparam>
+            <typeparam name="T10">Component 10 to include in query</typeparam>
+            <typeparam name="T11">Component 11 to include in query</typeparam>
+            <typeparam name="T12">Component 12 to include in query</typeparam>
+            <param name="output">The list to add entities to.</param>
+            <param name="query"></param>
+            <returns>The number of entities discovered by this query</returns>
+        </member>
+        <member name="M:Myriad.ECS.Worlds.World.Collect``14(System.Collections.Generic.List{Myriad.ECS.EntityId},Myriad.ECS.Queries.QueryDescription)">
+            <summary>
+            Collect all entities which match the query into a list
+            </summary>
+            <typeparam name="T0">Component 0 to include in query</typeparam>
+            <typeparam name="T1">Component 1 to include in query</typeparam>
+            <typeparam name="T2">Component 2 to include in query</typeparam>
+            <typeparam name="T3">Component 3 to include in query</typeparam>
+            <typeparam name="T4">Component 4 to include in query</typeparam>
+            <typeparam name="T5">Component 5 to include in query</typeparam>
+            <typeparam name="T6">Component 6 to include in query</typeparam>
+            <typeparam name="T7">Component 7 to include in query</typeparam>
+            <typeparam name="T8">Component 8 to include in query</typeparam>
+            <typeparam name="T9">Component 9 to include in query</typeparam>
+            <typeparam name="T10">Component 10 to include in query</typeparam>
+            <typeparam name="T11">Component 11 to include in query</typeparam>
+            <typeparam name="T12">Component 12 to include in query</typeparam>
+            <typeparam name="T13">Component 13 to include in query</typeparam>
+            <param name="output">The list to add entities to.</param>
+            <param name="query"></param>
+            <returns>The number of entities discovered by this query</returns>
+        </member>
+        <member name="M:Myriad.ECS.Worlds.World.Collect``14(System.Collections.Generic.List{System.ValueTuple{Myriad.ECS.EntityId,``0,``1,``2,``3,``4,``5,System.ValueTuple{``6,``7,``8,``9,``10,``11,``12,System.ValueTuple{``13}}}},Myriad.ECS.Queries.QueryDescription)">
+            <summary>
+            Collect all entities which match the query into a list
+            </summary>
+            <typeparam name="T0">Component 0 to include in query</typeparam>
+            <typeparam name="T1">Component 1 to include in query</typeparam>
+            <typeparam name="T2">Component 2 to include in query</typeparam>
+            <typeparam name="T3">Component 3 to include in query</typeparam>
+            <typeparam name="T4">Component 4 to include in query</typeparam>
+            <typeparam name="T5">Component 5 to include in query</typeparam>
+            <typeparam name="T6">Component 6 to include in query</typeparam>
+            <typeparam name="T7">Component 7 to include in query</typeparam>
+            <typeparam name="T8">Component 8 to include in query</typeparam>
+            <typeparam name="T9">Component 9 to include in query</typeparam>
+            <typeparam name="T10">Component 10 to include in query</typeparam>
+            <typeparam name="T11">Component 11 to include in query</typeparam>
+            <typeparam name="T12">Component 12 to include in query</typeparam>
+            <typeparam name="T13">Component 13 to include in query</typeparam>
+            <param name="output">The list to add entities to.</param>
+            <param name="query"></param>
+            <returns>The number of entities discovered by this query</returns>
+        </member>
+        <member name="M:Myriad.ECS.Worlds.World.Collect``15(System.Collections.Generic.List{Myriad.ECS.EntityId},Myriad.ECS.Queries.QueryDescription)">
+            <summary>
+            Collect all entities which match the query into a list
+            </summary>
+            <typeparam name="T0">Component 0 to include in query</typeparam>
+            <typeparam name="T1">Component 1 to include in query</typeparam>
+            <typeparam name="T2">Component 2 to include in query</typeparam>
+            <typeparam name="T3">Component 3 to include in query</typeparam>
+            <typeparam name="T4">Component 4 to include in query</typeparam>
+            <typeparam name="T5">Component 5 to include in query</typeparam>
+            <typeparam name="T6">Component 6 to include in query</typeparam>
+            <typeparam name="T7">Component 7 to include in query</typeparam>
+            <typeparam name="T8">Component 8 to include in query</typeparam>
+            <typeparam name="T9">Component 9 to include in query</typeparam>
+            <typeparam name="T10">Component 10 to include in query</typeparam>
+            <typeparam name="T11">Component 11 to include in query</typeparam>
+            <typeparam name="T12">Component 12 to include in query</typeparam>
+            <typeparam name="T13">Component 13 to include in query</typeparam>
+            <typeparam name="T14">Component 14 to include in query</typeparam>
+            <param name="output">The list to add entities to.</param>
+            <param name="query"></param>
+            <returns>The number of entities discovered by this query</returns>
+        </member>
+        <member name="M:Myriad.ECS.Worlds.World.Collect``15(System.Collections.Generic.List{System.ValueTuple{Myriad.ECS.EntityId,``0,``1,``2,``3,``4,``5,System.ValueTuple{``6,``7,``8,``9,``10,``11,``12,System.ValueTuple{``13,``14}}}},Myriad.ECS.Queries.QueryDescription)">
+            <summary>
+            Collect all entities which match the query into a list
+            </summary>
+            <typeparam name="T0">Component 0 to include in query</typeparam>
+            <typeparam name="T1">Component 1 to include in query</typeparam>
+            <typeparam name="T2">Component 2 to include in query</typeparam>
+            <typeparam name="T3">Component 3 to include in query</typeparam>
+            <typeparam name="T4">Component 4 to include in query</typeparam>
+            <typeparam name="T5">Component 5 to include in query</typeparam>
+            <typeparam name="T6">Component 6 to include in query</typeparam>
+            <typeparam name="T7">Component 7 to include in query</typeparam>
+            <typeparam name="T8">Component 8 to include in query</typeparam>
+            <typeparam name="T9">Component 9 to include in query</typeparam>
+            <typeparam name="T10">Component 10 to include in query</typeparam>
+            <typeparam name="T11">Component 11 to include in query</typeparam>
+            <typeparam name="T12">Component 12 to include in query</typeparam>
+            <typeparam name="T13">Component 13 to include in query</typeparam>
+            <typeparam name="T14">Component 14 to include in query</typeparam>
+            <param name="output">The list to add entities to.</param>
+            <param name="query"></param>
+            <returns>The number of entities discovered by this query</returns>
+        </member>
+        <member name="M:Myriad.ECS.Worlds.World.Collect``16(System.Collections.Generic.List{Myriad.ECS.EntityId},Myriad.ECS.Queries.QueryDescription)">
+            <summary>
+            Collect all entities which match the query into a list
+            </summary>
+            <typeparam name="T0">Component 0 to include in query</typeparam>
+            <typeparam name="T1">Component 1 to include in query</typeparam>
+            <typeparam name="T2">Component 2 to include in query</typeparam>
+            <typeparam name="T3">Component 3 to include in query</typeparam>
+            <typeparam name="T4">Component 4 to include in query</typeparam>
+            <typeparam name="T5">Component 5 to include in query</typeparam>
+            <typeparam name="T6">Component 6 to include in query</typeparam>
+            <typeparam name="T7">Component 7 to include in query</typeparam>
+            <typeparam name="T8">Component 8 to include in query</typeparam>
+            <typeparam name="T9">Component 9 to include in query</typeparam>
+            <typeparam name="T10">Component 10 to include in query</typeparam>
+            <typeparam name="T11">Component 11 to include in query</typeparam>
+            <typeparam name="T12">Component 12 to include in query</typeparam>
+            <typeparam name="T13">Component 13 to include in query</typeparam>
+            <typeparam name="T14">Component 14 to include in query</typeparam>
+            <typeparam name="T15">Component 15 to include in query</typeparam>
+            <param name="output">The list to add entities to.</param>
+            <param name="query"></param>
+            <returns>The number of entities discovered by this query</returns>
+        </member>
+        <member name="M:Myriad.ECS.Worlds.World.Collect``16(System.Collections.Generic.List{System.ValueTuple{Myriad.ECS.EntityId,``0,``1,``2,``3,``4,``5,System.ValueTuple{``6,``7,``8,``9,``10,``11,``12,System.ValueTuple{``13,``14,``15}}}},Myriad.ECS.Queries.QueryDescription)">
+            <summary>
+            Collect all entities which match the query into a list
+            </summary>
+            <typeparam name="T0">Component 0 to include in query</typeparam>
+            <typeparam name="T1">Component 1 to include in query</typeparam>
+            <typeparam name="T2">Component 2 to include in query</typeparam>
+            <typeparam name="T3">Component 3 to include in query</typeparam>
+            <typeparam name="T4">Component 4 to include in query</typeparam>
+            <typeparam name="T5">Component 5 to include in query</typeparam>
+            <typeparam name="T6">Component 6 to include in query</typeparam>
+            <typeparam name="T7">Component 7 to include in query</typeparam>
+            <typeparam name="T8">Component 8 to include in query</typeparam>
+            <typeparam name="T9">Component 9 to include in query</typeparam>
+            <typeparam name="T10">Component 10 to include in query</typeparam>
+            <typeparam name="T11">Component 11 to include in query</typeparam>
+            <typeparam name="T12">Component 12 to include in query</typeparam>
+            <typeparam name="T13">Component 13 to include in query</typeparam>
+            <typeparam name="T14">Component 14 to include in query</typeparam>
+            <typeparam name="T15">Component 15 to include in query</typeparam>
+            <param name="output">The list to add entities to.</param>
+            <param name="query"></param>
+            <returns>The number of entities discovered by this query</returns>
+        </member>
         <member name="M:Myriad.ECS.Worlds.World.ExecuteVectorChunk``3(``0,Myriad.ECS.Queries.QueryDescription)">
             <summary>
             Execute a query which executes on entire chunks.
@@ -16825,6 +17361,12 @@
             Build a <see cref="T:Myriad.ECS.Queries.QueryDescription"/> from the current state of this builder
             </summary>
             <param name="world"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Myriad.ECS.Queries.QueryBuilder.Clone">
+            <summary>
+            Create a copy of this <see cref="T:Myriad.ECS.Queries.QueryBuilder"/>
+            </summary>
             <returns></returns>
         </member>
         <member name="M:Myriad.ECS.Queries.QueryBuilder.Include``1">
