@@ -73,7 +73,7 @@ namespace Myriad.ECS.Worlds
             where TScheduler : IJoinJobQueryScheduler
         {
             if (!left.Any() || !right.Any())
-                return default;
+                return new QueryJobHandle(dependsOn, default, 0, 0);
 
             var leftChunkCount = left.CountChunks();
             var rightChunkCount = right.CountChunks();
