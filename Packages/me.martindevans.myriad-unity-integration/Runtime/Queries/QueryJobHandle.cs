@@ -19,6 +19,11 @@ namespace Packages.me.martindevans.myriad_unity_integration.Runtime.Queries
         /// </summary>
         public int EntityCount { get; }
 
+        /// <summary>
+        /// The number of chunks being processed by this query job
+        /// </summary>
+        public int ChunkCount { get; }
+
         public int JobCount { get; }
 
         private JobHandle _jobHandle;
@@ -33,10 +38,11 @@ namespace Packages.me.martindevans.myriad_unity_integration.Runtime.Queries
 
         public JobHandle Handle => _jobHandle;
 
-        internal QueryJobHandle(JobHandle handle, NativeList<GCHandle> pins, int entityCount, int jobCount)
+        internal QueryJobHandle(JobHandle handle, NativeList<GCHandle> pins, int entityCount, int jobCount, int chunkCount)
         {
             EntityCount = entityCount;
             JobCount = jobCount;
+            ChunkCount = chunkCount;
 
             _jobHandle = handle;
             _pins = pins;

@@ -227,7 +227,7 @@ namespace Myriad.ECS.Worlds
 
             var chunkCount = query.CountChunks();
             if (chunkCount == 0)
-                return new QueryJobHandle(dependsOn, default, 0, 0);
+                return new QueryJobHandle(dependsOn, default, 0, 0, 0);
 
             // Get the safety system
             var safety = (UnityMyriadSafetySystemAdapter)world.LockManager;
@@ -262,7 +262,7 @@ namespace Myriad.ECS.Worlds
             foreach (var archetype in query!.GetArchetypes())
                 safety.AttachJob(archetype.Archetype.ArchetypeId, components, jobHandle);
 
-            return new QueryJobHandle(jobHandle, pins, entityCount, q.ScheduledJobCount);
+            return new QueryJobHandle(jobHandle, pins, entityCount, q.ScheduledJobCount, chunkCount);
         }
         
         /// <summary>
@@ -489,7 +489,7 @@ namespace Myriad.ECS.Worlds
 
             var chunkCount = query.CountChunks();
             if (chunkCount == 0)
-                return new QueryJobHandle(dependsOn, default, 0, 0);
+                return new QueryJobHandle(dependsOn, default, 0, 0, 0);
 
             // Get the safety system
             var safety = (UnityMyriadSafetySystemAdapter)world.LockManager;
@@ -525,7 +525,7 @@ namespace Myriad.ECS.Worlds
             foreach (var archetype in query!.GetArchetypes())
                 safety.AttachJob(archetype.Archetype.ArchetypeId, components, jobHandle);
 
-            return new QueryJobHandle(jobHandle, pins, entityCount, q.ScheduledJobCount);
+            return new QueryJobHandle(jobHandle, pins, entityCount, q.ScheduledJobCount, chunkCount);
         }
         
         /// <summary>
@@ -768,7 +768,7 @@ namespace Myriad.ECS.Worlds
 
             var chunkCount = query.CountChunks();
             if (chunkCount == 0)
-                return new QueryJobHandle(dependsOn, default, 0, 0);
+                return new QueryJobHandle(dependsOn, default, 0, 0, 0);
 
             // Get the safety system
             var safety = (UnityMyriadSafetySystemAdapter)world.LockManager;
@@ -805,7 +805,7 @@ namespace Myriad.ECS.Worlds
             foreach (var archetype in query!.GetArchetypes())
                 safety.AttachJob(archetype.Archetype.ArchetypeId, components, jobHandle);
 
-            return new QueryJobHandle(jobHandle, pins, entityCount, q.ScheduledJobCount);
+            return new QueryJobHandle(jobHandle, pins, entityCount, q.ScheduledJobCount, chunkCount);
         }
         
         /// <summary>
@@ -1064,7 +1064,7 @@ namespace Myriad.ECS.Worlds
 
             var chunkCount = query.CountChunks();
             if (chunkCount == 0)
-                return new QueryJobHandle(dependsOn, default, 0, 0);
+                return new QueryJobHandle(dependsOn, default, 0, 0, 0);
 
             // Get the safety system
             var safety = (UnityMyriadSafetySystemAdapter)world.LockManager;
@@ -1102,7 +1102,7 @@ namespace Myriad.ECS.Worlds
             foreach (var archetype in query!.GetArchetypes())
                 safety.AttachJob(archetype.Archetype.ArchetypeId, components, jobHandle);
 
-            return new QueryJobHandle(jobHandle, pins, entityCount, q.ScheduledJobCount);
+            return new QueryJobHandle(jobHandle, pins, entityCount, q.ScheduledJobCount, chunkCount);
         }
         
         /// <summary>
@@ -1377,7 +1377,7 @@ namespace Myriad.ECS.Worlds
 
             var chunkCount = query.CountChunks();
             if (chunkCount == 0)
-                return new QueryJobHandle(dependsOn, default, 0, 0);
+                return new QueryJobHandle(dependsOn, default, 0, 0, 0);
 
             // Get the safety system
             var safety = (UnityMyriadSafetySystemAdapter)world.LockManager;
@@ -1416,7 +1416,7 @@ namespace Myriad.ECS.Worlds
             foreach (var archetype in query!.GetArchetypes())
                 safety.AttachJob(archetype.Archetype.ArchetypeId, components, jobHandle);
 
-            return new QueryJobHandle(jobHandle, pins, entityCount, q.ScheduledJobCount);
+            return new QueryJobHandle(jobHandle, pins, entityCount, q.ScheduledJobCount, chunkCount);
         }
         
         /// <summary>
@@ -1707,7 +1707,7 @@ namespace Myriad.ECS.Worlds
 
             var chunkCount = query.CountChunks();
             if (chunkCount == 0)
-                return new QueryJobHandle(dependsOn, default, 0, 0);
+                return new QueryJobHandle(dependsOn, default, 0, 0, 0);
 
             // Get the safety system
             var safety = (UnityMyriadSafetySystemAdapter)world.LockManager;
@@ -1747,7 +1747,7 @@ namespace Myriad.ECS.Worlds
             foreach (var archetype in query!.GetArchetypes())
                 safety.AttachJob(archetype.Archetype.ArchetypeId, components, jobHandle);
 
-            return new QueryJobHandle(jobHandle, pins, entityCount, q.ScheduledJobCount);
+            return new QueryJobHandle(jobHandle, pins, entityCount, q.ScheduledJobCount, chunkCount);
         }
         
         /// <summary>
@@ -2054,7 +2054,7 @@ namespace Myriad.ECS.Worlds
 
             var chunkCount = query.CountChunks();
             if (chunkCount == 0)
-                return new QueryJobHandle(dependsOn, default, 0, 0);
+                return new QueryJobHandle(dependsOn, default, 0, 0, 0);
 
             // Get the safety system
             var safety = (UnityMyriadSafetySystemAdapter)world.LockManager;
@@ -2095,7 +2095,7 @@ namespace Myriad.ECS.Worlds
             foreach (var archetype in query!.GetArchetypes())
                 safety.AttachJob(archetype.Archetype.ArchetypeId, components, jobHandle);
 
-            return new QueryJobHandle(jobHandle, pins, entityCount, q.ScheduledJobCount);
+            return new QueryJobHandle(jobHandle, pins, entityCount, q.ScheduledJobCount, chunkCount);
         }
         
         /// <summary>
@@ -2418,7 +2418,7 @@ namespace Myriad.ECS.Worlds
 
             var chunkCount = query.CountChunks();
             if (chunkCount == 0)
-                return new QueryJobHandle(dependsOn, default, 0, 0);
+                return new QueryJobHandle(dependsOn, default, 0, 0, 0);
 
             // Get the safety system
             var safety = (UnityMyriadSafetySystemAdapter)world.LockManager;
@@ -2460,7 +2460,7 @@ namespace Myriad.ECS.Worlds
             foreach (var archetype in query!.GetArchetypes())
                 safety.AttachJob(archetype.Archetype.ArchetypeId, components, jobHandle);
 
-            return new QueryJobHandle(jobHandle, pins, entityCount, q.ScheduledJobCount);
+            return new QueryJobHandle(jobHandle, pins, entityCount, q.ScheduledJobCount, chunkCount);
         }
         
         /// <summary>
@@ -2799,7 +2799,7 @@ namespace Myriad.ECS.Worlds
 
             var chunkCount = query.CountChunks();
             if (chunkCount == 0)
-                return new QueryJobHandle(dependsOn, default, 0, 0);
+                return new QueryJobHandle(dependsOn, default, 0, 0, 0);
 
             // Get the safety system
             var safety = (UnityMyriadSafetySystemAdapter)world.LockManager;
@@ -2842,7 +2842,7 @@ namespace Myriad.ECS.Worlds
             foreach (var archetype in query!.GetArchetypes())
                 safety.AttachJob(archetype.Archetype.ArchetypeId, components, jobHandle);
 
-            return new QueryJobHandle(jobHandle, pins, entityCount, q.ScheduledJobCount);
+            return new QueryJobHandle(jobHandle, pins, entityCount, q.ScheduledJobCount, chunkCount);
         }
         
         /// <summary>
@@ -3197,7 +3197,7 @@ namespace Myriad.ECS.Worlds
 
             var chunkCount = query.CountChunks();
             if (chunkCount == 0)
-                return new QueryJobHandle(dependsOn, default, 0, 0);
+                return new QueryJobHandle(dependsOn, default, 0, 0, 0);
 
             // Get the safety system
             var safety = (UnityMyriadSafetySystemAdapter)world.LockManager;
@@ -3241,7 +3241,7 @@ namespace Myriad.ECS.Worlds
             foreach (var archetype in query!.GetArchetypes())
                 safety.AttachJob(archetype.Archetype.ArchetypeId, components, jobHandle);
 
-            return new QueryJobHandle(jobHandle, pins, entityCount, q.ScheduledJobCount);
+            return new QueryJobHandle(jobHandle, pins, entityCount, q.ScheduledJobCount, chunkCount);
         }
         
         /// <summary>
@@ -3612,7 +3612,7 @@ namespace Myriad.ECS.Worlds
 
             var chunkCount = query.CountChunks();
             if (chunkCount == 0)
-                return new QueryJobHandle(dependsOn, default, 0, 0);
+                return new QueryJobHandle(dependsOn, default, 0, 0, 0);
 
             // Get the safety system
             var safety = (UnityMyriadSafetySystemAdapter)world.LockManager;
@@ -3657,7 +3657,7 @@ namespace Myriad.ECS.Worlds
             foreach (var archetype in query!.GetArchetypes())
                 safety.AttachJob(archetype.Archetype.ArchetypeId, components, jobHandle);
 
-            return new QueryJobHandle(jobHandle, pins, entityCount, q.ScheduledJobCount);
+            return new QueryJobHandle(jobHandle, pins, entityCount, q.ScheduledJobCount, chunkCount);
         }
         
         /// <summary>
@@ -4044,7 +4044,7 @@ namespace Myriad.ECS.Worlds
 
             var chunkCount = query.CountChunks();
             if (chunkCount == 0)
-                return new QueryJobHandle(dependsOn, default, 0, 0);
+                return new QueryJobHandle(dependsOn, default, 0, 0, 0);
 
             // Get the safety system
             var safety = (UnityMyriadSafetySystemAdapter)world.LockManager;
@@ -4090,7 +4090,7 @@ namespace Myriad.ECS.Worlds
             foreach (var archetype in query!.GetArchetypes())
                 safety.AttachJob(archetype.Archetype.ArchetypeId, components, jobHandle);
 
-            return new QueryJobHandle(jobHandle, pins, entityCount, q.ScheduledJobCount);
+            return new QueryJobHandle(jobHandle, pins, entityCount, q.ScheduledJobCount, chunkCount);
         }
         
         /// <summary>
@@ -4493,7 +4493,7 @@ namespace Myriad.ECS.Worlds
 
             var chunkCount = query.CountChunks();
             if (chunkCount == 0)
-                return new QueryJobHandle(dependsOn, default, 0, 0);
+                return new QueryJobHandle(dependsOn, default, 0, 0, 0);
 
             // Get the safety system
             var safety = (UnityMyriadSafetySystemAdapter)world.LockManager;
@@ -4540,7 +4540,7 @@ namespace Myriad.ECS.Worlds
             foreach (var archetype in query!.GetArchetypes())
                 safety.AttachJob(archetype.Archetype.ArchetypeId, components, jobHandle);
 
-            return new QueryJobHandle(jobHandle, pins, entityCount, q.ScheduledJobCount);
+            return new QueryJobHandle(jobHandle, pins, entityCount, q.ScheduledJobCount, chunkCount);
         }
         
         /// <summary>
@@ -4959,7 +4959,7 @@ namespace Myriad.ECS.Worlds
 
             var chunkCount = query.CountChunks();
             if (chunkCount == 0)
-                return new QueryJobHandle(dependsOn, default, 0, 0);
+                return new QueryJobHandle(dependsOn, default, 0, 0, 0);
 
             // Get the safety system
             var safety = (UnityMyriadSafetySystemAdapter)world.LockManager;
@@ -5007,7 +5007,7 @@ namespace Myriad.ECS.Worlds
             foreach (var archetype in query!.GetArchetypes())
                 safety.AttachJob(archetype.Archetype.ArchetypeId, components, jobHandle);
 
-            return new QueryJobHandle(jobHandle, pins, entityCount, q.ScheduledJobCount);
+            return new QueryJobHandle(jobHandle, pins, entityCount, q.ScheduledJobCount, chunkCount);
         }
         
         /// <summary>
@@ -5442,7 +5442,7 @@ namespace Myriad.ECS.Worlds
 
             var chunkCount = query.CountChunks();
             if (chunkCount == 0)
-                return new QueryJobHandle(dependsOn, default, 0, 0);
+                return new QueryJobHandle(dependsOn, default, 0, 0, 0);
 
             // Get the safety system
             var safety = (UnityMyriadSafetySystemAdapter)world.LockManager;
@@ -5491,7 +5491,7 @@ namespace Myriad.ECS.Worlds
             foreach (var archetype in query!.GetArchetypes())
                 safety.AttachJob(archetype.Archetype.ArchetypeId, components, jobHandle);
 
-            return new QueryJobHandle(jobHandle, pins, entityCount, q.ScheduledJobCount);
+            return new QueryJobHandle(jobHandle, pins, entityCount, q.ScheduledJobCount, chunkCount);
         }
         
         /// <summary>
@@ -5942,7 +5942,7 @@ namespace Myriad.ECS.Worlds
 
             var chunkCount = query.CountChunks();
             if (chunkCount == 0)
-                return new QueryJobHandle(dependsOn, default, 0, 0);
+                return new QueryJobHandle(dependsOn, default, 0, 0, 0);
 
             // Get the safety system
             var safety = (UnityMyriadSafetySystemAdapter)world.LockManager;
@@ -5992,7 +5992,7 @@ namespace Myriad.ECS.Worlds
             foreach (var archetype in query!.GetArchetypes())
                 safety.AttachJob(archetype.Archetype.ArchetypeId, components, jobHandle);
 
-            return new QueryJobHandle(jobHandle, pins, entityCount, q.ScheduledJobCount);
+            return new QueryJobHandle(jobHandle, pins, entityCount, q.ScheduledJobCount, chunkCount);
         }
     }
 }

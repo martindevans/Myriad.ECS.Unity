@@ -1882,6 +1882,15 @@
             <typeparam name="T"></typeparam>
             <returns></returns>
         </member>
+        <member name="M:Myriad.ECS.Entity.GetComponentRef``1(System.Boolean)">
+            <summary>
+            Get a reference to a component of the given type. If the entity
+            does not have this component an exception will be thrown.
+            </summary>
+            <param name="block"></param>
+            <typeparam name="T"></typeparam>
+            <returns></returns>
+        </member>
         <member name="M:Myriad.ECS.Entity.GetComponentRefT``1">
             <summary>
             Get a reference to a component of the given type. If the entity
@@ -2506,7 +2515,23 @@
             <typeparam name="T"></typeparam>
             <returns></returns>
         </member>
+        <member name="M:Myriad.ECS.EntityId.GetComponentRef``1(Myriad.ECS.Worlds.World,System.Boolean)">
+            <summary>
+            Get a reference to a component of the given type. If the entity
+            does not have this component an exception will be thrown.
+            </summary>
+            <typeparam name="T"></typeparam>
+            <returns></returns>
+        </member>
         <member name="M:Myriad.ECS.EntityId.GetComponentRefT``1(Myriad.ECS.Worlds.World)">
+            <summary>
+            Get a reference to a component of the given type. If the entity
+            does not have this component an exception will be thrown.
+            </summary>
+            <typeparam name="T"></typeparam>
+            <returns></returns>
+        </member>
+        <member name="M:Myriad.ECS.EntityId.GetComponentRefT``1(Myriad.ECS.Worlds.World,System.Boolean)">
             <summary>
             Get a reference to a component of the given type. If the entity
             does not have this component an exception will be thrown.

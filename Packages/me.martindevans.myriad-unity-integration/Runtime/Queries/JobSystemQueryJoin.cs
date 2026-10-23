@@ -73,7 +73,7 @@ namespace Myriad.ECS.Worlds
             where TScheduler : IJoinJobQueryScheduler
         {
             if (!left.Any() || !right.Any())
-                return new QueryJobHandle(dependsOn, default, 0, 0);
+                return new QueryJobHandle(dependsOn, default, 0, 0, 0);
 
             var leftChunkCount = left.CountChunks();
             var rightChunkCount = right.CountChunks();
@@ -130,7 +130,8 @@ namespace Myriad.ECS.Worlds
                 handle,
                 pins,
                 entityCount: count > int.MaxValue ? int.MaxValue : (int)count,
-                jobCount: jjq.JobCount
+                jobCount: jjq.JobCount,
+                chunkCount: totalChunkCount
             );
         }
 

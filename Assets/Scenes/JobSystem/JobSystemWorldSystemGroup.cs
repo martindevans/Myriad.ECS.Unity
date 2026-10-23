@@ -64,7 +64,7 @@ namespace Assets.Scenes.JobSystem
     }
 
     public class DoStuffInJob
-        : ISystem<GameTime>, ISystemQueryEntityCount, ISystemQueryScheduledJobCount
+        : ISystem<GameTime>, ISystemQueryEntityCount, ISystemQueryScheduledJobCount, ISystemQueryChunkCount
     {
         private readonly World _world;
         private readonly IQueryJobHandleCompletionGate _gate;
@@ -73,6 +73,7 @@ namespace Assets.Scenes.JobSystem
 
         public int QueryEntityCount { get; private set; }
         public int QueryJobCount { get; private set; }
+        public int QueryChunkCount { get; private set; }
 
         public DoStuffInJob(World world, IQueryJobHandleCompletionGate gate)
         {
@@ -83,11 +84,11 @@ namespace Assets.Scenes.JobSystem
 
         public void Update(GameTime data)
         {
-            var handle = _world.Schedule<JobScheduler, DemoComponent>(new JobScheduler(), ref _query);
-            _gate.AddHandle(handle);
+            var handle = _gate.AddHandle(_world.Schedule<JobScheduler, DemoComponent>(new JobScheduler(), ref _query));
 
             QueryEntityCount = handle.EntityCount;
             QueryJobCount = handle.JobCount;
+            QueryChunkCount = handle.ChunkCount;
         }
 
         private struct JobScheduler
